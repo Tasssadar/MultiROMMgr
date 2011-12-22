@@ -1,12 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">MultiROM Manager</string>
-    <string-array name="list_titles">
-        <item>Configure MultiROM</item>
+    <string name="root_error">Can\'t get root access!</string>
+    <string name="mr_error">MultiROM not found!</string>
+    <string name="check_root">Checking for root access</string>
+    <string name="check_multirom">Checking for MultiROM</string>
+    <string name="error">Error</string>
+    <string name="exit">Exit</string>
+    <string-array name="list_titles_installed">
+        <item>Configure Boot Manager</item>
         <item>Change backup names</item>
     </string-array>
-    <string-array name="list_summaries">
-        <item>Set timezone, touchscreen availability and more</item>
+    <string-array name="list_summaries_installed">
+        <item>Set timezone, default timeout and more</item>
         <item>You can change backup name so that you can distinguish which rom is which</item>
     </string-array>
         
