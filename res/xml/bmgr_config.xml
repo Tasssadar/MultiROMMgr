@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen
+        xmlns:android="http://schemas.android.com/apk/res/android">
+    <PreferenceCategory
+            android:title="@string/bmgr_conf">
+
+        <CheckBoxPreference
+            android:key="conf_show_seconds"
+            android:title="@string/show_seconds"
+            android:summary="@string/show_seconds_sum"
+            />
+        <CheckBoxPreference
+            android:key="conf_touch_ui"
+            android:title="@string/touch_ui"
+            android:summary="@string/touch_ui_sum"
+            />
+        <EditTextPreference
+            android:key="conf_timeout"
+            android:title="@string/timeout"
+            android:summary="@string/timeout_sum"/>
+        <EditTextPreference
+            android:key="conf_timezone"
+            android:title="@string/timezone"
+            android:summary="@string/timezone_sum"/>
+
+    </PreferenceCategory>
+</PreferenceScreen>

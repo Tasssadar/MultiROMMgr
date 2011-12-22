@@ -13,11 +13,14 @@ import android.app.AlertDialog;
 import android.app.ListActivity;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
+import android.view.View;
 import android.widget.ListAdapter;
+import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.Toast;
 
@@ -38,6 +41,17 @@ public class MultiROMMgrActivity extends ListActivity
         
         setLoadingDialog(getResources().getString(R.string.check_root));
         checkForRoot();
+    }
+    
+    @Override
+    protected void onListItemClick (ListView l, View v, int position, long id)
+    {
+        switch(position)
+        {
+            case 0:
+                startActivity(new Intent(this, BMgrConf.class));
+                break;
+        }
     }
     
     private void checkForRoot()
@@ -144,7 +158,6 @@ public class MultiROMMgrActivity extends ListActivity
         }
             
         int[] to = new int[] { R.id.image, R.id.title, R.id.summary };
-        
 
         List<HashMap<String, String>> fillMaps = new ArrayList<HashMap<String, String>>();
         for(int i = 0; i < title.length; i++){
@@ -183,14 +196,10 @@ public class MultiROMMgrActivity extends ListActivity
                 }
                 case LOADING_MR:
                 {
-                    if(msg.arg1 == 1)
-                        setLoadingDialog(null);
-                    else
-                    {
-                        setLoadingDialog(null);
-                        ShowToast(getResources().getString(R.string.mr_error));
-                    }
+                    setLoadingDialog(null);
                     ChangeInstalledStatus(msg.arg1 == 1);
+                    if(msg.arg1 == 0)
+                        ShowToast(getResources().getString(R.string.mr_error));
                     break;
                 }
             }
@@ -240,7 +249,20 @@ public class MultiROMMgrActivity extends ListActivity
                 }
             }
             if (is.ready()) {
-                return is.readLine();
+                String res = "";
+                while(is.ready())
+                {
+                    String tmp = null;
+                    try {
+                        tmp = is.readLine();
+                    }
+                    catch(IOException e) {    
+                    }
+                    if(tmp == null)
+                        break;
+                    res += tmp;
+                }
+                return res;                
             } else {
                 return null;
             }

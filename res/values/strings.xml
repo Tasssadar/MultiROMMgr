@@ -7,6 +7,18 @@
     <string name="check_multirom">Checking for MultiROM</string>
     <string name="error">Error</string>
     <string name="exit">Exit</string>
+    <string name="bmgr_conf">Boot Manager configuration</string>
+    <string name="timezone">Timezone</string>
+    <string name="timezone_sum">How many hours should be added or removed from GMT</string>
+    <string name="show_seconds">Show Seconds</string>
+    <string name="show_seconds_sum">Hide or show seconds in Boot manager</string>
+    <string name="timeout">Timeout</string>
+    <string name="timeout_sum">How long will boot manager wait before automatically booting from internal memory</string>
+    <string name="touch_ui">Touch UI</string>
+    <string name="touch_ui_sum">Enable or disable touch controls</string>
+    <string name="conf_w_error">Could not save configuration file!</string>
+    <string name="conf_w_succes">Configuration successfuly saved</string>
+    
     <string-array name="list_titles_installed">
         <item>Configure Boot Manager</item>
         <item>Change backup names</item>
