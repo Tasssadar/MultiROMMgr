@@ -23,9 +23,9 @@ import android.widget.Toast;
 
 public class MultiROMMgrActivity extends ListActivity
 {
-	private static final String TAG = "MultiROMMgr";
-	private static final int LOADING_ROOT = 1;
-	private static final int LOADING_MR   = 2;
+    private static final String TAG = "MultiROMMgr";
+    private static final int LOADING_ROOT = 1;
+    private static final int LOADING_MR   = 2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -42,71 +42,70 @@ public class MultiROMMgrActivity extends ListActivity
     
     private void checkForRoot()
     {
-    	new Thread(new Runnable() {
-    	    public void run() {
-    	    	String rootTest = runRootCommand("echo test");
-    	    	m_loadingHandler.sendMessage(
-    	    			m_loadingHandler.obtainMessage(LOADING_ROOT,
-    	    					(rootTest == null || !rootTest.equals("test")) ? 0 : 1, 0));
-    	        
-    	    }
-    	  }).start();
+        new Thread(new Runnable() {
+            public void run() {
+                String rootTest = runRootCommand("echo test");
+                m_loadingHandler.sendMessage(
+                        m_loadingHandler.obtainMessage(LOADING_ROOT,
+                                (rootTest == null || !rootTest.equals("test")) ? 0 : 1, 0));
+                
+            }
+          }).start();
     }
     
     private void checkForMultiROM()
     {
-    	new Thread(new Runnable() {
-    	    public void run() {
-    	    	String[] files = new String[] { "main_init", "preinit.rc" };
-    	    	for(int i = 0; i < files.length; ++i)
-    	    	{
-	    	    	String res = runRootCommand("ls / | grep " + files[i]);
-	    	    	if(res == null || !res.equals(files[i]))
-	    	    	{
-	    	    		send(0);
-	    	    		return;
-	    	    	}
-    	    	}  
-    	    	send(1);
-    	    }
-    	    private void send(int res)
-    	    {
-    	    	m_loadingHandler.sendMessage(
-    	    			m_loadingHandler.obtainMessage(LOADING_MR, res, 0));
-    	    }
-    	  }).start();
-    	
+        new Thread(new Runnable() {
+            public void run() {
+                String[] files = new String[] { "main_init", "preinit.rc" };
+                for(int i = 0; i < files.length; ++i)
+                {
+                    String res = runRootCommand("ls / | grep " + files[i]);
+                    if(res == null || !res.equals(files[i]))
+                    {
+                        send(0);
+                        return;
+                    }
+                }  
+                send(1);
+            }
+            private void send(int res)
+            {
+                m_loadingHandler.sendMessage(
+                        m_loadingHandler.obtainMessage(LOADING_MR, res, 0));
+            }
+          }).start();
     }
     
     private void setLoadingDialog(String text)
     {
-    	if(text == null)
-    	{
-    		if(m_loading != null)
-    		{
-    			m_loading.dismiss();
-    			m_loading = null;
-    		}
-    		return;	
-    	}
-    	
-    	if(m_loading == null)
-    	{
-    		m_loading = new ProgressDialog(this);
-    		m_loading.setCancelable(false);
-    		m_loading.setProgressStyle(ProgressDialog.STYLE_SPINNER); 
-    	}
-    	m_loading.setMessage(text);
-    	m_loading.show();
+        if(text == null)
+        {
+            if(m_loading != null)
+            {
+                m_loading.dismiss();
+                m_loading = null;
+            }
+            return;    
+        }
+        
+        if(m_loading == null)
+        {
+            m_loading = new ProgressDialog(this);
+            m_loading.setCancelable(false);
+            m_loading.setProgressStyle(ProgressDialog.STYLE_SPINNER); 
+        }
+        m_loading.setMessage(text);
+        m_loading.show();
     }
     
     private void ShowErrorAndExit(String text)
     {
-    	AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setMessage(text)
                .setTitle(getResources().getString(R.string.error))
                .setPositiveButton(getResources().getString(R.string.exit),
-                		           new DialogInterface.OnClickListener()
+                                   new DialogInterface.OnClickListener()
                {
                    public void onClick(DialogInterface dialog, int id)
                    {
@@ -120,30 +119,30 @@ public class MultiROMMgrActivity extends ListActivity
     
     public void ShowToast(String text)
     {
-    	Toast toast = Toast.makeText(this, text, Toast.LENGTH_SHORT);
-    	toast.show();
+        Toast toast = Toast.makeText(this, text, Toast.LENGTH_SHORT);
+        toast.show();
     }
     
     private void ChangeInstalledStatus(boolean status)
     {
-    	m_installed = status;
-    	String[] title = null;
+        m_installed = status;
+        String[] title = null;
         String[] summary = null;
         int[] image = null; 
         String[] from = new String[] { "image", "title", "summary" };
         if(status)
         {
-        	title = getResources().getStringArray(R.array.list_titles_installed);
-        	summary = getResources().getStringArray(R.array.list_summaries_installed);
-        	image = new int[] {R.drawable.ic_menu_preferences, R.drawable.rom_backup };
+            title = getResources().getStringArray(R.array.list_titles_installed);
+            summary = getResources().getStringArray(R.array.list_summaries_installed);
+            image = new int[] {R.drawable.ic_menu_preferences, R.drawable.rom_backup };
         }
         else
         {
-        	title = new String[] {};
-        	summary = new String[] {};
-        	image = new int[] {};
+            title = new String[] {};
+            summary = new String[] {};
+            image = new int[] {};
         }
-        	
+            
         int[] to = new int[] { R.id.image, R.id.title, R.id.summary };
         
 
@@ -163,37 +162,37 @@ public class MultiROMMgrActivity extends ListActivity
     
     private final Handler m_loadingHandler = new Handler()
     {
-    	@Override
+        @Override
         public void handleMessage(Message msg)
         {
             switch(msg.what)
             {
-            	case LOADING_ROOT:
-            	{
-            		if(msg.arg1 == 1)
-            		{
-            			setLoadingDialog(getResources().getString(R.string.check_multirom));
-            			checkForMultiROM();
-            		}
-            		else
-            		{
-        	        	setLoadingDialog(null);
-        	        	ShowErrorAndExit(getResources().getString(R.string.root_error));
-            		}
-            		break;
-            	}
-            	case LOADING_MR:
-            	{
-            		if(msg.arg1 == 1)
-            			setLoadingDialog(null);
-            		else
-            		{
-            			setLoadingDialog(null);
-            			ShowToast(getResources().getString(R.string.mr_error));
-            		}
-            		ChangeInstalledStatus(msg.arg1 == 1);
-            		break;
-            	}
+                case LOADING_ROOT:
+                {
+                    if(msg.arg1 == 1)
+                    {
+                        setLoadingDialog(getResources().getString(R.string.check_multirom));
+                        checkForMultiROM();
+                    }
+                    else
+                    {
+                        setLoadingDialog(null);
+                        ShowErrorAndExit(getResources().getString(R.string.root_error));
+                    }
+                    break;
+                }
+                case LOADING_MR:
+                {
+                    if(msg.arg1 == 1)
+                        setLoadingDialog(null);
+                    else
+                    {
+                        setLoadingDialog(null);
+                        ShowToast(getResources().getString(R.string.mr_error));
+                    }
+                    ChangeInstalledStatus(msg.arg1 == 1);
+                    break;
+                }
             }
         }
     };
@@ -201,27 +200,28 @@ public class MultiROMMgrActivity extends ListActivity
     // From SuperUser app
     public static String runRootCommand(String command)
     {
-    	String inLine = null;
-    	Process process;
-		try {
-			process = Runtime.getRuntime().exec("su");
-		} catch (IOException e1) {
-			Log.e(TAG, e1.getMessage());
-			return inLine;
-		}
+        String inLine = null;
+        Process process;
+        try {
+            process = Runtime.getRuntime().exec("su");
+        } catch (IOException e1) {
+            Log.e(TAG, e1.getMessage());
+            return inLine;
+        }
         DataOutputStream os = new DataOutputStream(process.getOutputStream());
         BufferedReader is = new BufferedReader(new InputStreamReader(
                 new DataInputStream(process.getInputStream())), 64);
-		try {
-			inLine = executeCommand(os, is, 1000, command);
-		} catch (IOException e) {
-			Log.e(TAG, e.getMessage());
-		}
+        try {
+            inLine = executeCommand(os, is, 1000, command);
+        } catch (IOException e) {
+            Log.e(TAG, e.getMessage());
+        }
         return inLine;
-	}
+    }
     
     private static String executeCommand(DataOutputStream os, BufferedReader is, int timeout,
-            String... commands) throws IOException {
+            String... commands) throws IOException
+    {
         if (commands.length == 0) return null;
         StringBuilder command = new StringBuilder();
         for (String s : commands) {
