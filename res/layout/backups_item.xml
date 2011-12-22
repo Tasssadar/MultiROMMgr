@@ -2,9 +2,6 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" android:minHeight="64dp"
     android:layout_width="fill_parent" android:layout_height="wrap_content"
     android:orientation="horizontal">
-    <ImageView android:id="@+id/image" android:scaleType="fitCenter"
-    android:layout_width="48dp" android:layout_height="48dp"
-    android:layout_gravity="center_vertical" android:layout_margin="2dp"></ImageView>
     <LinearLayout android:layout_gravity="center_vertical" android:layout_width="fill_parent"
         android:layout_height="wrap_content" android:orientation="vertical" android:layout_weight="1" android:paddingLeft="4dp">
         <TextView android:id="@+id/title" android:layout_width="fill_parent"
@@ -12,5 +9,4 @@
         <TextView android:id="@+id/summary" android:layout_width="fill_parent"
         android:layout_height="wrap_content" android:textSize="14sp" android:layout_marginLeft="2dp" android:layout_marginRight="2dp" />
     </LinearLayout>
-    <CheckBox android:layout_width="wrap_content" android:layout_height="wrap_content" android:id="@+id/checkbox" android:visibility="gone" android:focusable="false" android:focusableInTouchMode="false" android:layout_marginLeft="2dp" android:layout_marginRight="2dp" android:layout_gravity="center" />
 </LinearLayout>

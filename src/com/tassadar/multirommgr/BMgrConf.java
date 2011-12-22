@@ -104,14 +104,9 @@ public class BMgrConf extends PreferenceActivity
                         String split[];
                         while(((line = buffreader.readLine()) != null))
                         {
-                            // Remove whitespace, replaceAll does not work...wtf?
-                            String lineS = "";
-                            for(int i = 0; i < line.length(); ++i)
-                                if(line.charAt(i) != ' ')
-                                    lineS += line.charAt(i);
+                            line = line.replaceAll(" ", "");
                             
-
-                            split = lineS.split("=");
+                            split = line.split("=");
                             if(split.length != 2)
                                 continue;
                             

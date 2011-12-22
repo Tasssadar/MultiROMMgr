@@ -17,8 +17,18 @@
     <string name="touch_ui">Touch UI</string>
     <string name="touch_ui_sum">Enable or disable touch controls</string>
     <string name="conf_w_error">Could not save configuration file!</string>
-    <string name="conf_w_succes">Configuration successfuly saved</string>
-    
+    <string name="conf_w_succes">Configuration successfully saved</string>
+    <string name="error_folder">Couldn\'t find MultiROM folder!</string>
+    <string name="error_backup_empty">Backup folder is empty</string>
+    <string name="size">Size:</string>
+    <string name="rename">Rename</string>
+    <string name="rename_back">Rename backup</string>
+    <string name="wrong_name">Name can only contain letters, numbers, -, _, | and #</string>
+    <string name="renamed">Rename successful, reloading backups...</string>
+    <string name="renamed_error">Rename failed!</string>
+    <string name="backups_wait">Wait for backups to load...</string>
+    <string name="working">Working...</string>
+
     <string-array name="list_titles_installed">
         <item>Configure Boot Manager</item>
         <item>Change backup names</item>

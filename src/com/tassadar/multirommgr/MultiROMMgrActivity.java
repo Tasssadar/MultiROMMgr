@@ -10,6 +10,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.app.ListActivity;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
@@ -48,9 +49,8 @@ public class MultiROMMgrActivity extends ListActivity
     {
         switch(position)
         {
-            case 0:
-                startActivity(new Intent(this, BMgrConf.class));
-                break;
+            case 0: startActivity(new Intent(this, BMgrConf.class));        break;
+            case 1: startActivity(new Intent(this, BackupsActivity.class)); break;
         }
     }
     
@@ -106,7 +106,14 @@ public class MultiROMMgrActivity extends ListActivity
         if(m_loading == null)
         {
             m_loading = new ProgressDialog(this);
-            m_loading.setCancelable(false);
+            m_loading.setCancelable(true);
+            m_loading.setOnCancelListener(new Dialog.OnCancelListener()
+            {
+                public void onCancel(DialogInterface dia)
+                {
+                    finish();
+                }
+            });
             m_loading.setProgressStyle(ProgressDialog.STYLE_SPINNER); 
         }
         m_loading.setMessage(text);
@@ -225,6 +232,8 @@ public class MultiROMMgrActivity extends ListActivity
         } catch (IOException e) {
             Log.e(TAG, e.getMessage());
         }
+        try { os.writeBytes("exit\n"); }
+        catch (IOException e) { Log.e(TAG, e.getMessage()); }
         return inLine;
     }
     
@@ -250,6 +259,7 @@ public class MultiROMMgrActivity extends ListActivity
             }
             if (is.ready()) {
                 String res = "";
+                int count = 0;
                 while(is.ready())
                 {
                     String tmp = null;
@@ -260,8 +270,11 @@ public class MultiROMMgrActivity extends ListActivity
                     }
                     if(tmp == null)
                         break;
-                    res += tmp;
+                    res += tmp + "\n";
+                    ++count;
                 }
+                if(count == 1)
+                    res = res.replaceAll("\n", "");
                 return res;                
             } else {
                 return null;
