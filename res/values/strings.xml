@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">MultiROM Manager</string>
+    <string-array name="list_titles">
+        <item>Configure MultiROM</item>
+        <item>Change backup names</item>
+    </string-array>
+    <string-array name="list_summaries">
+        <item>Set timezone, touchscreen availability and more</item>
+        <item>You can change backup name so that you can distinguish which rom is which</item>
+    </string-array>
+        
+</resources>
