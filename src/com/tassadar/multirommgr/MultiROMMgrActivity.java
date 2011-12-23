@@ -30,7 +30,7 @@ import android.widget.Toast;
 public class MultiROMMgrActivity extends ListActivity
 {
     public static final String BASE = "/data/data/com.tassadar.multirommgr/";
-    private static final String TAG = "MultiROMMgr";
+    public static final String TAG = "MultiROMMgr";
     private static final String XDA = "http://forum.xda-developers.com/showthread.php?t=1304656";
     private static final String MD5[][] = new String[][]
     {
@@ -348,7 +348,7 @@ public class MultiROMMgrActivity extends ListActivity
                 out = null;
 
             } catch (Exception e) {
-                Log.e(TAG, e.getMessage());
+              //  Log.e(TAG, e.getMessage());
             }
         }
     }

@@ -1,5 +1,6 @@
 package com.tassadar.multirommgr;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
@@ -15,6 +16,7 @@ import android.content.DialogInterface.OnClickListener;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -34,6 +36,8 @@ public class BackupsActivity extends ListActivity
 {
     private static final String MULTIROM_BACK = "/multirom/backup/";
     private static final String MULTIROM_MAIN = "/multirom/rom";
+    
+    private static final String MOUNT_LOC[] = new String[] { "/sd-ext", "/system/sd" }; 
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -260,6 +264,49 @@ public class BackupsActivity extends ListActivity
         }).start();
     }
     
+    private String MountSD()
+    {
+        String res = MultiROMMgrActivity.runRootCommand("mknod /dev/block/mmcblk0p97 b 179 2");
+        if(res == null || !res.equals(""))
+            return null;
+
+        String folder = null;
+        for(int i = 0; i < MOUNT_LOC.length; ++i)
+        {
+            File f = new File(MOUNT_LOC[i]);
+            if(f.exists() && f.isDirectory())
+                folder = MOUNT_LOC[i];
+        }
+        if(folder == null)
+            return null;
+        
+        res = MultiROMMgrActivity.runRootCommand("mount /dev/block/mmcblk0p97 " + folder + " -t auto");
+        if(res == null || !res.equals(""))
+            return null;
+        return folder;
+    }
+    
+    private String[] CheckSDPath(String path)
+    {
+        String folder = null;
+        String list = null;
+        // Check main
+        m_folder_main = path + MULTIROM_MAIN;
+        list = MultiROMMgrActivity.runRootCommand("ls " + m_folder_main);
+        if(list == null || list.equals("") || list.contains("No such file or directory"))
+            m_activePresent = false;
+        else
+            m_activePresent = true;
+        
+        
+        // Check backups
+        folder = path + MULTIROM_BACK;
+        list = MultiROMMgrActivity.runRootCommand("ls " + folder);
+        if(list == null || list.equals("") || list.contains("No such file or directory"))
+            folder = null;
+        return new String[]{folder, list };
+    }
+    
     private void LoadBackups()
     {
         setProgressBarVisibility(true);
@@ -274,39 +321,40 @@ public class BackupsActivity extends ListActivity
                 String mount = MultiROMMgrActivity.runRootCommand("mount");
                 if(mount == null)
                     return;
-
+                mount = mount.replaceAll(" on ", " ");
                 String mount_sp[] = mount.split("\n");
                 for(int i = 0; i < mount_sp.length; ++i)
                 {
-                    if(mount_sp[i].startsWith(("/dev/block/mmcblk0p2")) || mount_sp[i].contains("/sd-ext"))
+                    if(mount_sp[i].startsWith(("/dev/block/mmcblk0p2")) || mount_sp[i].contains("/sd-ext") ||    
+                        mount_sp[i].contains("/sdroot"))
                     {
-                        // Check main
-                        m_folder_main = mount_sp[i].split(" ")[1] + MULTIROM_MAIN;
-                        list = MultiROMMgrActivity.runRootCommand("ls " + m_folder_main);
-                        if(list == null || list.equals("") || list.contains("No such file or directory"))
-                            m_activePresent = false;
-                        else
-                            m_activePresent = true;
-                        
-                        
-                        // Check backups
-                        folder = mount_sp[i].split(" ")[1] + MULTIROM_BACK;
-                        list = MultiROMMgrActivity.runRootCommand("ls " + folder);
-                        if(list == null || list.equals("") || list.contains("No such file or directory"))
-                            folder = null;
+                        String s[] = CheckSDPath(mount_sp[i].split(" ")[1]);
+                        folder = s[0];
+                        list = s[1];
                         break;
                     }
                 }
                 
                 if(folder == null)
                 {
-                    ShowToast(getResources().getString(R.string.error_folder));
-                    return;
+                    Log.i(MultiROMMgrActivity.TAG, "Trying to mount sd-ext...");
+                    folder = MountSD();
+                    if(folder == null)
+                    {
+                        m_backLoading.sendMessage(m_backLoading.obtainMessage(5, 0, 0));
+                        return;
+                    }
+                    else
+                    {
+                        String s[] = CheckSDPath(folder);
+                        folder = s[0];
+                        list = s[1];
+                    }
                 }
                 
                 if(list.equals(""))
                 {
-                    ShowToast(getResources().getString(R.string.error_backup_empty));
+                    m_backLoading.sendMessage(m_backLoading.obtainMessage(5, 1, 0));
                     return;
                 }
 
@@ -370,8 +418,9 @@ public class BackupsActivity extends ListActivity
                 {
                     String[] from = new String[] { "title", "summary" };
                     int[] to = new int[] { R.id.title, R.id.summary };
-                    m_adapter = new SimpleAdapter(con, m_fillMaps, R.layout.backups_item, from, to); 
-                    setListAdapter(m_adapter);
+                    ListAdapter a = new SimpleAdapter(con, m_fillMaps, R.layout.backups_item, from, to); 
+                    setListAdapter(a);
+                    
                     if(msg.arg1 == 10000)
                     {
                         getListView().setEnabled(true);
@@ -401,6 +450,7 @@ public class BackupsActivity extends ListActivity
                     LoadBackups();
                     break;
                 case 4:
+                {
                     String text = null;
                     switch(msg.arg1)
                     {
@@ -413,6 +463,22 @@ public class BackupsActivity extends ListActivity
                     ShowLoading(null);
                     LoadBackups();
                     break;
+                }
+                case 5:
+                {
+                    String text = null;
+                    switch(msg.arg1)
+                    {
+                        case 0: text = getResources().getString(R.string.error_folder); break;
+                        case 1: text = getResources().getString(R.string.error_backup_empty); break;
+                    }
+                    ShowToast(text);
+                    setProgressBarVisibility(false);
+                    setProgressBarIndeterminateVisibility(false);
+                    getListView().setEnabled(true);
+                    getListView().setClickable(true);
+                    break;
+                }
             }
         }
     };
@@ -434,8 +500,7 @@ public class BackupsActivity extends ListActivity
             m_backLoading.sendMessage(m_backLoading.obtainMessage(1, res != null && res.equals("") ? 1 : 0, 0));
         }
     }
-    
-    private ListAdapter m_adapter;
+
     private AlertDialog m_renameDial;
     private List<HashMap<String, String>> m_fillMaps;
     private String m_folder_backups;
