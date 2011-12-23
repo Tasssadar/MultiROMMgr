@@ -1,13 +1,10 @@
 package com.tassadar.multirommgr;
 
-import java.io.BufferedReader;
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.io.OutputStream;
+import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -69,15 +66,29 @@ public class MultiROMMgrActivity extends ListActivity
     @Override
     protected void onListItemClick (ListView l, View v, int position, long id)
     {
-        switch(position)
+        if(m_installed)
         {
-            case 0: startActivity(new Intent(this, BMgrConf.class));        break;
-            case 1: startActivity(new Intent(this, BackupsActivity.class)); break;
-            case 2: 
-                Intent mktIntent = new Intent(Intent.ACTION_VIEW);
-                mktIntent.setData(Uri.parse(XDA));
-                startActivity(mktIntent);
-                break;
+            switch(position)
+            {
+                case 0: startActivity(new Intent(this, BMgrConf.class));        break;
+                case 1: startActivity(new Intent(this, BackupsActivity.class)); break;
+                case 2: 
+                    Intent mktIntent = new Intent(Intent.ACTION_VIEW);
+                    mktIntent.setData(Uri.parse(XDA));
+                    startActivity(mktIntent);
+                    break;
+            }
+        }
+        else
+        {
+            switch(position)
+            {
+                case 0: 
+                    Intent mktIntent = new Intent(Intent.ACTION_VIEW);
+                    mktIntent.setData(Uri.parse(XDA));
+                    startActivity(mktIntent);
+                    break;
+            }
         }
     }
     
@@ -182,15 +193,15 @@ public class MultiROMMgrActivity extends ListActivity
         {
             title = getResources().getStringArray(R.array.list_titles_installed);
             summary = getResources().getStringArray(R.array.list_summaries_installed);
-            image = new int[] {R.drawable.ic_menu_preferences, R.drawable.rom_backup, R.drawable.rom_update };
+            image = new int[] { R.drawable.ic_menu_preferences, R.drawable.rom_backup, R.drawable.rom_update };
             // set version
             title[2] = title[2] + " " + getVersion();
         }
         else
         {
-            title = new String[] {};
-            summary = new String[] {};
-            image = new int[] {};
+            title = getResources().getStringArray(R.array.list_titles_not_in);
+            summary = getResources().getStringArray(R.array.list_summaries_not_in);
+            image = new int[] { R.drawable.rom_update };
         }
             
         int[] to = new int[] { R.id.image, R.id.title, R.id.summary };
@@ -259,77 +270,54 @@ public class MultiROMMgrActivity extends ListActivity
             }
         }
     };
-    
-    // From SuperUser app
-    public static String runRootCommand(String command)
-    {
-        String inLine = null;
-        Process process;
+
+    public static String runRootCommand(String command) {
+        Process proc = null;
+        OutputStreamWriter osw = null;
+        StringBuilder sbstdOut = new StringBuilder();
+
+        //Log.e(TAG, command);
+
         try {
-            process = Runtime.getRuntime().exec("su");
-        } catch (IOException e1) {
-            Log.e(TAG, e1.getMessage());
-            return inLine;
-        }
-        DataOutputStream os = new DataOutputStream(process.getOutputStream());
-        BufferedReader is = new BufferedReader(new InputStreamReader(
-                new DataInputStream(process.getInputStream())), 64);
-        try {
-            inLine = executeCommand(os, is, 1000, command);
-        } catch (IOException e) {
-            Log.e(TAG, e.getMessage());
-        }
-        try { os.writeBytes("exit\n"); }
-        catch (IOException e) { Log.e(TAG, e.getMessage()); }
-        return inLine;
-    }
-    
-    private static String executeCommand(DataOutputStream os, BufferedReader is, int timeout,
-            String... commands) throws IOException
-    {
-        if (commands.length == 0) return null;
-        StringBuilder command = new StringBuilder();
-        for (String s : commands) {
-            command.append(s).append(" ");
-        }
-        command.append("\n");
-        Log.d(TAG, command.toString());
-        os.writeBytes(command.toString());
-        if (is != null) {
-            for (int i = 0; i < timeout; i++) {
-                if (is.ready()) break;
+
+            proc = Runtime.getRuntime().exec("su");
+            osw = new OutputStreamWriter(proc.getOutputStream());
+            osw.write(command);
+            osw.flush();
+            osw.close();
+        } catch (IOException ex) {
+            ex.printStackTrace();
+            return null;
+        } finally {
+            if (osw != null) {
                 try {
-                    Thread.sleep(5);
-                } catch (InterruptedException e) {
-                    Log.w(TAG, "Sleep timer interrupted", e);
+                    osw.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    return null;
                 }
             }
-            if (is.ready()) {
-                String res = "";
-                int count = 0;
-                while(is.ready())
-                {
-                    String tmp = null;
-                    try {
-                        tmp = is.readLine();
-                    }
-                    catch(IOException e) {    
-                    }
-                    if(tmp == null)
-                        break;
-                    res += tmp + "\n";
-                    ++count;
-                }
-                if(count == 1)
-                    res = res.replaceAll("\n", "");
-                return res;                
-            } else {
-                return null;
-            }
-        } else {
+        }
+        try {
+            if (proc != null)
+                proc.waitFor();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
             return null;
         }
-    }
+        
+        int read;
+        try {
+            while((read = proc.getInputStream().read()) != -1)
+                sbstdOut.append((char)read);
+        } catch (IOException e) { }
+        
+        String res = sbstdOut.toString();
+        if(res.split("\n").length == 1)
+            res = res.replaceAll("\n", "");
+        proc.destroy();
+        return res;
+    }   
     
     // From ProxyDroid app
     private void CopyAssets() {

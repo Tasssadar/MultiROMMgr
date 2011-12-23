@@ -28,6 +28,22 @@
     <string name="renamed_error">Rename failed!</string>
     <string name="backups_wait">Wait for backups to load...</string>
     <string name="working">Working...</string>
+    <string name="reload">Reload</string>
+    <string name="select">Select option</string>
+    <string name="erased">ROM successfully erased</string>
+    <string name="erased_error">Error while erasing ROM!</string>
+    <string name="main_not_found">Active ROM not found, setting this one as active...</string>
+    <string name="switched">ROMs successfully switched!</string>
+    <string name="switched_e_move">Can\'t move active ROM to backup!</string>
+    <string name="switched_e_move2">Can\'t move ROM to active folder!</string>
+    <string name="switched_e_erase">Can\'t erase backup ROM folder!</string>
+    <string name="switched_e_erase2">Can\'t erase active ROM folder!</string>
+   
+    
+    <string-array name="backup_options">
+        <item>Switch with active</item>
+        <item>Erase</item>
+    </string-array>
 
     <string-array name="list_titles_installed">
         <item>Configure Boot Manager</item>
@@ -39,5 +55,13 @@
         <item>You can rename, delete and move backups</item>
         <item>Tap to enter XDA thread</item>
     </string-array>
+    
+    <string-array name="list_titles_not_in">
+        <item>MultiROM not installed or not found</item>
+    </string-array>
+    <string-array name="list_summaries_not_in">
+        <item>Tap to enter XDA thread</item>
+    </string-array>
+    
         
 </resources>
