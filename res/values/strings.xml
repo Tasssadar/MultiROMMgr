@@ -40,10 +40,39 @@
     <string name="unknown_version"> - unknown version</string>
     <string name="move_act">Move active ROM to backup</string>
     <string name="no_active">No active ROM found</string>
+    <string name="updater">Updater</string>
+    <string name="down_manifest">Downloading manifest</string>
+    <string name="down_pack">Downloading package</string>
+    <string name="down_manifest_error">Couldn\'t download manifest!</string>
+    <string name="down_pack_error">Couldn\'t download package!</string>
+    <string name="decompress">Decompressing package</string>
+    <string name="update_complete">Update complete! You should reboot your phone</string>
+    <string name="mktmp_fail">Couldn\'t create /tmp folder!</string>
+    <string name="flash_fail">Couldn\'t flash new boot img, recovering old one!</string>
+    <string name="exec_package">Executing update script</string>
+    <string name="update">"Update"</string>
+    <string name="current_version">Current version:</string>
+    <string name="newest_version">Newest version:</string>
+    <string name="no_update">No update available</string>
+    <string name="press_update">Press update to begin</string>
+    <string name="update_wait">Please wait until update finishes</string>
+    <string name="select_recovery">Select recovery</string>
+    <string name="rec_down_err">Couldn\'t download recovery!</string>
+    <string name="rec_down">Downloading recovery</string>
+    <string name="rec_flash">Flashing recovery</string>
+    <string name="rec_flash_err">Error while flashing recovery!</string>
+    <string name="reboot">Complete, rebooting phone</string>
+    <string name="unzip_error">Couldn\'t extract package! There must be at least 20mb of free space in /data.</string>
     
     <string-array name="backup_options">
         <item>Switch with active</item>
         <item>Erase</item>
+    </string-array>
+    
+    <string-array name="recovery_options">
+        <item>AmonRa</item>
+        <item>CWM</item>
+        <item>Do not install</item>
     </string-array>
 
     <string-array name="list_titles_installed">
@@ -54,14 +83,14 @@
     <string-array name="list_summaries_installed">
         <item>Set timezone, default timeout and more</item>
         <item>You can rename, delete and move backups</item>
-        <item>Tap to enter XDA thread</item>
+        <item>Tap to check for update</item>
     </string-array>
     
     <string-array name="list_titles_not_in">
         <item>MultiROM not installed or not found</item>
     </string-array>
     <string-array name="list_summaries_not_in">
-        <item>Tap to enter XDA thread</item>
+        <item>Tap install via this app</item>
     </string-array>
     
         

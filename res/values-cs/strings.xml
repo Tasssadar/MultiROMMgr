@@ -55,14 +55,14 @@
     <string-array name="list_summaries_installed">
         <item>Nastavení časového pásma, prodlevy a dalších věcí</item>
         <item>Zálohy můžete smazat, přejmenovat a přesunout do aktivní složky</item>
-        <item>Přejít na topic na XDA fóru</item>
+        <item>Zkontrolovat aktualizace</item>
     </string-array>
     
     <string-array name="list_titles_not_in">
         <item>MultiROM není nainstalována nebo nebyla nalezena</item>
     </string-array>
     <string-array name="list_summaries_not_in">
-        <item>Přejít na topic na XDA fóru</item>
+        <item>Nainstalovat</item>
     </string-array>
     
         

@@ -32,6 +32,8 @@ public class BMgrConf extends PreferenceActivity
         show_seconds = false;
         
         addPreferencesFromResource(R.xml.bmgr_config);
+        getListView().setEnabled(false);
+        getListView().setClickable(false);
         SetValues();
         LoadConfig();
     }
@@ -39,6 +41,10 @@ public class BMgrConf extends PreferenceActivity
     @Override
     public void onStop()
     {
+    	super.onStop();
+    	if(!getListView().isEnabled())
+    		return;
+    	
         String text = null;
         GetValues();
         try {
@@ -55,8 +61,6 @@ public class BMgrConf extends PreferenceActivity
         }
         
         Toast.makeText(this, text, Toast.LENGTH_SHORT).show();
-
-        super.onStop();
     }
     
     private void SetValues()
@@ -165,6 +169,8 @@ public class BMgrConf extends PreferenceActivity
         public void handleMessage(Message msg)
         {
             SetValues();
+            getListView().setEnabled(true);
+            getListView().setClickable(true);
         }
     };
     

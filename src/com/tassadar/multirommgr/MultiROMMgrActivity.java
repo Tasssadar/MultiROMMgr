@@ -1,6 +1,10 @@
 package com.tassadar.multirommgr;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -16,7 +20,6 @@ import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.AssetManager;
-import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -30,24 +33,12 @@ import android.widget.Toast;
 public class MultiROMMgrActivity extends ListActivity
 {
     public static final String BASE = "/data/data/com.tassadar.multirommgr/";
+    public static final String MULTIROM_VERSIONS = "multirom_ver.txt";
     public static final String TAG = "MultiROMMgr";
-    private static final String XDA = "http://forum.xda-developers.com/showthread.php?t=1304656";
-    private static final String MD5[][] = new String[][]
-    {
-        {"4c02224801dc3ac3fc378a8bf1f2a301", "v1"},
-        {"f31ac54fba207f4d67786e201dc3e6b1", "v2"},
-        {"51b51b4db2d5e4852cecbc85aa2f48f5", "v3"},
-        {"cad81d9e14cf8aa2c591f6e0007ce78b", "v4"},
-        {"ce8e4ef6bc63dc9e1cfdda2e795bbf31", "v5"},
-        {"75d4331e27a8430a7ae1a44447ae5cb7", "v6"},
-        {"e54bd2dcd6b46abed92a4d086c114c60", "v7"},
-        {"c77980e782029de9733c0223223919e3", "v8"},
-        {"0df56fca2aafdade1228f657d5037fce", "v9"},
-        {"e10a2cdb21c15ad9fdcef99fd5a37d6b", "v10"},
-        {"c9d0aa68975a7a31b055e954e832472a", "v11"},
-    };
+    //private static final String XDA = "http://forum.xda-developers.com/showthread.php?t=1304656";
     private static final int LOADING_ROOT = 1;
     private static final int LOADING_MR   = 2;
+    private static final int REQ_UPDATER  = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -56,8 +47,9 @@ public class MultiROMMgrActivity extends ListActivity
 
         setContentView(R.layout.main);
         
+        m_version = getResources().getString(R.string.unknown_version);
         m_installed = true;
-        
+        MD5 = new String[0][0];
         setLoadingDialog(getResources().getString(R.string.check_root));
         CopyAssets();
         checkForRoot();
@@ -72,23 +64,25 @@ public class MultiROMMgrActivity extends ListActivity
             {
                 case 0: startActivity(new Intent(this, BMgrConf.class));        break;
                 case 1: startActivity(new Intent(this, BackupsActivity.class)); break;
-                case 2: 
-                    Intent mktIntent = new Intent(Intent.ACTION_VIEW);
-                    mktIntent.setData(Uri.parse(XDA));
-                    startActivity(mktIntent);
-                    break;
+                case 2: startActivityForResult(new Intent(this, Updater.class), REQ_UPDATER); break;
             }
         }
         else
         {
             switch(position)
             {
-                case 0: 
-                    Intent mktIntent = new Intent(Intent.ACTION_VIEW);
-                    mktIntent.setData(Uri.parse(XDA));
-                    startActivity(mktIntent);
-                    break;
+                case 0: startActivityForResult(new Intent(this, Updater.class), REQ_UPDATER); break;
             }
+        }
+    }
+    
+    @Override
+    protected void onActivityResult (int requestCode, int resultCode, Intent data)
+    {
+        if(requestCode == REQ_UPDATER)
+        {
+            setLoadingDialog(getResources().getString(R.string.check_multirom));
+            checkForMultiROM();
         }
     }
     
@@ -119,6 +113,7 @@ public class MultiROMMgrActivity extends ListActivity
                         return;
                     }
                 }  
+                m_version = getVersion();
                 send(1);
             }
             private void send(int res)
@@ -195,7 +190,7 @@ public class MultiROMMgrActivity extends ListActivity
             summary = getResources().getStringArray(R.array.list_summaries_installed);
             image = new int[] { R.drawable.ic_menu_preferences, R.drawable.rom_backup, R.drawable.rom_update };
             // set version
-            title[2] = title[2] + " " + getVersion();
+            title[2] = title[2] + " " + m_version;
         }
         else
         {
@@ -222,6 +217,22 @@ public class MultiROMMgrActivity extends ListActivity
     
     private String getVersion()
     {
+        File versions = new File(BASE + MULTIROM_VERSIONS);
+        
+        try {
+            BufferedReader br = new BufferedReader(new FileReader(versions));
+            int count = 0;
+            br.mark(Integer.MAX_VALUE);
+            while(br.readLine() != null)
+                ++count;
+            MD5 = new String[count][2];
+            br.reset();
+            
+            String line;
+            for(int i = 0; (line = br.readLine()) != null; ++i)
+                MD5[i] = line.split(" ");
+        } catch (FileNotFoundException e) {} catch (IOException e) {}
+
         String res = runRootCommand("md5sum /init");
         if(res != null && res.contains("No such file or directory"))
             res = null;
@@ -331,9 +342,14 @@ public class MultiROMMgrActivity extends ListActivity
         for (int i = 0; i < files.length; i++) {
             InputStream in = null;
             OutputStream out = null;
-            try {
-
+            try 
+            {
                 in = assetManager.open(files[i]);
+                
+                File f = new File(BASE + files[i]);
+                if(f.exists() || f.isDirectory())
+                    continue;
+                    
                 out = new FileOutputStream(BASE + files[i]);
                 byte[] buffer = new byte[1024];
                 int read;
@@ -352,8 +368,13 @@ public class MultiROMMgrActivity extends ListActivity
             }
         }
     }
+    
+    public static String getMRVersion() { return m_version; }
+    public static boolean isInstalled() { return m_installed; }
 
     private ListAdapter m_adapter;
     private ProgressDialog m_loading;
-    private boolean m_installed;
+    private static boolean m_installed;
+    private static String m_version;
+    private String MD5[][];
 }
