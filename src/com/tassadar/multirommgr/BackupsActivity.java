@@ -216,7 +216,7 @@ public class BackupsActivity extends ListActivity
                     res = MultiROMMgrActivity.runRootCommand("rm -r " + m_folder_main);
                     if(res == null || !res.equals(""))
                     {
-                        send(-4);
+                        send(-3);
                         return;
                     }
                 }
@@ -228,13 +228,6 @@ public class BackupsActivity extends ListActivity
                     send(-2);
                     return;
                 }
-                /*res = MultiROMMgrActivity.runRootCommand(
-                           "rm -r " + m_folder_backups + m_selectedBackup);
-                if(res == null || !res.equals(""))
-                {
-                    send(-3);
-                    return;
-                }*/
                 send(0);
             }
             private void send(int res)
@@ -392,7 +385,6 @@ public class BackupsActivity extends ListActivity
                         case -1: text = getResources().getString(R.string.switched_e_move); break;
                         case -2: text = getResources().getString(R.string.switched_e_move2); break;
                         case -3: text = getResources().getString(R.string.switched_e_erase); break;
-                        case -4: text = getResources().getString(R.string.switched_e_erase2); break;
                     }
                     ShowToast(text);
                     ShowLoading(null);

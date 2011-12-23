@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">MultiROM Manažer</string>
+    <string name="root_error">Nemůžu spustit root příkazy!</string>
+    <string name="mr_error">MultiROM mod nebyl nalezen!</string>
+    <string name="check_root">Kontroluji root přístup</string>
+    <string name="check_multirom">Hledám MultiROM mod</string>
+    <string name="error">Chyba</string>
+    <string name="exit">Ukončit</string>
+    <string name="bmgr_conf">Konfigurace Boot manažeru</string>
+    <string name="timezone">Časové pásmo</string>
+    <string name="timezone_sum">Kolik hodin má být přidáno nebo odebráno od GMT</string>
+    <string name="show_seconds">Zobrazovat sekundy</string>
+    <string name="show_seconds_sum">Skryje nebo zobrazí sekundy v Boot manažeru</string>
+    <string name="timeout">Prodleva</string>
+    <string name="timeout_sum">Jak dlouho bude Boot manažer čekat před automatickým bootováním z vnitřní paměti</string>
+    <string name="touch_ui">Dotykové ovládání</string>
+    <string name="touch_ui_sum">Povolí nebo zakáže dotykové ovládání</string>
+    <string name="conf_w_error">Chyba při ukládání konfiguračního souboru!</string>
+    <string name="conf_w_succes">Konfigurace úspešně uložena!</string>
+    <string name="error_folder">Nemůžu najít MultiROM složku!</string>
+    <string name="error_backup_empty">Složka se zálohami je prádná</string>
+    <string name="size">Velikost:</string>
+    <string name="rename">Přejmenovat</string>
+    <string name="rename_back">Přejmenovat zálohu</string>
+    <string name="wrong_name">Jméno může obsahovat pouze písmena, číslice a znaky, -, _, | a #</string>
+    <string name="renamed">Přejmenování úspěšné, obnovuji seznam záloh...</string>
+    <string name="renamed_error">Chyba při přejmenovávání zálohy!</string>
+    <string name="backups_wait">Počkejte než se zálohy načtou...</string>
+    <string name="working">Pracuji...</string>
+    <string name="reload">Obnovit</string>
+    <string name="select">Zvolte možnost</string>
+    <string name="erased">ROM byla úspěšné smazána</string>
+    <string name="erased_error">Chyba při mazání ROM!</string>
+    <string name="main_not_found">Aktivní ROM nebyla nalezena, namohu ji přesunout do záloh</string>
+    <string name="switched">ROMky byly úspěšně přehozeny</string>
+    <string name="switched_e_move">Nemůžu přesunout aktivní ROM do záloh!</string>
+    <string name="switched_e_move2">Nemůžu přesunout ROM do aktivní složky!</string>
+    <string name="switched_e_erase">Nemůžu smazat složku s aktivní ROM!</string>
+    <string name="unknown_version"> - neznámá verze</string>
+   
+    
+    <string-array name="backup_options">
+        <item>Přehodit s aktivní</item>
+        <item>Smazat</item>
+    </string-array>
+
+    <string-array name="list_titles_installed">
+        <item>Nastavení Boot manažeru</item>
+        <item>Spravovat zálohy</item>
+        <item>MultiROM</item>
+    </string-array>
+    <string-array name="list_summaries_installed">
+        <item>Nastavení časového pásma, prodlevy a dalších věcí</item>
+        <item>Zálohy můžete smazat, přejmenovat a přesunout do aktivní složky</item>
+        <item>Přejít na topic na XDA fóru</item>
+    </string-array>
+    
+    <string-array name="list_titles_not_in">
+        <item>MultiROM není nainstalována nebo nebyla nalezena</item>
+    </string-array>
+    <string-array name="list_summaries_not_in">
+        <item>Přejít na topic na XDA fóru</item>
+    </string-array>
+    
+        
+</resources>

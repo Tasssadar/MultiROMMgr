@@ -233,7 +233,7 @@ public class MultiROMMgrActivity extends ListActivity
             for(int i = 0; i < MD5.length; ++i)
                 if(MD5[i][0].equals(res))
                     return MD5[i][1];
-            res = " - unknown version";
+            res = getResources().getString(R.string.unknown_version);
         }
         return res;
     }
