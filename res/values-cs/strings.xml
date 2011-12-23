@@ -38,6 +38,8 @@
     <string name="switched_e_move2">Nemůžu přesunout ROM do aktivní složky!</string>
     <string name="switched_e_erase">Nemůžu smazat složku s aktivní ROM!</string>
     <string name="unknown_version"> - neznámá verze</string>
+    <string name="move_act">Přesunout aktivní do zálohy</string>
+    <string name="no_active">Aktivní ROM nebyla nalezena</string>
    
     
     <string-array name="backup_options">

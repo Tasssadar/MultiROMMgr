@@ -38,6 +38,8 @@
     <string name="switched_e_move2">Can\'t move ROM to active folder!</string>
     <string name="switched_e_erase">Can\'t erase active ROM folder!</string>
     <string name="unknown_version"> - unknown version</string>
+    <string name="move_act">Move active ROM to backup</string>
+    <string name="no_active">No active ROM found</string>
     
     <string-array name="backup_options">
         <item>Switch with active</item>

@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/menu_move_act"
+          android:title="@string/move_act"
+          android:icon="@drawable/rom_backup_small" />   
     <item android:id="@+id/menu_reload"
           android:title="@string/reload"
           android:icon="@drawable/ic_menu_refresh" />   

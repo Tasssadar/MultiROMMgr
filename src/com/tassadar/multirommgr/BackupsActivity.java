@@ -77,6 +77,10 @@ public class BackupsActivity extends ListActivity
                 if(getListView().isEnabled())
                     LoadBackups();
                 return true;
+            case R.id.menu_move_act:
+                if(getListView().isEnabled())
+                    MoveActToBack();
+                return true;
         }
         return super.onOptionsItemSelected(item);
     }
@@ -157,16 +161,32 @@ public class BackupsActivity extends ListActivity
             }
         }
     };
-    
+
     public void ShowToast(String text)
     {
         Toast toast = Toast.makeText(this, text, Toast.LENGTH_SHORT);
         toast.show();
     }
     
+    private void MoveActToBack()
+    {
+        if(!m_activePresent)
+        {
+            ShowToast(getResources().getString(R.string.no_active));
+            return;
+        }
+        ShowLoading(getResources().getString(R.string.working));
+        new Thread(new Runnable() {
+            public void run() {
+                String res =
+                        MultiROMMgrActivity.runRootCommand("mv " + m_folder_main + " " + m_folder_backups + getNewBackName());
+                m_backLoading.sendMessage(m_backLoading.obtainMessage(4, res != null && res.equals("") ? 0 : -1, 0));
+            }
+        }).start();
+    }
+    
     private void Erase()
     {
-        
         ShowLoading(getResources().getString(R.string.working));
         new Thread(new Runnable() {
             public void run() {
@@ -184,6 +204,17 @@ public class BackupsActivity extends ListActivity
             s = "0" + s;
         return s;
     }
+    private String getNewBackName()
+    {
+        Calendar c = Calendar.getInstance();
+        String date = String.valueOf(c.get(Calendar.YEAR));
+        date += fixLen(String.valueOf(c.get(Calendar.MONTH)+1), 2);
+        date += fixLen(String.valueOf(c.get(Calendar.DATE)), 2) + "-";
+        date += fixLen(String.valueOf(c.get(Calendar.HOUR_OF_DAY)), 2);
+        date += fixLen(String.valueOf(c.get(Calendar.MINUTE)), 2);
+        return "rom_" + date;
+    }
+    
     private void SwitchWithActive()
     {
         if(!m_activePresent)
@@ -195,21 +226,13 @@ public class BackupsActivity extends ListActivity
                 String res;
                 if(m_activePresent)
                 {
-                    Calendar c = Calendar.getInstance();
-                    String date = String.valueOf(c.get(Calendar.YEAR));
-                    date += fixLen(String.valueOf(c.get(Calendar.MONTH)), 2);
-                    date += fixLen(String.valueOf(c.get(Calendar.DATE)), 2) + "-";
-                    date += fixLen(String.valueOf(c.get(Calendar.HOUR_OF_DAY)), 2);
-                    date += fixLen(String.valueOf(c.get(Calendar.MINUTE)), 2);
-                    
                     res = MultiROMMgrActivity.runRootCommand(
-                             "mv " + m_folder_main + " " + m_folder_backups + "rom_" + date);
+                             "mv " + m_folder_main + " " + m_folder_backups + getNewBackName());
                     if(res == null || !res.equals(""))
                     {
                         send(-1);
                         return;
                     }
-                    
                 }
                 else
                 {
