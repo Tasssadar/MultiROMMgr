@@ -31,11 +31,13 @@
 
     <string-array name="list_titles_installed">
         <item>Configure Boot Manager</item>
-        <item>Change backup names</item>
+        <item>Manage backups</item>
+        <item>MultiROM</item>
     </string-array>
     <string-array name="list_summaries_installed">
         <item>Set timezone, default timeout and more</item>
-        <item>You can change backup name so that you can distinguish which rom is which</item>
+        <item>You can rename, delete and move backups</item>
+        <item>Tap to enter XDA thread</item>
     </string-array>
         
 </resources>

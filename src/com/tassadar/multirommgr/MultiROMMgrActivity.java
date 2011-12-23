@@ -3,8 +3,11 @@ package com.tassadar.multirommgr;
 import java.io.BufferedReader;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -15,6 +18,8 @@ import android.app.ListActivity;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.res.AssetManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -27,7 +32,23 @@ import android.widget.Toast;
 
 public class MultiROMMgrActivity extends ListActivity
 {
+    public static final String BASE = "/data/data/com.tassadar.multirommgr/";
     private static final String TAG = "MultiROMMgr";
+    private static final String XDA = "http://forum.xda-developers.com/showthread.php?t=1304656";
+    private static final String MD5[][] = new String[][]
+    {
+        {"4c02224801dc3ac3fc378a8bf1f2a301", "v1"},
+        {"f31ac54fba207f4d67786e201dc3e6b1", "v2"},
+        {"51b51b4db2d5e4852cecbc85aa2f48f5", "v3"},
+        {"cad81d9e14cf8aa2c591f6e0007ce78b", "v4"},
+        {"ce8e4ef6bc63dc9e1cfdda2e795bbf31", "v5"},
+        {"75d4331e27a8430a7ae1a44447ae5cb7", "v6"},
+        {"e54bd2dcd6b46abed92a4d086c114c60", "v7"},
+        {"c77980e782029de9733c0223223919e3", "v8"},
+        {"0df56fca2aafdade1228f657d5037fce", "v9"},
+        {"e10a2cdb21c15ad9fdcef99fd5a37d6b", "v10"},
+        {"c9d0aa68975a7a31b055e954e832472a", "v11"},
+    };
     private static final int LOADING_ROOT = 1;
     private static final int LOADING_MR   = 2;
 
@@ -41,6 +62,7 @@ public class MultiROMMgrActivity extends ListActivity
         m_installed = true;
         
         setLoadingDialog(getResources().getString(R.string.check_root));
+        CopyAssets();
         checkForRoot();
     }
     
@@ -51,6 +73,11 @@ public class MultiROMMgrActivity extends ListActivity
         {
             case 0: startActivity(new Intent(this, BMgrConf.class));        break;
             case 1: startActivity(new Intent(this, BackupsActivity.class)); break;
+            case 2: 
+                Intent mktIntent = new Intent(Intent.ACTION_VIEW);
+                mktIntent.setData(Uri.parse(XDA));
+                startActivity(mktIntent);
+                break;
         }
     }
     
@@ -155,7 +182,9 @@ public class MultiROMMgrActivity extends ListActivity
         {
             title = getResources().getStringArray(R.array.list_titles_installed);
             summary = getResources().getStringArray(R.array.list_summaries_installed);
-            image = new int[] {R.drawable.ic_menu_preferences, R.drawable.rom_backup };
+            image = new int[] {R.drawable.ic_menu_preferences, R.drawable.rom_backup, R.drawable.rom_update };
+            // set version
+            title[2] = title[2] + " " + getVersion();
         }
         else
         {
@@ -178,6 +207,24 @@ public class MultiROMMgrActivity extends ListActivity
         m_adapter = new SimpleAdapter(this, fillMaps, R.layout.list_item, from, to); 
 
         setListAdapter(m_adapter);
+    }
+    
+    private String getVersion()
+    {
+        String res = runRootCommand("md5sum /init");
+        if(res != null && res.contains("No such file or directory"))
+            res = null;
+        else
+            res = res.split(" ")[0];
+        
+        if(res != null)
+        {
+            for(int i = 0; i < MD5.length; ++i)
+                if(MD5[i][0].equals(res))
+                    return MD5[i][1];
+            res = " - unknown version";
+        }
+        return res;
     }
     
     private final Handler m_loadingHandler = new Handler()
@@ -284,6 +331,40 @@ public class MultiROMMgrActivity extends ListActivity
         }
     }
     
+    // From ProxyDroid app
+    private void CopyAssets() {
+        AssetManager assetManager = getAssets();
+        String[] files = null;
+        try {
+            files = assetManager.list("");
+        } catch (IOException e) {
+            Log.e(TAG, e.getMessage());
+        }
+        for (int i = 0; i < files.length; i++) {
+            InputStream in = null;
+            OutputStream out = null;
+            try {
+
+                in = assetManager.open(files[i]);
+                out = new FileOutputStream(BASE + files[i]);
+                byte[] buffer = new byte[1024];
+                int read;
+                while ((read = in.read(buffer)) != -1) {
+                    out.write(buffer, 0, read);
+                }
+
+                in.close();
+                in = null;
+                out.flush();
+                out.close();
+                out = null;
+
+            } catch (Exception e) {
+                Log.e(TAG, e.getMessage());
+            }
+        }
+    }
+
     private ListAdapter m_adapter;
     private ProgressDialog m_loading;
     private boolean m_installed;
