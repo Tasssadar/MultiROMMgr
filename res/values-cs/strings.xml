@@ -40,11 +40,49 @@
     <string name="unknown_version"> - neznámá verze</string>
     <string name="move_act">Přesunout aktivní do zálohy</string>
     <string name="no_active">Aktivní ROM nebyla nalezena</string>
+    <string name="updater">Aktualizace</string>
+    <string name="down_manifest">Stahuji aktuální info</string>
+    <string name="down_pack">Stahuji balíček</string>
+    <string name="down_manifest_error">Nemůžu stáhnout aktuální info!</string>
+    <string name="down_pack_error">Nemůžu stáhnout balíček</string>
+    <string name="decompress">Rozbaluji balíček</string>
+    <string name="update_complete">Hotovo! Měli byste restartovat telefon</string>
+    <string name="mktmp_fail">Nemůžu vytvořit /tmp!</string>
+    <string name="flash_fail">Nemůžu flashnout nový boot.img, obnovuji ze zálohy!</string>
+    <string name="exec_package">Provádím změny</string>
+    <string name="update">"Aktualizovat"</string>
+    <string name="current_version">Sočasná verze:</string>
+    <string name="newest_version">Nejnovější verze:</string>
+    <string name="no_update">Žádná aktualizace není k dispozici</string>
+    <string name="press_update">Stisnutím "Aktualizovat" spustíte aktualizaci\nVAROVÁNÍ: v /data musí být alespoň 15MB volného místa!</string>
+    <string name="update_wait">Prosím počkejte na dokončení aktualizace</string>
+    <string name="select_recovery">Zvolte recovery</string>
+    <string name="rec_down_err">Nemůžu stáhnout recovery!</string>
+    <string name="rec_down">Stahuji recovery</string>
+    <string name="rec_flash">Nahrávám recovery</string>
+    <string name="rec_flash_err">Chyba při nahrávání recovery!</string>
+    <string name="reboot">Hotovo, restartuji telefon</string>
+    <string name="unzip_error">Nemůžu rozbalit balíček! V /data musí být alespoň 15MB volného místa</string>
+    <string name="reload_mr">Obnovit stav MultiROM</string>
+    <string name="reboot_menu">Restartovat</string>
+    <string name="reboot_choose">Zvolte mód</string>
+    <string name="rebooting">Restartuji telefon...</string>
    
-    
     <string-array name="backup_options">
         <item>Přehodit s aktivní</item>
         <item>Smazat</item>
+    </string-array>
+    
+    <string-array name="recovery_options">
+        <item>AmonRa</item>
+        <item>CWM</item>
+        <item>Neinstalovat</item>
+    </string-array>
+    
+    <string-array name="reboot_options">
+        <item>Normální</item>
+        <item>Recovery</item>
+        <item>Bootloader</item>
     </string-array>
 
     <string-array name="list_titles_installed">
@@ -67,7 +105,5 @@
     <string-array name="list_summaries_not_in">
         <item>Nainstalovat</item>
         <item>Přejít na topic na XDA</item>
-    </string-array>
-    
-        
+    </string-array>   
 </resources>

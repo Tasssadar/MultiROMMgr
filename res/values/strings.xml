@@ -62,7 +62,7 @@
     <string name="rec_flash">Flashing recovery</string>
     <string name="rec_flash_err">Error while flashing recovery!</string>
     <string name="reboot">Complete, rebooting phone</string>
-    <string name="unzip_error">Couldn\'t extract package! There must be at least 20mb of free space in /data.</string>
+    <string name="unzip_error">Couldn\'t extract package! There must be at least 15mb of free space in /data.</string>
     <string name="reload_mr">Refresh MultiROM status</string>
     <string name="reboot_menu">Reboot</string>
     <string name="reboot_choose">Choose mode</string>
@@ -103,7 +103,7 @@
         <item>Info &amp; changelog</item>
     </string-array>
     <string-array name="list_summaries_not_in">
-        <item>Tap install via this app</item>
+        <item>Tap to install via this app</item>
         <item>Tap to enter XDA thread</item>
     </string-array>
 </resources>
