@@ -412,7 +412,7 @@ public class MultiROMMgrActivity extends ListActivity
         } catch (IOException e) { }
         
         String res = sbstdOut.toString();
-        if(res.split("\n").length == 1)
+        if(res.equals("\n") || res.split("\n").length == 1)
             res = res.replaceAll("\n", "");
         proc.destroy();
         return res;

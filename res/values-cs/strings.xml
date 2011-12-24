@@ -67,18 +67,14 @@
     <string name="reboot_menu">Restartovat</string>
     <string name="reboot_choose">Zvolte mód</string>
     <string name="rebooting">Restartuji telefon...</string>
+    <string name="device">Model:</string>
+    <string name="no_install_rec">Neinstalovat</string>
    
     <string-array name="backup_options">
         <item>Přehodit s aktivní</item>
         <item>Smazat</item>
     </string-array>
-    
-    <string-array name="recovery_options">
-        <item>AmonRa</item>
-        <item>CWM</item>
-        <item>Neinstalovat</item>
-    </string-array>
-    
+
     <string-array name="reboot_options">
         <item>Normální</item>
         <item>Recovery</item>

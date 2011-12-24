@@ -67,16 +67,12 @@
     <string name="reboot_menu">Reboot</string>
     <string name="reboot_choose">Choose mode</string>
     <string name="rebooting">Rebooting phone...</string>
+    <string name="device">Device:</string>
+    <string name="no_install_rec">Do not install</string>
     
     <string-array name="backup_options">
         <item>Switch with active</item>
         <item>Erase</item>
-    </string-array>
-    
-    <string-array name="recovery_options">
-        <item>AmonRa</item>
-        <item>CWM</item>
-        <item>Do not install</item>
     </string-array>
     
     <string-array name="reboot_options">

@@ -34,15 +34,6 @@ import android.widget.Toast;
 
 public class Updater extends Activity
 {
-    private static final String LINK_PACKAGE = "http://dl.dropbox.com/u/54372958/multirom.zip";
-    private static final String LINK_MANIFEST = "http://dl.dropbox.com/u/54372958/multirom_man.txt";
-    private static final String LINK_VERSIONS = "http://dl.dropbox.com/u/54372958/multirom_ver.txt";
-    private static final String LINK_RECOVERY[] = new String[]
-    {
-        "http://dl.dropbox.com/u/54372958/recovery_am.img",
-        "http://dl.dropbox.com/u/54372958/recovery_cwm.img",
-        null
-    };
     private static final String UPDATE_PACKAGE = "multirom.zip";
     private static final String DOWNLOAD_LOC = MultiROMMgrActivity.BASE;
     private static final String UPDATE_FOLDER = MultiROMMgrActivity.BASE + "multirom/";
@@ -50,6 +41,29 @@ public class Updater extends Activity
     private static final String RECOVERY_OLD_LOC = MultiROMMgrActivity.BASE + "recovery_old.img";
     private static final int PACKAGE_SIZE = 1024*1024; 
     private static final int RECOVERY_SIZE = 8*1024*1024; 
+    
+    private static final Device DEVICE[] =
+    {
+        new Device("LGP500", 
+                "http://dl.dropbox.com/u/54372958/multirom.zip",
+                "http://dl.dropbox.com/u/54372958/multirom_man.txt",
+                "http://dl.dropbox.com/u/54372958/multirom_ver.txt",
+                new String[][]
+                { 
+                    { "AmonRa", "http://dl.dropbox.com/u/54372958/recovery_am.img" },
+                    { "CWM", "http://dl.dropbox.com/u/54372958/recovery_cwm.img" },
+                    null,
+                }),
+        new Device("LS670/VM670", 
+                "http://dl.dropbox.com/u/54372958/multirom_V.zip",
+                "http://dl.dropbox.com/u/54372958/multirom_man_V.txt",
+                "http://dl.dropbox.com/u/54372958/multirom_ver_V.txt",
+                new String[][]
+                { 
+                    { "CWM", "http://dl.dropbox.com/u/54372958/recovery_cwm_V.img" },
+                    null,
+                }),
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -62,6 +76,7 @@ public class Updater extends Activity
         m_updating = false;
         con = this;
         m_updated = false;
+        setDevice();
         GetVersion();
     }
     
@@ -88,6 +103,23 @@ public class Updater extends Activity
             return true;
         }
         return super.onKeyDown(keyCode, event);
+    }
+    
+    private void setDevice()
+    {
+        String res = MultiROMMgrActivity.runRootCommand("cat /proc/cpuinfo | grep Hardware");
+        if(res == null)
+        {
+            m_device = DEVICE[0];
+            return;
+        }
+        m_device = null;
+        for(int i = 0; i < DEVICE.length && m_device == null; ++i)
+            if(res.contains(DEVICE[i].name))
+                m_device = DEVICE[i];    
+        if(m_device == null)
+            m_device = DEVICE[0];
+        SetStatus(getResources().getString(R.string.device) + " " + m_device.name);
     }
     
     private void SetStatus(String text)
@@ -243,13 +275,13 @@ public class Updater extends Activity
                     try { Thread.sleep(300); } catch (InterruptedException e) { }
                 }
                 
-                if(LINK_RECOVERY[m_recovery] == null)
+                if(m_device.link_recovery[m_recovery] == null)
                 {
                     m_status.sendEmptyMessage(5);
                     return;
                 }
                 m_status.sendEmptyMessage(12);
-                if(!DownloadFile(LINK_RECOVERY[m_recovery], RECOVERY_LOC, RECOVERY_SIZE))
+                if(!DownloadFile(m_device.link_recovery[m_recovery][1], RECOVERY_LOC, RECOVERY_SIZE))
                 {
                     m_status.sendEmptyMessage(11);
                     return;
@@ -289,7 +321,7 @@ public class Updater extends Activity
     {
         String manifest = "";
         try {
-            URL address = new URL(LINK_MANIFEST);
+            URL address = new URL(m_device.link_manifest);
             URLConnection conn = address.openConnection();
             InputStream is = conn.getInputStream();
             BufferedInputStream bis = new BufferedInputStream(is);
@@ -312,7 +344,7 @@ public class Updater extends Activity
     
     private boolean DownloadPackage()
     {
-        if(!DownloadFile(LINK_PACKAGE, DOWNLOAD_LOC + UPDATE_PACKAGE, PACKAGE_SIZE))
+        if(!DownloadFile(m_device.link_package, DOWNLOAD_LOC + UPDATE_PACKAGE, PACKAGE_SIZE))
             return false;
 
         String md5 = MultiROMMgrActivity.runRootCommand("md5sum " + DOWNLOAD_LOC + UPDATE_PACKAGE);
@@ -329,7 +361,7 @@ public class Updater extends Activity
     
     private boolean DownloadVersions()
     {
-        return DownloadFile(LINK_VERSIONS, DOWNLOAD_LOC + UPDATE_PACKAGE, 1024*10);
+        return DownloadFile(m_device.link_versions, DOWNLOAD_LOC + UPDATE_PACKAGE, 1024*10);
     }
     
     private boolean DownloadFile(String url, String target, int size)
@@ -407,7 +439,14 @@ public class Updater extends Activity
                 
                 case 10:
                 {
-                    final CharSequence[] items = getResources().getStringArray(R.array.recovery_options);
+                    final CharSequence[] items = new CharSequence[m_device.link_recovery.length];
+                    for(int i = 0; i < m_device.link_recovery.length; ++i)
+                    {
+                        if(m_device.link_recovery[i] == null)
+                            items[i] = getResources().getString(R.string.no_install_rec);
+                        else
+                            items[i] = m_device.link_recovery[i][0];
+                    }
                     AlertDialog.Builder builder = new AlertDialog.Builder(con);
                     builder.setTitle(getResources().getString(R.string.select_recovery));
                     builder.setItems(items, m_onRecoverySelect);
@@ -437,4 +476,5 @@ public class Updater extends Activity
     private Context con;
     private boolean m_updated;
     private WakeLock m_lock;
+    private Device m_device;
 }
