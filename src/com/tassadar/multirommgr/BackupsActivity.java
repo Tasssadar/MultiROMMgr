@@ -264,30 +264,11 @@ public class BackupsActivity extends ListActivity
         }).start();
     }
     
-    private String MountSD()
-    {
-        String res = MultiROMMgrActivity.runRootCommand("mknod /dev/block/mmcblk0p97 b 179 2");
-        if(res == null || !res.equals(""))
-            return null;
-
-        String folder = null;
-        for(int i = 0; i < MOUNT_LOC.length; ++i)
-        {
-            File f = new File(MOUNT_LOC[i]);
-            if(f.exists() && f.isDirectory())
-                folder = MOUNT_LOC[i];
-        }
-        if(folder == null)
-            return null;
-        
-        res = MultiROMMgrActivity.runRootCommand("mount /dev/block/mmcblk0p97 " + folder + " -t auto");
-        if(res == null || !res.equals(""))
-            return null;
-        return folder;
-    }
-    
     private String[] CheckSDPath(String path)
     {
+        if(path == null)
+            return new String[] { null, null };
+
         String folder = null;
         String list = null;
         // Check main
@@ -318,41 +299,18 @@ public class BackupsActivity extends ListActivity
             public void run() {
                 String folder = null;
                 String list = null;
-                String mount = MultiROMMgrActivity.runRootCommand("mount");
-                if(mount == null)
-                    return;
-                mount = mount.replaceAll(" on ", " ");
-                String mount_sp[] = mount.split("\n");
-                for(int i = 0; i < mount_sp.length; ++i)
-                {
-                    if(mount_sp[i].startsWith(("/dev/block/mmcblk0p2")) || mount_sp[i].contains("/sd-ext") ||    
-                        mount_sp[i].contains("/sdroot"))
-                    {
-                        String s[] = CheckSDPath(mount_sp[i].split(" ")[1]);
-                        folder = s[0];
-                        list = s[1];
-                        break;
-                    }
-                }
+      
+                String s[] = CheckSDPath(Storage.getSDExt());
+                folder = s[0];
+                list = s[1];
                 
                 if(folder == null)
                 {
-                    Log.i(MultiROMMgrActivity.TAG, "Trying to mount sd-ext...");
-                    folder = MountSD();
-                    if(folder == null)
-                    {
-                        m_backLoading.sendMessage(m_backLoading.obtainMessage(5, 0, 0));
-                        return;
-                    }
-                    else
-                    {
-                        String s[] = CheckSDPath(folder);
-                        folder = s[0];
-                        list = s[1];
-                    }
+                    m_backLoading.sendMessage(m_backLoading.obtainMessage(5, 0, 0));
+                    return;
                 }
                 
-                if(list.equals(""))
+                if(list == null || list.equals(""))
                 {
                     m_backLoading.sendMessage(m_backLoading.obtainMessage(5, 1, 0));
                     return;

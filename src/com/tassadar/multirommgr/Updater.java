@@ -159,9 +159,9 @@ public class Updater extends Activity
                 Decompress d = new Decompress(DOWNLOAD_LOC + UPDATE_PACKAGE, UPDATE_FOLDER); 
                 if(!d.unzip())
                 {
-                	m_status.sendEmptyMessage(16);
-                	CleanUp();
-                	return;
+                    m_status.sendEmptyMessage(16);
+                    CleanUp();
+                    return;
                 }
                 
                 m_status.sendEmptyMessage(8);
@@ -207,6 +207,10 @@ public class Updater extends Activity
                     return;
                 }
                 CleanUp();
+                
+                String sd_ext = Storage.getSDExt();
+                if(sd_ext != null)
+                    MultiROMMgrActivity.runRootCommand("mkdir " + sd_ext + "/multirom");
                 
                 // Exit if multirom was installed
                 if(MultiROMMgrActivity.isInstalled())
@@ -320,8 +324,9 @@ public class Updater extends Activity
             BufferedInputStream bis = new BufferedInputStream(is);
             ByteArrayBuffer baf = new ByteArrayBuffer(size);
             int cur = 0;
-            while((cur = bis.read()) != -1)
-                baf.append((byte)cur);
+            byte buff[] = new byte[1024];
+            while((cur = bis.read(buff)) != -1)
+                baf.append(buff, 0, cur);
 
             FileOutputStream fos = new FileOutputStream(target);
             fos.write(baf.toByteArray());
