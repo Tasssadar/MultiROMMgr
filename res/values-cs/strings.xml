@@ -51,18 +51,22 @@
         <item>Nastavení Boot manažeru</item>
         <item>Spravovat zálohy</item>
         <item>MultiROM</item>
+        <item>Info &amp; changelog</item>
     </string-array>
     <string-array name="list_summaries_installed">
         <item>Nastavení časového pásma, prodlevy a dalších věcí</item>
         <item>Zálohy můžete smazat, přejmenovat a přesunout do aktivní složky</item>
         <item>Zkontrolovat aktualizace</item>
+        <item>Přejít na topic na XDA</item>
     </string-array>
     
     <string-array name="list_titles_not_in">
         <item>MultiROM není nainstalována nebo nebyla nalezena</item>
+        <item>Info &amp; changelog</item>
     </string-array>
     <string-array name="list_summaries_not_in">
         <item>Nainstalovat</item>
+        <item>Přejít na topic na XDA</item>
     </string-array>
     
         

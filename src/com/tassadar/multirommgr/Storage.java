@@ -4,7 +4,10 @@ import java.io.File;
 
 public class Storage
 {
-    private static final String MOUNT_LOC[] = new String[] { "/sd-ext", "/system/sd" }; 
+    private static final String MOUNT_LOC[] = new String[] { "/sd-ext", "/system/sd" };
+    private static final String OWN_MNT_LOC = "/data/local/mnt";
+    private static final String FS[] = new String[] { "ext2", "ext4", "ext3" }; 
+    private static final String NODE = "/dev/block/mmcblk0p97";
 
     public static String getSDExt()
     {
@@ -15,8 +18,8 @@ public class Storage
         String mount_sp[] = mount.split("\n");
         for(int i = 0; i < mount_sp.length; ++i)
         {
-            if(mount_sp[i].startsWith(("/dev/block/mmcblk0p2")) || mount_sp[i].contains("/sd-ext") ||    
-                mount_sp[i].contains("/sdroot"))
+            if(mount_sp[i].startsWith(("/dev/block/mmcblk0p2")) || mount_sp[i].startsWith(NODE) ||
+               mount_sp[i].contains("/sd-ext") || mount_sp[i].contains("/sdroot"))
             {
                 return mount_sp[i].split(" ")[1];
             }
@@ -26,8 +29,8 @@ public class Storage
     
     private static String MountSD()
     {
-        String res = MultiROMMgrActivity.runRootCommand("mknod /dev/block/mmcblk0p97 b 179 2");
-        if(res == null || !res.equals(""))
+        String res = MultiROMMgrActivity.runRootCommand("mknod " + NODE + " b 179 2");
+        if(!(res != null && (res.equals("") || res.contains("File exists"))))
             return null;
 
         String folder = null;
@@ -37,12 +40,19 @@ public class Storage
             if(f.exists() && f.isDirectory())
                 folder = MOUNT_LOC[i];
         }
+
         if(folder == null)
-            return null;
+        {
+            MultiROMMgrActivity.runRootCommand("mkdir " + OWN_MNT_LOC);
+            folder = OWN_MNT_LOC;
+        }
         
-        res = MultiROMMgrActivity.runRootCommand("mount /dev/block/mmcblk0p97 " + folder + " -t auto");
-        if(res == null || !res.equals(""))
-            return null;
-        return folder;
+        for(int i = 0; i < FS.length; ++i)
+        {
+            res = MultiROMMgrActivity.runRootCommand("mount -t " + FS[i] + " /dev/block/mmcblk0p97 " + folder);
+            if(res != null && res.equals(""))
+                return folder;
+        }
+        return null;
     }
 }

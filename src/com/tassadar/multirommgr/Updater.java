@@ -61,7 +61,22 @@ public class Updater extends Activity
         Btn(false);
         m_updating = false;
         con = this;
+        m_updated = false;
         GetVersion();
+    }
+    
+    @Override
+    protected void onDestroy()
+    {
+        setResult(m_updated ? RESULT_OK : RESULT_CANCELED);
+        super.onDestroy();
+    }
+
+    @Override
+    public void onBackPressed()
+    {
+        setResult(m_updated ? RESULT_OK : RESULT_CANCELED);
+        super.onBackPressed();
     }
     
     @Override
@@ -144,7 +159,9 @@ public class Updater extends Activity
         PowerManager pm = (PowerManager) getSystemService(Context.POWER_SERVICE);
         m_lock = pm.newWakeLock(PowerManager.SCREEN_DIM_WAKE_LOCK, "MultiROM updater WakeLock");
         m_lock.acquire();
-       
+        
+        m_updated = true;
+        
         new Thread(new Runnable() {
             public void run() {
                 //Package
@@ -338,7 +355,7 @@ public class Updater extends Activity
         return true;
     }
     
-    private android.content.DialogInterface.OnClickListener m_onRecoverySelect = new android.content.DialogInterface.OnClickListener()
+    private final android.content.DialogInterface.OnClickListener m_onRecoverySelect = new android.content.DialogInterface.OnClickListener()
     {
         @Override
         public void onClick(DialogInterface arg0, int arg1) {
@@ -346,7 +363,7 @@ public class Updater extends Activity
         }
     };
 
-    private Handler m_status = new Handler()
+    private final Handler m_status = new Handler()
     {
         @Override
         public void handleMessage(Message msg)
@@ -418,5 +435,6 @@ public class Updater extends Activity
     private boolean m_updating;
     private byte m_recovery;
     private Context con;
+    private boolean m_updated;
     private WakeLock m_lock;
 }

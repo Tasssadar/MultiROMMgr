@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/menu_reload_mr"
+          android:title="@string/reload_mr"
+          android:icon="@drawable/ic_menu_refresh" />
+    <item android:id="@+id/menu_reboot"
+          android:title="@string/reboot_menu"
+          android:icon="@drawable/ic_menu_refresh" />      
+</menu>

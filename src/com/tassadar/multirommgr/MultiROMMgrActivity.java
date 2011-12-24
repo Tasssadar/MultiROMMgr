@@ -18,12 +18,17 @@ import android.app.Dialog;
 import android.app.ListActivity;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
+import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.content.res.AssetManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ListAdapter;
 import android.widget.ListView;
@@ -35,7 +40,7 @@ public class MultiROMMgrActivity extends ListActivity
     public static final String BASE = "/data/data/com.tassadar.multirommgr/";
     public static final String MULTIROM_VERSIONS = "multirom_ver.txt";
     public static final String TAG = "MultiROMMgr";
-    //private static final String XDA = "http://forum.xda-developers.com/showthread.php?t=1304656";
+    private static final String XDA = "http://forum.xda-developers.com/showthread.php?t=1304656";
     private static final int LOADING_ROOT = 1;
     private static final int LOADING_MR   = 2;
     private static final int REQ_UPDATER  = 1;
@@ -58,20 +63,19 @@ public class MultiROMMgrActivity extends ListActivity
     @Override
     protected void onListItemClick (ListView l, View v, int position, long id)
     {
-        if(m_installed)
+        if(!m_installed)
+            position += 2;
+        switch(position)
         {
-            switch(position)
+            case 0: startActivity(new Intent(this, BMgrConf.class));        break;
+            case 1: startActivity(new Intent(this, BackupsActivity.class)); break;
+            case 2: startActivityForResult(new Intent(this, Updater.class), REQ_UPDATER); break;
+            case 3: 
             {
-                case 0: startActivity(new Intent(this, BMgrConf.class));        break;
-                case 1: startActivity(new Intent(this, BackupsActivity.class)); break;
-                case 2: startActivityForResult(new Intent(this, Updater.class), REQ_UPDATER); break;
-            }
-        }
-        else
-        {
-            switch(position)
-            {
-                case 0: startActivityForResult(new Intent(this, Updater.class), REQ_UPDATER); break;
+                Intent mktIntent = new Intent(Intent.ACTION_VIEW);
+                mktIntent.setData(Uri.parse(XDA));
+                startActivity(mktIntent);
+                break;
             }
         }
     }
@@ -79,12 +83,88 @@ public class MultiROMMgrActivity extends ListActivity
     @Override
     protected void onActivityResult (int requestCode, int resultCode, Intent data)
     {
-        if(requestCode == REQ_UPDATER)
+        if(requestCode == REQ_UPDATER && resultCode == RESULT_OK)
         {
             setLoadingDialog(getResources().getString(R.string.check_multirom));
             checkForMultiROM();
         }
     }
+    
+    @Override
+    public boolean onPrepareOptionsMenu (Menu menu)
+    {
+        return prepareMenu(menu);
+    }
+    
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu)
+    {
+        return prepareMenu(menu);
+    }
+    
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item)
+    {    
+        switch(item.getItemId())
+        {
+            case R.id.menu_reload_mr:
+                setLoadingDialog(getResources().getString(R.string.check_multirom));
+                checkForMultiROM();
+                return true;
+            case R.id.menu_reboot:
+            {
+                m_reboot_option = 0;
+                final CharSequence[] items = getResources().getStringArray(R.array.reboot_options);
+                AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                builder.setTitle(getResources().getString(R.string.reboot_choose));
+                builder.setSingleChoiceItems(items, 0, m_onRebootButton);
+                builder.setPositiveButton(getResources().getString(R.string.reboot_menu), m_onRebootSelect);
+                builder.setCancelable(true);
+                builder.create().show();
+                return true;
+            }
+        }
+        return super.onOptionsItemSelected(item);
+    }
+    
+    private boolean prepareMenu(Menu menu)
+    {
+        MenuInflater inflater = getMenuInflater();
+        menu.clear();
+        inflater.inflate(R.menu.main_menu, menu);
+        return true;
+    }
+    
+    private final OnClickListener m_onRebootSelect = new OnClickListener()
+    {
+        @Override
+        public void onClick(DialogInterface dialog, int which)
+        {
+            setLoadingDialog(getResources().getString(R.string.rebooting));
+            new Thread(new Runnable() {
+                public void run() {
+                    try { Thread.sleep(500); } catch (InterruptedException e) { }
+                    String cmd = "reboot";
+                    switch(m_reboot_option)
+                    {
+                        case 1: cmd += " recovery"; break;
+                        case 2: cmd += " bootloader"; break; 
+                    }
+                    runRootCommand("sync");
+                    runRootCommand(cmd);
+                }
+            }).start();
+        }
+    };
+
+    private final OnClickListener m_onRebootButton = new OnClickListener()
+    {
+        @Override
+        public void onClick(DialogInterface dialog, int which)
+        {
+            m_reboot_option = which;
+        }
+    };
     
     private void checkForRoot()
     {
@@ -188,7 +268,13 @@ public class MultiROMMgrActivity extends ListActivity
         {
             title = getResources().getStringArray(R.array.list_titles_installed);
             summary = getResources().getStringArray(R.array.list_summaries_installed);
-            image = new int[] { R.drawable.ic_menu_preferences, R.drawable.rom_backup, R.drawable.rom_update };
+            image = new int[]
+            {
+                R.drawable.ic_menu_preferences,
+                R.drawable.rom_backup,
+                R.drawable.rom_update,
+                R.drawable.ic_menu_info_details
+            };
             // set version
             title[2] = title[2] + " " + m_version;
         }
@@ -196,7 +282,7 @@ public class MultiROMMgrActivity extends ListActivity
         {
             title = getResources().getStringArray(R.array.list_titles_not_in);
             summary = getResources().getStringArray(R.array.list_summaries_not_in);
-            image = new int[] { R.drawable.rom_update };
+            image = new int[] { R.drawable.rom_update, R.drawable.ic_menu_info_details };
         }
             
         int[] to = new int[] { R.id.image, R.id.title, R.id.summary };
@@ -321,6 +407,8 @@ public class MultiROMMgrActivity extends ListActivity
         try {
             while((read = proc.getInputStream().read()) != -1)
                 sbstdOut.append((char)read);
+            while((read = proc.getErrorStream().read()) != -1)
+                sbstdOut.append((char)read);
         } catch (IOException e) { }
         
         String res = sbstdOut.toString();
@@ -377,4 +465,5 @@ public class MultiROMMgrActivity extends ListActivity
     private static boolean m_installed;
     private static String m_version;
     private String MD5[][];
+    private int m_reboot_option;
 }

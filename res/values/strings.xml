@@ -54,7 +54,7 @@
     <string name="current_version">Current version:</string>
     <string name="newest_version">Newest version:</string>
     <string name="no_update">No update available</string>
-    <string name="press_update">Press update to begin</string>
+    <string name="press_update">Press update to begin\nWARNING: There must be at least 15MB of free space in /data</string>
     <string name="update_wait">Please wait until update finishes</string>
     <string name="select_recovery">Select recovery</string>
     <string name="rec_down_err">Couldn\'t download recovery!</string>
@@ -63,6 +63,10 @@
     <string name="rec_flash_err">Error while flashing recovery!</string>
     <string name="reboot">Complete, rebooting phone</string>
     <string name="unzip_error">Couldn\'t extract package! There must be at least 20mb of free space in /data.</string>
+    <string name="reload_mr">Refresh MultiROM status</string>
+    <string name="reboot_menu">Reboot</string>
+    <string name="reboot_choose">Choose mode</string>
+    <string name="rebooting">Rebooting phone...</string>
     
     <string-array name="backup_options">
         <item>Switch with active</item>
@@ -74,24 +78,32 @@
         <item>CWM</item>
         <item>Do not install</item>
     </string-array>
+    
+    <string-array name="reboot_options">
+        <item>Normal</item>
+        <item>Recovery</item>
+        <item>Bootloader</item>
+    </string-array>
 
     <string-array name="list_titles_installed">
         <item>Configure Boot Manager</item>
         <item>Manage backups</item>
         <item>MultiROM</item>
+        <item>Info &amp; changelog</item>
     </string-array>
     <string-array name="list_summaries_installed">
         <item>Set timezone, default timeout and more</item>
         <item>You can rename, delete and move backups</item>
         <item>Tap to check for update</item>
+        <item>Tap to enter XDA thread</item>
     </string-array>
     
     <string-array name="list_titles_not_in">
         <item>MultiROM not installed or not found</item>
+        <item>Info &amp; changelog</item>
     </string-array>
     <string-array name="list_summaries_not_in">
         <item>Tap install via this app</item>
+        <item>Tap to enter XDA thread</item>
     </string-array>
-    
-        
 </resources>

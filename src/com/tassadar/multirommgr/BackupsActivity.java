@@ -1,6 +1,5 @@
 package com.tassadar.multirommgr;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
@@ -16,7 +15,6 @@ import android.content.DialogInterface.OnClickListener;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -36,8 +34,6 @@ public class BackupsActivity extends ListActivity
 {
     private static final String MULTIROM_BACK = "/multirom/backup/";
     private static final String MULTIROM_MAIN = "/multirom/rom";
-    
-    private static final String MOUNT_LOC[] = new String[] { "/sd-ext", "/system/sd" }; 
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -54,22 +50,21 @@ public class BackupsActivity extends ListActivity
     @Override
     public boolean onPrepareOptionsMenu (Menu menu)
     {
-        prepareMenu(menu);
-        return true;
+        return prepareMenu(menu);
     }
     
     @Override
     public boolean onCreateOptionsMenu(Menu menu)
     {
-        prepareMenu(menu);
-        return true;
+        return prepareMenu(menu);
     }
     
-    private void prepareMenu(Menu menu)
+    private boolean prepareMenu(Menu menu)
     {
         MenuInflater inflater = getMenuInflater();
         menu.clear();
         inflater.inflate(R.menu.backups_menu, menu);
+        return true;
     }
     
     @Override
@@ -131,7 +126,7 @@ public class BackupsActivity extends ListActivity
         m_renameDial.show();
     }
     
-    OnItemLongClickListener m_longClick = new OnItemLongClickListener()
+    private final OnItemLongClickListener m_longClick = new OnItemLongClickListener()
     {
         @Override
         public boolean onItemLongClick(AdapterView<?> arg0, View v,
@@ -150,7 +145,7 @@ public class BackupsActivity extends ListActivity
         
     };
     
-    OnClickListener m_onOptionsClick = new OnClickListener()
+    private final OnClickListener m_onOptionsClick = new OnClickListener()
     {
         @Override
         public void onClick(DialogInterface dialog, int which) {
@@ -208,6 +203,14 @@ public class BackupsActivity extends ListActivity
             s = "0" + s;
         return s;
     }
+    
+    private boolean ROMExists(String name)
+    {
+        for(int i = 0; i < m_rom_list.length; ++i)
+            if(name.equals(m_rom_list[i]))
+                return true;
+        return false;
+    }
     private String getNewBackName()
     {
         Calendar c = Calendar.getInstance();
@@ -216,7 +219,15 @@ public class BackupsActivity extends ListActivity
         date += fixLen(String.valueOf(c.get(Calendar.DATE)), 2) + "-";
         date += fixLen(String.valueOf(c.get(Calendar.HOUR_OF_DAY)), 2);
         date += fixLen(String.valueOf(c.get(Calendar.MINUTE)), 2);
-        return "rom_" + date;
+        date = "rom_" + date;
+        if(!ROMExists(date))
+            return date;
+        
+        for(int i = 1; true; ++i)
+        {
+            if(!ROMExists(date + "-" + i))
+                return date + "-" + i;
+        }
     }
     
     private void SwitchWithActive()
@@ -241,7 +252,7 @@ public class BackupsActivity extends ListActivity
                 else
                 {
                     res = MultiROMMgrActivity.runRootCommand("rm -r " + m_folder_main);
-                    if(res == null || !res.equals(""))
+                    if(res == null || (!res.equals("") && !res.contains("No such file")))
                     {
                         send(-3);
                         return;
@@ -316,20 +327,20 @@ public class BackupsActivity extends ListActivity
                     return;
                 }
 
-                String list_sp[] = list.split("\n");
+                m_rom_list = list.split("\n");
                 m_fillMaps = new ArrayList<HashMap<String, String>>();
-                for(int i = 0; i < list_sp.length; ++i)
+                for(int i = 0; i < m_rom_list.length; ++i)
                 {
-                    String sum = MultiROMMgrActivity.runRootCommand("du -h -d0 " + folder + list_sp[i]);
+                    String sum = MultiROMMgrActivity.runRootCommand("du -h -d0 " + folder + m_rom_list[i]);
                     if(sum == null)
                         sum = getResources().getString(R.string.size) + " N/A M";
                     else
                         sum = getResources().getString(R.string.size) + " " + sum.split("\t")[0];
                     HashMap<String, String> map = new HashMap<String, String>();
-                    map.put("title", list_sp[i]);
+                    map.put("title", m_rom_list[i]);
                     map.put("summary", sum);
                     m_fillMaps.add(map);
-                    m_backLoading.sendMessage(m_backLoading.obtainMessage(0, ((i+1)*10000/list_sp.length), 0));
+                    m_backLoading.sendMessage(m_backLoading.obtainMessage(0, ((i+1)*10000/m_rom_list.length), 0));
                 }
                 m_folder_backups = folder;
             }
@@ -365,7 +376,7 @@ public class BackupsActivity extends ListActivity
         m_loading.show();
     }
     
-    private Handler m_backLoading = new Handler()
+    private final Handler m_backLoading = new Handler()
     {
         @Override
         public void handleMessage(Message msg)
@@ -467,4 +478,5 @@ public class BackupsActivity extends ListActivity
     private ProgressDialog m_loading;
     private String m_selectedBackup;
     private boolean m_activePresent;
+    private String m_rom_list[];
 }
