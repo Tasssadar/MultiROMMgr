@@ -69,7 +69,12 @@
     <string name="rebooting">Rebooting phone...</string>
     <string name="device">Device:</string>
     <string name="no_install_rec">Do not install</string>
-    
+    <string name="app_check">Checking for app update</string>
+    <string name="app_check_err">Couldn\'t download info from server!</string>
+    <string name="update_avail">There is an update available for MultiROM Mgr app. It is recommended to install it before using updater.</string>
+    <string name="install">Download update</string>
+    <string name="no_thanks">No, thanks</string>
+
     <string-array name="backup_options">
         <item>Switch with active</item>
         <item>Erase</item>

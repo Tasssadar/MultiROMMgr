@@ -55,6 +55,7 @@ public class MultiROMMgrActivity extends ListActivity
         m_version = getResources().getString(R.string.unknown_version);
         m_installed = true;
         MD5 = new String[0][0];
+        m_unk_ver_str = getResources().getString(R.string.unknown_version);
         setLoadingDialog(getResources().getString(R.string.check_root));
         CopyAssets();
         checkForRoot();
@@ -193,7 +194,7 @@ public class MultiROMMgrActivity extends ListActivity
                         return;
                     }
                 }  
-                m_version = getVersion();
+                m_version = checkVersion();
                 send(1);
             }
             private void send(int res)
@@ -301,7 +302,7 @@ public class MultiROMMgrActivity extends ListActivity
         setListAdapter(m_adapter);
     }
     
-    private String getVersion()
+    private static String checkVersion()
     {
         File versions = new File(BASE + MULTIROM_VERSIONS);
         
@@ -330,7 +331,7 @@ public class MultiROMMgrActivity extends ListActivity
             for(int i = 0; i < MD5.length; ++i)
                 if(MD5[i][0].equals(res))
                     return MD5[i][1];
-            res = getResources().getString(R.string.unknown_version);
+            res = m_unk_ver_str;
         }
         return res;
     }
@@ -457,13 +458,19 @@ public class MultiROMMgrActivity extends ListActivity
         }
     }
     
-    public static String getMRVersion() { return m_version; }
+    public static String getVersion(boolean recheck)
+    {
+        if(recheck)
+            m_version = checkVersion();
+        return m_version;
+    }
     public static boolean isInstalled() { return m_installed; }
 
     private ListAdapter m_adapter;
     private ProgressDialog m_loading;
     private static boolean m_installed;
     private static String m_version;
-    private String MD5[][];
+    private static String MD5[][];
+    private static String m_unk_ver_str;
     private int m_reboot_option;
 }

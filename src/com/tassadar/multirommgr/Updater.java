@@ -19,6 +19,9 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.pm.PackageManager.NameNotFoundException;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -34,7 +37,9 @@ import android.widget.Toast;
 
 public class Updater extends Activity
 {
+    private static final String LINK_APP_VER = "http://dl.dropbox.com/u/54372958/mgr_ver.txt";
     private static final String UPDATE_PACKAGE = "multirom.zip";
+    private static final String FILE_VERSIONS = MultiROMMgrActivity.BASE + "/multirom_ver.txt";
     private static final String DOWNLOAD_LOC = MultiROMMgrActivity.BASE;
     private static final String UPDATE_FOLDER = MultiROMMgrActivity.BASE + "multirom/";
     private static final String RECOVERY_LOC = MultiROMMgrActivity.BASE + "recovery.img";
@@ -77,7 +82,7 @@ public class Updater extends Activity
         con = this;
         m_updated = false;
         setDevice();
-        GetVersion();
+        GetVersion(true);
     }
     
     @Override
@@ -143,21 +148,53 @@ public class Updater extends Activity
         }
     };
     
-    private void GetVersion()
+    private class VerCkThread extends Thread
     {
-        setProgressBarIndeterminateVisibility(true);
-        new Thread(new Runnable() {
-            public void run() {
-                //Manifest
-                m_status.sendEmptyMessage(0);
-                if(!DownloadVersions() || !DownloadManifest())
+        private boolean m_update;
+        public VerCkThread(boolean update)
+        {
+            m_update = update;
+        }
+
+        public void run() {
+            if(m_update)
+            {
+                //Mgr App version
+                m_status.sendEmptyMessage(17);
+                if(!DownloadAppVersion())
                 {
-                    m_status.sendEmptyMessage(2);
+                    m_status.sendEmptyMessage(18);
                     return;
                 }
-                m_status.sendEmptyMessage(9);
+                try {
+                    if(m_app_link != null && 
+                       m_app_ver > getPackageManager().getPackageInfo(con.getPackageName(), 0).versionCode)
+                    {
+                        m_status.sendEmptyMessage(19);
+                        return;
+                    }
+                } catch (NameNotFoundException e) { }
             }
-        }).start();
+            //Manifest
+            m_status.sendEmptyMessage(0);
+            if(!DownloadVersions() || !DownloadManifest())
+            {
+                m_status.sendEmptyMessage(2);
+                return;
+            }
+            //Recheck MD5 with new versions file
+            String oldVer = MultiROMMgrActivity.getVersion(false);
+            String newVer = MultiROMMgrActivity.getVersion(true);
+            if(!oldVer.equals(newVer))
+                m_updated = true;
+            m_status.sendEmptyMessage(9);
+        }
+    }
+    
+    private void GetVersion(boolean update)
+    {
+        setProgressBarIndeterminateVisibility(true);
+        new VerCkThread(update).start();
     }
     
     private void RemoveSH(String path)
@@ -361,7 +398,7 @@ public class Updater extends Activity
     
     private boolean DownloadVersions()
     {
-        return DownloadFile(m_device.link_versions, DOWNLOAD_LOC + UPDATE_PACKAGE, 1024*10);
+        return DownloadFile(m_device.link_versions, FILE_VERSIONS, 1024*10);
     }
     
     private boolean DownloadFile(String url, String target, int size)
@@ -387,11 +424,54 @@ public class Updater extends Activity
         return true;
     }
     
+    private boolean DownloadAppVersion()
+    {
+        try {
+            m_app_ver = getPackageManager().getPackageInfo(this.getPackageName(), 0).versionCode;
+        } catch (NameNotFoundException e1) {
+            m_app_ver = -1;
+        }
+        try {
+            URL address = new URL(LINK_APP_VER);
+            URLConnection conn = address.openConnection();
+            InputStream is = conn.getInputStream();
+            BufferedInputStream bis = new BufferedInputStream(is);
+            int cur = 0;
+            String tmp = "";
+            while((cur = bis.read()) != -1)
+                 tmp += String.valueOf((char)cur);
+            m_app_ver = Integer.valueOf(tmp.split("\n")[0]);
+            m_app_link = tmp.split("\n")[1];
+        }
+        catch(IOException e) {
+            return false;
+        }
+        return true;
+    }
+    
     private final android.content.DialogInterface.OnClickListener m_onRecoverySelect = new android.content.DialogInterface.OnClickListener()
     {
         @Override
         public void onClick(DialogInterface arg0, int arg1) {
             m_recovery = (byte)arg1;
+        }
+    };
+    
+    private final android.content.DialogInterface.OnClickListener m_click_install = new android.content.DialogInterface.OnClickListener()
+    {
+        @Override
+        public void onClick(DialogInterface arg0, int arg1) {
+            Intent mktIntent = new Intent(Intent.ACTION_VIEW);
+            mktIntent.setData(Uri.parse(m_app_link));
+            startActivity(mktIntent);
+        }
+    };
+    
+    private final android.content.DialogInterface.OnClickListener m_click_no = new android.content.DialogInterface.OnClickListener()
+    {
+        @Override
+        public void onClick(DialogInterface arg0, int arg1) {
+            GetVersion(false);
         }
     };
 
@@ -409,6 +489,7 @@ public class Updater extends Activity
                 case 8:  SetStatus(getResources().getString(R.string.exec_package));  off=false; break;
                 case 12: SetStatus(getResources().getString(R.string.rec_down));      off=false; break;
                 case 13: SetStatus(getResources().getString(R.string.rec_flash));     off=false; break;
+                case 17: SetStatus(getResources().getString(R.string.app_check));     off=false; break;
             
                 case 2:  SetStatus(getResources().getString(R.string.down_manifest_error)); break;
                 case 3:  SetStatus(getResources().getString(R.string.down_pack_error));     break;
@@ -419,14 +500,16 @@ public class Updater extends Activity
                 case 14: SetStatus(getResources().getString(R.string.rec_flash_err));       break;
                 case 15: SetStatus(getResources().getString(R.string.reboot));              break;
                 case 16: SetStatus(getResources().getString(R.string.unzip_error));         break;
+                case 18: SetStatus(getResources().getString(R.string.app_check_err));       break;
                 
+                // Show versions
                 case 9:
                 {
                     String text = getResources().getString(R.string.current_version);
-                    text += " " + MultiROMMgrActivity.getMRVersion() + "\n";
+                    text += " " + MultiROMMgrActivity.getVersion(false) + "\n";
                     text += getResources().getString(R.string.newest_version);
                     text += " " + manifest_version + "\n";
-                    if(manifest_version.equals(MultiROMMgrActivity.getMRVersion()))
+                    if(manifest_version.equals(MultiROMMgrActivity.getVersion(false)))
                         text += getResources().getString(R.string.no_update);
                     else
                     {
@@ -436,7 +519,7 @@ public class Updater extends Activity
                     SetStatus(text);
                     break;
                 }
-                
+                // Recovery selection
                 case 10:
                 {
                     final CharSequence[] items = new CharSequence[m_device.link_recovery.length];
@@ -453,6 +536,18 @@ public class Updater extends Activity
                     builder.setCancelable(false);
                     builder.create().show();
                     off = false;
+                    break;
+                }
+                // Download app update
+                case 19:
+                {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(con);
+                    builder.setTitle(getResources().getString(R.string.update));
+                    builder.setMessage(getResources().getString(R.string.update_avail));
+                    builder.setPositiveButton(getResources().getString(R.string.install), m_click_install);
+                    builder.setNegativeButton(getResources().getString(R.string.no_thanks), m_click_no);
+                    builder.setCancelable(false);
+                    builder.create().show();
                     break;
                 }
             }
@@ -477,4 +572,6 @@ public class Updater extends Activity
     private boolean m_updated;
     private WakeLock m_lock;
     private Device m_device;
+    private int m_app_ver;
+    private String m_app_link;
 }

@@ -69,6 +69,11 @@
     <string name="rebooting">Restartuji telefon...</string>
     <string name="device">Model:</string>
     <string name="no_install_rec">Neinstalovat</string>
+    <string name="app_check">Hledám aktualizace této aplikace</string>
+    <string name="app_check_err">Nemůžu stáhnout info ze serveru!</string>
+    <string name="update_avail">Je dostupná aktualizace pro MultiROM Manažera. Doporučuji tuto aktualizaci nainstalovat.</string>
+    <string name="install">Stáhnout aktualizaci</string>
+    <string name="no_thanks">Ne, díky</string>
    
     <string-array name="backup_options">
         <item>Přehodit s aktivní</item>
