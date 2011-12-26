@@ -22,6 +22,9 @@
             android:key="conf_timezone"
             android:title="@string/timezone"
             android:summary="@string/timezone_sum"/>
+        <com.tassadar.multirommgr.TetrisMaxPreference
+            android:key="tetris_max"
+            android:title="@string/tetris_max"/>
 
     </PreferenceCategory>
 </PreferenceScreen>

@@ -7,11 +7,16 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.DialogInterface.OnClickListener;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.preference.CheckBoxPreference;
 import android.preference.EditTextPreference;
+import android.preference.Preference;
 import android.preference.PreferenceActivity;
 import android.widget.Toast;
 
@@ -32,6 +37,8 @@ public class BMgrConf extends PreferenceActivity
         show_seconds = false;
         
         addPreferencesFromResource(R.xml.bmgr_config);
+        m_tetris_max = (TetrisMaxPreference)findPreference("tetris_max");
+        m_tetris_max.setHandler(m_confLoaded);
         getListView().setEnabled(false);
         getListView().setClickable(false);
         SetValues();
@@ -41,10 +48,10 @@ public class BMgrConf extends PreferenceActivity
     @Override
     public void onStop()
     {
-    	super.onStop();
-    	if(!getListView().isEnabled())
-    		return;
-    	
+        super.onStop();
+        if(!getListView().isEnabled())
+            return;
+        
         String text = null;
         GetValues();
         try {
@@ -53,6 +60,7 @@ public class BMgrConf extends PreferenceActivity
             w.append("timeout = " + String.valueOf(timeout) + "\r\n");
             w.append("show_seconds = " + (show_seconds ? "1" : "0") + "\r\n");
             w.append("touch_ui = " + (touch_ui ? "1" : "0") + "\r\n");
+            w.append("tetris_max_score = " + String.valueOf(tetris_max_score) + "\r\n");
             w.close();
             text = getResources().getString(R.string.conf_w_succes); 
         }
@@ -74,6 +82,8 @@ public class BMgrConf extends PreferenceActivity
         e.setText(String.valueOf(timezone));
         e = (EditTextPreference)findPreference("conf_timeout");
         e.setText(String.valueOf(timeout));
+        
+        m_tetris_max.setSummary(getResources().getString(R.string.tetris_max_sum) + " " + tetris_max_score);
     }
     
     private void GetValues()
@@ -150,6 +160,13 @@ public class BMgrConf extends PreferenceActivity
                                 if(tmp == 0 || tmp == 1)
                                     touch_ui = tmp == 1 ? true : false;
                             }
+                            else if(split[0].startsWith("tetris_max_score"))
+                            {
+                                int tmp = tetris_max_score;
+                                try { tmp = Integer.valueOf(split[1]); }
+                                catch(NumberFormatException e) { }
+                                tetris_max_score = tmp;
+                            }
                         }
                         buffreader.close();
                         inputreader.close();
@@ -163,19 +180,47 @@ public class BMgrConf extends PreferenceActivity
           }).start();
     }
     
+    private void displayTetrisDialog()
+    {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle(getResources().getString(R.string.reset_high_score));
+        builder.setMessage(getResources().getString(R.string.tetris_dialog));
+        builder.setPositiveButton(getResources().getString(R.string.reset), m_click_reset);
+        builder.setNegativeButton(getResources().getString(R.string.no_thanks), null);
+        builder.setCancelable(true);
+        builder.create().show();
+    }
+    
     private Handler m_confLoaded = new Handler()
     {
         @Override
         public void handleMessage(Message msg)
         {
+            if(msg.what == 1)
+            {
+                displayTetrisDialog();
+                return;
+            }
             SetValues();
             getListView().setEnabled(true);
             getListView().setClickable(true);
         }
     };
     
+    private OnClickListener m_click_reset = new OnClickListener()
+    {
+        @Override
+        public void onClick(DialogInterface arg0, int arg1) {
+            tetris_max_score = 0;
+            SetValues();
+        }
+    };
+    
+    
     private float timezone;
     private byte timeout;
     private boolean touch_ui;
     private boolean show_seconds;
+    private int tetris_max_score;
+    private TetrisMaxPreference m_tetris_max;
 }

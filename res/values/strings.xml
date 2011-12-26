@@ -74,7 +74,12 @@
     <string name="update_avail">There is an update available for MultiROM Mgr app. It is recommended to install it before using updater.</string>
     <string name="install">Download update</string>
     <string name="no_thanks">No, thanks</string>
-
+    <string name="tetris_max">Tetris high score</string>
+    <string name="tetris_max_sum">Your high score:</string>
+    <string name="reset">Reset</string>
+    <string name="tetris_dialog">Do you wish to reset your high score?</string>
+    <string name="reset_high_score">Reset high score</string>
+    
     <string-array name="backup_options">
         <item>Switch with active</item>
         <item>Erase</item>

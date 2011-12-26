@@ -74,6 +74,11 @@
     <string name="update_avail">Je dostupná aktualizace pro MultiROM Manažera. Doporučuji tuto aktualizaci nainstalovat.</string>
     <string name="install">Stáhnout aktualizaci</string>
     <string name="no_thanks">Ne, díky</string>
+    <string name="tetris_max">Tetris rekord</string>
+    <string name="tetris_max_sum">Váš rekord:</string>
+    <string name="reset">Vymazat</string>
+    <string name="tetris_dialog">Opravdu váš rekord vymazat?</string>
+    <string name="reset_high_score">Vymazat rekord</string>
    
     <string-array name="backup_options">
         <item>Přehodit s aktivní</item>
