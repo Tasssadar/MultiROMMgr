@@ -8,7 +8,6 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 
 import android.app.AlertDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.os.Bundle;
@@ -16,7 +15,6 @@ import android.os.Handler;
 import android.os.Message;
 import android.preference.CheckBoxPreference;
 import android.preference.EditTextPreference;
-import android.preference.Preference;
 import android.preference.PreferenceActivity;
 import android.widget.Toast;
 
@@ -35,6 +33,7 @@ public class BMgrConf extends PreferenceActivity
         timeout = 3;
         touch_ui = true;
         show_seconds = false;
+        brightness = 100;
         
         addPreferencesFromResource(R.xml.bmgr_config);
         m_tetris_max = (TetrisMaxPreference)findPreference("tetris_max");
@@ -61,6 +60,7 @@ public class BMgrConf extends PreferenceActivity
             w.append("show_seconds = " + (show_seconds ? "1" : "0") + "\r\n");
             w.append("touch_ui = " + (touch_ui ? "1" : "0") + "\r\n");
             w.append("tetris_max_score = " + String.valueOf(tetris_max_score) + "\r\n");
+            w.append("brightness = " + String.valueOf(brightness) + "\r\n");
             w.close();
             text = getResources().getString(R.string.conf_w_succes); 
         }
@@ -84,6 +84,9 @@ public class BMgrConf extends PreferenceActivity
         e.setText(String.valueOf(timeout));
         
         m_tetris_max.setSummary(getResources().getString(R.string.tetris_max_sum) + " " + tetris_max_score);
+        
+        SeekBarPreference b = (SeekBarPreference)findPreference("conf_brightness");
+        b.setPctValue(brightness);
     }
     
     private void GetValues()
@@ -101,6 +104,9 @@ public class BMgrConf extends PreferenceActivity
         e = (EditTextPreference)findPreference("conf_timeout");
         try { timeout = Byte.valueOf(e.getText()); }
         catch(NumberFormatException ex) { }
+        
+        SeekBarPreference b = (SeekBarPreference)findPreference("conf_brightness");
+        brightness = (byte)b.getPctValue();
     }
     
     private void LoadConfig()
@@ -167,6 +173,13 @@ public class BMgrConf extends PreferenceActivity
                                 catch(NumberFormatException e) { }
                                 tetris_max_score = tmp;
                             }
+                            else if(split[0].startsWith("brightness"))
+                            {
+                                byte tmp = brightness;
+                                try { tmp = Integer.valueOf(split[1]).byteValue(); }
+                                catch(NumberFormatException e) { }
+                                brightness = tmp;
+                            }
                         }
                         buffreader.close();
                         inputreader.close();
@@ -222,5 +235,6 @@ public class BMgrConf extends PreferenceActivity
     private boolean touch_ui;
     private boolean show_seconds;
     private int tetris_max_score;
+    private byte brightness;
     private TetrisMaxPreference m_tetris_max;
 }

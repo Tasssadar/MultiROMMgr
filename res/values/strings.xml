@@ -79,6 +79,8 @@
     <string name="reset">Reset</string>
     <string name="tetris_dialog">Do you wish to reset your high score?</string>
     <string name="reset_high_score">Reset high score</string>
+    <string name="brightness">Brightness</string>
+    <string name="brightness_sum">Set display brightness</string>
     
     <string-array name="backup_options">
         <item>Switch with active</item>

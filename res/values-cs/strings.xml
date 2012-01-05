@@ -79,6 +79,8 @@
     <string name="reset">Vymazat</string>
     <string name="tetris_dialog">Opravdu váš rekord vymazat?</string>
     <string name="reset_high_score">Vymazat rekord</string>
+    <string name="brightness">Jas displeje</string>
+    <string name="brightness_sum">Nastavení jasu displeje v boot manažeru</string>
    
     <string-array name="backup_options">
         <item>Přehodit s aktivní</item>

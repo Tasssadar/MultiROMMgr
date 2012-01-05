@@ -253,7 +253,7 @@ public class Updater extends Activity
                 m_status.sendEmptyMessage(8);
                 // mount / as rw to create tmp
                 MultiROMMgrActivity.runRootCommand("mount -o remount,rw rootfs /");
-                String res = MultiROMMgrActivity.runRootCommand("mkdir /tmp");
+                String res = MultiROMMgrActivity.runRootCommand("busybox mkdir /tmp");
                 if(res == null || (!res.equals("") && !res.contains("exists")))
                 {
                     m_status.sendEmptyMessage(6);
@@ -296,7 +296,7 @@ public class Updater extends Activity
                 
                 String sd_ext = Storage.getSDExt();
                 if(sd_ext != null)
-                    MultiROMMgrActivity.runRootCommand("mkdir " + sd_ext + "/multirom");
+                    MultiROMMgrActivity.runRootCommand("busybox mkdir " + sd_ext + "/multirom");
                 
                 // Exit if multirom was installed
                 if(MultiROMMgrActivity.isInstalled())
