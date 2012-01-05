@@ -19,40 +19,40 @@ public class SeekBarPreference extends Preference
     @Override
     protected void onBindView (View view)
     {
-    	bar = (SeekBar)view.findViewById(R.id.brightSeekBar);
-    	bar.setMax(100);
-    	bar.setOnSeekBarChangeListener(seekBarChanged);
-    	pctText = (TextView)view.findViewById(R.id.brightPctVal);
-    	setPctValue(value);
+        bar = (SeekBar)view.findViewById(R.id.brightSeekBar);
+        bar.setMax(100);
+        bar.setOnSeekBarChangeListener(seekBarChanged);
+        pctText = (TextView)view.findViewById(R.id.brightPctVal);
+        setPctValue(value);
     }
     
     public void setPctValue(int pct)
     {
-    	value = pct;
-    	if(bar == null)
-    		return;
-    	bar.setProgress(pct);
-    	pctText.setText(pct + "%");
+        value = pct;
+        if(bar == null)
+            return;
+        bar.setProgress(pct);
+        pctText.setText(pct + "%");
     }
     
     public int getPctValue()
     {
-    	return value;
+        return value;
     }
     
     private final OnSeekBarChangeListener seekBarChanged = new OnSeekBarChangeListener()
     {
 
-		@Override
-		public void onProgressChanged(SeekBar arg0, int progress, boolean arg2) {
-			pctText.setText(progress + "%");
-			value = progress;
-		}
+        @Override
+        public void onProgressChanged(SeekBar arg0, int progress, boolean arg2) {
+            pctText.setText(progress + "%");
+            value = progress;
+        }
 
-		@Override
-		public void onStartTrackingTouch(SeekBar arg0) { }
-		@Override
-		public void onStopTrackingTouch(SeekBar arg0) { }
+        @Override
+        public void onStartTrackingTouch(SeekBar arg0) { }
+        @Override
+        public void onStopTrackingTouch(SeekBar arg0) { }
     };
     
     SeekBar bar;
