@@ -10,11 +10,16 @@ import java.io.InputStreamReader;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.preference.CheckBoxPreference;
 import android.preference.EditTextPreference;
+import android.preference.ListPreference;
+import android.preference.Preference;
+import android.preference.Preference.OnPreferenceChangeListener;
+import android.preference.Preference.OnPreferenceClickListener;
 import android.preference.PreferenceActivity;
 import android.widget.Toast;
 
@@ -22,6 +27,7 @@ import android.widget.Toast;
 public class BMgrConf extends PreferenceActivity
 {
     private static final String CONF_PATH = "/sdcard/multirom.txt";
+    private static final int REQ_ROM_NAME = 2;
     
     @Override
     public void onCreate(Bundle savedInstanceState)
@@ -34,6 +40,8 @@ public class BMgrConf extends PreferenceActivity
         touch_ui = true;
         show_seconds = false;
         brightness = 100;
+        default_boot = 0;
+        default_boot_sd = "";
         
         addPreferencesFromResource(R.xml.bmgr_config);
         m_tetris_max = (TetrisMaxPreference)findPreference("tetris_max");
@@ -42,6 +50,12 @@ public class BMgrConf extends PreferenceActivity
         getListView().setClickable(false);
         SetValues();
         LoadConfig();
+        
+        ListPreference loc = (ListPreference)findPreference("conf_default_boot");
+        loc.setOnPreferenceChangeListener(m_on_boot_loc_change);
+        
+        Preference sdRom = (Preference)findPreference("conf_default_boot_sd");
+        sdRom.setOnPreferenceClickListener(m_on_sd_rom_click);
     }
     
     @Override
@@ -61,6 +75,8 @@ public class BMgrConf extends PreferenceActivity
             w.append("touch_ui = " + (touch_ui ? "1" : "0") + "\r\n");
             w.append("tetris_max_score = " + String.valueOf(tetris_max_score) + "\r\n");
             w.append("brightness = " + String.valueOf(brightness) + "\r\n");
+            w.append("default_boot = " + String.valueOf(default_boot) + "\r\n");
+            w.append("default_boot_sd =" + default_boot_sd  + "\r\n");
             w.close();
             text = getResources().getString(R.string.conf_w_succes); 
         }
@@ -69,6 +85,16 @@ public class BMgrConf extends PreferenceActivity
         }
         
         Toast.makeText(this, text, Toast.LENGTH_SHORT).show();
+    }
+    
+    @Override
+    protected void onActivityResult (int requestCode, int resultCode, Intent data)
+    {
+        if(requestCode == REQ_ROM_NAME && resultCode == RESULT_OK)
+        {
+            default_boot_sd = data.getStringExtra("name");
+            setSdROMVal();
+        }
     }
     
     private void SetValues()
@@ -87,6 +113,29 @@ public class BMgrConf extends PreferenceActivity
         
         SeekBarPreference b = (SeekBarPreference)findPreference("conf_brightness");
         b.setPctValue(brightness);
+        
+        ListPreference loc = (ListPreference)findPreference("conf_default_boot");
+        loc.setValueIndex(default_boot);
+        
+        setSdROMVal();
+    }
+    
+    private void setSdROMVal()
+    {
+        Preference sdRom = (Preference)findPreference("conf_default_boot_sd");
+        sdRom.setEnabled(default_boot == (byte)1);
+        if(default_boot == (byte)1)
+        {
+            String text = default_boot_sd.replaceAll("\"", "");
+            if(text.replaceAll(" ", "").length() == 0)
+                sdRom.setSummary(R.string.default_boot_sd_active);
+            else
+                sdRom.setSummary(text);
+        }
+        else
+        {
+            sdRom.setSummary(R.string.default_boot_sd_dis);
+        }
     }
     
     private void GetValues()
@@ -107,6 +156,9 @@ public class BMgrConf extends PreferenceActivity
         
         SeekBarPreference b = (SeekBarPreference)findPreference("conf_brightness");
         brightness = (byte)b.getPctValue();
+        
+        ListPreference loc = (ListPreference)findPreference("conf_default_boot");
+        default_boot = Integer.valueOf(loc.getValue()).byteValue();
     }
     
     private void LoadConfig()
@@ -180,6 +232,17 @@ public class BMgrConf extends PreferenceActivity
                                 catch(NumberFormatException e) { }
                                 brightness = tmp;
                             }
+                            else if(split[0].startsWith("default_boot_sd"))
+                            {
+                                default_boot_sd = split[1];
+                            }
+                            else if(split[0].startsWith("default_boot"))
+                            {
+                                byte tmp = default_boot;
+                                try { tmp = Integer.valueOf(split[1]).byteValue(); }
+                                catch(NumberFormatException e) { }
+                                default_boot = tmp;
+                            }
                         }
                         buffreader.close();
                         inputreader.close();
@@ -229,6 +292,26 @@ public class BMgrConf extends PreferenceActivity
         }
     };
     
+    private OnPreferenceChangeListener m_on_boot_loc_change = new OnPreferenceChangeListener()
+    {
+        @Override
+        public boolean onPreferenceChange(Preference preference, Object newValue) {
+            String str = (String)newValue;
+            default_boot = Integer.valueOf(str).byteValue();
+            setSdROMVal();
+            return true;
+        }
+    };
+    
+    private OnPreferenceClickListener m_on_sd_rom_click = new OnPreferenceClickListener()
+    {
+        @Override
+        public boolean onPreferenceClick(Preference arg0) {
+            startActivityForResult(new Intent(arg0.getContext(), BackupsSelectActivity.class), REQ_ROM_NAME);
+            return true;
+        }
+    };
+    
     
     private float timezone;
     private byte timeout;
@@ -236,5 +319,7 @@ public class BMgrConf extends PreferenceActivity
     private boolean show_seconds;
     private int tetris_max_score;
     private byte brightness;
+    private byte default_boot;
+    private String default_boot_sd;
     private TetrisMaxPreference m_tetris_max;
 }

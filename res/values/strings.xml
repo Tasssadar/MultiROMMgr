@@ -81,6 +81,11 @@
     <string name="reset_high_score">Reset high score</string>
     <string name="brightness">Brightness</string>
     <string name="brightness_sum">Set display brightness</string>
+    <string name="default_boot">Boot location</string>
+    <string name="default_boot_sum">Set default boot location</string>
+    <string name="default_boot_sd">ROM from SD card</string>
+    <string name="default_boot_sd_dis">This option is only available when SD card is default boot location</string>
+    <string name="default_boot_sd_active">Current active ROM</string>
     
     <string-array name="backup_options">
         <item>Switch with active</item>
@@ -113,5 +118,15 @@
     <string-array name="list_summaries_not_in">
         <item>Tap to install via this app</item>
         <item>Tap to enter XDA thread</item>
+    </string-array>
+    
+    <string-array name="default_boot_entries">
+        <item>Internal memory</item>
+        <item>SD card</item>
+    </string-array>
+    
+    <string-array name="default_boot_values">
+        <item>0</item>
+        <item>1</item>
     </string-array>
 </resources>

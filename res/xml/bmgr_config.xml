@@ -4,6 +4,19 @@
     <PreferenceCategory
             android:title="@string/bmgr_conf">
 
+        <ListPreference
+            android:key="conf_default_boot"
+            android:title="@string/default_boot"
+            android:summary="@string/default_boot_sum"
+            android:entries="@array/default_boot_entries"
+            android:entryValues="@array/default_boot_values"
+            />
+        <Preference 
+            android:key="conf_default_boot_sd"
+            android:title="@string/default_boot_sd"
+            android:summary="@string/default_boot_sd_dis"
+            android:enabled="false"
+            />
         <CheckBoxPreference
             android:key="conf_show_seconds"
             android:title="@string/show_seconds"

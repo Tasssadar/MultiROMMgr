@@ -81,6 +81,11 @@
     <string name="reset_high_score">Vymazat rekord</string>
     <string name="brightness">Jas displeje</string>
     <string name="brightness_sum">Nastavení jasu displeje v boot manažeru</string>
+    <string name="default_boot">Boot lokace</string>
+    <string name="default_boot_sum">Nastavení výchozí boot lokace</string>
+    <string name="default_boot_sd">ROM z SD karty</string>
+    <string name="default_boot_sd_dis">Tato možnost je dostupná pokud je SD karta výchozí boot lokací</string>
+    <string name="default_boot_sd_active">Současná aktivní ROM</string>
    
     <string-array name="backup_options">
         <item>Přehodit s aktivní</item>
@@ -114,4 +119,14 @@
         <item>Nainstalovat</item>
         <item>Přejít na topic na XDA</item>
     </string-array>   
+    
+    <string-array name="default_boot_entries">
+        <item>Interní paměť</item>
+        <item>SD karta</item>
+    </string-array>
+    
+    <string-array name="default_boot_values">
+        <item>0</item>
+        <item>1</item>
+    </string-array>
 </resources>
