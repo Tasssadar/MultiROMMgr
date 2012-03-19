@@ -413,6 +413,10 @@ public class MultiROMMgrActivity extends ListActivity
         } catch (IOException e) { }
         
         String res = sbstdOut.toString();
+
+        // What the hell?!
+        res = res.replace("FIX ME! implement ttyname() bionic/libc/bionic/stubs.c:360", "");
+
         if(res.equals("\n") || res.split("\n").length == 1)
             res = res.replaceAll("\n", "");
         proc.destroy();
