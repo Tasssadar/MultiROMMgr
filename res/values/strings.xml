@@ -86,6 +86,7 @@
     <string name="default_boot_sd">ROM from SD card</string>
     <string name="default_boot_sd_dis">This option is only available when SD card is default boot location</string>
     <string name="default_boot_sd_active">Current active ROM</string>
+    <string name="kill_android">Back to Boot Manager</string>
     
     <string-array name="backup_options">
         <item>Switch with active</item>

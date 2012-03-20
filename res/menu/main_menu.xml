@@ -6,4 +6,6 @@
     <item android:id="@+id/menu_reboot"
           android:title="@string/reboot_menu"
           android:icon="@drawable/ic_menu_refresh" />      
+    <item android:id="@+id/menu_kill"
+          android:title="@string/kill_android" />      
 </menu>

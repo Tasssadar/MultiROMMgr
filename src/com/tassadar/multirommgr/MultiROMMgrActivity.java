@@ -124,6 +124,18 @@ public class MultiROMMgrActivity extends ListActivity
                 builder.create().show();
                 return true;
             }
+            case R.id.menu_kill:
+            {
+                setLoadingDialog(getResources().getString(R.string.working));
+                new Thread(new Runnable() {
+                    public void run() {
+                        try { Thread.sleep(500); } catch (InterruptedException e) { }
+                        runRootCommand("sync");
+                        runRootCommand("killall main_init");
+                    }
+                }).start();
+                return true;
+            }
         }
         return super.onOptionsItemSelected(item);
     }
@@ -133,6 +145,9 @@ public class MultiROMMgrActivity extends ListActivity
         MenuInflater inflater = getMenuInflater();
         menu.clear();
         inflater.inflate(R.menu.main_menu, menu);
+        
+        if(!m_version.contains("kill"))
+            menu.removeItem(R.id.menu_kill);
         return true;
     }
     
