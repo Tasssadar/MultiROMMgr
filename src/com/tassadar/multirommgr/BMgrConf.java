@@ -29,6 +29,9 @@ public class BMgrConf extends PreferenceActivity
     private static final String CONF_PATH = "/sdcard/multirom.txt";
     private static final int REQ_ROM_NAME = 2;
     
+    private static final int CHARGER_AUTO_START = 0x01;
+    private static final int CHARGER_DISABLE_LG = 0x02;
+
     @Override
     public void onCreate(Bundle savedInstanceState)
     {
@@ -42,6 +45,7 @@ public class BMgrConf extends PreferenceActivity
         brightness = 100;
         default_boot = 0;
         default_boot_sd = "";
+        charger_settings = (CHARGER_AUTO_START | CHARGER_DISABLE_LG);
         
         addPreferencesFromResource(R.xml.bmgr_config);
         m_tetris_max = (TetrisMaxPreference)findPreference("tetris_max");
@@ -77,6 +81,7 @@ public class BMgrConf extends PreferenceActivity
             w.append("brightness = " + String.valueOf(brightness) + "\r\n");
             w.append("default_boot = " + String.valueOf(default_boot) + "\r\n");
             w.append("default_boot_sd =" + default_boot_sd  + "\r\n");
+            w.append("charger_settings = " + String.valueOf(charger_settings) + "\r\n");
             w.close();
             text = getResources().getString(R.string.conf_w_succes); 
         }
@@ -103,6 +108,10 @@ public class BMgrConf extends PreferenceActivity
         c.setChecked(show_seconds);
         c = (CheckBoxPreference)findPreference("conf_touch_ui");
         c.setChecked(touch_ui);
+        c = (CheckBoxPreference)findPreference("conf_charger_auto");
+        c.setChecked((charger_settings & CHARGER_AUTO_START) != 0);
+        c = (CheckBoxPreference)findPreference("conf_charger_lg");
+        c.setChecked((charger_settings & CHARGER_DISABLE_LG) != 0);
         
         EditTextPreference e = (EditTextPreference)findPreference("conf_timezone");
         e.setText(String.valueOf(timezone));
@@ -145,7 +154,16 @@ public class BMgrConf extends PreferenceActivity
         c.setChecked(show_seconds);
         c = (CheckBoxPreference)findPreference("conf_touch_ui");
         touch_ui = c.isChecked();
-        
+
+        charger_settings = 0;
+        c = (CheckBoxPreference)findPreference("conf_charger_auto");
+        if(c.isChecked())
+            charger_settings |= CHARGER_AUTO_START;
+
+        c = (CheckBoxPreference)findPreference("conf_charger_lg");
+        if(c.isChecked())
+            charger_settings |= CHARGER_DISABLE_LG;
+
         EditTextPreference e = (EditTextPreference)findPreference("conf_timezone");
         try { timezone = Float.valueOf(e.getText()); }
         catch(NumberFormatException ex) { }
@@ -243,6 +261,13 @@ public class BMgrConf extends PreferenceActivity
                                 catch(NumberFormatException e) { }
                                 default_boot = tmp;
                             }
+                            else if(split[0].startsWith("charger_settings"))
+                            {
+                                int tmp = charger_settings;
+                                try { tmp = Integer.valueOf(split[1]); }
+                                catch(NumberFormatException e) { }
+                                charger_settings = tmp;
+                            }
                         }
                         buffreader.close();
                         inputreader.close();
@@ -311,8 +336,7 @@ public class BMgrConf extends PreferenceActivity
             return true;
         }
     };
-    
-    
+
     private float timezone;
     private byte timeout;
     private boolean touch_ui;
@@ -321,5 +345,6 @@ public class BMgrConf extends PreferenceActivity
     private byte brightness;
     private byte default_boot;
     private String default_boot_sd;
+    private int charger_settings;
     private TetrisMaxPreference m_tetris_max;
 }

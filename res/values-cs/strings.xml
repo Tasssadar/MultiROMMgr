@@ -86,7 +86,12 @@
     <string name="default_boot_sd">ROM z SD karty</string>
     <string name="default_boot_sd_dis">Tato možnost je dostupná pokud je SD karta výchozí boot lokací</string>
     <string name="default_boot_sd_active">Současná aktivní ROM</string>
-   
+    <string name="kill_android">Zpět do boot manageru</string>
+    <string name="charger_auto">Automaticky ukázat nabíjení</string>
+    <string name="charger_auto_sum">Ukáže obrazovku nabíjení baterie místo hlavního menu boot manageru, pokud je telefon zapnut připojením USB kabelu</string>
+    <string name="charger_lg">Zakázat nabíjení LG</string>
+    <string name="charger_lg_sum">Zakáže nabíjecí obrazovku, která se normálně ukazuje pokud je telefon zapnut připojením USB kabelu</string>
+
     <string-array name="backup_options">
         <item>Přehodit s aktivní</item>
         <item>Smazat</item>

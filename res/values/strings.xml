@@ -87,6 +87,10 @@
     <string name="default_boot_sd_dis">This option is only available when SD card is default boot location</string>
     <string name="default_boot_sd_active">Current active ROM</string>
     <string name="kill_android">Back to Boot Manager</string>
+    <string name="charger_auto">Automatically show charger</string>
+    <string name="charger_auto_sum">Shows charger screen instead of boot manager\'s main menu when the phone is turned on by plugging-in the USB cable</string>
+    <string name="charger_lg">Disable LG\'s charger screen</string>
+    <string name="charger_lg_sum">Disables LG\'s charger screen, which normally appears when the phone is turned on by plugging in the USB cable</string>
     
     <string-array name="backup_options">
         <item>Switch with active</item>
