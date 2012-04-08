@@ -31,6 +31,7 @@ public class BackupsActivityBase extends ListActivity
         requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
         setContentView(R.layout.backups);
         con = this;
+        m_rom_list = new String[0];
         LoadBackups();
     }
     
@@ -90,12 +91,11 @@ public class BackupsActivityBase extends ListActivity
             m_activePresent = false;
         else
             m_activePresent = true;
-        
-        
+
         // Check backups
         folder = path + MULTIROM_BACK;
         list = MultiROMMgrActivity.runRootCommand("ls " + folder);
-        if(list == null || list.equals("") || list.contains("No such file or directory"))
+        if(list == null || list.contains("No such file or directory"))
             folder = null;
         return new String[]{folder, list };
     }
@@ -122,13 +122,7 @@ public class BackupsActivityBase extends ListActivity
                     return;
                 }
                 
-                if(list == null || list.equals(""))
-                {
-                    m_backLoading.sendMessage(m_backLoading.obtainMessage(5, 1, 0));
-                    return;
-                }
-
-                m_rom_list = list.split("\n");
+                m_folder_backups = folder;
                 m_fillMaps = new ArrayList<HashMap<String, String>>();
                 
                 if(m_active_in_list)
@@ -138,6 +132,14 @@ public class BackupsActivityBase extends ListActivity
                     map.put("summary", "");
                     m_fillMaps.add(0, map);
                 }
+
+                if(list == null || list.equals(""))
+                {
+                    m_backLoading.sendMessage(m_backLoading.obtainMessage(5, 1, 0));
+                    return;
+                }
+
+                m_rom_list = list.split("\n");
 
                 for(int i = 0; i < m_rom_list.length; ++i)
                 {
@@ -152,7 +154,6 @@ public class BackupsActivityBase extends ListActivity
                     m_fillMaps.add(map);
                     m_backLoading.sendMessage(m_backLoading.obtainMessage(0, ((i+1)*10000/m_rom_list.length), 0));
                 }
-                m_folder_backups = folder;
             }
         }).start();
     }
@@ -186,6 +187,15 @@ public class BackupsActivityBase extends ListActivity
         m_loading.show();
     }
     
+    protected void updateAdapter()
+    {
+        final String[] from = new String[] { "title", "summary" };
+        final int[] to = new int[] { R.id.title, R.id.summary };
+
+        ListAdapter a = new SimpleAdapter(con, m_fillMaps, R.layout.backups_item, from, to);
+        setListAdapter(a);
+    }
+
     protected final Handler m_backLoading = new Handler()
     {
         @Override
@@ -195,12 +205,7 @@ public class BackupsActivityBase extends ListActivity
             {
                 case 0:
                 {
-                    String[] from = new String[] { "title", "summary" };
-                    int[] to = new int[] { R.id.title, R.id.summary };
-                    
-                    ListAdapter a = new SimpleAdapter(con, m_fillMaps, R.layout.backups_item, from, to); 
-                    setListAdapter(a);
-                    
+                    updateAdapter();
                     if(msg.arg1 == 10000)
                     {
                         getListView().setEnabled(true);
@@ -250,7 +255,10 @@ public class BackupsActivityBase extends ListActivity
                     switch(msg.arg1)
                     {
                         case 0: text = getResources().getString(R.string.error_folder); break;
-                        case 1: text = getResources().getString(R.string.error_backup_empty); break;
+                        case 1:
+                            text = getResources().getString(R.string.error_backup_empty);
+                            updateAdapter();
+                            break;
                     }
                     ShowToast(text);
                     setProgressBarVisibility(false);
