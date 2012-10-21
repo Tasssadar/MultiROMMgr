@@ -57,6 +57,7 @@ public class Updater extends Activity
                 { 
                     { "AmonRa", "http://dl.dropbox.com/u/54372958/recovery_am.img" },
                     { "CWM", "http://dl.dropbox.com/u/54372958/recovery_cwm.img" },
+                    { "TWRP", "http://dl.dropbox.com/u/54372958/recovery_twrp.img" },
                     null,
                 }),
         new Device("LS670/VM670", 

@@ -69,7 +69,6 @@ public class BMgrConf extends PreferenceActivity
         if(!getListView().isEnabled())
             return;
         
-        String text = null;
         GetValues();
         try {
             FileWriter w = new FileWriter(CONF_PATH, false);
@@ -83,13 +82,11 @@ public class BMgrConf extends PreferenceActivity
             w.append("default_boot_sd =" + default_boot_sd  + "\r\n");
             w.append("charger_settings = " + String.valueOf(charger_settings) + "\r\n");
             w.close();
-            text = getResources().getString(R.string.conf_w_succes); 
         }
         catch(IOException e) { 
-            text = getResources().getString(R.string.conf_w_error); 
+            Toast.makeText(this, getResources().getString(R.string.conf_w_error),
+                    Toast.LENGTH_SHORT).show();
         }
-        
-        Toast.makeText(this, text, Toast.LENGTH_SHORT).show();
     }
     
     @Override
