@@ -118,14 +118,16 @@ public class Manifest {
     public String getMultiromVersion() {
         return m_multirom_ver;
     }
-
     public Date getRecoveryVersion() {
         return m_recovery_ver;
     }
-
     public LinkedHashMap<String, String> getKernels() {
         return m_kernels;
     }
+
+    public String getMultiromUrl() { return m_multirom_url; }
+    public String getRecoveryUrl() { return m_recovery_url; }
+    public String getKernelUrl(String name) { return m_kernels.get(name); }
 
     private boolean m_multiromHasUpdate = false;
     private boolean m_recoveryHasUpdate = false;
@@ -135,4 +137,5 @@ public class Manifest {
     private Date m_recovery_ver;
     private String m_recovery_url;
     private LinkedHashMap<String, String> m_kernels = new LinkedHashMap<String, String>();
+
 }

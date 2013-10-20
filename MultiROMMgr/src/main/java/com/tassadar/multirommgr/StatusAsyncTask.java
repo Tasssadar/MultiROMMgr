@@ -54,6 +54,10 @@ public class StatusAsyncTask extends AsyncTask <Void, Void, StatusAsyncTask.Resu
         applyResult();
     }
 
+    public Manifest getManifest() {
+        return m_res != null ? m_res.manifest : null;
+    }
+
     public void execute() {
         if(this.getStatus() == Status.PENDING)
             this.execute((Void) null);

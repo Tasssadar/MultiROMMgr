@@ -44,7 +44,7 @@ public class Utils {
 
     public interface DownloadProgressListener {
         public void onProgressChanged(int downloaded, int total);
-        public boolean isCancecled();
+        public boolean isCanceled();
     }
 
     public static boolean downloadFile(String strUrl, OutputStream output, DownloadProgressListener listener) throws IOException {
@@ -64,17 +64,16 @@ public class Utils {
             int total = conn.getContentLength();
             int downloaded = 0;
 
-            byte[] buff = new byte[4096];
+            byte[] buff = new byte[1024];
             in = conn.getInputStream();
 
             for(int len; (len = in.read(buff)) != -1;) {
                 downloaded += len;
                 output.write(buff, 0, len);
 
-                if(listener != null)
-                {
+                if(listener != null) {
                     listener.onProgressChanged(downloaded, total);
-                    if(listener.isCancecled())
+                    if(listener.isCanceled())
                         break;
                 }
             }
@@ -96,5 +95,12 @@ public class Utils {
 
     public static boolean isNumeric(char c) {
         return (c >= '0' && c <= '9');
+    }
+
+    public static String getFilenameFromUrl(String url) {
+        int idx = url.lastIndexOf('/');
+        if(idx == -1)
+            return null;
+        return url.substring(idx+1);
     }
 }

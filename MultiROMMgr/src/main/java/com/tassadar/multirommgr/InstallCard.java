@@ -1,6 +1,7 @@
 package com.tassadar.multirommgr;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.Resources;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,7 +16,7 @@ import com.fima.cardsui.objects.Card;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class InstallCard extends Card implements CompoundButton.OnCheckedChangeListener {
+public class InstallCard extends Card implements CompoundButton.OnCheckedChangeListener, View.OnClickListener {
 
     public InstallCard(String title, Manifest manifest) {
         super(title);
@@ -41,15 +42,19 @@ public class InstallCard extends Card implements CompoundButton.OnCheckedChangeL
         b.setChecked(m_manifest.hasRecoveryUpdate());
         b.setOnCheckedChangeListener(this);
 
-        b = (CheckBox)m_view.findViewById(R.id.install_kernel);
-        b.setOnCheckedChangeListener(this);
-
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(context,
                 android.R.layout.simple_spinner_dropdown_item);
         adapter.addAll(m_manifest.getKernels().keySet());
         Spinner s = (Spinner)m_view.findViewById(R.id.kernel_options);
         s.setAdapter(adapter);
         s.setEnabled(false);
+
+        b = (CheckBox)m_view.findViewById(R.id.install_kernel);
+        b.setOnCheckedChangeListener(this);
+        b.setEnabled(!adapter.isEmpty());
+
+        Button install_btn = (Button)m_view.findViewById(R.id.install_btn);
+        install_btn.setOnClickListener(this);
 
         enableInstallBtn();
         return m_view;
@@ -74,6 +79,28 @@ public class InstallCard extends Card implements CompoundButton.OnCheckedChangeL
             }
         }
         install_btn.setEnabled(false);
+    }
+
+    @Override
+    public void onClick(View view) {
+        Intent i = new Intent(m_view.getContext(), InstallActivity.class);
+
+        CheckBox b = (CheckBox)m_view.findViewById(R.id.install_multirom);
+        i.putExtra("install_multirom", b.isChecked());
+
+        b = (CheckBox)m_view.findViewById(R.id.install_recovery);
+        i.putExtra("install_recovery", b.isChecked());
+
+        b = (CheckBox)m_view.findViewById(R.id.install_kernel);
+        i.putExtra("install_kernel", b.isChecked());
+
+        if(b.isChecked()) {
+            Spinner s = (Spinner)m_view.findViewById(R.id.kernel_options);
+            String name = (String)s.getAdapter().getItem(s.getSelectedItemPosition());
+            i.putExtra("kernel_name", name);
+        }
+
+        m_view.getContext().startActivity(i);
     }
 
     private Manifest m_manifest;
