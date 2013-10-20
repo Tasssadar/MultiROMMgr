@@ -1,12 +1,12 @@
 {
     "devices": [
         {
-            "name": "flo",
+            "names": [ "flo", "deb" ],
             "dev_recovery": "/dev/block/platform/msm_sdcc.1/by-name/recovery",
             "dev_boot": "/dev/block/platform/msm_sdcc.1/by-name/boot"
         },
         {
-            "name": "grouper",
+            "names": [ "grouper", "tilapia" ],
             "dev_recovery": "/dev/block/platform/sdhci-tegra.3/by-name/SOS",
             "dev_boot": "/dev/block/platform/sdhci-tegra.3/by-name/LNX"
         }

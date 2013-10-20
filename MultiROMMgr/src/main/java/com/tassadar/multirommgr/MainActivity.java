@@ -1,5 +1,6 @@
 package com.tassadar.multirommgr;
 
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.app.Activity;
 import android.view.Menu;
@@ -8,7 +9,7 @@ import android.view.MenuItem;
 import com.fima.cardsui.views.CardUI;
 
 
-public class MainActivity extends Activity {
+public class MainActivity extends Activity implements StatusAsyncTask.StatusAsyncTaskListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,6 +24,7 @@ public class MainActivity extends Activity {
 
     private void start() {
         mCardView.addCard(new StatusCard("Status"), true);
+        StatusAsyncTask.instance().setListener(this);
         StatusAsyncTask.instance().execute();
     }
 
@@ -43,6 +45,12 @@ public class MainActivity extends Activity {
             default:
                 return false;
         }
+    }
+
+    @Override
+    public void onTaskFinished(StatusAsyncTask.Result res) {
+        if(res.manifest != null)
+            mCardView.addCard(new InstallCard("Install/update", res.manifest), true);
     }
 
     private CardUI mCardView;

@@ -20,6 +20,11 @@ public class StatusAsyncTask extends AsyncTask <Void, Void, StatusAsyncTask.Resu
     static final int RES_FAIL_MROM_VER      = 0x04;
     static final int RES_UNSUPPORTED        = 0x08;
     static final int RES_NO_RECOVERY        = 0x10;
+    static final int RES_MANIFEST_FAIL      = 0x20;
+
+    public interface StatusAsyncTaskListener {
+        public void onTaskFinished(Result res);
+    }
 
     private static StatusAsyncTask instance = null;
     public static StatusAsyncTask instance() {
@@ -36,6 +41,12 @@ public class StatusAsyncTask extends AsyncTask <Void, Void, StatusAsyncTask.Resu
         super();
         m_layout = new WeakReference<View>(null);
         m_res = null;
+    }
+
+    public void setListener(StatusAsyncTaskListener listener) {
+        m_listener = listener;
+        if(m_listener != null && m_res != null)
+            m_listener.onTaskFinished(m_res);
     }
 
     public void setStatusCardLayout(View layout) {
@@ -81,12 +92,21 @@ public class StatusAsyncTask extends AsyncTask <Void, Void, StatusAsyncTask.Resu
         res.kernel = new Kernel();
         res.kernel.findKexecHardboot(m != null ? m.getPath() + "busybox" : "");
 
+        Manifest man = new Manifest();
+        if(man.downloadAndParse(dev.getName())) {
+            res.manifest = man;
+            res.manifest.compareVersions(res.multirom, res.recovery, res.kernel);
+        } else
+            res.code |= RES_MANIFEST_FAIL;
+
         return res;
     }
 
     protected void onPostExecute(Result res) {
         m_res = res;
         applyResult();
+        if(m_listener != null && m_res != null)
+            m_listener.onTaskFinished(res);
     }
 
     protected void applyResult() {
@@ -119,6 +139,8 @@ public class StatusAsyncTask extends AsyncTask <Void, Void, StatusAsyncTask.Resu
             t.append("\n" + t.getResources().getString(R.string.no_multirom));
         if ((m_res.code & RES_NO_RECOVERY) != 0)
             t.append("\n" + t.getResources().getString(R.string.no_recovery));
+        if ((m_res.code & RES_MANIFEST_FAIL) != 0)
+            t.append("\n" + t.getResources().getString(R.string.manifest_fail));
 
         if (t.getText().length() != 0)
             t.setVisibility(View.VISIBLE);
@@ -132,24 +154,29 @@ public class StatusAsyncTask extends AsyncTask <Void, Void, StatusAsyncTask.Resu
         String kexec_text = t.getResources().getString(
                 m_res.kernel.hasKexec() ? R.string.has_kexec : R.string.no_kexec);
 
+        String update = t.getResources().getString(R.string.update_available);
+        Manifest man = m_res.manifest;
+
         t = (TextView) l.findViewById(R.id.info_text);
         Spanned s = Html.fromHtml(t.getResources().getString(R.string.status_text,
                 m_res.multirom != null ? m_res.multirom.getVersion() : "N/A",
-                "",
+                man != null && man.hasMultiromUpdate() ? update : "",
                 recovery_date != null ? recovery_date : "N/A",
-                "",
+                man != null && man.hasRecoveryUpdate() ? update : "",
                 kexec_text));
         t.setText(s);
         t.setVisibility(View.VISIBLE);
     }
 
-    protected class Result {
+    public class Result {
         public int code = RES_OK;
         public Recovery recovery = null;
         public MultiROM multirom = null;
         public Kernel kernel = null;
+        public Manifest manifest = null;
     }
 
     private WeakReference<View> m_layout;
+    private StatusAsyncTaskListener m_listener;
     private Result m_res;
 }

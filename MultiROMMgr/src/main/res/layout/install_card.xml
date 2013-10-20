@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:paddingBottom="4dp" >
+    android:paddingBottom="4dp">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -18,7 +18,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/status" />
+            android:text="@string/install_title" />
 
     </LinearLayout>
 
@@ -33,38 +33,36 @@
         android:layout_height="wrap_content"
         android:gravity="center_vertical"
         android:padding="4dp"
-        android:minHeight="50dp"
         android:orientation="vertical">
 
-        <ProgressBar
-            android:id="@+id/progress_bar"
+        <CheckBox
+            android:id="@+id/install_multirom"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:text="@string/install_multirom"/>
+        <CheckBox
+            android:id="@+id/install_recovery"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:text="@string/install_recovery"/>
+        <LinearLayout
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent">
+            <CheckBox
+                android:id="@+id/install_kernel"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:text="@string/install_kernel"/>
+            <Spinner
+                android:id="@+id/kernel_options"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content" />
+        </LinearLayout>
+        <Button
+            android:id="@+id/install_btn"
             android:layout_height="wrap_content"
             android:layout_width="match_parent"
-            android:layout_gravity="center"
-            android:indeterminateOnly="true" />
-        <TextView
-            android:id="@+id/info_text"
-            style="@style/CardText"
-            android:textSize="16sp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="8dp"
-            android:visibility="gone"
-            android:maxLines="4"/>
-        <TextView
-            android:id="@+id/error_text"
-            style="@style/CardText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="8dp"
-            android:layout_gravity="center"
-            android:textSize="16sp"
-            android:ellipsize="end"
-            android:visibility="gone"
-            android:textStyle="bold"
-            android:maxLines="10"
-            android:textAlignment="center"
-            android:textColor="#FF0000" />
+            android:text="@string/install"/>
     </LinearLayout>
 
 </LinearLayout>
