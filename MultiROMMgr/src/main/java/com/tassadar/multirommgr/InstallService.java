@@ -9,7 +9,6 @@ import android.os.AsyncTask;
 import android.os.Binder;
 import android.os.IBinder;
 import android.text.Html;
-import android.util.Log;
 
 import java.lang.ref.WeakReference;
 
@@ -32,15 +31,11 @@ public class InstallService extends Service implements InstallListener {
                 .setSmallIcon(R.drawable.ic_launcher)
                 .setProgress(0, 0, true);
 
-        startForeground(NOTIFICATION_ID, b.build());
         m_builder = b;
-
-        Log.e("InstallService", "Create");
     }
 
     @Override
     public void onDestroy() {
-        Log.e("InstallService", "Destroy");
         m_builder = null;
         m_notificationMgr.cancel(NOTIFICATION_ID);
     }
@@ -65,7 +60,13 @@ public class InstallService extends Service implements InstallListener {
     public void startInstallation(Manifest man, boolean multirom, boolean recovery,
                                   boolean kernel, String kernel_name) {
 
+        startForeground(NOTIFICATION_ID, m_builder.build());
+
+        m_log = new StringBuffer(1024);
         m_isInProgress = true;
+        m_enableCancel = true;
+        m_requestRecovery = false;
+        m_completed = false;
 
         InstallAsyncTask task = new InstallAsyncTask(man, multirom, recovery,
                 kernel ? kernel_name : null);
@@ -77,6 +78,12 @@ public class InstallService extends Service implements InstallListener {
         return m_log.toString();
     }
 
+    public boolean getEnableCancel() {
+        return m_enableCancel;
+    }
+    public boolean wasRecoveryRequested() { return m_requestRecovery; }
+    public boolean wasCompleted() { return m_completed; }
+
     @Override
     public void onInstallLog(String str) {
         m_log.append(str);
@@ -86,8 +93,14 @@ public class InstallService extends Service implements InstallListener {
     }
 
     @Override
-    public void onInstallComplete() {
+    public void onInstallComplete(boolean success) {
+        InstallListener l = m_listener.get();
+        if(l != null)
+            l.onInstallComplete(success);
 
+        m_completed = true;
+        m_isInProgress = false;
+        stopForeground(true);
     }
 
     @Override
@@ -99,6 +112,27 @@ public class InstallService extends Service implements InstallListener {
         InstallListener l = m_listener.get();
         if(l != null)
             l.onProgressUpdate(val, max, indeterminate, text);
+    }
+
+    @Override
+    public void enableCancel(boolean enabled) {
+        m_enableCancel = enabled;
+        InstallListener l = m_listener.get();
+        if(l != null)
+            l.enableCancel(enabled);
+    }
+
+    @Override
+    public void requestRecovery() {
+        m_requestRecovery = true;
+
+        InstallListener l = m_listener.get();
+        if(l != null)
+            l.requestRecovery();
+    }
+
+    public void setRequestRecovery(boolean request) {
+        m_requestRecovery = request;
     }
 
     public class InstallServiceBinder extends Binder {
@@ -113,4 +147,7 @@ public class InstallService extends Service implements InstallListener {
     private WeakReference<InstallListener> m_listener;
     private boolean m_isInProgress = false;
     private StringBuffer m_log = new StringBuffer(1024);
+    private boolean m_enableCancel = true;
+    private boolean m_requestRecovery = false;
+    private boolean m_completed = false;
 }

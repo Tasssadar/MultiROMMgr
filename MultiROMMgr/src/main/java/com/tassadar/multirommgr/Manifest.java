@@ -1,8 +1,6 @@
 package com.tassadar.multirommgr;
 
-import android.os.Build;
 import android.util.Log;
-import android.widget.TextView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -10,16 +8,24 @@ import org.json.JSONObject;
 import org.json.JSONTokener;
 
 import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.IOException;
 import java.text.ParseException;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 
 public class Manifest {
     private static final String manifestUrl = "http://83.240.110.90/multirom_manifest.json";
 
-    public boolean downloadAndParse(String dev) {
+    public class InstallationFile {
+        public String type;
+        public String version;
+        public String url;
+        public String md5;
+        public File destFile;
+    }
+
+    public boolean downloadAndParse(Device dev) {
         ByteArrayOutputStream out = new ByteArrayOutputStream(4096);
         try {
             if(!Utils.downloadFile(manifestUrl, out, null))
@@ -37,52 +43,64 @@ public class Manifest {
 
         try {
             JSONObject o = (JSONObject)new JSONTokener(out.toString()).nextValue();
-            if(!o.getString("status").equals("ok")) {
-                Log.e("Manifest", "MultiROM manifest's status is \"" + o.getString("status") + "\"");
+            m_status = o.getString("status");
+            if(!m_status.equals("ok")) {
+                Log.e("Manifest", "MultiROM manifest's status is \"" + m_status + "\"");
                 return false;
             }
 
             JSONArray a = o.getJSONArray("devices");
             for(int i = 0; i < a.length(); ++i) {
                 o = a.getJSONObject(i);
-                if(o.getString("name").equals(dev)) {
-                    setFromJSON(o);
+                if(o.getString("name").equals(dev.getName())) {
+                    getFileList(o.getJSONArray("files"));
+                    m_dev = dev;
                     return true;
                 }
             }
             return false;
         } catch (JSONException e) {
             e.printStackTrace();
-        } catch (ParseException e) {
-            e.printStackTrace();
         }
         return false;
     }
 
-    private void setFromJSON(JSONObject obj) throws JSONException, ParseException {
-        m_multirom_ver = obj.getString("multirom_ver");
-        m_multirom_url = obj.getString("multirom_url");
-        m_recovery_ver = Recovery.RECOVERY_VER_FORMAT.parse(obj.getString("recovery_ver"));
-        m_recovery_url = obj.getString("recovery_url");
+    private void getFileList(JSONArray files) throws JSONException {
+        for(int i = 0; i < files.length(); ++i) {
+            InstallationFile file = new InstallationFile();
+            JSONObject f = files.getJSONObject(i);
 
-        JSONArray k = obj.getJSONArray("kernels");
-        for(int i = 0; i < k.length(); ++i) {
-            obj = k.getJSONObject(i);
-            m_kernels.put(obj.getString("name"), obj.getString("url"));
+            file.type = f.getString("type");
+            file.version = f.getString("version");
+            file.url = f.getString("url");
+            file.md5 = f.getString("md5");
+
+            if(file.type.equals("multirom"))
+                m_multirom = file;
+            else if(file.type.equals("recovery")) {
+                m_recovery = file;
+            }
+            else if(file.type.equals("kernel"))
+                m_kernels.put(file.version, file);
         }
     }
 
     public void compareVersions(MultiROM multirom, Recovery recovery, Kernel kernel) {
         if(multirom != null) {
             int[] my = getMultiromVersions(multirom.getVersion());
-            int[] upd = getMultiromVersions(m_multirom_ver);
+            int[] upd = getMultiromVersions(m_multirom.version);
             m_multiromHasUpdate = (upd[0] > my[0]) || (upd[0] == my[0] && upd[1] > my[1]);
         } else
             m_multiromHasUpdate = true;
 
         if(recovery != null) {
-            Date my = recovery.getVersion();
-            m_recoveryHasUpdate = m_recovery_ver.after(my);
+            try {
+                Date my = recovery.getVersion();
+                Date upd = Recovery.RECOVERY_VER_FORMAT.parse(m_recovery.version);
+                m_recoveryHasUpdate = upd.after(my);
+            } catch(ParseException e) {
+                e.printStackTrace();
+            }
         } else
             m_recoveryHasUpdate = true;
 
@@ -116,26 +134,34 @@ public class Manifest {
     }
 
     public String getMultiromVersion() {
-        return m_multirom_ver;
+        return m_multirom.version;
     }
     public Date getRecoveryVersion() {
-        return m_recovery_ver;
+        try {
+            return Recovery.RECOVERY_VER_FORMAT.parse(m_recovery.version);
+        } catch(ParseException e) {
+            e.printStackTrace();
+            return null;
+        }
     }
-    public LinkedHashMap<String, String> getKernels() {
+
+    public LinkedHashMap<String, InstallationFile> getKernels() {
         return m_kernels;
     }
 
-    public String getMultiromUrl() { return m_multirom_url; }
-    public String getRecoveryUrl() { return m_recovery_url; }
-    public String getKernelUrl(String name) { return m_kernels.get(name); }
+    public InstallationFile getMultiromFile() { return m_multirom; }
+    public InstallationFile getRecoveryFile() { return m_recovery; }
+    public InstallationFile getKernelFile(String name) { return m_kernels.get(name); }
+
+    public Device getDevice() { return m_dev; }
+    public String getStatus() { return m_status; }
 
     private boolean m_multiromHasUpdate = false;
     private boolean m_recoveryHasUpdate = false;
     private boolean m_kernelHasUpdate = false;
-    private String m_multirom_ver;
-    private String m_multirom_url;
-    private Date m_recovery_ver;
-    private String m_recovery_url;
-    private LinkedHashMap<String, String> m_kernels = new LinkedHashMap<String, String>();
-
+    private InstallationFile m_multirom;
+    private InstallationFile m_recovery;
+    private LinkedHashMap<String, InstallationFile> m_kernels = new LinkedHashMap<String, InstallationFile>();
+    private Device m_dev;
+    private String m_status;
 }

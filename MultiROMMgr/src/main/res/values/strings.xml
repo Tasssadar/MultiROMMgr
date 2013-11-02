@@ -23,5 +23,9 @@
     <string name="install_title">Install/Update</string>
     <string name="cancel">Cancel</string>
     <string name="download_progress">%1$s (%2$d kB of %3$d kB)...</string>
+    <string name="try_again">Try again</string>
+    <string name="uninterruptable">This operation can\'t be interrupted.</string>
+    <string name="reboot">Reboot</string>
+    <string name="reboot_message">You have to reboot into recovery to complete the installation.</string>
 
 </resources>

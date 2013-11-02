@@ -1,17 +1,22 @@
 package com.tassadar.multirommgr;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.ComponentName;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.ServiceConnection;
-import android.net.wifi.WifiConfiguration;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.text.Html;
 import android.text.Spanned;
+import android.text.SpannedString;
+import android.view.KeyEvent;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class InstallActivity extends Activity implements ServiceConnection, InstallListener {
     @Override
@@ -22,6 +27,7 @@ public class InstallActivity extends Activity implements ServiceConnection, Inst
         m_term = (TextView)findViewById(R.id.term);
         m_progressText = (TextView)findViewById(R.id.progress_text);
         m_progressBar = (ProgressBar)findViewById(R.id.progress_bar);
+        m_isCancelEnabled = true;
 
         Intent i = new Intent(this, InstallService.class);
         startService(i);
@@ -31,6 +37,12 @@ public class InstallActivity extends Activity implements ServiceConnection, Inst
     @Override
     protected void onDestroy() {
         super.onDestroy();
+
+        if(m_rebootDialog != null) {
+            m_rebootDialog.dismiss();
+            m_rebootDialog = null;
+        }
+
         unbindService(this);
     }
 
@@ -39,19 +51,38 @@ public class InstallActivity extends Activity implements ServiceConnection, Inst
         m_service = ((InstallService.InstallServiceBinder)iBinder).get();
         m_service.setListener(this);
 
-        if(!m_service.isInProgress()) {
-            Intent i = getIntent();
-            boolean multirom = i.getBooleanExtra("install_multirom", false);
-            boolean recovery = i.getBooleanExtra("install_recovery", false);
-            boolean kernel = i.getBooleanExtra("install_kernel", false);
-            String kernel_name = i.getStringExtra("kernel_name");
-
-            Manifest man = StatusAsyncTask.instance().getManifest();
-
-            m_service.startInstallation(man, multirom, recovery, kernel, kernel_name);
+        if(!m_service.isInProgress() && !m_service.wasCompleted()) {
+            startInstallation();
         } else {
             m_term.setText(Html.fromHtml(m_service.getFullLog()));
+            m_isCancelEnabled = m_service.getEnableCancel();
+            if(m_service.wasCompleted()) {
+                m_progressBar.setIndeterminate(false);
+                m_progressBar.setMax(100);
+                m_progressBar.setProgress(100);
+
+                Button b = (Button)findViewById(R.id.control_btn);
+                b.setText(R.string.try_again);
+
+                if(m_service.wasRecoveryRequested())
+                    requestRecovery();
+            }
         }
+    }
+
+    private void startInstallation() {
+        Intent i = getIntent();
+        boolean multirom = i.getBooleanExtra("install_multirom", false);
+        boolean recovery = i.getBooleanExtra("install_recovery", false);
+        boolean kernel = i.getBooleanExtra("install_kernel", false);
+        String kernel_name = i.getStringExtra("kernel_name");
+
+        Manifest man = StatusAsyncTask.instance().getManifest();
+
+        m_service.startInstallation(man, multirom, recovery, kernel, kernel_name);
+
+        m_term.setText("");
+        m_isCancelEnabled = true;
     }
 
     @Override
@@ -59,9 +90,38 @@ public class InstallActivity extends Activity implements ServiceConnection, Inst
         m_service = null;
     }
 
-    public void onCancelClicked(View v) {
-        m_service.cancel();
-        this.finish();
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        switch(keyCode) {
+            case KeyEvent.KEYCODE_BACK:
+                if(m_service != null) {
+                    if(m_service.isInProgress() && !m_isCancelEnabled) {
+                        Toast.makeText(this, R.string.uninterruptable, Toast.LENGTH_SHORT).show();
+                        return true;
+                    }
+                    m_service.cancel();
+                }
+                this.finish();
+                return true;
+        }
+        return super.onKeyDown(keyCode, event);
+    }
+
+    public void onControlClicked(View v) {
+        if(m_service == null)
+            return;
+
+        if(m_service.isInProgress()) {
+            if(m_isCancelEnabled) {
+                m_service.cancel();
+                this.finish();
+            } else {
+                Toast.makeText(this, R.string.uninterruptable, Toast.LENGTH_SHORT).show();
+            }
+        } else {
+            startInstallation();
+            ((Button)v).setText(R.string.cancel);
+        }
     }
 
     @Override
@@ -71,12 +131,54 @@ public class InstallActivity extends Activity implements ServiceConnection, Inst
 
     @Override
     public void onProgressUpdate(int val, int max, boolean indeterminate, String text) {
-        runOnUiThread(new UpdateProgressRunnable(val, max, indeterminate, Html.fromHtml(text)));
+        runOnUiThread(new UpdateProgressRunnable(val, max, indeterminate, Html.fromHtml(text), false));
     }
 
     @Override
-    public void onInstallComplete() {
+    public void onInstallComplete(boolean success) {
+        Spanned text = null;
+        if(success)
+            text = new SpannedString("Installation was successful.");
+        else
+            text = new SpannedString("Installation FAILED!");
 
+        runOnUiThread(new UpdateProgressRunnable(100, 100, false, text, true));
+    }
+
+    @Override
+    public void enableCancel(boolean enabled) {
+        m_isCancelEnabled = enabled;
+    }
+
+    @Override
+    public void requestRecovery() {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                AlertDialog.Builder b = new AlertDialog.Builder(InstallActivity.this);
+                b.setTitle(R.string.reboot)
+                        .setMessage(R.string.reboot_message)
+                        .setCancelable(true)
+                        .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                if(m_service != null)
+                                    m_service.setRequestRecovery(false);
+                            }
+                        })
+                        .setPositiveButton(R.string.reboot, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                Device d = StatusAsyncTask.instance().getManifest().getDevice();
+                                Utils.deployOpenRecoveryScript(d.getCacheDev());
+                                Utils.reboot("recovery");
+                            }
+                        });
+
+                m_rebootDialog = b.create();
+                m_rebootDialog.show();
+            }
+        });
     }
 
     private class AppendLogRunnable implements Runnable {
@@ -95,11 +197,14 @@ public class InstallActivity extends Activity implements ServiceConnection, Inst
         private int m_max;
         private boolean m_indeterminate;
         private Spanned m_text;
-        public UpdateProgressRunnable(int val, int max, boolean indeterminate, Spanned text) {
+        private boolean m_finished;
+
+        public UpdateProgressRunnable(int val, int max, boolean indeterminate, Spanned text, boolean finished) {
             m_val = val;
             m_max = max;
             m_indeterminate = indeterminate;
             m_text = text;
+            m_finished = finished;
         }
 
         public void run() {
@@ -109,6 +214,12 @@ public class InstallActivity extends Activity implements ServiceConnection, Inst
                 m_progressBar.setProgress(m_val);
             }
             m_progressText.setText(m_text);
+
+            if(m_finished) {
+                Button b = (Button)findViewById(R.id.control_btn);
+                b.setText(R.string.try_again);
+            }
+
         }
     }
 
@@ -116,4 +227,6 @@ public class InstallActivity extends Activity implements ServiceConnection, Inst
     private TextView m_term;
     private TextView m_progressText;
     private ProgressBar m_progressBar;
+    private boolean m_isCancelEnabled;
+    private AlertDialog m_rebootDialog;
 }

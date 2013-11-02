@@ -2,13 +2,54 @@
     "devices": [
         {
             "names": [ "flo", "deb" ],
-            "dev_recovery": "/dev/block/platform/msm_sdcc.1/by-name/recovery",
-            "dev_boot": "/dev/block/platform/msm_sdcc.1/by-name/boot"
+            "devices": [
+                {
+                    "name": "recovery",
+                    "path": "/dev/block/platform/msm_sdcc.1/by-name/recovery"
+                },
+                {
+                    "name": "boot",
+                    "path": "/dev/block/platform/msm_sdcc.1/by-name/boot"
+                },
+                {
+                    "name": "cache",
+                    "path": "/dev/block/platform/msm_sdcc.1/by-name/cache"
+                }
+            ]
         },
         {
             "names": [ "grouper", "tilapia" ],
-            "dev_recovery": "/dev/block/platform/sdhci-tegra.3/by-name/SOS",
-            "dev_boot": "/dev/block/platform/sdhci-tegra.3/by-name/LNX"
+            "devices": [
+                {
+                    "name": "recovery",
+                    "path": "/dev/block/platform/sdhci-tegra.3/by-name/SOS"
+                },
+                {
+                    "name": "boot",
+                    "path": "/dev/block/platform/sdhci-tegra.3/by-name/LNX"
+                },
+                {
+                    "name": "cache",
+                    "path": "/dev/block/platform/sdhci-tegra.3/by-name/CAC"
+                }
+            ]
+        },
+        {
+            "names": [ "mako" ],
+            "devices": [
+                {
+                    "name": "recovery",
+                    "path": "/dev/block/platform/msm_sdcc.1/by-name/recovery"
+                },
+                {
+                    "name": "boot",
+                    "path": "/dev/block/platform/msm_sdcc.1/by-name/boot"
+                },
+                {
+                    "name": "cache",
+                    "path": "/dev/block/platform/msm_sdcc.1/by-name/cache"
+                }
+            ]
         }
     ]
 }

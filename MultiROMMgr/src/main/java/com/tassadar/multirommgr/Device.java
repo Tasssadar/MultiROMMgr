@@ -10,6 +10,7 @@ import org.json.JSONTokener;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.HashMap;
 
 public class Device {
     public static Device load(String name) {
@@ -50,21 +51,21 @@ public class Device {
 
     private Device(JSONObject info) throws JSONException {
         m_name = info.getJSONArray("names").getString(0);
-        m_dev_boot = info.getString("dev_boot");
-        m_dev_recovery = info.getString("dev_recovery");
+        JSONArray a = info.getJSONArray("devices");
 
-        Log.d("Device", "Loaded: " + m_name + " " + m_dev_boot + " " + m_dev_recovery);
+        Log.d("Device", "Loading device name: " + m_name);
+        for(int i = 0; i < a.length(); ++i) {
+            JSONObject d = a.getJSONObject(i);
+            m_devices.put(d.getString("name"), d.getString("path"));
+            Log.d("Device", "Loading device " + d.getString("name") + " path " + d.getString("path"));
+        }
     }
 
-    public String getBootDev() {
-        return m_dev_boot;
-    }
-    public String getRecoveryDev() {
-        return m_dev_recovery;
-    }
+    public String getBootDev() { return m_devices.get("boot"); }
+    public String getRecoveryDev() { return m_devices.get("recovery"); }
+    public String getCacheDev() { return m_devices.get("cache"); }
     public String getName() { return m_name; }
 
     private String m_name;
-    private String m_dev_boot;
-    private String m_dev_recovery;
+    private HashMap<String, String> m_devices = new HashMap<String, String>();
 }

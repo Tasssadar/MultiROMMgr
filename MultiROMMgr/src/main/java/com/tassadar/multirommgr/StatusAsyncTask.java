@@ -97,11 +97,14 @@ public class StatusAsyncTask extends AsyncTask <Void, Void, StatusAsyncTask.Resu
         res.kernel.findKexecHardboot(m != null ? m.getPath() + "busybox" : "");
 
         Manifest man = new Manifest();
-        if(man.downloadAndParse(dev.getName())) {
+        if(man.downloadAndParse(dev)) {
             res.manifest = man;
             res.manifest.compareVersions(res.multirom, res.recovery, res.kernel);
-        } else
+        } else {
+            if(man.getStatus() != null && !man.getStatus().equals("ok"))
+                res.statusText = man.getStatus();
             res.code |= RES_MANIFEST_FAIL;
+        }
 
         return res;
     }
@@ -143,8 +146,12 @@ public class StatusAsyncTask extends AsyncTask <Void, Void, StatusAsyncTask.Resu
             t.append("\n" + t.getResources().getString(R.string.no_multirom));
         if ((m_res.code & RES_NO_RECOVERY) != 0)
             t.append("\n" + t.getResources().getString(R.string.no_recovery));
-        if ((m_res.code & RES_MANIFEST_FAIL) != 0)
-            t.append("\n" + t.getResources().getString(R.string.manifest_fail));
+        if ((m_res.code & RES_MANIFEST_FAIL) != 0) {
+            if(m_res.statusText != null)
+                t.append("\n" + m_res.statusText);
+            else
+                t.append("\n" + t.getResources().getString(R.string.manifest_fail));
+        }
 
         if (t.getText().length() != 0)
             t.setVisibility(View.VISIBLE);
@@ -159,6 +166,7 @@ public class StatusAsyncTask extends AsyncTask <Void, Void, StatusAsyncTask.Resu
                 m_res.kernel.hasKexec() ? R.string.has_kexec : R.string.no_kexec);
 
         String update = t.getResources().getString(R.string.update_available);
+
         Manifest man = m_res.manifest;
 
         t = (TextView) l.findViewById(R.id.info_text);
@@ -178,6 +186,7 @@ public class StatusAsyncTask extends AsyncTask <Void, Void, StatusAsyncTask.Resu
         public MultiROM multirom = null;
         public Kernel kernel = null;
         public Manifest manifest = null;
+        public String statusText = null;
     }
 
     private WeakReference<View> m_layout;

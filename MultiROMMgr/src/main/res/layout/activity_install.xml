@@ -25,9 +25,9 @@
         android:layout_height="wrap_content"
         android:id="@+id/progress_bar"
         android:indeterminate="true"/>
-    <Button
+    <Button android:id="@+id/control_btn"
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
         android:text="@string/cancel"
-        android:onClick="onCancelClicked"/>
+        android:onClick="onControlClicked"/>
 </LinearLayout>
