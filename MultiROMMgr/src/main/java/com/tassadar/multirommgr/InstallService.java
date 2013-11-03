@@ -12,6 +12,8 @@ import android.os.PowerManager;
 import android.text.Html;
 
 import java.lang.ref.WeakReference;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.TimeUnit;
 
 public class InstallService extends Service implements InstallListener {
 
@@ -49,6 +51,8 @@ public class InstallService extends Service implements InstallListener {
     }
 
     public void cancel() {
+        if(m_task != null)
+            m_task.setCanceled(true);
         releaseWakeLock();
         stopSelf();
     }
@@ -63,7 +67,6 @@ public class InstallService extends Service implements InstallListener {
 
     public void startInstallation(Manifest man, boolean multirom, boolean recovery,
                                   boolean kernel, String kernel_name) {
-
         startForeground(NOTIFICATION_ID, m_builder.build());
 
         m_log = new StringBuffer(1024);
@@ -77,10 +80,10 @@ public class InstallService extends Service implements InstallListener {
                                     "MultiROMMgr");
         m_wakeLock.acquire();
 
-        InstallAsyncTask task = new InstallAsyncTask(man, multirom, recovery,
+        m_task = new InstallAsyncTask(man, multirom, recovery,
                 kernel ? kernel_name : null);
-        task.setListener(this);
-        task.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, (Void)null);
+        m_task.setListener(this);
+        m_task.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, (Void)null);
     }
 
     private void releaseWakeLock() {
@@ -116,6 +119,7 @@ public class InstallService extends Service implements InstallListener {
 
         m_completed = true;
         m_isInProgress = false;
+        m_task = null;
         stopForeground(true);
 
         releaseWakeLock();
@@ -169,4 +173,5 @@ public class InstallService extends Service implements InstallListener {
     private boolean m_requestRecovery = false;
     private boolean m_completed = false;
     private PowerManager.WakeLock m_wakeLock;
+    private InstallAsyncTask m_task = null;
 }

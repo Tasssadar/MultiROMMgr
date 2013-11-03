@@ -132,7 +132,7 @@ public class Utils {
                 if(listener != null) {
                     listener.onProgressChanged(downloaded, total);
                     if(listener.isCanceled())
-                        break;
+                        return false;
                 }
             }
         } catch(IOException ex) {

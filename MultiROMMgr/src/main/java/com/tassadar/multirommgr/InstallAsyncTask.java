@@ -31,6 +31,7 @@ public class InstallAsyncTask extends AsyncTask<Void, Void, Void> implements Uti
     public void setListener(InstallListener listener) {
         m_listener = listener;
     }
+    public void setCanceled(boolean canceled) { m_canceled = canceled; }
 
     @Override
     protected Void doInBackground(Void... results) {
@@ -71,7 +72,8 @@ public class InstallAsyncTask extends AsyncTask<Void, Void, Void> implements Uti
             }
 
             if(!downloadFile(files.get(i).url, f.destFile)) {
-                m_listener.onInstallComplete(false);
+                if(!m_canceled)
+                    m_listener.onInstallComplete(false);
                 return null;
             }
 
@@ -85,7 +87,6 @@ public class InstallAsyncTask extends AsyncTask<Void, Void, Void> implements Uti
                 return null;
             }
         }
-
 
         m_listener.onProgressUpdate(0, 0, true, "Installing files...");
         m_listener.enableCancel(false);
@@ -110,7 +111,9 @@ public class InstallAsyncTask extends AsyncTask<Void, Void, Void> implements Uti
             }
         }
 
-        m_listener.requestRecovery();
+        if(needsRecovery)
+            m_listener.requestRecovery();
+
         m_listener.onInstallComplete(true);
         return null;
     }
@@ -159,7 +162,6 @@ public class InstallAsyncTask extends AsyncTask<Void, Void, Void> implements Uti
                                     "if [ \"$?\" = \"0\" ]; then echo success; fi;",
                                     p, tmprecovery.getAbsolutePath(), dev.getRecoveryDev());
 
-        Log.e("InstallAsyncTask", "would install by running: " + cmd);
         List<String> out = Shell.SU.run(cmd);
 
         tmprecovery.delete();
@@ -189,7 +191,7 @@ public class InstallAsyncTask extends AsyncTask<Void, Void, Void> implements Uti
     @Override
     public void onProgressChanged(int downloaded, int total) {
         long cur = System.currentTimeMillis();
-        if(cur - m_lastUpdate < 100)
+        if(m_canceled || cur - m_lastUpdate < 100)
             return;
 
         m_lastUpdate = cur;
@@ -204,7 +206,7 @@ public class InstallAsyncTask extends AsyncTask<Void, Void, Void> implements Uti
 
     @Override
     public boolean isCanceled() {
-        return false;
+        return m_canceled;
     }
 
     private boolean m_multirom;
@@ -215,4 +217,5 @@ public class InstallAsyncTask extends AsyncTask<Void, Void, Void> implements Uti
     private String m_downFilename;
     private String m_downProgressTemplate;
     private long m_lastUpdate;
+    private boolean m_canceled = false;
 }

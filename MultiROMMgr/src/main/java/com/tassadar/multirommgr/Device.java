@@ -59,13 +59,17 @@ public class Device {
             m_devices.put(d.getString("name"), d.getString("path"));
             Log.d("Device", "Loading device " + d.getString("name") + " path " + d.getString("path"));
         }
+
+        m_supportsUbuntuTouch = info.getBoolean("ubuntu_touch");
     }
 
     public String getBootDev() { return m_devices.get("boot"); }
     public String getRecoveryDev() { return m_devices.get("recovery"); }
     public String getCacheDev() { return m_devices.get("cache"); }
     public String getName() { return m_name; }
+    public boolean supportsUbuntuTouch() { return m_supportsUbuntuTouch; }
 
     private String m_name;
     private HashMap<String, String> m_devices = new HashMap<String, String>();
+    private boolean m_supportsUbuntuTouch;
 }

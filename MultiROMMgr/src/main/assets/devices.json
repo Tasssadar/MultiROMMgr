@@ -2,6 +2,7 @@
     "devices": [
         {
             "names": [ "flo", "deb" ],
+            "ubuntu_touch": false,
             "devices": [
                 {
                     "name": "recovery",
@@ -19,6 +20,7 @@
         },
         {
             "names": [ "grouper", "tilapia" ],
+            "ubuntu_touch": true,
             "devices": [
                 {
                     "name": "recovery",
@@ -36,6 +38,7 @@
         },
         {
             "names": [ "mako" ],
+            "ubuntu_touch": true,
             "devices": [
                 {
                     "name": "recovery",

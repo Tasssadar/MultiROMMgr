@@ -58,6 +58,10 @@ public class StatusAsyncTask extends AsyncTask <Void, Void, StatusAsyncTask.Resu
         return m_res != null ? m_res.manifest : null;
     }
 
+    public Device getDevice() {
+        return m_res != null ? m_res.device : null;
+    }
+
     public void execute() {
         if(this.getStatus() == Status.PENDING)
             this.execute((Void) null);
@@ -76,6 +80,8 @@ public class StatusAsyncTask extends AsyncTask <Void, Void, StatusAsyncTask.Resu
             res.code = RES_NO_SU;
             return res;
         }
+
+        res.device = dev;
 
         MultiROM m = new MultiROM();
         if(!m.findMultiROMDir()) {
@@ -187,6 +193,7 @@ public class StatusAsyncTask extends AsyncTask <Void, Void, StatusAsyncTask.Resu
         public Kernel kernel = null;
         public Manifest manifest = null;
         public String statusText = null;
+        public Device device = null;
     }
 
     private WeakReference<View> m_layout;

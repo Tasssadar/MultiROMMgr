@@ -27,5 +27,11 @@
     <string name="uninterruptable">This operation can\'t be interrupted.</string>
     <string name="reboot">Reboot</string>
     <string name="reboot_message">You have to reboot into recovery to complete the installation.</string>
+    <string name="ubuntu_card">Install Ubuntu Touch</string>
+    <string name="channel">Channel:</string>
+    <string name="ubuntu_man_failed">Failed to download and parse Ubuntu Touch metadata.</string>
+    <string name="version">Version:</string>
+    <string name="destination">Destination:</string>
+    <string name="internal_memory">Internal memory</string>
 
 </resources>

@@ -32,6 +32,8 @@ public class MainActivity extends Activity implements StatusAsyncTask.StatusAsyn
 
     private void refresh() {
         StatusAsyncTask.destroy();
+        UbuntuManifestAsyncTask.destroy();
+
         mCardView.clearCards();
         start();
     }
@@ -57,6 +59,9 @@ public class MainActivity extends Activity implements StatusAsyncTask.StatusAsyn
     public void onTaskFinished(StatusAsyncTask.Result res) {
         if(res.manifest != null)
             mCardView.addCard(new InstallCard("Install/update", res.manifest, this), true);
+
+        if(res.multirom != null && res.recovery != null && res.device.supportsUbuntuTouch())
+            mCardView.addCard(new UbuntuCard("Install Ubuntu Touch"));
     }
 
     @Override
