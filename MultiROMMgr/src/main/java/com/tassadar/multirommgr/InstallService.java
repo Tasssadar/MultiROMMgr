@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Binder;
 import android.os.IBinder;
+import android.os.PowerManager;
 import android.text.Html;
 
 import java.lang.ref.WeakReference;
@@ -38,6 +39,8 @@ public class InstallService extends Service implements InstallListener {
     public void onDestroy() {
         m_builder = null;
         m_notificationMgr.cancel(NOTIFICATION_ID);
+
+        releaseWakeLock();
     }
 
     @Override
@@ -46,6 +49,7 @@ public class InstallService extends Service implements InstallListener {
     }
 
     public void cancel() {
+        releaseWakeLock();
         stopSelf();
     }
 
@@ -68,10 +72,22 @@ public class InstallService extends Service implements InstallListener {
         m_requestRecovery = false;
         m_completed = false;
 
+        PowerManager pm = (PowerManager)getSystemService(POWER_SERVICE);
+        m_wakeLock = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK | PowerManager.ON_AFTER_RELEASE,
+                                    "MultiROMMgr");
+        m_wakeLock.acquire();
+
         InstallAsyncTask task = new InstallAsyncTask(man, multirom, recovery,
                 kernel ? kernel_name : null);
         task.setListener(this);
         task.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, (Void)null);
+    }
+
+    private void releaseWakeLock() {
+        if(m_wakeLock != null) {
+            m_wakeLock.release();
+            m_wakeLock = null;
+        }
     }
 
     public String getFullLog() {
@@ -101,6 +117,8 @@ public class InstallService extends Service implements InstallListener {
         m_completed = true;
         m_isInProgress = false;
         stopForeground(true);
+
+        releaseWakeLock();
     }
 
     @Override
@@ -150,4 +168,5 @@ public class InstallService extends Service implements InstallListener {
     private boolean m_enableCancel = true;
     private boolean m_requestRecovery = false;
     private boolean m_completed = false;
+    private PowerManager.WakeLock m_wakeLock;
 }
