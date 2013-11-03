@@ -83,6 +83,8 @@ public class InstallActivity extends Activity implements ServiceConnection, Inst
 
         m_term.setText("");
         m_isCancelEnabled = true;
+
+        setResult(RESULT_CANCELED);
     }
 
     @Override
@@ -141,6 +143,8 @@ public class InstallActivity extends Activity implements ServiceConnection, Inst
             text = new SpannedString("Installation was successful.");
         else
             text = new SpannedString("Installation FAILED!");
+
+        setResult(RESULT_OK);
 
         runOnUiThread(new UpdateProgressRunnable(100, 100, false, text, true));
     }

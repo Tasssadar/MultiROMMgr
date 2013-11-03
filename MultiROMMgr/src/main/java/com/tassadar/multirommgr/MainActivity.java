@@ -1,5 +1,6 @@
 package com.tassadar.multirommgr;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.app.Activity;
 import android.view.Menu;
@@ -8,7 +9,9 @@ import android.view.MenuItem;
 import com.fima.cardsui.views.CardUI;
 
 
-public class MainActivity extends Activity implements StatusAsyncTask.StatusAsyncTaskListener {
+public class MainActivity extends Activity implements StatusAsyncTask.StatusAsyncTaskListener, StartInstallListener {
+
+    public static final int ACT_INSTALL_MULTIROM = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +30,12 @@ public class MainActivity extends Activity implements StatusAsyncTask.StatusAsyn
         StatusAsyncTask.instance().execute();
     }
 
+    private void refresh() {
+        StatusAsyncTask.destroy();
+        mCardView.clearCards();
+        start();
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main, menu);
@@ -37,9 +46,7 @@ public class MainActivity extends Activity implements StatusAsyncTask.StatusAsyn
     public boolean onMenuItemSelected(int featureId, MenuItem it) {
         switch(it.getItemId()) {
             case R.id.action_refresh:
-                StatusAsyncTask.destroy();
-                mCardView.clearCards();
-                start();
+                refresh();
                 return true;
             default:
                 return false;
@@ -49,7 +56,24 @@ public class MainActivity extends Activity implements StatusAsyncTask.StatusAsyn
     @Override
     public void onTaskFinished(StatusAsyncTask.Result res) {
         if(res.manifest != null)
-            mCardView.addCard(new InstallCard("Install/update", res.manifest), true);
+            mCardView.addCard(new InstallCard("Install/update", res.manifest, this), true);
+    }
+
+    @Override
+    public void startActivity(Bundle data, int id, Class<?> cls) {
+        Intent i = new Intent(this, cls);
+        i.putExtras(data);
+        startActivityForResult(i, id);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        switch(requestCode) {
+            case ACT_INSTALL_MULTIROM:
+                if(resultCode == RESULT_OK)
+                    refresh();
+                break;
+        }
     }
 
     private CardUI mCardView;

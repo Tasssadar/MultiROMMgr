@@ -3,6 +3,7 @@ package com.tassadar.multirommgr;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -18,9 +19,10 @@ import java.util.Date;
 
 public class InstallCard extends Card implements CompoundButton.OnCheckedChangeListener, View.OnClickListener {
 
-    public InstallCard(String title, Manifest manifest) {
+    public InstallCard(String title, Manifest manifest, StartInstallListener listener) {
         super(title);
         m_manifest = manifest;
+        m_listener = listener;
     }
 
     @Override
@@ -83,27 +85,28 @@ public class InstallCard extends Card implements CompoundButton.OnCheckedChangeL
 
     @Override
     public void onClick(View view) {
-        Intent i = new Intent(m_view.getContext(), InstallActivity.class);
+        Bundle bundle = new Bundle();
 
         CheckBox b = (CheckBox)m_view.findViewById(R.id.install_multirom);
-        i.putExtra("install_multirom", b.isChecked());
+        bundle.putBoolean("install_multirom", b.isChecked());
 
         b = (CheckBox)m_view.findViewById(R.id.install_recovery);
-        i.putExtra("install_recovery", b.isChecked());
+        bundle.putBoolean("install_recovery", b.isChecked());
 
         b = (CheckBox)m_view.findViewById(R.id.install_kernel);
-        i.putExtra("install_kernel", b.isChecked());
+        bundle.putBoolean("install_kernel", b.isChecked());
 
         if(b.isChecked()) {
             Spinner s = (Spinner)m_view.findViewById(R.id.kernel_options);
             String name = (String)s.getAdapter().getItem(s.getSelectedItemPosition());
-            i.putExtra("kernel_name", name);
+            bundle.putString("kernel_name", name);
         }
 
-        m_view.getContext().startActivity(i);
+        m_listener.startActivity(bundle, MainActivity.ACT_INSTALL_MULTIROM, InstallActivity.class);
     }
 
     private Manifest m_manifest;
     private View m_view;
+    private StartInstallListener m_listener;
 }
 
