@@ -4,6 +4,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
+import android.text.Html;
+import android.text.Spanned;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -19,10 +21,11 @@ import java.util.Date;
 
 public class InstallCard extends Card implements CompoundButton.OnCheckedChangeListener, View.OnClickListener {
 
-    public InstallCard(String title, Manifest manifest, StartInstallListener listener) {
-        super(title);
+    public InstallCard(Manifest manifest, boolean forceRecovery, StartInstallListener listener) {
+        super();
         m_manifest = manifest;
         m_listener = listener;
+        m_forceRecovery = forceRecovery;
     }
 
     @Override
@@ -43,6 +46,12 @@ public class InstallCard extends Card implements CompoundButton.OnCheckedChangeL
         b.setText(res.getString(R.string.install_recovery, recovery_ver));
         b.setChecked(m_manifest.hasRecoveryUpdate());
         b.setOnCheckedChangeListener(this);
+
+        // Force user to install recovery if not yet installed - it is needed to flash ZIPs
+        if(m_manifest.hasRecoveryUpdate() && m_forceRecovery) {
+            b.append(Html.fromHtml(res.getString(R.string.required)));
+            b.setClickable(false);
+        }
 
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(context,
                 android.R.layout.simple_spinner_dropdown_item);
@@ -108,5 +117,6 @@ public class InstallCard extends Card implements CompoundButton.OnCheckedChangeL
     private Manifest m_manifest;
     private View m_view;
     private StartInstallListener m_listener;
+    private boolean m_forceRecovery;
 }
 

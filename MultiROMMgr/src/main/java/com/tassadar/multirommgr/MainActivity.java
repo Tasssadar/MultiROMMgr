@@ -25,7 +25,7 @@ public class MainActivity extends Activity implements StatusAsyncTask.StatusAsyn
     }
 
     private void start() {
-        mCardView.addCard(new StatusCard("Status"), true);
+        mCardView.addCard(new StatusCard(), true);
         StatusAsyncTask.instance().setListener(this);
         StatusAsyncTask.instance().execute();
     }
@@ -58,10 +58,10 @@ public class MainActivity extends Activity implements StatusAsyncTask.StatusAsyn
     @Override
     public void onTaskFinished(StatusAsyncTask.Result res) {
         if(res.manifest != null)
-            mCardView.addCard(new InstallCard("Install/update", res.manifest, this), true);
+            mCardView.addCard(new InstallCard(res.manifest, res.recovery == null, this), true);
 
         if(res.multirom != null && res.recovery != null && res.device.supportsUbuntuTouch())
-            mCardView.addCard(new UbuntuCard("Install Ubuntu Touch"));
+            mCardView.addCard(new UbuntuCard());
     }
 
     @Override

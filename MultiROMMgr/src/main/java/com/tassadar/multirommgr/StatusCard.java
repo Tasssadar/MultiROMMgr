@@ -9,10 +9,6 @@ import com.fima.cardsui.objects.Card;
 
 public class StatusCard extends Card {
 
-    public StatusCard(String title) {
-        super(title);
-    }
-
     @Override
     public View getCardContent(Context context) {
         View view = LayoutInflater.from(context).inflate(R.layout.status_card, null);

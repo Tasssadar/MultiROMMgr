@@ -33,5 +33,6 @@
     <string name="version">Version:</string>
     <string name="destination">Destination:</string>
     <string name="internal_memory">Internal memory</string>
+    <string name="required"><![CDATA[<font color=\"blue\">&nbsp;(required)</font>]]></string>
 
 </resources>

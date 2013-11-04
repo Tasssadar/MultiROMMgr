@@ -12,10 +12,6 @@ import com.fima.cardsui.objects.Card;
 
 public class UbuntuCard extends Card implements AdapterView.OnItemSelectedListener {
 
-    public UbuntuCard(String title) {
-        super(title);
-    }
-
     @Override
     public View getCardContent(Context context) {
         m_view = LayoutInflater.from(context).inflate(R.layout.ubuntu_card, null);

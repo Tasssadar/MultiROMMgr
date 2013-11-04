@@ -15,7 +15,7 @@ import java.util.List;
 import eu.chainfire.libsuperuser.Shell;
 
 public class Recovery {
-    public static DateFormat RECOVERY_VER_FORMAT = new SimpleDateFormat("'mrom'yyyyMMdd-mm");
+    public static final DateFormat RECOVERY_VER_FORMAT = new SimpleDateFormat("'mrom'yyyyMMdd-mm");
 
     public boolean findRecoveryVersion(Device dev) {
         String p = Utils.extractAsset("bbootimg");

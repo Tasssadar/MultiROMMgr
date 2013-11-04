@@ -51,6 +51,8 @@ public class UbuntuManifest {
             return false;
         }
 
+        // Remove duplicate channels (they have "alias" set) and
+        // channels without the device we're currently running on
         Iterator<Map.Entry<String,UbuntuChannel>> itr = m_channels.entrySet().iterator();
         while(itr.hasNext()) {
             UbuntuChannel c = itr.next().getValue();
