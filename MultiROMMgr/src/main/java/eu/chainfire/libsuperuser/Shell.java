@@ -267,7 +267,12 @@ public class Shell {
 		public static List<String> run(String[] commands) {
 			return Shell.run("su", commands, null, false);
 		}
-		
+
+		public static List<String> run(String commandFormat, Object... args) {
+			String command = String.format(commandFormat, args);
+			return run(command);
+		}
+
 		/**
 		 * Detects whether or not superuser access is available, by checking the output
 		 * of the "id" command if available, checking if a shell runs at all otherwise
