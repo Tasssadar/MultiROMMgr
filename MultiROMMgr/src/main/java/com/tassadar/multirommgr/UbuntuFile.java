@@ -13,6 +13,12 @@ public class UbuntuFile {
         size = file.getInt("size");
     }
 
+    public UbuntuFile(String keyringPath,int order) {
+        this.order = order;
+        this.path = keyringPath;
+        this.signature = keyringPath + ".asc";
+    }
+
     public String checksum;
     public int order;
     public String path;

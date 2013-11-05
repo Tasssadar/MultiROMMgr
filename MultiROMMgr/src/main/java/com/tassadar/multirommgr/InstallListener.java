@@ -5,5 +5,5 @@ public interface InstallListener {
     void onInstallComplete(boolean success);
     void onProgressUpdate(int val, int max, boolean indeterminate, String text);
     void enableCancel(boolean enabled);
-    void requestRecovery();
+    void requestRecovery(boolean force);
 }

@@ -83,6 +83,14 @@ public class UbuntuManifestAsyncTask extends AsyncTask<Device, Void, UbuntuManif
         card.applyResult(m_res);
     }
 
+    public void putInstallInfo(UbuntuInstallInfo i) {
+        m_installInfo = i;
+    }
+
+    public UbuntuInstallInfo getInstallInfo() {
+        return m_installInfo;
+    }
+
     public class Result {
         public int code = RES_OK;
         public UbuntuManifest manifest = null;
@@ -92,4 +100,5 @@ public class UbuntuManifestAsyncTask extends AsyncTask<Device, Void, UbuntuManif
     private WeakReference<UbuntuCard> m_card;
     private UbuntuManifestAsyncTaskListener m_listener;
     private Result m_res;
+    private UbuntuInstallInfo m_installInfo;
 }

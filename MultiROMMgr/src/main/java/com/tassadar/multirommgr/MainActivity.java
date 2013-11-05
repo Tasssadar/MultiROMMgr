@@ -12,6 +12,7 @@ import com.fima.cardsui.views.CardUI;
 public class MainActivity extends Activity implements StatusAsyncTask.StatusAsyncTaskListener, StartInstallListener {
 
     public static final int ACT_INSTALL_MULTIROM = 1;
+    public static final int ACT_INSTALL_UBUNTU   = 2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,7 +62,7 @@ public class MainActivity extends Activity implements StatusAsyncTask.StatusAsyn
             mCardView.addCard(new InstallCard(res.manifest, res.recovery == null, this), true);
 
         if(res.multirom != null && res.recovery != null && res.device.supportsUbuntuTouch())
-            mCardView.addCard(new UbuntuCard());
+            mCardView.addCard(new UbuntuCard(this));
     }
 
     @Override

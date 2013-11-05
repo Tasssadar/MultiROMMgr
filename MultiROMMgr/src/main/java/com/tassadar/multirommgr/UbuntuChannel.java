@@ -95,6 +95,11 @@ public class UbuntuChannel {
         return true;
     }
 
+    public void fillInstallFilesForVer(ArrayList<UbuntuFile> files, Integer version) {
+        UbuntuImage img = m_images.get(version);
+        files.addAll(img.files);
+    }
+
     public Set<Integer> getImageVersions() {
         return m_images.keySet();
     }

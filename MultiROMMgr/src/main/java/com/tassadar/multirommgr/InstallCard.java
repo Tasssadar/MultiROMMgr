@@ -95,6 +95,7 @@ public class InstallCard extends Card implements CompoundButton.OnCheckedChangeL
     @Override
     public void onClick(View view) {
         Bundle bundle = new Bundle();
+        bundle.putString("installation_type", "multirom");
 
         CheckBox b = (CheckBox)m_view.findViewById(R.id.install_multirom);
         bundle.putBoolean("install_multirom", b.isChecked());

@@ -13,7 +13,9 @@
         android:background="#000"
         android:textColor="#BBB"
         android:padding="8dp"
-        android:gravity="bottom|left"/>
+        android:gravity="bottom|left"
+        android:fontFamily="monospace"
+        android:textSize="11dp" />
     <TextView
         android:id="@+id/progress_text"
         android:layout_height="wrap_content"

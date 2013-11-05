@@ -11,8 +11,10 @@ import android.os.IBinder;
 import android.text.Html;
 import android.text.Spanned;
 import android.text.SpannedString;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -64,27 +66,39 @@ public class InstallActivity extends Activity implements ServiceConnection, Inst
                 Button b = (Button)findViewById(R.id.control_btn);
                 b.setText(R.string.try_again);
 
-                if(m_service.wasRecoveryRequested())
-                    requestRecovery();
+                int req = m_service.wasRecoveryRequested();
+                if(req != 0)
+                    requestRecovery(req == 2);
             }
         }
     }
 
     private void startInstallation() {
         Intent i = getIntent();
-        boolean multirom = i.getBooleanExtra("install_multirom", false);
-        boolean recovery = i.getBooleanExtra("install_recovery", false);
-        boolean kernel = i.getBooleanExtra("install_kernel", false);
-        String kernel_name = i.getStringExtra("kernel_name");
+        final String type = i.getStringExtra("installation_type");
+        if(type.equals("multirom")) {
+            boolean multirom = i.getBooleanExtra("install_multirom", false);
+            boolean recovery = i.getBooleanExtra("install_recovery", false);
+            boolean kernel = i.getBooleanExtra("install_kernel", false);
+            String kernel_name = i.getStringExtra("kernel_name");
 
-        Manifest man = StatusAsyncTask.instance().getManifest();
+            Manifest man = StatusAsyncTask.instance().getManifest();
 
-        m_service.startInstallation(man, multirom, recovery, kernel, kernel_name);
+            m_service.startMultiROMInstallation(man, multirom, recovery, kernel, kernel_name);
+        } else if(type.equals("ubuntu")) {
+            m_service.startUbuntuInstallation(
+                    UbuntuManifestAsyncTask.instance().getInstallInfo(),
+                    StatusAsyncTask.instance().getMultiROM());
+        } else {
+            Log.e("InstallActivity", "Unknown installation type: " + type);
+            return;
+        }
 
         m_term.setText("");
         m_isCancelEnabled = true;
 
         setResult(RESULT_CANCELED);
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
     }
 
     @Override
@@ -155,34 +169,45 @@ public class InstallActivity extends Activity implements ServiceConnection, Inst
     }
 
     @Override
-    public void requestRecovery() {
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                AlertDialog.Builder b = new AlertDialog.Builder(InstallActivity.this);
-                b.setTitle(R.string.reboot)
-                        .setMessage(R.string.reboot_message)
-                        .setCancelable(true)
-                        .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
-                                if(m_service != null)
-                                    m_service.setRequestRecovery(false);
-                            }
-                        })
-                        .setPositiveButton(R.string.reboot, new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
-                                Device d = StatusAsyncTask.instance().getManifest().getDevice();
-                                Utils.deployOpenRecoveryScript(d.getCacheDev());
-                                Utils.reboot("recovery");
-                            }
-                        });
+    public void requestRecovery(boolean force) {
+        runOnUiThread(new RecoveryDialogRunnable(force));
+    }
 
-                m_rebootDialog = b.create();
-                m_rebootDialog.show();
+    private class RecoveryDialogRunnable implements Runnable {
+        private boolean m_force;
+        public RecoveryDialogRunnable(boolean force) {
+            m_force = force;
+        }
+
+        @Override
+        public void run() {
+            AlertDialog.Builder b = new AlertDialog.Builder(InstallActivity.this);
+            b.setTitle(R.string.reboot)
+             .setMessage(R.string.reboot_message)
+             .setCancelable(!m_force)
+             .setPositiveButton(R.string.reboot, new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    if(!m_force) {
+                        Device d = StatusAsyncTask.instance().getManifest().getDevice();
+                        Utils.deployOpenRecoveryScript(d.getCacheDev());
+                    }
+                    Utils.reboot("recovery");
+                }
+             });
+
+            if(!m_force) {
+                b.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        if(m_service != null)
+                            m_service.setRequestRecovery(0);
+                    }
+                });
             }
-        });
+            m_rebootDialog = b.create();
+            m_rebootDialog.show();
+        }
     }
 
     private class AppendLogRunnable implements Runnable {
@@ -222,6 +247,8 @@ public class InstallActivity extends Activity implements ServiceConnection, Inst
             if(m_finished) {
                 Button b = (Button)findViewById(R.id.control_btn);
                 b.setText(R.string.try_again);
+
+                getWindow().clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
             }
 
         }

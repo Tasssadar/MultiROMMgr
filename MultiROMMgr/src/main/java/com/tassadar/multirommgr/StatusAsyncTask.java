@@ -62,6 +62,10 @@ public class StatusAsyncTask extends AsyncTask <Void, Void, StatusAsyncTask.Resu
         return m_res != null ? m_res.device : null;
     }
 
+    public MultiROM getMultiROM() {
+        return m_res != null ? m_res.multirom : null;
+    }
+
     public void execute() {
         if(this.getStatus() == Status.PENDING)
             this.execute((Void) null);

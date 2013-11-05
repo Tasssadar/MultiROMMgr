@@ -65,14 +65,23 @@ public class InstallService extends Service implements InstallListener {
         return m_isInProgress;
     }
 
-    public void startInstallation(Manifest man, boolean multirom, boolean recovery,
-                                  boolean kernel, String kernel_name) {
+    public void startMultiROMInstallation(Manifest man, boolean multirom, boolean recovery,
+                                          boolean kernel, String kernel_name) {
+        startInstallation(new MultiROMInstallTask(man, multirom, recovery,
+                kernel ? kernel_name : null));
+    }
+
+    public void startUbuntuInstallation(UbuntuInstallInfo info, MultiROM multirom) {
+        startInstallation(new UbuntuInstallTask(info, multirom));
+    }
+
+    private void startInstallation(InstallAsyncTask task) {
         startForeground(NOTIFICATION_ID, m_builder.build());
 
         m_log = new StringBuffer(1024);
         m_isInProgress = true;
         m_enableCancel = true;
-        m_requestRecovery = false;
+        m_requestRecovery = 0;
         m_completed = false;
 
         PowerManager pm = (PowerManager)getSystemService(POWER_SERVICE);
@@ -80,8 +89,7 @@ public class InstallService extends Service implements InstallListener {
                                     "MultiROMMgr");
         m_wakeLock.acquire();
 
-        m_task = new InstallAsyncTask(man, multirom, recovery,
-                kernel ? kernel_name : null);
+        m_task = task;
         m_task.setListener(this);
         m_task.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, (Void)null);
     }
@@ -100,7 +108,7 @@ public class InstallService extends Service implements InstallListener {
     public boolean getEnableCancel() {
         return m_enableCancel;
     }
-    public boolean wasRecoveryRequested() { return m_requestRecovery; }
+    public int wasRecoveryRequested() { return m_requestRecovery; }
     public boolean wasCompleted() { return m_completed; }
 
     @Override
@@ -145,16 +153,16 @@ public class InstallService extends Service implements InstallListener {
     }
 
     @Override
-    public void requestRecovery() {
-        m_requestRecovery = true;
+    public void requestRecovery(boolean force) {
+        m_requestRecovery = 1 + (force ? 1 : 0);
 
         InstallListener l = m_listener.get();
         if(l != null)
-            l.requestRecovery();
+            l.requestRecovery(force);
     }
 
-    public void setRequestRecovery(boolean request) {
-        m_requestRecovery = request;
+    public void setRequestRecovery(int req) {
+        m_requestRecovery = req;
     }
 
     public class InstallServiceBinder extends Binder {
@@ -170,7 +178,7 @@ public class InstallService extends Service implements InstallListener {
     private boolean m_isInProgress = false;
     private StringBuffer m_log = new StringBuffer(1024);
     private boolean m_enableCancel = true;
-    private boolean m_requestRecovery = false;
+    private int m_requestRecovery = 0;
     private boolean m_completed = false;
     private PowerManager.WakeLock m_wakeLock;
     private InstallAsyncTask m_task = null;

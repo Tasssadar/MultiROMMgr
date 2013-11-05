@@ -88,6 +88,14 @@ public class Utils {
         return false;
     }
 
+    public static String trim(String str, int length) {
+        if(str.length() <= length)
+            return str;
+
+        int part = length/2;
+        return str.substring(0, part-1) + "..." + str.substring(str.length()-part+2);
+    }
+
     private static class ShellRunnable implements Runnable {
         private String m_cmd;
         public ShellRunnable(String cmd) {
@@ -158,7 +166,7 @@ public class Utils {
     public static String getFilenameFromUrl(String url) {
         int idx = url.lastIndexOf('/');
         if(idx == -1)
-            return null;
+            return url;
         return url.substring(idx+1);
     }
 
@@ -167,12 +175,24 @@ public class Utils {
     }
 
     public static String calculateMD5(File file) {
+        return calculateChecksum(file, "MD5");
+    }
+
+    public static String calculateSHA256(String file) {
+        return calculateSHA256(new File(file));
+    }
+
+    public static String calculateSHA256(File file) {
+        return calculateChecksum(file, "SHA-256");
+    }
+
+    public static String calculateChecksum(File file, String checksumType) {
         String res = null;
         FileInputStream in = null;
         try {
             in = new FileInputStream(file);
             byte[] buff = new byte[8192];
-            MessageDigest digest = MessageDigest.getInstance("MD5");
+            MessageDigest digest = MessageDigest.getInstance(checksumType);
             int read;
 
             while((read = in.read(buff)) > 0)

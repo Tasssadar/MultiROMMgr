@@ -1,16 +1,23 @@
 package com.tassadar.multirommgr;
 
 import android.content.Context;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.fima.cardsui.objects.Card;
 
-public class UbuntuCard extends Card implements AdapterView.OnItemSelectedListener {
+public class UbuntuCard extends Card implements AdapterView.OnItemSelectedListener, View.OnClickListener {
+
+    public UbuntuCard(StartInstallListener listener) {
+        m_listener = listener;
+    }
 
     @Override
     public View getCardContent(Context context) {
@@ -18,6 +25,9 @@ public class UbuntuCard extends Card implements AdapterView.OnItemSelectedListen
 
         Spinner s = (Spinner) m_view.findViewById(R.id.channel);
         s.setOnItemSelectedListener(this);
+
+        Button b = (Button) m_view.findViewById(R.id.install_btn);
+        b.setOnClickListener(this);
 
         UbuntuManifestAsyncTask.instance().setCard(this);
         UbuntuManifestAsyncTask.instance().executeTask(StatusAsyncTask.instance().getDevice());
@@ -77,8 +87,30 @@ public class UbuntuCard extends Card implements AdapterView.OnItemSelectedListen
         s.setAdapter(null);
     }
 
+    @Override
+    public void onClick(View view) {
+        Bundle bundle = new Bundle();
+        bundle.putString("installation_type", "ubuntu");
+
+        UbuntuInstallInfo info = new UbuntuInstallInfo();
+
+        Spinner s = (Spinner) m_view.findViewById(R.id.channel);
+        UbuntuChannel chan = (UbuntuChannel)s.getSelectedItem();
+
+        s = (Spinner) m_view.findViewById(R.id.version);
+        Integer version = (Integer)s.getSelectedItem();
+
+        chan.fillInstallFilesForVer(info.installFiles, version);
+        info.channelName = chan.getRawName();
+
+        UbuntuManifestAsyncTask.instance().putInstallInfo(info);
+
+        m_listener.startActivity(bundle, MainActivity.ACT_INSTALL_UBUNTU, InstallActivity.class);
+    }
+
     private View m_view;
     private UbuntuChannelsAdapter m_channelAdapter;
     private ArrayAdapter<Integer> m_versionAdapter;
     private ArrayAdapter<String> m_destAdapter;
+    private StartInstallListener m_listener;
 }

@@ -8,6 +8,9 @@ import eu.chainfire.libsuperuser.Shell;
 
 public class MultiROM {
 
+    private static final int MAX_ROM_NAME = 26;
+    private static final String UTOUCH_ROM_INFO = "ubuntu_touch.txt";
+
     public boolean findMultiROMDir() {
         List<String> out = Shell.SU.run(
                 "folders=\"/data/media/0/multirom/ /data/media/multirom/\";" +
@@ -33,6 +36,42 @@ public class MultiROM {
 
         m_version = out.get(0);
         Log.d("MultiROM", "MultiROM version: " + m_version);
+        return true;
+    }
+
+    public String getNewRomFolder(String base) {
+        if(base.length() > MAX_ROM_NAME)
+            base = base.substring(0, MAX_ROM_NAME);
+
+        List<String> out = Shell.SU.run(String.format(
+                "cd \"%s/roms\"; " +
+                "rom=\"%s\"; c=0; " +
+                "while [ $c -lt 10 ]; do" +
+                "    if [ ! -d \"$rom\" ]; then" +
+                "        echo $(pwd)/$rom;" +
+                "        exit 0;" +
+                "    fi;" +
+                "    c=$(($c+1));" +
+                "    rom=\"${rom%%?}$c\";" +
+                "done",
+                m_path, base));
+
+        if (out == null || out.isEmpty())
+            return null;
+        return out.get(0);
+    }
+
+    public boolean initUbuntuDir(String path) {
+        List<String> out = Shell.SU.run(String.format(
+                "mkdir -p \"%s\" && cd \"%s\" && " +
+                "mkdir system data cache && " +
+                "mkdir cache/recovery && " +
+                "cat ../../infos/%s > rom_info.txt &&" +
+                "echo success",
+                path, path, UTOUCH_ROM_INFO));
+
+        if (out == null || out.isEmpty() || !out.get(0).equals("success"))
+            return false;
         return true;
     }
 
