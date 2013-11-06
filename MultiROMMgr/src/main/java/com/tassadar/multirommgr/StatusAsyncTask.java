@@ -71,6 +71,10 @@ public class StatusAsyncTask extends AsyncTask <Void, Void, StatusAsyncTask.Resu
             this.execute((Void) null);
     }
 
+    public boolean isComplete() {
+        return getStatus() == Status.FINISHED;
+    }
+
     protected Result doInBackground(Void ...arg) {
         Result res = new Result();
 

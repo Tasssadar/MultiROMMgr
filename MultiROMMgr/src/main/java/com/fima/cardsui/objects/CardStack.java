@@ -41,6 +41,12 @@ public class CardStack extends AbstractCard {
 		mSlideIn = true;
 	}
 
+	public CardStack(boolean slideIn) {
+		cards = new ArrayList<Card>();
+		mStack = this;
+		mSlideIn = slideIn;
+	}
+
 	public ArrayList<Card> getCards() {
 		return cards;
 	}

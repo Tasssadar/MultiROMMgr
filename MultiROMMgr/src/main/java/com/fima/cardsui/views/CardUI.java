@@ -38,7 +38,7 @@ public class CardUI extends FrameLayout {
 	private static final int STATE_OFFSCREEN = 1;
 	private static final int STATE_RETURNING = 2;
 
-	public interface OnRenderedListener {
+    public interface OnRenderedListener {
 		public void onRendered();
 	}
 
@@ -67,6 +67,7 @@ public class CardUI extends FrameLayout {
 	private boolean mSwipeable = false;
 	private OnRenderedListener onRenderedListener;
 	protected int renderedCardsStacks = 0;
+	private boolean mSlideIn = true;
 
 	protected int mScrollY;
 	private StackAdapter mAdapter;
@@ -125,6 +126,7 @@ public class CardUI extends FrameLayout {
 	public void setSwipeable(boolean b) {
 		mSwipeable = b;
 	}
+	public void setSlideIn(boolean slide) { mSlideIn = slide; }
 
 	public void setHeader(View header) {
 
@@ -264,7 +266,7 @@ public class CardUI extends FrameLayout {
 
 	public void addCard(Card card, boolean refresh) {
 
-		CardStack stack = new CardStack();
+		CardStack stack = new CardStack(mSlideIn);
 		stack.add(card);
 		mStacks.add(stack);
 		if (refresh)

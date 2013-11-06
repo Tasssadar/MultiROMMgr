@@ -24,6 +24,7 @@ public class MainActivity extends Activity implements StatusAsyncTask.StatusAsyn
 
         mCardView = (CardUI) findViewById(R.id.cardsview);
         mCardView.setSwipeable(false);
+        mCardView.setSlideIn(!StatusAsyncTask.instance().isComplete());
 
         start();
     }
