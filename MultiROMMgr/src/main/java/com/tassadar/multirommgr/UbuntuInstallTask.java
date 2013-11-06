@@ -1,5 +1,6 @@
 package com.tassadar.multirommgr;
 
+import android.content.SharedPreferences;
 import android.os.Environment;
 import android.util.Log;
 
@@ -151,6 +152,20 @@ public class UbuntuInstallTask extends InstallAsyncTask  {
             }
             m_listener.onInstallLog("<font color=\"green\">OK</font><br>");
         }
+
+        SharedPreferences pref = MultiROMMgrApplication.getPreferences();
+        if(pref.getBoolean(SettingsActivity.UTOUCH_DELETE_FILES, false)) {
+            m_listener.onInstallLog("Deleting used files...<br>");
+            for(int i = 0; i < files.size(); ++i) {
+                UbuntuFile f = files.get(i);
+
+                File file = new File(src, Utils.getFilenameFromUrl(f.path));
+                file.delete();
+                file = new File(src, Utils.getFilenameFromUrl(f.signature));
+                file.delete();
+            }
+        }
+
         return true;
     }
 

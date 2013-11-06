@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <PreferenceCategory
+        android:title="@string/general"
+        android:key="pref_general">
+        <CheckBoxPreference
+            android:key="general_auto_reboot"
+            android:summary="@string/pref_auto_reboot_summ"
+            android:title="@string/pref_auto_reboot"
+            android:defaultValue="false" />
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:title="@string/ubuntu_touch"
+        android:key="pref_utouch">
+        <CheckBoxPreference
+            android:key="utouch_show_hidden"
+            android:summary="@string/pref_hidden_channels_summ"
+            android:title="@string/pref_hidden_channels"
+            android:defaultValue="false" />
+        <CheckBoxPreference
+            android:key="utouch_delete_files"
+            android:defaultValue="false"
+            android:summary="@string/pref_delete_utouch_files_summ"
+            android:title="@string/pref_delete_utouch_files" />
+    </PreferenceCategory>
+</PreferenceScreen>

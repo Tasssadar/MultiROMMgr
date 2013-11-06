@@ -1,6 +1,8 @@
 package com.tassadar.multirommgr;
 
 
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.util.Log;
 
 import org.json.JSONException;
@@ -34,6 +36,7 @@ public class UbuntuManifest {
         }
 
         try {
+            SharedPreferences pref = MultiROMMgrApplication.getPreferences();
             JSONObject o = (JSONObject)new JSONTokener(out.toString()).nextValue();
             Iterator itr = o.keys();
             while(itr.hasNext()) {
@@ -41,8 +44,10 @@ public class UbuntuManifest {
                 JSONObject c = o.getJSONObject(name);
 
                 // Skip hidden channels
-                if(c.optBoolean("hidden", false))
+                if(c.optBoolean("hidden", false) &&
+                   !pref.getBoolean(SettingsActivity.UTOUCH_SHOW_HIDDEN, false)) {
                     continue;
+                }
 
                 m_channels.put(name, new UbuntuChannel(name, c));
             }

@@ -6,6 +6,7 @@ import android.content.ComponentName;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.ServiceConnection;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.text.Html;
@@ -13,6 +14,7 @@ import android.text.Spanned;
 import android.text.SpannedString;
 import android.util.Log;
 import android.view.KeyEvent;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -34,6 +36,8 @@ public class InstallActivity extends Activity implements ServiceConnection, Inst
         Intent i = new Intent(this, InstallService.class);
         startService(i);
         bindService(i, this, BIND_AUTO_CREATE);
+
+        getActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
     @Override
@@ -110,17 +114,31 @@ public class InstallActivity extends Activity implements ServiceConnection, Inst
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         switch(keyCode) {
             case KeyEvent.KEYCODE_BACK:
-                if(m_service != null) {
-                    if(m_service.isInProgress() && !m_isCancelEnabled) {
-                        Toast.makeText(this, R.string.uninterruptable, Toast.LENGTH_SHORT).show();
-                        return true;
-                    }
-                    m_service.cancel();
-                }
-                this.finish();
+                tryBack();
                 return true;
         }
         return super.onKeyDown(keyCode, event);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected (MenuItem item) {
+        switch(item.getItemId()) {
+            case android.R.id.home:
+                tryBack();
+                return true;
+        }
+        return false;
+    }
+
+    private void tryBack() {
+        if(m_service != null) {
+            if(m_service.isInProgress() && !m_isCancelEnabled) {
+                Toast.makeText(this, R.string.uninterruptable, Toast.LENGTH_SHORT).show();
+                return;
+            }
+            m_service.cancel();
+        }
+        this.finish();
     }
 
     public void onControlClicked(View v) {
@@ -170,7 +188,20 @@ public class InstallActivity extends Activity implements ServiceConnection, Inst
 
     @Override
     public void requestRecovery(boolean force) {
-        runOnUiThread(new RecoveryDialogRunnable(force));
+        SharedPreferences pref = MultiROMMgrApplication.getPreferences();
+        if(!pref.getBoolean(SettingsActivity.GENERAL_AUTO_REBOOT, false)) {
+            runOnUiThread(new RecoveryDialogRunnable(force));
+        } else {
+            doReboot(force);
+        }
+    }
+
+    public void doReboot(boolean force) {
+        if(!force) {
+            Device d = StatusAsyncTask.instance().getManifest().getDevice();
+            Utils.deployOpenRecoveryScript(d.getCacheDev());
+        }
+        Utils.reboot("recovery");
     }
 
     private class RecoveryDialogRunnable implements Runnable {
@@ -188,11 +219,7 @@ public class InstallActivity extends Activity implements ServiceConnection, Inst
              .setPositiveButton(R.string.reboot, new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {
-                    if(!m_force) {
-                        Device d = StatusAsyncTask.instance().getManifest().getDevice();
-                        Utils.deployOpenRecoveryScript(d.getCacheDev());
-                    }
-                    Utils.reboot("recovery");
+                    doReboot(m_force);
                 }
              });
 

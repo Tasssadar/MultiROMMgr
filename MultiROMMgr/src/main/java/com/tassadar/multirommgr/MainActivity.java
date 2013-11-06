@@ -3,6 +3,7 @@ package com.tassadar.multirommgr;
 import android.content.Intent;
 import android.os.Bundle;
 import android.app.Activity;
+import android.preference.PreferenceManager;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -18,6 +19,8 @@ public class MainActivity extends Activity implements StatusAsyncTask.StatusAsyn
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        PreferenceManager.setDefaultValues(this, R.xml.settings, false);
 
         mCardView = (CardUI) findViewById(R.id.cardsview);
         mCardView.setSwipeable(false);
@@ -50,6 +53,10 @@ public class MainActivity extends Activity implements StatusAsyncTask.StatusAsyn
         switch(it.getItemId()) {
             case R.id.action_refresh:
                 refresh();
+                return true;
+            case R.id.action_settings:
+                Intent i = new Intent(this, SettingsActivity.class);
+                startActivity(i);
                 return true;
             default:
                 return false;
