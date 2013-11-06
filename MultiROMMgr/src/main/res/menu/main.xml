@@ -1,8 +1,10 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:id="@+id/action_refresh"
         android:title="@string/action_refresh"
-        android:showAsAction="always|withText" />
+        android:showAsAction="always|withText"
+        android:icon="@drawable/navigation_refresh"/>
     <item android:id="@+id/action_settings"
         android:title="@string/action_settings"
-        android:showAsAction="ifRoom"/>
+        android:showAsAction="ifRoom"
+        android:icon="@drawable/action_settings"/>
 </menu>
