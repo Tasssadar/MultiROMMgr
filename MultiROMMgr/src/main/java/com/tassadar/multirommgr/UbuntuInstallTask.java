@@ -97,10 +97,13 @@ public class UbuntuInstallTask extends InstallAsyncTask  {
 
         File destFile = new File(destDir, filename);
         if(destFile.exists() && checksum != null) {
+            m_listener.onInstallLog("Checking file " + Utils.trim(filename, 40) + "... ");
             String sha256 = Utils.calculateSHA256(destFile);
             if(checksum.equals(sha256)) {
-                m_listener.onInstallLog("Skipping " + Utils.trim(filename, 40) + "<br>");
+                m_listener.onInstallLog("<font color=\"green\">ok, skipping.</font><br>");
                 return true;
+            } else {
+                m_listener.onInstallLog("<font color=\"#FF9900\">failed, re-downloading.</font><br>");
             }
         }
 
@@ -110,7 +113,7 @@ public class UbuntuInstallTask extends InstallAsyncTask  {
             return false;
         }
 
-        if(checksum != null && checksum.isEmpty()) {
+        if(checksum != null && !checksum.isEmpty()) {
             m_listener.onInstallLog("Checking file " + m_downFilename + "... ");
             String sha256 = Utils.calculateSHA256(destFile);
             if(checksum.equals(sha256))

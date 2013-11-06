@@ -58,7 +58,7 @@ public abstract class InstallAsyncTask extends AsyncTask<Void, Void, Void> imple
     @Override
     public void onProgressChanged(int downloaded, int total) {
         long cur = System.currentTimeMillis();
-        if(m_canceled || cur - m_lastUpdate < 100)
+        if(m_canceled || cur - m_lastUpdate < 200)
             return;
 
         m_lastUpdate = cur;
