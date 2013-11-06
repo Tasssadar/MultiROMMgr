@@ -44,15 +44,15 @@ public class MultiROMInstallTask extends InstallAsyncTask {
         if(m_kernel != null)
             files.add(m_manifest.getKernelFile(m_kernel));
 
-        m_listener.onProgressUpdate(0, 0, true, "Preparing downloads...");
-        m_listener.onInstallLog("Preparing downloads...<br>");
+        m_listener.onProgressUpdate(0, 0, true, Utils.getString(R.string.preparing_downloads, ""));
+        m_listener.onInstallLog(Utils.getString(R.string.preparing_downloads, "<br>"));
 
         for(int i = 0; i < files.size(); ++i) {
             Manifest.InstallationFile f = files.get(i);
 
             String filename = Utils.getFilenameFromUrl(f.url);
             if(filename == null || filename.isEmpty()) {
-                m_listener.onInstallLog("Invalid url " + f.url);
+                m_listener.onInstallLog(Utils.getString(R.string.invalid_url, f.url));
                 m_listener.onInstallComplete(false);
                 return null;
             }
@@ -61,7 +61,7 @@ public class MultiROMInstallTask extends InstallAsyncTask {
             if(f.destFile.exists()) {
                 String md5 = Utils.calculateMD5(f.destFile);
                 if(f.md5.equals(md5)) {
-                    m_listener.onInstallLog(filename + " was already downloaded, skipping...<br>");
+                    m_listener.onInstallLog(Utils.getString(R.string.skipping_file, filename));
                     continue;
                 }
             }
@@ -72,18 +72,18 @@ public class MultiROMInstallTask extends InstallAsyncTask {
                 return null;
             }
 
-            m_listener.onInstallLog("Checking file " + filename + "... ");
+            m_listener.onInstallLog(Utils.getString(R.string.checking_file, filename));
             String md5 = Utils.calculateMD5(f.destFile);
             if(f.md5.isEmpty() || f.md5.equals(md5))
-                m_listener.onInstallLog("<font color=\"green\">ok</font><br>");
+                m_listener.onInstallLog(Utils.getString(R.string.ok));
             else {
-                m_listener.onInstallLog("<font color=\"red\">FAILED!</font><br>");
+                m_listener.onInstallLog(Utils.getString(R.string.failed));
                 m_listener.onInstallComplete(false);
                 return null;
             }
         }
 
-        m_listener.onProgressUpdate(0, 0, true, "Installing files...");
+        m_listener.onProgressUpdate(0, 0, true, Utils.getString(R.string.installing_files));
         m_listener.enableCancel(false);
 
         boolean needsRecovery = false;
@@ -93,7 +93,7 @@ public class MultiROMInstallTask extends InstallAsyncTask {
 
         for(int i = 0; i < files.size(); ++i) {
             Manifest.InstallationFile f = files.get(i);
-            m_listener.onInstallLog("Installing file " + f.destFile.getName() + "... ");
+            m_listener.onInstallLog(Utils.getString(R.string.installing_file, f.destFile.getName()));
             if(f.type.equals("recovery")) {
                 if(!flashRecovery(f, m_manifest.getDevice())) {
                     m_listener.onInstallComplete(false);
@@ -102,7 +102,7 @@ public class MultiROMInstallTask extends InstallAsyncTask {
             } else if(f.type.equals("multirom") || f.type.equals("kernel")) {
                 needsRecovery = true;
                 addScriptInstall(f, script);
-                m_listener.onInstallLog("<font color=\"yellow\">needs recovery</font><br>");
+                m_listener.onInstallLog(Utils.getString(R.string.needs_recovery));
             }
         }
 
@@ -132,10 +132,10 @@ public class MultiROMInstallTask extends InstallAsyncTask {
         tmprecovery.delete();
 
         if(out == null || out.isEmpty() || !out.get(out.size()-1).equals("success")) {
-            m_listener.onInstallLog("<font color=\"red\">FAILED!</font><br>");
+            m_listener.onInstallLog(Utils.getString(R.string.failed));
             return false;
         }
-        m_listener.onInstallLog("<font color=\"green\">success</font><br>");
+        m_listener.onInstallLog(Utils.getString(R.string.success));
         return true;
     }
 

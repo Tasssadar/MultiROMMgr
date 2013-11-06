@@ -22,8 +22,8 @@ public class UbuntuInstallTask extends InstallAsyncTask  {
 
     @Override
     protected Void doInBackground(Void... voids) {
-        m_listener.onProgressUpdate(0, 0, true, "Preparing downloads...");
-        m_listener.onInstallLog("Preparing downloads...<br>");
+        m_listener.onProgressUpdate(0, 0, true, Utils.getString(R.string.preparing_downloads, ""));
+        m_listener.onInstallLog(Utils.getString(R.string.preparing_downloads, "<br>"));
 
         File destDir = new File(Environment.getExternalStorageDirectory(), DOWN_DIR);
         destDir.mkdirs();
@@ -32,7 +32,7 @@ public class UbuntuInstallTask extends InstallAsyncTask  {
        String suDestDir = findSUDestDir(destDir);
 
         if(suDestDir == null) {
-            m_listener.onInstallLog("Failed to find download directory as SU.<br>");
+            m_listener.onInstallLog(Utils.getString(R.string.su_failed_find_dir));
             m_listener.onInstallComplete(false);
             return null;
         }
@@ -52,20 +52,19 @@ public class UbuntuInstallTask extends InstallAsyncTask  {
                 return null;
         }
 
-        m_listener.onProgressUpdate(0, 0, true, "Installing Ubuntu Touch...");
+        m_listener.onProgressUpdate(0, 0, true, Utils.getString(R.string.installing_utouch));
         m_listener.enableCancel(false);
 
         String romPath = m_multirom.getNewRomFolder("utouch_" + m_info.channelName);
         if(romPath == null) {
-            m_listener.onInstallLog("Failed to create ROM folder!<br>");
+            m_listener.onInstallLog(Utils.getString(R.string.failed_create_rom));
             m_listener.onInstallComplete(false);
             return null;
         }
-        m_listener.onInstallLog("<br>Installing as ROM <font color=\"yellow\">" +
-                Utils.getFilenameFromUrl(romPath) + "</font><br>");
+        m_listener.onInstallLog(Utils.getString(R.string.installing_rom, Utils.getFilenameFromUrl(romPath)));
 
         if(!m_multirom.initUbuntuDir(romPath)) {
-            m_listener.onInstallLog("Failed to initialize ROM folder!<br>");
+            m_listener.onInstallLog(Utils.getString(R.string.failed_rom_init));
             Shell.SU.run("rm -r \"%s\"", romPath);
             m_listener.onInstallComplete(false);
             return null;
@@ -91,20 +90,20 @@ public class UbuntuInstallTask extends InstallAsyncTask  {
     private boolean downloadFile(File destDir, String url, String checksum) {
         String filename = Utils.getFilenameFromUrl(url);
         if(filename == null || filename.isEmpty()) {
-            m_listener.onInstallLog("Invalid url " + url);
+            m_listener.onInstallLog(Utils.getString(R.string.invalid_url, url));
             m_listener.onInstallComplete(false);
             return false;
         }
 
         File destFile = new File(destDir, filename);
         if(destFile.exists() && checksum != null) {
-            m_listener.onInstallLog("Checking file " + Utils.trim(filename, 40) + "... ");
+            m_listener.onInstallLog(Utils.getString(R.string.checking_file, Utils.trim(filename, 40)));
             String sha256 = Utils.calculateSHA256(destFile);
             if(checksum.equals(sha256)) {
-                m_listener.onInstallLog("<font color=\"green\">ok, skipping.</font><br>");
+                m_listener.onInstallLog(Utils.getString(R.string.ok_skippping));
                 return true;
             } else {
-                m_listener.onInstallLog("<font color=\"#FF9900\">failed, re-downloading.</font><br>");
+                m_listener.onInstallLog(Utils.getString(R.string.failed_redownload));
             }
         }
 
@@ -115,12 +114,12 @@ public class UbuntuInstallTask extends InstallAsyncTask  {
         }
 
         if(checksum != null && !checksum.isEmpty()) {
-            m_listener.onInstallLog("Checking file " + m_downFilename + "... ");
+            m_listener.onInstallLog(Utils.getString(R.string.checking_file, m_downFilename));
             String sha256 = Utils.calculateSHA256(destFile);
             if(checksum.equals(sha256))
-                m_listener.onInstallLog("<font color=\"green\">ok</font><br>");
+                m_listener.onInstallLog(Utils.getString(R.string.ok));
             else {
-                m_listener.onInstallLog("<font color=\"red\">FAILED!</font><br>");
+                m_listener.onInstallLog(Utils.getString(R.string.failed));
                 m_listener.onInstallComplete(false);
                 return false;
             }
@@ -131,31 +130,31 @@ public class UbuntuInstallTask extends InstallAsyncTask  {
     private boolean copyFiles(String src, String dest, ArrayList<UbuntuFile> files) {
         String bb = Utils.extractAsset("busybox");
         if(bb == null) {
-            m_listener.onInstallLog("Failed to extract busybox!");
+            m_listener.onInstallLog(Utils.getString(R.string.failed_busybox));
             return false;
         }
 
         for(int i = 0; i < files.size(); ++i) {
             UbuntuFile f = files.get(i);
             String filename = Utils.getFilenameFromUrl(f.path);
-            m_listener.onInstallLog("Copying file " + Utils.trim(filename, 40) + "...");
+            m_listener.onInstallLog(Utils.getString(R.string.copying_file, Utils.trim(filename, 40)));
 
             if(!copyFile(src + "/" + filename, dest, bb)) {
-                m_listener.onInstallLog("<br>Failed to copy file " + filename + "<br>");
+                m_listener.onInstallLog(Utils.getString(R.string.failed_file_copy, filename));
                 return false;
             }
 
             filename = Utils.getFilenameFromUrl(f.signature);
             if(!copyFile(src + "/" + filename, dest, bb)) {
-                m_listener.onInstallLog("<br>Failed to copy file " + filename + "<br>");
+                m_listener.onInstallLog(Utils.getString(R.string.failed_file_copy, filename));
                 return false;
             }
-            m_listener.onInstallLog("<font color=\"green\">OK</font><br>");
+            m_listener.onInstallLog(Utils.getString(R.string.ok));
         }
 
         SharedPreferences pref = MultiROMMgrApplication.getPreferences();
         if(pref.getBoolean(SettingsActivity.UTOUCH_DELETE_FILES, false)) {
-            m_listener.onInstallLog("Deleting used files...<br>");
+            m_listener.onInstallLog(Utils.getString(R.string.deleting_used_files));
             for(int i = 0; i < files.size(); ++i) {
                 UbuntuFile f = files.get(i);
 

@@ -178,6 +178,7 @@ public class Manifest {
     public String getMultiromVersion() {
         return m_multirom.version;
     }
+
     public Date getRecoveryVersion() {
         try {
             return Recovery.VER_FMT.parse(m_recovery.version);

@@ -172,9 +172,9 @@ public class InstallActivity extends Activity implements ServiceConnection, Inst
     public void onInstallComplete(boolean success) {
         Spanned text = null;
         if(success)
-            text = new SpannedString("Installation was successful.");
+            text = new SpannedString(Utils.getString(R.string.install_success));
         else
-            text = new SpannedString("Installation FAILED!");
+            text = new SpannedString(Utils.getString(R.string.install_failed));
 
         setResult(RESULT_OK);
 

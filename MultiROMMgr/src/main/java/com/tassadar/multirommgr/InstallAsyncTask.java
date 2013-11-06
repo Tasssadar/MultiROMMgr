@@ -27,7 +27,7 @@ public abstract class InstallAsyncTask extends AsyncTask<Void, Void, Void> imple
 
     protected boolean downloadFile(String url, File dest) {
         m_downFilename = Utils.trim(dest.getName(), 40);
-        m_listener.onInstallLog("Downloading file " + m_downFilename + "... ");
+        m_listener.onInstallLog(Utils.getString(R.string.downloading_file, m_downFilename));
 
         m_lastUpdate = 0;
         onProgressChanged(0, 0);
@@ -36,7 +36,7 @@ public abstract class InstallAsyncTask extends AsyncTask<Void, Void, Void> imple
         try {
             out = new FileOutputStream(dest);
             if(Utils.downloadFile(url, out, this)) {
-                m_listener.onInstallLog("<font color=\"green\">success</font><br>");
+                m_listener.onInstallLog(Utils.getString(R.string.success));
                 return true;
             }
         } catch (FileNotFoundException e) {
@@ -51,7 +51,7 @@ public abstract class InstallAsyncTask extends AsyncTask<Void, Void, Void> imple
                 e.printStackTrace();
             }
         }
-        m_listener.onInstallLog("<font color=\"red\">FAILED!</font><br>");
+        m_listener.onInstallLog(Utils.getString(R.string.failed));
         return false;
     }
 

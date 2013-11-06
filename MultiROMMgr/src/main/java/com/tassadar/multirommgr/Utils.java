@@ -231,4 +231,12 @@ public class Utils {
         }
         return true;
     }
+
+    public static String getString(int id) {
+        return MultiROMMgrApplication.getAppContext().getResources().getString(id);
+    }
+
+    public static String getString(int id, Object... args) {
+        return MultiROMMgrApplication.getAppContext().getResources().getString(id, args);
+    }
 }

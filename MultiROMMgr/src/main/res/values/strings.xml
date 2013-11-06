@@ -44,5 +44,29 @@
     <string name="general">General</string>
     <string name="pref_auto_reboot">Don\'t ask to reboot</string>
     <string name="pref_auto_reboot_summ">Automatically reboot into recovery when it is required to complete the installation.</string>
+    <string name="install_success">Installation was successful.</string>
+    <string name="install_failed">Installation FAILED!</string>
+    <string name="downloading_file">Downloading file %s...</string>
+    <string name="success"><![CDATA[<font color=\"green\">success</font><br>]]></string>
+    <string name="failed"><![CDATA[<font color=\"red\">FAILED!</font><br>]]></string>
+    <string name="preparing_downloads">Preparing downloads...%s</string>
+    <string name="invalid_url">Invalid URL: %s</string>
+    <string name="skipping_file"><![CDATA[Skipping already downloaded file %s<br>]]></string>
+    <string name="checking_file">Checking file %s... </string>
+    <string name="ok"><![CDATA[<font color=\"green\">ok</font><br>]]></string>
+    <string name="installing_files">Installing files...</string>
+    <string name="installing_file">Installing file %s...</string>
+    <string name="needs_recovery"><![CDATA[<font color=\"yellow\">needs recovery</font><br>]]></string>
+    <string name="su_failed_find_dir"><![CDATA[Failed to find download directory as SU.<br>]]></string>
+    <string name="installing_utouch">Installing Ubuntu Touch...</string>
+    <string name="failed_create_rom"><![CDATA[Failed to create ROM folder!<br>]]></string>
+    <string name="installing_rom"><![CDATA[<br>Installing as ROM <font color=\"yellow\">%s</font><br>]]></string>
+    <string name="failed_rom_init"><![CDATA[Failed to initialize ROM folder!<br>]]></string>
+    <string name="ok_skippping"><![CDATA[<font color=\"green\">ok, skipping.</font><br>]]></string>
+    <string name="failed_redownload"><![CDATA[<font color=\"#FF9900\">failed, re-downloading.</font><br>]]></string>
+    <string name="failed_busybox">Failed to extract busybox!</string>
+    <string name="copying_file">Copying file %s...</string>
+    <string name="failed_file_copy"><![CDATA[<br><font color=\"red\">Failed to copy file %s!</font><br>]]></string>
+    <string name="deleting_used_files"><![CDATA[Deleting used files...<br>]]></string>
 
 </resources>
