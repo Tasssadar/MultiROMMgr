@@ -53,6 +53,12 @@ public class Manifest {
             for(int i = 0; i < a.length(); ++i) {
                 o = a.getJSONObject(i);
                 if(o.getString("name").equals(dev.getName())) {
+                    JSONObject utouch = o.optJSONObject("ubuntu_touch");
+                    if(utouch != null) {
+                        m_ubuntuReqMultiROM = utouch.getString("req_multirom");
+                        m_ubuntuReqRecovery = utouch.getString("req_recovery");
+                    }
+
                     getFileList(o.getJSONArray("files"));
                     m_dev = dev;
                     return true;
@@ -96,7 +102,7 @@ public class Manifest {
         if(recovery != null) {
             try {
                 Date my = recovery.getVersion();
-                Date upd = Recovery.RECOVERY_VER_FORMAT.parse(m_recovery.version);
+                Date upd = Recovery.VER_FMT.parse(m_recovery.version);
                 m_recoveryHasUpdate = upd.after(my);
             } catch(ParseException e) {
                 e.printStackTrace();
@@ -121,6 +127,42 @@ public class Manifest {
         return res;
     }
 
+    public boolean hasUbuntuReqMultiROM(MultiROM m) {
+        if(m_ubuntuReqMultiROM == null)
+            return true;
+
+        int[] my = getMultiromVersions(m.getVersion());
+        int[] req = getMultiromVersions(m_ubuntuReqMultiROM);
+        return (my[0] > req[0]) || (my[0] == req[0] && my[1] >= req[1]);
+    }
+
+    public boolean hasUbuntuReqRecovery(Recovery r) {
+        if(m_ubuntuReqRecovery == null)
+            return true;
+
+        try {
+            Date my = r.getVersion();
+            Date req = Recovery.VER_FMT.parse(m_ubuntuReqRecovery);
+            return my.compareTo(req) >= 0;
+        } catch(ParseException e) {
+            e.printStackTrace();
+        }
+        return true;
+    }
+
+    public String getUbuntuReqMultiROM() {
+        return m_ubuntuReqMultiROM;
+    }
+
+    public Date getUbuntuReqRecovery() {
+        try {
+            return Recovery.VER_FMT.parse(m_ubuntuReqRecovery);
+        } catch(ParseException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
     public boolean hasMultiromUpdate() {
         return m_multiromHasUpdate;
     }
@@ -138,7 +180,7 @@ public class Manifest {
     }
     public Date getRecoveryVersion() {
         try {
-            return Recovery.RECOVERY_VER_FORMAT.parse(m_recovery.version);
+            return Recovery.VER_FMT.parse(m_recovery.version);
         } catch(ParseException e) {
             e.printStackTrace();
             return null;
@@ -164,4 +206,6 @@ public class Manifest {
     private LinkedHashMap<String, InstallationFile> m_kernels = new LinkedHashMap<String, InstallationFile>();
     private Device m_dev;
     private String m_status;
+    private String m_ubuntuReqMultiROM;
+    private String m_ubuntuReqRecovery;
 }

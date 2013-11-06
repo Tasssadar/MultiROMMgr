@@ -58,11 +58,12 @@ public class MainActivity extends Activity implements StatusAsyncTask.StatusAsyn
 
     @Override
     public void onTaskFinished(StatusAsyncTask.Result res) {
-        if(res.manifest != null)
+        if(res.manifest != null) {
             mCardView.addCard(new InstallCard(res.manifest, res.recovery == null, this), true);
 
-        if(res.multirom != null && res.recovery != null && res.device.supportsUbuntuTouch())
-            mCardView.addCard(new UbuntuCard(this));
+            if(res.multirom != null && res.recovery != null && res.device.supportsUbuntuTouch())
+                mCardView.addCard(new UbuntuCard(this, res.manifest, res.multirom, res.recovery));
+        }
     }
 
     @Override

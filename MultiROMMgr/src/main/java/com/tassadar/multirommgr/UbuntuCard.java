@@ -8,15 +8,22 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.fima.cardsui.objects.Card;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class UbuntuCard extends Card implements AdapterView.OnItemSelectedListener, View.OnClickListener {
 
-    public UbuntuCard(StartInstallListener listener) {
+    public UbuntuCard(StartInstallListener listener, Manifest man, MultiROM multirom, Recovery recovery) {
         m_listener = listener;
+        m_manifest = man;
+        m_multirom = multirom;
+        m_recovery = recovery;
     }
 
     @Override
@@ -29,8 +36,29 @@ public class UbuntuCard extends Card implements AdapterView.OnItemSelectedListen
         Button b = (Button) m_view.findViewById(R.id.install_btn);
         b.setOnClickListener(this);
 
-        UbuntuManifestAsyncTask.instance().setCard(this);
-        UbuntuManifestAsyncTask.instance().executeTask(StatusAsyncTask.instance().getDevice());
+        boolean error = false;
+        TextView t = (TextView)m_view.findViewById(R.id.error_text);
+        if(!m_manifest.hasUbuntuReqMultiROM(m_multirom)) {
+            error = true;
+
+            String f = t.getResources().getString(R.string.ubuntu_req_multirom);
+            t.append(String.format(f, m_manifest.getUbuntuReqMultiROM()) + "\n");
+        }
+        if(!m_manifest.hasUbuntuReqRecovery(m_recovery)) {
+            error = true;
+
+            String f = t.getResources().getString(R.string.ubuntu_req_recovery);
+            String ver = Recovery.DISPLAY_FMT.format(m_manifest.getUbuntuReqRecovery());
+            t.append(String.format(f, ver) + "\n");
+        }
+
+        if(!error) {
+            UbuntuManifestAsyncTask.instance().setCard(this);
+            UbuntuManifestAsyncTask.instance().executeTask(StatusAsyncTask.instance().getDevice());
+        } else {
+            t.setVisibility(View.VISIBLE);
+            m_view.findViewById(R.id.progress_bar).setVisibility(View.GONE);
+        }
         return m_view;
     }
 
@@ -113,4 +141,7 @@ public class UbuntuCard extends Card implements AdapterView.OnItemSelectedListen
     private ArrayAdapter<Integer> m_versionAdapter;
     private ArrayAdapter<String> m_destAdapter;
     private StartInstallListener m_listener;
+    private Manifest m_manifest;
+    private MultiROM m_multirom;
+    private Recovery m_recovery;
 }

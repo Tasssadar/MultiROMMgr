@@ -35,7 +35,7 @@ public class InstallCard extends Card implements CompoundButton.OnCheckedChangeL
         Resources res = m_view.getResources();
 
         Date rec_date = m_manifest.getRecoveryVersion();
-        String recovery_ver = new SimpleDateFormat("yyyy-MM-dd (m)").format(rec_date);
+        String recovery_ver = Recovery.DISPLAY_FMT.format(rec_date);
 
         CheckBox b = (CheckBox)m_view.findViewById(R.id.install_multirom);
         b.setText(res.getString(R.string.install_multirom, m_manifest.getMultiromVersion()));

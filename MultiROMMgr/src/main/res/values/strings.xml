@@ -34,5 +34,7 @@
     <string name="destination">Destination:</string>
     <string name="internal_memory">Internal memory</string>
     <string name="required"><![CDATA[<font color=\"blue\">&nbsp;(required)</font>]]></string>
+    <string name="ubuntu_req_multirom">MultiROM v%s or higher is required.</string>
+    <string name="ubuntu_req_recovery">Recovery %s or newer is required.</string>
 
 </resources>

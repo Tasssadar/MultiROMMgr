@@ -168,8 +168,7 @@ public class StatusAsyncTask extends AsyncTask <Void, Void, StatusAsyncTask.Resu
 
         String recovery_date = null;
         if (m_res.recovery != null) {
-            recovery_date = new SimpleDateFormat("yyyy-MM-dd (m)")
-                    .format(m_res.recovery.getVersion());
+            recovery_date = Recovery.DISPLAY_FMT.format(m_res.recovery.getVersion());
         }
 
         String kexec_text = t.getResources().getString(
