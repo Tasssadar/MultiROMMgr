@@ -19,6 +19,8 @@ import java.util.Date;
 
 public class UbuntuCard extends Card implements AdapterView.OnItemSelectedListener, View.OnClickListener {
 
+    private static final int MIN_FREE_SPACE = 2300;
+
     public UbuntuCard(StartInstallListener listener, Manifest man, MultiROM multirom, Recovery recovery) {
         m_listener = listener;
         m_manifest = man;
@@ -54,7 +56,7 @@ public class UbuntuCard extends Card implements AdapterView.OnItemSelectedListen
 
         if(!error) {
             UbuntuManifestAsyncTask.instance().setCard(this);
-            UbuntuManifestAsyncTask.instance().executeTask(StatusAsyncTask.instance().getDevice());
+            UbuntuManifestAsyncTask.instance().executeTask(StatusAsyncTask.instance().getDevice(), m_multirom);
         } else {
             t.setVisibility(View.VISIBLE);
             m_view.findViewById(R.id.progress_bar).setVisibility(View.GONE);
@@ -74,6 +76,12 @@ public class UbuntuCard extends Card implements AdapterView.OnItemSelectedListen
             t.setVisibility(View.VISIBLE);
             t.setText(R.string.ubuntu_man_failed);
             return;
+        }
+
+        if(res.freeSpace != -1 && res.freeSpace < MIN_FREE_SPACE) {
+            TextView t = (TextView)m_view.findViewById(R.id.error_text);
+            t.setText(Utils.getString(R.string.ubuntu_free_space, res.freeSpace, MIN_FREE_SPACE));
+            t.setVisibility(View.VISIBLE);
         }
 
         final int[] views = { R.id.channel_layout, R.id.version_layout, /* R.id.destination_layout,*/ R.id.install_btn };

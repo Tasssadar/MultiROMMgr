@@ -75,6 +75,29 @@ public class MultiROM {
         return true;
     }
 
+    public int getFreeSpaceMB() {
+        String bb = Utils.extractAsset("busybox");
+
+        List<String> out = Shell.SU.run("\"%s\" df -Pm \"%s\"", bb, m_path);
+        if (out == null || out.size() < 2 || !out.get(0).startsWith("Filesystem"))
+            return -1;
+
+        String l = out.get(1);
+        if(!l.startsWith("/dev"))
+            return -1;
+
+        String[] tokens = l.split("[ \t]+");
+        if(tokens.length != 6)
+            return -1;
+
+        try {
+            return Integer.parseInt(tokens[3]);
+        } catch(NumberFormatException e) {
+            e.printStackTrace();
+            return -1;
+        }
+    }
+
     public String getVersion() {
         return m_version;
     }

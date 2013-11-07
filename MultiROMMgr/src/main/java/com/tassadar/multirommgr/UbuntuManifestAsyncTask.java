@@ -8,7 +8,7 @@ import android.widget.TextView;
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 
-public class UbuntuManifestAsyncTask extends AsyncTask<Device, Void, UbuntuManifestAsyncTask.Result> {
+public class UbuntuManifestAsyncTask extends AsyncTask<Object, Void, UbuntuManifestAsyncTask.Result> {
 
     static final int RES_OK                 = 0x00;
     static final int RES_CHANNELS_FAIL      = 0x01;
@@ -46,22 +46,25 @@ public class UbuntuManifestAsyncTask extends AsyncTask<Device, Void, UbuntuManif
         applyResult();
     }
 
-    public void executeTask(Device dev) {
+    public void executeTask(Device dev, MultiROM multirom) {
         if(this.getStatus() == Status.PENDING)
-            this.execute(dev);
+            this.execute(dev, multirom);
     }
 
     @Override
-    protected UbuntuManifestAsyncTask.Result doInBackground(Device... dev) {
+    protected UbuntuManifestAsyncTask.Result doInBackground(Object... args) {
+        Device dev = (Device)args[0];
+        MultiROM multirom = (MultiROM)args[1];
         Result res = new Result();
 
         UbuntuManifest man = new UbuntuManifest();
-        if(!man.downloadAndParse(dev[0])) {
+        if(!man.downloadAndParse(dev)) {
             res.code = RES_CHANNELS_FAIL;
             return res;
         }
 
         res.manifest = man;
+        res.freeSpace = multirom.getFreeSpaceMB();
 
         // TODO: code to find USB partitions
         return res;
@@ -95,6 +98,7 @@ public class UbuntuManifestAsyncTask extends AsyncTask<Device, Void, UbuntuManif
         public int code = RES_OK;
         public UbuntuManifest manifest = null;
         public ArrayList<String> m_destinations = new ArrayList<String>();
+        public int freeSpace;
     }
 
     private WeakReference<UbuntuCard> m_card;
