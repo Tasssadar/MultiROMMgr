@@ -1,6 +1,7 @@
 package com.tassadar.multirommgr;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.util.Log;
 
 import java.io.File;
@@ -18,13 +19,21 @@ import eu.chainfire.libsuperuser.Shell;
 
 public class Utils {
 
+    private static final int BUSYBOX_VER = 2;
+
     public static String extractAsset(String name) {
         Context ctx = MultiROMMgrApplication.getAppContext();
 
         String path = "/data/data/" + ctx.getPackageName() + "/" + name;
         File f = new File(path);
-        if(f.exists())
-            return path;
+        if(f.exists()) {
+            if(!name.equals("busybox"))
+                return path;
+
+            SharedPreferences pref = MultiROMMgrApplication.getPreferences();
+            if(pref.getInt("busybox_ver", 0) == BUSYBOX_VER)
+                return path;
+        }
 
         try {
             InputStream in = ctx.getAssets().open(name);
@@ -37,8 +46,12 @@ public class Utils {
             out.close();
             in.close();
 
-            f = new File(path);
             f.setExecutable(true);
+
+            if(name.equals("busybox")) {
+                SharedPreferences pref = MultiROMMgrApplication.getPreferences();
+                pref.edit().putInt("busybox_ver", BUSYBOX_VER).commit();
+            }
             return path;
         } catch (IOException e) {
             e.printStackTrace();
@@ -53,11 +66,13 @@ public class Utils {
     public static void deployOpenRecoveryScript(String cacheDev) {
         File script = getCacheOpenRecoveryScript();
 
+        String bb = Utils.extractAsset("busybox");
+
         // We need to mount the real /cache, we might be running in secondary ROM
         String cmd =
                 "mkdir -p /data/local/tmp/tmpcache; " +
                 "cd /data/local/tmp/; " +
-                "mount -t auto " + cacheDev + " tmpcache && " +
+                bb + " mount -t auto " + cacheDev + " tmpcache && " +
                 "mkdir -p tmpcache/recovery && " +
                 "cat \"" + script.getAbsolutePath() + "\" > tmpcache/recovery/openrecoveryscript; " +
                 "sync;" +
