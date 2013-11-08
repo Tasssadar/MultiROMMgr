@@ -51,7 +51,8 @@ public class UpdateChecker {
         AlarmManager mgr = (AlarmManager)ctx.getSystemService(Context.ALARM_SERVICE);
         if(run) {
             i = getIntent(ctx, 0);
-            mgr.setInexactRepeating(AlarmManager.ELAPSED_REALTIME, 0, AlarmManager.INTERVAL_FIFTEEN_MINUTES, i);
+            mgr.setInexactRepeating(AlarmManager.ELAPSED_REALTIME, 2000,
+                    AlarmManager.INTERVAL_HALF_DAY, i);
         } else {
             mgr.cancel(i);
             i.cancel();
