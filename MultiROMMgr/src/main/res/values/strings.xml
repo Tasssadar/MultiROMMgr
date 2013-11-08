@@ -74,5 +74,7 @@
     <string name="update_notification">MultiROM update is available.</string>
     <string name="pref_download_dir_sum">Manager will download installation files to this folder. Ubuntu Touch files will be in folder \"UbuntuTouch\" located within this one.</string>
     <string name="pref_download_dir">Change downloads folder</string>
+    <string name="changelogs">Changelogs</string>
+    <string name="changelog_failed">\n\n\nFailed to download changelog.</string>
 
 </resources>

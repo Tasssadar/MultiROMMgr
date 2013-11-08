@@ -10,7 +10,8 @@
         android:layout_height="wrap_content"
         android:gravity="center_vertical"
         android:paddingLeft="8dp"
-        android:paddingRight="8dp" >
+        android:paddingRight="8dp"
+        android:orientation="horizontal">
 
         <TextView
             android:id="@+id/title"
@@ -19,6 +20,13 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="@string/install_title" />
+        <ImageButton android:id="@+id/changelog_btn"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:contentDescription="@string/changelogs"
+            android:layout_margin="0dp"
+            android:background="@drawable/transparent_btn"
+            android:src="@drawable/collections_view_as_list"/>
 
     </LinearLayout>
 

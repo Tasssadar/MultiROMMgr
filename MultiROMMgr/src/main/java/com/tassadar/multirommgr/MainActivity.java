@@ -14,6 +14,7 @@ public class MainActivity extends Activity implements StatusAsyncTask.StatusAsyn
 
     public static final int ACT_INSTALL_MULTIROM = 1;
     public static final int ACT_INSTALL_UBUNTU   = 2;
+    public static final int ACT_CHANGELOG        = 3;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -99,7 +100,8 @@ public class MainActivity extends Activity implements StatusAsyncTask.StatusAsyn
     @Override
     public void startActivity(Bundle data, int id, Class<?> cls) {
         Intent i = new Intent(this, cls);
-        i.putExtras(data);
+        if(data != null)
+            i.putExtras(data);
         startActivityForResult(i, id);
     }
 

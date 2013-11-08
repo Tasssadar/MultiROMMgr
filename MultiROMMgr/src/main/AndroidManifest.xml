@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.tassadar.multirommgr"
-    android:versionCode="20"
-    android:versionName="20" >
+    android:versionCode="21"
+    android:versionName="21" >
 
     <uses-sdk
         android:minSdkVersion="16"
@@ -37,6 +37,10 @@
         <activity android:name=".SettingsActivity"
             android:exported="false"
             android:label="@string/action_settings"
+            android:parentActivityName="com.tassadar.multirommgr.MainActivity" />
+        <activity android:name=".ChangelogActivity"
+            android:exported="false"
+            android:label="@string/changelogs"
             android:parentActivityName="com.tassadar.multirommgr.MainActivity" />
 
         <receiver android:name=".UpdateChecker$BootCompletedReceiver"

@@ -52,16 +52,25 @@ public class Manifest {
             JSONArray a = o.getJSONArray("devices");
             for(int i = 0; i < a.length(); ++i) {
                 o = a.getJSONObject(i);
-                if(o.getString("name").equals(dev)) {
-                    JSONObject utouch = o.optJSONObject("ubuntu_touch");
-                    if(utouch != null) {
-                        m_ubuntuReqMultiROM = utouch.getString("req_multirom");
-                        m_ubuntuReqRecovery = utouch.getString("req_recovery");
-                    }
 
-                    getFileList(o.getJSONArray("files"));
-                    return true;
+                if(!o.getString("name").equals(dev))
+                    continue;
+
+                JSONObject utouch = o.optJSONObject("ubuntu_touch");
+                if(utouch != null) {
+                    m_ubuntuReqMultiROM = utouch.getString("req_multirom");
+                    m_ubuntuReqRecovery = utouch.getString("req_recovery");
                 }
+
+                JSONArray changelogs = o.optJSONArray("changelogs");
+                if(changelogs != null) {
+                    m_changelogs = new Changelog[changelogs.length()];
+                    for(int x = 0; x < changelogs.length(); ++x)
+                        m_changelogs[x] = new Changelog(changelogs.getJSONObject(x));
+                }
+
+                getFileList(o.getJSONArray("files"));
+                return true;
             }
             return false;
         } catch (JSONException e) {
@@ -202,6 +211,7 @@ public class Manifest {
     public InstallationFile getKernelFile(String name) { return m_kernels.get(name); }
 
     public String getStatus() { return m_status; }
+    public Changelog[] getChangelogs() { return m_changelogs; }
 
     private boolean m_multiromHasUpdate = false;
     private boolean m_recoveryHasUpdate = false;
@@ -212,4 +222,5 @@ public class Manifest {
     private String m_status;
     private String m_ubuntuReqMultiROM;
     private String m_ubuntuReqRecovery;
+    private Changelog[] m_changelogs;
 }

@@ -12,11 +12,11 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.ImageButton;
 import android.widget.Spinner;
 
 import com.fima.cardsui.objects.Card;
 
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class InstallCard extends Card implements CompoundButton.OnCheckedChangeListener, View.OnClickListener {
@@ -67,6 +67,12 @@ public class InstallCard extends Card implements CompoundButton.OnCheckedChangeL
         Button install_btn = (Button)m_view.findViewById(R.id.install_btn);
         install_btn.setOnClickListener(this);
 
+        ImageButton changelog_btn = (ImageButton)m_view.findViewById(R.id.changelog_btn);
+        if(m_manifest.getChangelogs() == null || m_manifest.getChangelogs().length == 0)
+            changelog_btn.setVisibility(View.GONE);
+        else
+            changelog_btn.setOnClickListener(this);
+
         enableInstallBtn();
         return m_view;
     }
@@ -94,25 +100,50 @@ public class InstallCard extends Card implements CompoundButton.OnCheckedChangeL
 
     @Override
     public void onClick(View view) {
-        Bundle bundle = new Bundle();
-        bundle.putString("installation_type", "multirom");
+        switch(view.getId()) {
+            case R.id.install_btn:
+            {
+                Bundle bundle = new Bundle();
+                bundle.putString("installation_type", "multirom");
 
-        CheckBox b = (CheckBox)m_view.findViewById(R.id.install_multirom);
-        bundle.putBoolean("install_multirom", b.isChecked());
+                CheckBox b = (CheckBox)m_view.findViewById(R.id.install_multirom);
+                bundle.putBoolean("install_multirom", b.isChecked());
 
-        b = (CheckBox)m_view.findViewById(R.id.install_recovery);
-        bundle.putBoolean("install_recovery", b.isChecked());
+                b = (CheckBox)m_view.findViewById(R.id.install_recovery);
+                bundle.putBoolean("install_recovery", b.isChecked());
 
-        b = (CheckBox)m_view.findViewById(R.id.install_kernel);
-        bundle.putBoolean("install_kernel", b.isChecked());
+                b = (CheckBox)m_view.findViewById(R.id.install_kernel);
+                bundle.putBoolean("install_kernel", b.isChecked());
 
-        if(b.isChecked()) {
-            Spinner s = (Spinner)m_view.findViewById(R.id.kernel_options);
-            String name = (String)s.getAdapter().getItem(s.getSelectedItemPosition());
-            bundle.putString("kernel_name", name);
+                if(b.isChecked()) {
+                    Spinner s = (Spinner)m_view.findViewById(R.id.kernel_options);
+                    String name = (String)s.getAdapter().getItem(s.getSelectedItemPosition());
+                    bundle.putString("kernel_name", name);
+                }
+
+                m_listener.startActivity(bundle, MainActivity.ACT_INSTALL_MULTIROM, InstallActivity.class);
+                break;
+            }
+            case R.id.changelog_btn:
+            {
+                Changelog[] logs = m_manifest.getChangelogs();
+                String[] names = new String[logs.length];
+                String[] urls = new String[logs.length];
+
+                for(int i = 0; i < logs.length; ++i) {
+                    names[i] = logs[i].name;
+                    urls[i] = logs[i].url;
+                }
+
+                Bundle b = new Bundle();
+                b.putStringArray("changelog_names", names);
+                b.putStringArray("changelog_urls", urls);
+
+                m_listener.startActivity(b, MainActivity.ACT_CHANGELOG, ChangelogActivity.class);
+                break;
+            }
         }
 
-        m_listener.startActivity(bundle, MainActivity.ACT_INSTALL_MULTIROM, InstallActivity.class);
     }
 
     private Manifest m_manifest;

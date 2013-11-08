@@ -24,4 +24,5 @@ android {
 
 dependencies {
     compile files('libs/nineoldandroids-2.4.0.jar')
+    compile "com.android.support:support-v4:18.0.+"
 }
