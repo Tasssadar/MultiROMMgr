@@ -20,6 +20,10 @@ public class MainActivity extends Activity implements StatusAsyncTask.StatusAsyn
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        // This activity is using different background color, which would cause overdraw
+        // of the whole area, so disable the default background
+        getWindow().setBackgroundDrawable(null);
+
         PreferenceManager.setDefaultValues(this, R.xml.settings, false);
 
         mCardView = (CardUI) findViewById(R.id.cardsview);
