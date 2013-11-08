@@ -26,7 +26,13 @@ public class MainActivity extends Activity implements StatusAsyncTask.StatusAsyn
         mCardView.setSwipeable(false);
         mCardView.setSlideIn(!StatusAsyncTask.instance().isComplete());
 
-        start();
+        Intent i = getIntent();
+        if(i == null || !i.getBooleanExtra("force_refresh", false)) {
+            start();
+        } else {
+            i.removeExtra("force_refresh");
+            refresh();
+        }
     }
 
     private void start() {

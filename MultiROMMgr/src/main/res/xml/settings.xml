@@ -4,6 +4,11 @@
         android:title="@string/general"
         android:key="pref_general">
         <CheckBoxPreference
+            android:key="general_update_check"
+            android:summary="@string/pref_update_check_sum"
+            android:title="@string/pref_update_check"
+            android:defaultValue="false" />
+        <CheckBoxPreference
             android:key="general_auto_reboot"
             android:summary="@string/pref_auto_reboot_summ"
             android:title="@string/pref_auto_reboot"

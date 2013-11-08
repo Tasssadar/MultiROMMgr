@@ -1,5 +1,6 @@
 package com.tassadar.multirommgr;
 
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.text.Html;
@@ -111,7 +112,7 @@ public class StatusAsyncTask extends AsyncTask <Void, Void, StatusAsyncTask.Resu
         res.kernel.findKexecHardboot(m != null ? m.getPath() + "busybox" : "");
 
         Manifest man = new Manifest();
-        if(man.downloadAndParse(dev)) {
+        if(man.downloadAndParse(dev.getName())) {
             res.manifest = man;
             res.manifest.compareVersions(res.multirom, res.recovery, res.kernel);
         } else {
@@ -119,6 +120,8 @@ public class StatusAsyncTask extends AsyncTask <Void, Void, StatusAsyncTask.Resu
                 res.statusText = man.getStatus();
             res.code |= RES_MANIFEST_FAIL;
         }
+
+        UpdateChecker.setVersions(res.device, res.multirom, res.recovery);
 
         return res;
     }

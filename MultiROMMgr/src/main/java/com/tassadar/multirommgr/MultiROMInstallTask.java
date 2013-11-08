@@ -15,9 +15,13 @@ import eu.chainfire.libsuperuser.Shell;
 
 public class MultiROMInstallTask extends InstallAsyncTask {
 
-    public MultiROMInstallTask(Manifest man, boolean multirom, boolean recovery, String kernel) {
+    public MultiROMInstallTask(Manifest man, Device dev) {
         super();
         m_manifest = man;
+        m_dev = dev;
+    }
+
+    public void setParts(boolean multirom, boolean recovery, String kernel) {
         m_multirom = multirom;
         m_recovery = recovery;
         m_kernel = kernel;
@@ -95,7 +99,7 @@ public class MultiROMInstallTask extends InstallAsyncTask {
             Manifest.InstallationFile f = files.get(i);
             m_listener.onInstallLog(Utils.getString(R.string.installing_file, f.destFile.getName()));
             if(f.type.equals("recovery")) {
-                if(!flashRecovery(f, m_manifest.getDevice())) {
+                if(!flashRecovery(f, m_dev)) {
                     m_listener.onInstallComplete(false);
                     return null;
                 }
@@ -162,4 +166,5 @@ public class MultiROMInstallTask extends InstallAsyncTask {
     private boolean m_recovery;
     private String m_kernel;
     private Manifest m_manifest;
+    private Device m_dev;
 }

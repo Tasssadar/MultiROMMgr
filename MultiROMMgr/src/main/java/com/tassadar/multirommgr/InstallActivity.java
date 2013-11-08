@@ -87,8 +87,9 @@ public class InstallActivity extends Activity implements ServiceConnection, Inst
             String kernel_name = i.getStringExtra("kernel_name");
 
             Manifest man = StatusAsyncTask.instance().getManifest();
+            Device dev = StatusAsyncTask.instance().getDevice();
 
-            m_service.startMultiROMInstallation(man, multirom, recovery, kernel, kernel_name);
+            m_service.startMultiROMInstallation(man, dev, multirom, recovery, kernel, kernel_name);
         } else if(type.equals("ubuntu")) {
             m_service.startUbuntuInstallation(
                     UbuntuManifestAsyncTask.instance().getInstallInfo(),
@@ -198,7 +199,7 @@ public class InstallActivity extends Activity implements ServiceConnection, Inst
 
     public void doReboot(boolean force) {
         if(!force) {
-            Device d = StatusAsyncTask.instance().getManifest().getDevice();
+            Device d = StatusAsyncTask.instance().getDevice();
             Utils.deployOpenRecoveryScript(d.getCacheDev());
         }
         Utils.reboot("recovery");

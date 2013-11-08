@@ -65,10 +65,12 @@ public class InstallService extends Service implements InstallListener {
         return m_isInProgress;
     }
 
-    public void startMultiROMInstallation(Manifest man, boolean multirom, boolean recovery,
+    public void startMultiROMInstallation(Manifest man, Device dev,
+                                          boolean multirom, boolean recovery,
                                           boolean kernel, String kernel_name) {
-        startInstallation(new MultiROMInstallTask(man, multirom, recovery,
-                kernel ? kernel_name : null));
+        MultiROMInstallTask t = new MultiROMInstallTask(man, dev);
+        t.setParts(multirom, recovery, kernel ? kernel_name : null);
+        startInstallation(t);
     }
 
     public void startUbuntuInstallation(UbuntuInstallInfo info, MultiROM multirom) {

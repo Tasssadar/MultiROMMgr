@@ -69,5 +69,8 @@
     <string name="failed_file_copy"><![CDATA[<br><font color=\"red\">Failed to copy file %s!</font><br>]]></string>
     <string name="deleting_used_files"><![CDATA[Deleting used files...<br>]]></string>
     <string name="ubuntu_free_space">You currently have only %1$dMB left. It is recommended to have at least %2$dMB of free space in internal memory or the installation might fail!</string>
+    <string name="pref_update_check">Check for updates</string>
+    <string name="pref_update_check_sum">Automatically check for MultiROM and recovery updates every ~12 hours and show notification if any available.</string>
+    <string name="update_notification">MultiROM update is available.</string>
 
 </resources>

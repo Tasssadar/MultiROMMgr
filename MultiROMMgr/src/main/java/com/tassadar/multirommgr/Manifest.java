@@ -25,7 +25,7 @@ public class Manifest {
         public File destFile;
     }
 
-    public boolean downloadAndParse(Device dev) {
+    public boolean downloadAndParse(String dev) {
         ByteArrayOutputStream out = new ByteArrayOutputStream(4096);
         try {
             if(!Utils.downloadFile(manifestUrl, out, null))
@@ -52,7 +52,7 @@ public class Manifest {
             JSONArray a = o.getJSONArray("devices");
             for(int i = 0; i < a.length(); ++i) {
                 o = a.getJSONObject(i);
-                if(o.getString("name").equals(dev.getName())) {
+                if(o.getString("name").equals(dev)) {
                     JSONObject utouch = o.optJSONObject("ubuntu_touch");
                     if(utouch != null) {
                         m_ubuntuReqMultiROM = utouch.getString("req_multirom");
@@ -60,7 +60,6 @@ public class Manifest {
                     }
 
                     getFileList(o.getJSONArray("files"));
-                    m_dev = dev;
                     return true;
                 }
             }
@@ -91,9 +90,15 @@ public class Manifest {
         }
     }
 
-    public void compareVersions(MultiROM multirom, Recovery recovery, Kernel kernel) {
+    public void compareVersions(MultiROM m, Recovery r, Kernel kernel) {
+        compareVersions(m != null ? m.getVersion() : null,
+                r != null ? r.getVersionString() : null,
+                kernel);
+    }
+
+    public void compareVersions(String multirom, String recovery, Kernel kernel) {
         if(multirom != null) {
-            int[] my = getMultiromVersions(multirom.getVersion());
+            int[] my = getMultiromVersions(multirom);
             int[] upd = getMultiromVersions(m_multirom.version);
             m_multiromHasUpdate = (upd[0] > my[0]) || (upd[0] == my[0] && upd[1] > my[1]);
         } else
@@ -101,7 +106,7 @@ public class Manifest {
 
         if(recovery != null) {
             try {
-                Date my = recovery.getVersion();
+                Date my = Recovery.VER_FMT.parse(recovery);
                 Date upd = Recovery.VER_FMT.parse(m_recovery.version);
                 m_recoveryHasUpdate = upd.after(my);
             } catch(ParseException e) {
@@ -196,7 +201,6 @@ public class Manifest {
     public InstallationFile getRecoveryFile() { return m_recovery; }
     public InstallationFile getKernelFile(String name) { return m_kernels.get(name); }
 
-    public Device getDevice() { return m_dev; }
     public String getStatus() { return m_status; }
 
     private boolean m_multiromHasUpdate = false;
@@ -205,7 +209,6 @@ public class Manifest {
     private InstallationFile m_multirom;
     private InstallationFile m_recovery;
     private LinkedHashMap<String, InstallationFile> m_kernels = new LinkedHashMap<String, InstallationFile>();
-    private Device m_dev;
     private String m_status;
     private String m_ubuntuReqMultiROM;
     private String m_ubuntuReqRecovery;
