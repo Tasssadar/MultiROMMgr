@@ -33,6 +33,9 @@ public class MainActivity extends Activity implements StatusAsyncTask.StatusAsyn
         mCardView.addCard(new StatusCard(), true);
         StatusAsyncTask.instance().setListener(this);
         StatusAsyncTask.instance().execute();
+
+        if(m_menu != null)
+            m_menu.findItem(R.id.action_refresh).setEnabled(false);
     }
 
     private void refresh() {
@@ -46,6 +49,11 @@ public class MainActivity extends Activity implements StatusAsyncTask.StatusAsyn
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main, menu);
+
+        m_menu = menu;
+
+        if(!StatusAsyncTask.instance().isComplete())
+            menu.findItem(R.id.action_refresh).setEnabled(false);
         return true;
     }
 
@@ -66,6 +74,9 @@ public class MainActivity extends Activity implements StatusAsyncTask.StatusAsyn
 
     @Override
     public void onTaskFinished(StatusAsyncTask.Result res) {
+        if(m_menu != null)
+            m_menu.findItem(R.id.action_refresh).setEnabled(true);
+
         if(res.manifest != null) {
             mCardView.addCard(new InstallCard(res.manifest, res.recovery == null, this), true);
 
@@ -92,4 +103,5 @@ public class MainActivity extends Activity implements StatusAsyncTask.StatusAsyn
     }
 
     private CardUI mCardView;
+    private Menu m_menu;
 }
