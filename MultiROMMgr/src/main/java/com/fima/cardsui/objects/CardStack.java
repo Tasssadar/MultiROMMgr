@@ -18,9 +18,9 @@ import com.fima.cardsui.StackAdapter;
 import com.fima.cardsui.SwipeDismissTouchListener;
 import com.fima.cardsui.SwipeDismissTouchListener.OnDismissCallback;
 import com.fima.cardsui.Utils;
-import com.nineoldandroids.animation.Animator;
+/*import com.nineoldandroids.animation.Animator;
 import com.nineoldandroids.animation.Animator.AnimatorListener;
-import com.nineoldandroids.animation.ObjectAnimator;
+import com.nineoldandroids.animation.ObjectAnimator;*/
 
 public class CardStack extends AbstractCard {
 	private static final float _12F = 12f;
@@ -202,7 +202,7 @@ public class CardStack extends AbstractCard {
 			public void onClickFirstCard(final CardStack cardStack,
 					final RelativeLayout frameLayout, final int index, View[] views) {
 				// run through all the cards
-				for (int i = 0; i < views.length; i++) {
+				/*for (int i = 0; i < views.length; i++) {
 					ObjectAnimator anim = null;
 
 					if (i == 0) {
@@ -237,14 +237,14 @@ public class CardStack extends AbstractCard {
 					if (anim != null)
 						anim.start();
 
-				}
+				}*/
 			}
 
 			public void onClickOtherCard(final CardStack cardStack,
 					final RelativeLayout frameLayout, final int index,
 					View[] views, int last) {
 				// if clicked card is in middle
-				for (int i = index; i <= last; i++) {
+				/*for (int i = index; i <= last; i++) {
 					// run through the cards from the clicked position
 					// and on until the end
 					ObjectAnimator anim = null;
@@ -266,7 +266,7 @@ public class CardStack extends AbstractCard {
 
 					if (anim != null)
 						anim.start();
-				}
+				}*/
 			}
 		};
 	}
@@ -276,7 +276,7 @@ public class CardStack extends AbstractCard {
 		return Utils.convertDpToPixel(mContext, dp);
 	}
 
-	private AnimatorListener getAnimationListener(final CardStack cardStack,
+    /*private AnimatorListener getAnimationListener(final CardStack cardStack,
 			final RelativeLayout frameLayout, final int index,
 			final View clickedCard) {
 		return new AnimatorListener() {
@@ -369,7 +369,7 @@ public class CardStack extends AbstractCard {
 
 			}
 		};
-	}
+	}*/
 
 	public void setAdapter(StackAdapter stackAdapter) {
 		mAdapter = stackAdapter;

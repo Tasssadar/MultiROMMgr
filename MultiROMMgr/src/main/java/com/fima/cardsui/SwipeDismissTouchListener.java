@@ -1,18 +1,20 @@
 package com.fima.cardsui;
 
-import static com.nineoldandroids.view.ViewHelper.setAlpha;
-import static com.nineoldandroids.view.ViewPropertyAnimator.animate;
 import android.view.MotionEvent;
 import android.view.VelocityTracker;
 import android.view.View;
 import android.view.ViewConfiguration;
 import android.view.ViewGroup;
 
-import com.nineoldandroids.animation.Animator;
+/*import com.nineoldandroids.animation.Animator;
 import com.nineoldandroids.animation.Animator.AnimatorListener;
 import com.nineoldandroids.animation.AnimatorListenerAdapter;
 import com.nineoldandroids.animation.ValueAnimator;
 import com.nineoldandroids.view.ViewHelper;
+
+import static com.nineoldandroids.view.ViewHelper.setAlpha;
+import static com.nineoldandroids.view.ViewPropertyAnimator.animate;
+*/
 
 /**
  * A {@link android.view.View.OnTouchListener} that makes any {@link View}
@@ -147,7 +149,7 @@ public class SwipeDismissTouchListener implements View.OnTouchListener {
 				dismiss = true;
 				dismissRight = mVelocityTracker.getXVelocity() > 0;
 			}
-			if (dismiss) {
+			/*if (dismiss) {
 				// dismiss
 				animate(mView).translationX(dismissRight ? mViewWidth : -mViewWidth).alpha(0).setDuration(mAnimationTime).setListener(new AnimatorListener() {
 
@@ -179,7 +181,7 @@ public class SwipeDismissTouchListener implements View.OnTouchListener {
 				// cancel
 				animate(mView).translationX(0).alpha(1).setDuration(mAnimationTime).setListener(null);
 				
-			}
+			}*/
 			mVelocityTracker = null;
 			mTranslationX = 0;
 			mDownX = 0;
@@ -205,11 +207,12 @@ public class SwipeDismissTouchListener implements View.OnTouchListener {
 			}
 
 			if (mSwiping) {
-				mTranslationX = deltaX;
+				/*mTranslationX = deltaX;
 				ViewHelper.setTranslationX(mView, deltaX);
 
 				// TODO: use an ease-out interpolator or such
 				setAlpha(mView, Math.max(0f, Math.min(1f, 1f - 2f * Math.abs(deltaX) / mViewWidth)));
+                */
 				return true;
 			}
 			break;
@@ -228,7 +231,7 @@ public class SwipeDismissTouchListener implements View.OnTouchListener {
 		final ViewGroup.LayoutParams lp = mView.getLayoutParams();
 		final int originalHeight = mView.getHeight();
 
-		ValueAnimator animator = ValueAnimator.ofInt(originalHeight, 1).setDuration(mAnimationTime);
+		/*ValueAnimator animator = ValueAnimator.ofInt(originalHeight, 1).setDuration(mAnimationTime);
 
 		animator.addListener(new AnimatorListenerAdapter() {
 			@Override
@@ -253,5 +256,6 @@ public class SwipeDismissTouchListener implements View.OnTouchListener {
 		});
 
 		animator.start();
+		*/
 	}
 }
