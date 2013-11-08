@@ -34,9 +34,9 @@ public class MultiROMInstallTask extends InstallAsyncTask {
 
     @Override
     protected Void doInBackground(Void... results) {
-        File destDir = new File(Environment.getExternalStorageDirectory(), "/Download");
+        String dest = Utils.getDownloadDir();
+        File destDir = new File(dest);
         destDir.mkdirs();
-        String dest = destDir.toString();
 
         Log.d("MultiROMInstallTask", "Using download directory: " + dest);
 

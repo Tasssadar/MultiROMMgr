@@ -13,7 +13,7 @@ import eu.chainfire.libsuperuser.Shell;
 
 public class UbuntuInstallTask extends InstallAsyncTask  {
 
-    private static final String DOWN_DIR = "/Download/UbuntuTouch";
+    public static final String DOWN_DIR = "UbuntuTouch";
 
     public UbuntuInstallTask(UbuntuInstallInfo info, MultiROM multirom) {
         m_info = info;
@@ -25,7 +25,7 @@ public class UbuntuInstallTask extends InstallAsyncTask  {
         m_listener.onProgressUpdate(0, 0, true, Utils.getString(R.string.preparing_downloads, ""));
         m_listener.onInstallLog(Utils.getString(R.string.preparing_downloads, "<br>"));
 
-        File destDir = new File(Environment.getExternalStorageDirectory(), DOWN_DIR);
+        File destDir = new File(Utils.getDownloadDir(), DOWN_DIR);
         destDir.mkdirs();
         String dest = destDir.toString();
 
@@ -183,20 +183,38 @@ public class UbuntuInstallTask extends InstallAsyncTask  {
             return null;
         }
 
-        List<String> out = Shell.SU.run(
-            "paths=\"" +
-                "/sdcard/%s /storage/emulated/0/%s /storage/emulated/legacy/%s" +
-                "/data/media/0/%s /data/media/%s\";" +
-            "for d in $paths; do" +
-            "    if [ -f \"$d/ut_test_file\" ]; then " +
-            "        echo $d; exit 0;" +
-            "    fi;" +
-            "done;",
-            DOWN_DIR, DOWN_DIR, DOWN_DIR, DOWN_DIR, DOWN_DIR);
+        String tail = destDir.getAbsolutePath();
+        if(tail.startsWith(Environment.getExternalStorageDirectory().getAbsolutePath()))
+            tail = tail.substring(Environment.getExternalStorageDirectory().getAbsolutePath().length()+1);
+        else if(tail.startsWith("/sdcard/"))
+            tail = tail.substring(("/sdcard/").length());
+
+        StringBuilder b = new StringBuilder();
+        appendSUDirCheck(b, destDir.getAbsolutePath(), "");
+
+        final String[] paths = {
+                "/sdcard/", "/storage/emulated/0/", "/storage/emulated/legacy/",
+                "/data/media/0/", "/data/media/"
+        };
+
+        for(String p : paths)
+            appendSUDirCheck(b, p, tail);
+
+        b.append("se exit 0; fi;");
+
+        List<String> out = Shell.SU.run(b.toString());
 
         if(out == null || out.isEmpty())
             return null;
         return out.get(0);
+    }
+
+    private static void appendSUDirCheck(StringBuilder b, String path, String path2) {
+        b.append("if [ -f \"")
+         .append(path).append(path2)
+         .append("/ut_test_file\" ]; then echo \"")
+         .append(path).append(path2)
+         .append("\"; exit 0; el");
     }
 
     private boolean buildCommandFile(String dest) {

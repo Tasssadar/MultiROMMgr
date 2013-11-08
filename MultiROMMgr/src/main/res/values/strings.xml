@@ -40,7 +40,7 @@
     <string name="pref_hidden_channels">Show hidden channels</string>
     <string name="pref_hidden_channels_summ">Shows update channels which are hidden by default (usually inactive or developers-only channels).</string>
     <string name="pref_delete_utouch_files">Delete used installation files</string>
-    <string name="pref_delete_utouch_files_summ">Delete used Ubuntu Touch files just before rebooting into recovery to complete the installation. This saves space, but you have to re-download the files should the installation fail.\n\nFiles are downloaded to /sdcard/Download/UbuntuTouch/</string>
+    <string name="pref_delete_utouch_files_summ">Delete used Ubuntu Touch files just before rebooting into recovery to complete the installation. This saves space, but you have to re-download the files should the installation fail.\n\nFiles are downloaded to %1$s/%2$s</string>
     <string name="general">General</string>
     <string name="pref_auto_reboot">Don\'t ask to reboot</string>
     <string name="pref_auto_reboot_summ">Automatically reboot into recovery when it is required to complete the installation.</string>
@@ -72,5 +72,7 @@
     <string name="pref_update_check">Check for updates</string>
     <string name="pref_update_check_sum">Automatically check for MultiROM and recovery updates every ~12 hours and show notification if any available.</string>
     <string name="update_notification">MultiROM update is available.</string>
+    <string name="pref_download_dir_sum">Manager will download installation files to this folder. Ubuntu Touch files will be in folder \"UbuntuTouch\" located within this one.</string>
+    <string name="pref_download_dir">Change downloads folder</string>
 
 </resources>

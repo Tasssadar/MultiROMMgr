@@ -2,6 +2,7 @@ package com.tassadar.multirommgr;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.os.Environment;
 import android.util.Log;
 
 import java.io.File;
@@ -20,6 +21,28 @@ import eu.chainfire.libsuperuser.Shell;
 public class Utils {
 
     private static final int BUSYBOX_VER = 2;
+
+    private static String m_downloadDir = null;
+    public static String getDownloadDir() {
+        if(m_downloadDir != null)
+            return m_downloadDir;
+
+        SharedPreferences p = MultiROMMgrApplication.getPreferences();
+        m_downloadDir = p.getString(SettingsActivity.GENERAL_DOWNLOAD_DIR, getDefaultDownloadDir());
+        return m_downloadDir;
+    }
+
+    public static String getDefaultDownloadDir() {
+        return Environment.getExternalStorageDirectory().getAbsolutePath() + "/Download";
+    }
+
+    public static void setDownloadDir(String path) {
+        m_downloadDir = path;
+
+        SharedPreferences.Editor p = MultiROMMgrApplication.getPreferences().edit();
+        p.putString(SettingsActivity.GENERAL_DOWNLOAD_DIR, path);
+        p.commit();
+    }
 
     public static String extractAsset(String name) {
         Context ctx = MultiROMMgrApplication.getAppContext();

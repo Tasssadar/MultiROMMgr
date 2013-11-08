@@ -13,6 +13,10 @@
             android:summary="@string/pref_auto_reboot_summ"
             android:title="@string/pref_auto_reboot"
             android:defaultValue="false" />
+        <EditTextPreference
+            android:key="general_download_dir"
+            android:summary="@string/pref_download_dir_sum"
+            android:title="@string/pref_download_dir" />
     </PreferenceCategory>
 
     <PreferenceCategory
