@@ -10,7 +10,8 @@ import android.view.MenuItem;
 import com.fima.cardsui.views.CardUI;
 
 
-public class MainActivity extends Activity implements StatusAsyncTask.StatusAsyncTaskListener, StartInstallListener {
+public class MainActivity extends Activity implements StatusAsyncTask.StatusAsyncTaskListener,
+        UbuntuManifestAsyncTask.UbuntuManifestAsyncTaskListener, StartInstallListener {
 
     public static final int ACT_INSTALL_MULTIROM = 1;
     public static final int ACT_INSTALL_UBUNTU   = 2;
@@ -85,16 +86,26 @@ public class MainActivity extends Activity implements StatusAsyncTask.StatusAsyn
     }
 
     @Override
-    public void onTaskFinished(StatusAsyncTask.Result res) {
-        if(m_menu != null)
-            m_menu.findItem(R.id.action_refresh).setEnabled(true);
-
+    public void onStatusTaskFinished(StatusAsyncTask.Result res) {
+        boolean hasUbuntu = false;
         if(res.manifest != null) {
             mCardView.addCard(new InstallCard(res.manifest, res.recovery == null, this), true);
 
-            if(res.multirom != null && res.recovery != null && res.device.supportsUbuntuTouch())
+            if(res.multirom != null && res.recovery != null && res.device.supportsUbuntuTouch()) {
+                UbuntuManifestAsyncTask.instance().setListener(this);
                 mCardView.addCard(new UbuntuCard(this, res.manifest, res.multirom, res.recovery));
+                hasUbuntu = true;
+            }
         }
+
+        if(m_menu != null && !hasUbuntu)
+            m_menu.findItem(R.id.action_refresh).setEnabled(true);
+    }
+
+    @Override
+    public void onUbuntuTaskFinished(UbuntuManifestAsyncTask.Result res) {
+        if(m_menu != null)
+            m_menu.findItem(R.id.action_refresh).setEnabled(true);
     }
 
     @Override

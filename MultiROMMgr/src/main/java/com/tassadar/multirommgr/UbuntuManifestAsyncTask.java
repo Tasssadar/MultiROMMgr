@@ -14,7 +14,7 @@ public class UbuntuManifestAsyncTask extends AsyncTask<Object, Void, UbuntuManif
     static final int RES_CHANNELS_FAIL      = 0x01;
 
     public interface UbuntuManifestAsyncTaskListener {
-        public void onTaskFinished(Result res);
+        public void onUbuntuTaskFinished(Result res);
     }
 
     private static UbuntuManifestAsyncTask instance = null;
@@ -38,7 +38,7 @@ public class UbuntuManifestAsyncTask extends AsyncTask<Object, Void, UbuntuManif
     public void setListener(UbuntuManifestAsyncTaskListener listener) {
         m_listener = listener;
         if(m_listener != null && m_res != null)
-            m_listener.onTaskFinished(m_res);
+            m_listener.onUbuntuTaskFinished(m_res);
     }
 
     public void setCard(UbuntuCard card) {
@@ -74,7 +74,7 @@ public class UbuntuManifestAsyncTask extends AsyncTask<Object, Void, UbuntuManif
         m_res = res;
         applyResult();
         if(m_listener != null && m_res != null)
-            m_listener.onTaskFinished(res);
+            m_listener.onUbuntuTaskFinished(res);
     }
 
     private void applyResult() {

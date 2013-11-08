@@ -24,7 +24,7 @@ public class StatusAsyncTask extends AsyncTask <Void, Void, StatusAsyncTask.Resu
     static final int RES_MANIFEST_FAIL      = 0x20;
 
     public interface StatusAsyncTaskListener {
-        public void onTaskFinished(Result res);
+        public void onStatusTaskFinished(Result res);
     }
 
     private static StatusAsyncTask instance = null;
@@ -47,7 +47,7 @@ public class StatusAsyncTask extends AsyncTask <Void, Void, StatusAsyncTask.Resu
     public void setListener(StatusAsyncTaskListener listener) {
         m_listener = listener;
         if(m_listener != null && m_res != null)
-            m_listener.onTaskFinished(m_res);
+            m_listener.onStatusTaskFinished(m_res);
     }
 
     public void setStatusCardLayout(View layout) {
@@ -130,7 +130,7 @@ public class StatusAsyncTask extends AsyncTask <Void, Void, StatusAsyncTask.Resu
         m_res = res;
         applyResult();
         if(m_listener != null && m_res != null)
-            m_listener.onTaskFinished(res);
+            m_listener.onStatusTaskFinished(res);
     }
 
     protected void applyResult() {
