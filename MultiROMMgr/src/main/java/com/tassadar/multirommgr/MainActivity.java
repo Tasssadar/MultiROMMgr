@@ -43,6 +43,7 @@ public class MainActivity extends Activity implements StatusAsyncTask.StatusAsyn
         UbuntuManifestAsyncTask.destroy();
 
         mCardView.clearCards();
+        mCardView.setSlideIn(true);
         start();
     }
 
