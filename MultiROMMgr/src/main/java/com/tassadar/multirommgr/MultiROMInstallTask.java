@@ -95,6 +95,12 @@ public class MultiROMInstallTask extends InstallAsyncTask {
         if(script.exists())
             script.delete();
 
+        String cache = mountTmpCache(m_dev.getCacheDev());
+        if(cache == null) {
+            m_listener.onInstallComplete(false);
+            return null;
+        }
+
         for(int i = 0; i < files.size(); ++i) {
             Manifest.InstallationFile f = files.get(i);
             m_listener.onInstallLog(Utils.getString(R.string.installing_file, f.destFile.getName()));
@@ -105,10 +111,15 @@ public class MultiROMInstallTask extends InstallAsyncTask {
                 }
             } else if(f.type.equals("multirom") || f.type.equals("kernel")) {
                 needsRecovery = true;
-                addScriptInstall(f, script);
+                if(!addScriptInstall(f, script, cache)) {
+                    m_listener.onInstallComplete(false);
+                    return null;
+                }
                 m_listener.onInstallLog(Utils.getString(R.string.needs_recovery));
             }
         }
+
+        unmountTmpCache(cache);
 
         if(needsRecovery)
             m_listener.requestRecovery(false);
@@ -143,11 +154,28 @@ public class MultiROMInstallTask extends InstallAsyncTask {
         return true;
     }
 
-    private void addScriptInstall(Manifest.InstallationFile f, File scriptFile) {
+    private boolean addScriptInstall(Manifest.InstallationFile f, File scriptFile, String cache) {
+        String bb = Utils.extractAsset("busybox");
+
+        File tmpfile = new File(MultiROMMgrApplication.getAppContext().getCacheDir(), f.destFile.getName());
+        Utils.copyFile(f.destFile, tmpfile);
+
+        List<String> res = Shell.SU.run("%s cp \"%s\" \"%s/recovery/\" && echo success",
+                bb, tmpfile.getAbsolutePath(), cache);
+
+        tmpfile.delete();
+
+        if(res == null || res.size() != 1 || !res.get(0).equals("success")) {
+            m_listener.onInstallLog("Failed to copy file to cache!");
+            return false;
+        }
+
         FileOutputStream out = null;
         try {
             out = new FileOutputStream(scriptFile, true);
-            String line = "install Download/" + f.destFile.getName() + "\n";
+            String line = String.format("install /cache/recovery/%s\n", f.destFile.getName());
+            out.write(line.getBytes());
+            line = String.format("cmd rm \"/cache/recovery/%s\"\n", f.destFile.getName());
             out.write(line.getBytes());
         } catch (Exception e) {
             e.printStackTrace();
@@ -155,6 +183,34 @@ public class MultiROMInstallTask extends InstallAsyncTask {
             if(out != null)
                 try { out.close(); } catch(IOException e) {}
         }
+        return true;
+    }
+
+    private String mountTmpCache(String cacheDev) {
+        String bb = Utils.extractAsset("busybox");
+        if(bb == null) {
+            Log.e("InstallAsyncTask", "Failed to extract busybox!");
+            return null;
+        }
+
+        // We need to mount the real /cache, we might be running in secondary ROM
+        String cmd =
+                "mkdir -p /data/local/tmp/tmpcache; " +
+                "cd /data/local/tmp/; " +
+                bb + " mount -t auto " + cacheDev + " tmpcache && " +
+                "mkdir -p tmpcache/recovery && " +
+                "sync && echo /data/local/tmp/tmpcache";
+
+        List<String> out = Shell.SU.run(cmd);
+        if(out == null || out.size() != 1) {
+            m_listener.onInstallLog("Failed to mount /cache!<br>");
+            return null;
+        }
+        return out.get(0);
+    }
+
+    private void unmountTmpCache(String path) {
+        Shell.SU.run("umount \"%s\" && rmdir \"%s\"", path, path);
     }
 
     @Override
