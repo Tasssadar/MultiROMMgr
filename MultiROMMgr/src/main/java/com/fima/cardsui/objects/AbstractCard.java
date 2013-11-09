@@ -1,6 +1,7 @@
 package com.fima.cardsui.objects;
 
 import android.content.Context;
+import android.os.Bundle;
 import android.view.View;
 
 public abstract class AbstractCard {
@@ -27,5 +28,7 @@ public abstract class AbstractCard {
 	public int getImage() {
 		return image;
 	}
-	
+
+	public void saveInstanceState(Bundle outState) { }
+
 }

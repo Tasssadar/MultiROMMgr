@@ -3,6 +3,7 @@ package com.fima.cardsui.objects;
 import java.util.ArrayList;
 
 import android.content.Context;
+import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -384,4 +385,10 @@ public class CardStack extends AbstractCard {
 		return mPosition;
 	}
 
+	@Override
+	public void saveInstanceState(Bundle outState) {
+		super.saveInstanceState(outState);
+		for(int i = 0; i < cards.size(); ++i)
+			cards.get(i).saveInstanceState(outState);
+	}
 }

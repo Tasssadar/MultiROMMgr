@@ -23,11 +23,33 @@ public class UbuntuCard extends Card implements AdapterView.OnItemSelectedListen
 
     private static final int MIN_FREE_SPACE = 2300;
 
-    public UbuntuCard(StartInstallListener listener, Manifest man, MultiROM multirom, Recovery recovery) {
+    public UbuntuCard(Bundle savedState, StartInstallListener listener, Manifest man, MultiROM multirom, Recovery recovery) {
+        m_savedState = savedState;
         m_listener = listener;
         m_manifest = man;
         m_multirom = multirom;
         m_recovery = recovery;
+    }
+
+    @Override
+    public void saveInstanceState(Bundle outState) {
+        super.saveInstanceState(outState);
+
+        if(m_view == null)
+            return;
+
+        Spinner s = (Spinner) m_view.findViewById(R.id.channel);
+        UbuntuChannel c = (UbuntuChannel)s.getSelectedItem();
+        if(c != null)
+            outState.putString("utouch_selected_chan", c.getRawName());
+
+        s = (Spinner) m_view.findViewById(R.id.version);
+        Integer i = (Integer)s.getSelectedItem();
+        if(i != null)
+            outState.putInt("utouch_selected_ver", i);
+
+        View front = m_view.findViewById(R.id.ubuntu_card_front);
+        outState.putBoolean("utouch_flipped", front.getVisibility() == View.GONE);
     }
 
     @Override
@@ -68,6 +90,12 @@ public class UbuntuCard extends Card implements AdapterView.OnItemSelectedListen
             t.setVisibility(View.VISIBLE);
             m_view.findViewById(R.id.progress_bar).setVisibility(View.GONE);
         }
+
+        if(m_savedState != null && m_savedState.getBoolean("utouch_flipped", false)) {
+            m_view.findViewById(R.id.ubuntu_card_front).setVisibility(View.GONE);
+            m_view.findViewById(R.id.ubuntu_card_back).setVisibility(View.VISIBLE);
+        }
+
         return m_view;
     }
 
@@ -82,6 +110,8 @@ public class UbuntuCard extends Card implements AdapterView.OnItemSelectedListen
             TextView t = (TextView)m_view.findViewById(R.id.error_text);
             t.setVisibility(View.VISIBLE);
             t.setText(R.string.ubuntu_man_failed);
+
+            m_savedState = null;
             return;
         }
 
@@ -97,9 +127,9 @@ public class UbuntuCard extends Card implements AdapterView.OnItemSelectedListen
             v.setVisibility(View.VISIBLE);
         }
 
-        Spinner s = (Spinner) m_view.findViewById(R.id.channel);
+        Spinner chanSpinner = (Spinner) m_view.findViewById(R.id.channel);
         m_channelAdapter = new UbuntuChannelsAdapter(m_view.getContext(), res.manifest.getChannels());
-        s.setAdapter(m_channelAdapter);
+        chanSpinner.setAdapter(m_channelAdapter);
 
         // TODO: support installation to USB drive
         /*m_destAdapter = new ArrayAdapter<String>(m_view.getContext(),
@@ -109,6 +139,18 @@ public class UbuntuCard extends Card implements AdapterView.OnItemSelectedListen
 
         s = (Spinner) m_view.findViewById(R.id.destination);
         s.setAdapter(m_destAdapter);*/
+
+        if(m_savedState != null) {
+            String c = m_savedState.getString("utouch_selected_chan");
+            if(c != null) {
+                for(int i = 0; i < m_channelAdapter.getCount(); ++i) {
+                    if(m_channelAdapter.getItem(i).getRawName().equals(c)) {
+                        chanSpinner.setSelection(i);
+                        break;
+                    }
+                }
+            }
+        }
     }
 
     @Override
@@ -122,6 +164,19 @@ public class UbuntuCard extends Card implements AdapterView.OnItemSelectedListen
         Spinner s = (Spinner) m_view.findViewById(R.id.version);
         s.setAdapter(m_versionAdapter);
         s.setSelection(m_versionAdapter.getCount()-1);
+
+        if(m_savedState != null) {
+            Integer ver = m_savedState.getInt("utouch_selected_ver");
+            if(ver != null && m_versionAdapter != null) {
+                for(int i = 0; i < m_versionAdapter.getCount(); ++i) {
+                    if(m_versionAdapter.getItem(i).equals(ver)) {
+                        s.setSelection(i);
+                        break;
+                    }
+                }
+            }
+            m_savedState = null;
+        }
     }
 
     @Override
@@ -212,4 +267,5 @@ public class UbuntuCard extends Card implements AdapterView.OnItemSelectedListen
     private Manifest m_manifest;
     private MultiROM m_multirom;
     private Recovery m_recovery;
+    private Bundle m_savedState;
 }

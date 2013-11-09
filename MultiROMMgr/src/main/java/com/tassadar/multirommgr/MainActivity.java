@@ -32,6 +32,9 @@ public class MainActivity extends Activity implements StatusAsyncTask.StatusAsyn
         mCardView.setSwipeable(false);
         mCardView.setSlideIn(!StatusAsyncTask.instance().isComplete());
 
+        if(savedInstanceState != null)
+            m_cardsSavedState = savedInstanceState.getBundle("cards_state");
+
         Intent i = getIntent();
         if(i == null || !i.getBooleanExtra("force_refresh", false)) {
             start();
@@ -41,7 +44,19 @@ public class MainActivity extends Activity implements StatusAsyncTask.StatusAsyn
         }
     }
 
+    protected void onSaveInstanceState (Bundle outState) {
+        super.onSaveInstanceState(outState);
+
+        Bundle cardsState = new Bundle();
+        mCardView.saveInstanceState(cardsState);
+        outState.putBundle("cards_state", cardsState);
+    }
+
     private void start() {
+        // not the same data, something might have changed
+        if(!StatusAsyncTask.instance().isComplete())
+            m_cardsSavedState = null;
+
         mCardView.addCard(new StatusCard(), true);
         StatusAsyncTask.instance().setListener(this);
         StatusAsyncTask.instance().execute();
@@ -89,17 +104,22 @@ public class MainActivity extends Activity implements StatusAsyncTask.StatusAsyn
     public void onStatusTaskFinished(StatusAsyncTask.Result res) {
         boolean hasUbuntu = false;
         if(res.manifest != null) {
-            mCardView.addCard(new InstallCard(res.manifest, res.recovery == null, this), true);
+            mCardView.addCard(new InstallCard(m_cardsSavedState, res.manifest, res.recovery == null, this));
 
             if(res.multirom != null && res.recovery != null && res.device.supportsUbuntuTouch()) {
                 UbuntuManifestAsyncTask.instance().setListener(this);
-                mCardView.addCard(new UbuntuCard(this, res.manifest, res.multirom, res.recovery));
+                mCardView.addCard(new UbuntuCard(m_cardsSavedState, this, res.manifest, res.multirom, res.recovery));
                 hasUbuntu = true;
             }
+
+            mCardView.refresh();
         }
 
         if(m_menu != null && !hasUbuntu)
             m_menu.findItem(R.id.action_refresh).setEnabled(true);
+
+        // Saved state is not needed anymore
+        m_cardsSavedState = null;
     }
 
     @Override
@@ -128,4 +148,5 @@ public class MainActivity extends Activity implements StatusAsyncTask.StatusAsyn
 
     private CardUI mCardView;
     private Menu m_menu;
+    private Bundle m_cardsSavedState;
 }

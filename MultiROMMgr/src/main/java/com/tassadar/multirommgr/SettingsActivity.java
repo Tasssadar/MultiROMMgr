@@ -6,6 +6,7 @@ import android.preference.EditTextPreference;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceScreen;
+import android.view.MenuItem;
 
 public class SettingsActivity extends PreferenceActivity implements SharedPreferences.OnSharedPreferenceChangeListener {
     public static final String GENERAL_UPDATE_CHECK =  "general_update_check";
@@ -44,5 +45,15 @@ public class SettingsActivity extends PreferenceActivity implements SharedPrefer
             Utils.setDownloadDir(p.getString(key, Utils.getDefaultDownloadDir()));
             updatePrefText();
         }
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch(item.getItemId()) {
+            case android.R.id.home:
+                finish();
+                return true;
+        }
+        return false;
     }
 }

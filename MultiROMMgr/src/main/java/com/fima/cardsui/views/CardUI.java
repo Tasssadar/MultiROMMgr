@@ -5,15 +5,12 @@ import java.util.ArrayList;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Build;
+import android.os.Bundle;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
-import android.view.animation.LayoutAnimationController;
 import android.view.animation.TranslateAnimation;
 import android.widget.AbsListView;
 import android.widget.AbsListView.OnScrollListener;
@@ -361,7 +358,11 @@ public class CardUI extends FrameLayout {
 		CardStack cardStack = (CardStack) mStacks
 				.get(getLastCardStackPosition());
 		cardStack.setTitle(title);
+	}
 
+	public void saveInstanceState(Bundle outState) {
+		for(int i = 0; i < mStacks.size(); ++i)
+			mStacks.get(i).saveInstanceState(outState);
 	}
 
 	public OnRenderedListener getOnRenderedListener() {

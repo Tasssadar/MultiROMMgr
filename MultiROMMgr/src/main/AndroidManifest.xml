@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.tassadar.multirommgr"
-    android:versionCode="28"
-    android:versionName="1.28" >
+    android:versionCode="29"
+    android:versionName="1.29" >
 
     <uses-sdk
         android:minSdkVersion="16"
@@ -19,7 +19,7 @@
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme" >
+        android:theme="@style/AppTheme">
         <activity
             android:name="com.tassadar.multirommgr.MainActivity"
             android:label="@string/app_name">
@@ -29,19 +29,17 @@
             </intent-filter>
         </activity>
         <activity android:name=".InstallActivity"
-            android:label="Installation"
+            android:label="@string/installation"
             android:exported="false"
             android:launchMode="singleTop"/>
         <service android:name=".InstallService"
             android:exported="false"/>
         <activity android:name=".SettingsActivity"
             android:exported="false"
-            android:label="@string/action_settings"
-            android:parentActivityName="com.tassadar.multirommgr.MainActivity" />
+            android:label="@string/action_settings" />
         <activity android:name=".ChangelogActivity"
             android:exported="false"
-            android:label="@string/changelogs"
-            android:parentActivityName="com.tassadar.multirommgr.MainActivity" />
+            android:label="@string/changelogs" />
 
         <receiver android:name=".UpdateChecker$BootCompletedReceiver"
             android:enabled="true"

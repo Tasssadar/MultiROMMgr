@@ -19,11 +19,34 @@ import java.util.Date;
 
 public class InstallCard extends Card implements CompoundButton.OnCheckedChangeListener, View.OnClickListener {
 
-    public InstallCard(Manifest manifest, boolean forceRecovery, StartInstallListener listener) {
+    public InstallCard(Bundle savedState, Manifest manifest, boolean forceRecovery, StartInstallListener listener) {
         super();
         m_manifest = manifest;
         m_listener = listener;
         m_forceRecovery = forceRecovery;
+        m_savedState = savedState;
+    }
+
+    @Override
+    public void saveInstanceState(Bundle outState) {
+        super.saveInstanceState(outState);
+
+        if(m_view == null)
+            return;
+
+        CheckBox b = (CheckBox)m_view.findViewById(R.id.install_multirom);
+        outState.putBoolean("install_multirom", b.isChecked());
+
+        b = (CheckBox)m_view.findViewById(R.id.install_recovery);
+        outState.putBoolean("install_recovery", b.isChecked());
+
+        b = (CheckBox)m_view.findViewById(R.id.install_kernel);
+        if(!b.isChecked()) {
+            outState.putString("install_kernel", "false");
+        } else {
+            Spinner s = (Spinner)m_view.findViewById(R.id.kernel_options);
+            outState.putString("install_kernel", (String)s.getSelectedItem());
+        }
     }
 
     @Override
@@ -71,8 +94,38 @@ public class InstallCard extends Card implements CompoundButton.OnCheckedChangeL
         else
             changelog_btn.setOnClickListener(this);
 
+        if(m_savedState != null)
+            restoreInstanceState();
+
         enableInstallBtn();
         return m_view;
+    }
+
+    private void restoreInstanceState() {
+        CheckBox b = (CheckBox)m_view.findViewById(R.id.install_multirom);
+        b.setChecked(m_savedState.getBoolean("install_multirom", b.isChecked()));
+
+        b = (CheckBox)m_view.findViewById(R.id.install_recovery);
+        b.setChecked(m_savedState.getBoolean("install_recovery", b.isChecked()));
+
+        b = (CheckBox)m_view.findViewById(R.id.install_kernel);
+        String kernel = m_savedState.getString("install_kernel");
+        if(kernel != null) {
+            if(kernel.equals("false")) {
+                b.setChecked(false);
+            } else {
+                b.setChecked(true);
+                Spinner s = (Spinner)m_view.findViewById(R.id.kernel_options);
+                for(int i = 0; i < s.getAdapter().getCount(); ++i) {
+                    if(((String)s.getItemAtPosition(i)).equals(kernel)) {
+                        s.setSelection(i);
+                        break;
+                    }
+                }
+            }
+        }
+
+        m_savedState = null;
     }
 
     @Override
@@ -147,5 +200,6 @@ public class InstallCard extends Card implements CompoundButton.OnCheckedChangeL
     private View m_view;
     private StartInstallListener m_listener;
     private boolean m_forceRecovery;
+    private Bundle m_savedState;
 }
 

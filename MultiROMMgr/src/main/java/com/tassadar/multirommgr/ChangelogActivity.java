@@ -8,6 +8,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.view.MenuItem;
 
 public class ChangelogActivity extends FragmentActivity implements ActionBar.TabListener, ViewPager.OnPageChangeListener {
 
@@ -24,6 +25,7 @@ public class ChangelogActivity extends FragmentActivity implements ActionBar.Tab
         m_viewPager.setOnPageChangeListener(this);
 
         ActionBar bar = getActionBar();
+        bar.setDisplayHomeAsUpEnabled(true);
         bar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
         for(int i = 0; i < m_names.length; ++i) {
             ActionBar.Tab t = bar.newTab();
@@ -32,6 +34,16 @@ public class ChangelogActivity extends FragmentActivity implements ActionBar.Tab
 
             bar.addTab(t);
         }
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch(item.getItemId()) {
+            case android.R.id.home:
+                finish();
+                return true;
+        }
+        return false;
     }
 
     @Override
