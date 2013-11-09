@@ -1,5 +1,9 @@
 package com.tassadar.multirommgr;
 
+import android.animation.Animator;
+import android.animation.AnimatorInflater;
+import android.animation.AnimatorListenerAdapter;
+import android.animation.AnimatorSet;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -7,15 +11,13 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.CheckBox;
-import android.widget.ProgressBar;
+import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.fima.cardsui.objects.Card;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.util.ArrayList;
 
 public class UbuntuCard extends Card implements AdapterView.OnItemSelectedListener, View.OnClickListener {
 
@@ -37,6 +39,11 @@ public class UbuntuCard extends Card implements AdapterView.OnItemSelectedListen
 
         Button b = (Button) m_view.findViewById(R.id.install_btn);
         b.setOnClickListener(this);
+        b = (Button) m_view.findViewById(R.id.back_btn);
+        b.setOnClickListener(this);
+
+        ImageButton ib = (ImageButton)m_view.findViewById(R.id.info_btn);
+        ib.setOnClickListener(this);
 
         boolean error = false;
         TextView t = (TextView)m_view.findViewById(R.id.error_text);
@@ -125,23 +132,76 @@ public class UbuntuCard extends Card implements AdapterView.OnItemSelectedListen
 
     @Override
     public void onClick(View view) {
-        Bundle bundle = new Bundle();
-        bundle.putString("installation_type", "ubuntu");
+        switch(view.getId()) {
+            case R.id.install_btn:
+            {
+                Bundle bundle = new Bundle();
+                bundle.putString("installation_type", "ubuntu");
 
-        UbuntuInstallInfo info = new UbuntuInstallInfo();
+                UbuntuInstallInfo info = new UbuntuInstallInfo();
 
-        Spinner s = (Spinner) m_view.findViewById(R.id.channel);
-        UbuntuChannel chan = (UbuntuChannel)s.getSelectedItem();
+                Spinner s = (Spinner) m_view.findViewById(R.id.channel);
+                UbuntuChannel chan = (UbuntuChannel)s.getSelectedItem();
 
-        s = (Spinner) m_view.findViewById(R.id.version);
-        Integer version = (Integer)s.getSelectedItem();
+                s = (Spinner) m_view.findViewById(R.id.version);
+                Integer version = (Integer)s.getSelectedItem();
 
-        chan.fillInstallFilesForVer(info.installFiles, version);
-        info.channelName = chan.getRawName();
+                chan.fillInstallFilesForVer(info.installFiles, version);
+                info.channelName = chan.getRawName();
 
-        UbuntuManifestAsyncTask.instance().putInstallInfo(info);
+                UbuntuManifestAsyncTask.instance().putInstallInfo(info);
 
-        m_listener.startActivity(bundle, MainActivity.ACT_INSTALL_UBUNTU, InstallActivity.class);
+                m_listener.startActivity(bundle, MainActivity.ACT_INSTALL_UBUNTU, InstallActivity.class);
+                break;
+            }
+            case R.id.info_btn:
+            {
+                rotateCard(true);
+                break;
+            }
+            case R.id.back_btn:
+            {
+                rotateCard(false);
+                break;
+            }
+        }
+    }
+
+    private void rotateCard(boolean frontToback) {
+        AnimatorSet set = (AnimatorSet) AnimatorInflater.loadAnimator(m_view.getContext(),
+                R.anim.card_flip);
+        set.setTarget(mCardLayout);
+
+        View front = m_view.findViewById(R.id.ubuntu_card_front);
+        View back = m_view.findViewById(R.id.ubuntu_card_back);
+
+        ArrayList<Animator> s = set.getChildAnimations();
+        for(int i = 0; i < s.size(); ++i) {
+            Animator a = s.get(i);
+            if(a.getDuration() == 1) {
+                a.addListener(new FlipAnimationListener(front, back, frontToback));
+                break;
+            }
+        }
+        set.start();
+    }
+
+    private static class FlipAnimationListener extends AnimatorListenerAdapter {
+        private View m_front, m_back;
+        private boolean m_frontToBack;
+
+        public FlipAnimationListener(View front, View back, boolean frontToBack) {
+            m_front = front;
+            m_back = back;
+            m_frontToBack = frontToBack;
+        }
+
+        @Override
+        public void onAnimationStart(Animator animation) {
+            super.onAnimationStart(animation);
+            m_front.setVisibility(m_frontToBack ? View.GONE : View.VISIBLE);
+            m_back.setVisibility(m_frontToBack ? View.VISIBLE : View.GONE);
+        }
     }
 
     private View m_view;

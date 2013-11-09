@@ -1,11 +1,9 @@
 package com.tassadar.multirommgr;
 
 import android.content.Context;
-import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.text.Html;
-import android.text.Spanned;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -143,7 +141,6 @@ public class InstallCard extends Card implements CompoundButton.OnCheckedChangeL
                 break;
             }
         }
-
     }
 
     private Manifest m_manifest;
