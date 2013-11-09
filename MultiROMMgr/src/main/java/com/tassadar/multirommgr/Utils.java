@@ -236,7 +236,7 @@ public class Utils {
             while((read = in.read(buff)) > 0)
                 digest.update(buff, 0, read);
 
-            res = new BigInteger(1, digest.digest()).toString(16);
+            return Utils.bytesToHex(digest.digest());
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
@@ -244,6 +244,16 @@ public class Utils {
                 try { in.close(); } catch (IOException e) { }
         }
         return res;
+    }
+
+    private static final char[] HEX = {'0','1','2','3','4','5','6','7','8','9','a','b','c','d','e','f'};
+    public static String bytesToHex(byte[] bytes) {
+        StringBuilder b = new StringBuilder(bytes.length*2);
+        for(int i = 0; i < bytes.length; ++i) {
+            b.append(HEX[(bytes[i] & 0xFF) >> 4]);
+            b.append(HEX[(bytes[i] & 0xFF) & 0x0F]);
+        }
+        return b.toString();
     }
 
     public static boolean copyFile(File src, File dst) {
