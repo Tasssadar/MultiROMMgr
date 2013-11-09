@@ -76,5 +76,6 @@
     <string name="pref_download_dir">Change downloads folder</string>
     <string name="changelogs">Changelogs</string>
     <string name="changelog_failed">\n\n\nFailed to download changelog.</string>
+    <string name="done">Done, go back.</string>
 
 </resources>

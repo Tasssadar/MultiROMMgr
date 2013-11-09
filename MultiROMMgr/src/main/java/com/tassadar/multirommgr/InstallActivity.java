@@ -23,6 +23,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class InstallActivity extends Activity implements ServiceConnection, InstallListener {
+
+    private static final int BTN_STATE_CANCEL    = 0;
+    private static final int BTN_STATE_TRY_AGAIN = 1;
+    private static final int BTN_STATE_DONE      = 2;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,6 +37,8 @@ public class InstallActivity extends Activity implements ServiceConnection, Inst
         m_progressText = (TextView)findViewById(R.id.progress_text);
         m_progressBar = (ProgressBar)findViewById(R.id.progress_bar);
         m_isCancelEnabled = true;
+
+        setButtonState(BTN_STATE_CANCEL);
 
         Intent i = new Intent(this, InstallService.class);
         startService(i);
@@ -146,17 +153,27 @@ public class InstallActivity extends Activity implements ServiceConnection, Inst
         if(m_service == null)
             return;
 
-        if(m_service.isInProgress()) {
-            if(m_isCancelEnabled) {
+        switch(m_btnState) {
+            case BTN_STATE_CANCEL:
+                tryBack();
+                break;
+            case BTN_STATE_TRY_AGAIN:
+                startInstallation();
+                break;
+            case BTN_STATE_DONE:
                 m_service.cancel();
                 this.finish();
-            } else {
-                Toast.makeText(this, R.string.uninterruptable, Toast.LENGTH_SHORT).show();
-            }
-        } else {
-            startInstallation();
-            ((Button)v).setText(R.string.cancel);
+                break;
         }
+    }
+
+    private void setButtonState(int s) {
+        final int[] texts = { R.string.cancel, R.string.try_again, R.string.done };
+
+        Button b = (Button)findViewById(R.id.control_btn);
+        b.setText(texts[s]);
+
+        m_btnState = s;
     }
 
     @Override
@@ -166,7 +183,7 @@ public class InstallActivity extends Activity implements ServiceConnection, Inst
 
     @Override
     public void onProgressUpdate(int val, int max, boolean indeterminate, String text) {
-        runOnUiThread(new UpdateProgressRunnable(val, max, indeterminate, Html.fromHtml(text), false));
+        runOnUiThread(new UpdateProgressRunnable(val, max, indeterminate, Html.fromHtml(text), 0));
     }
 
     @Override
@@ -178,8 +195,9 @@ public class InstallActivity extends Activity implements ServiceConnection, Inst
             text = new SpannedString(Utils.getString(R.string.install_failed));
 
         setResult(RESULT_OK);
+        m_isCancelEnabled = true;
 
-        runOnUiThread(new UpdateProgressRunnable(100, 100, false, text, true));
+        runOnUiThread(new UpdateProgressRunnable(100, 100, false, text, success ? 2 : 1));
     }
 
     @Override
@@ -230,6 +248,9 @@ public class InstallActivity extends Activity implements ServiceConnection, Inst
                     public void onClick(DialogInterface dialogInterface, int i) {
                         if(m_service != null)
                             m_service.setRequestRecovery(0);
+
+                        // Allow user to request recovery again
+                        setButtonState(BTN_STATE_TRY_AGAIN);
                     }
                 });
             }
@@ -254,9 +275,9 @@ public class InstallActivity extends Activity implements ServiceConnection, Inst
         private int m_max;
         private boolean m_indeterminate;
         private Spanned m_text;
-        private boolean m_finished;
+        private int m_finished;
 
-        public UpdateProgressRunnable(int val, int max, boolean indeterminate, Spanned text, boolean finished) {
+        public UpdateProgressRunnable(int val, int max, boolean indeterminate, Spanned text, int finished) {
             m_val = val;
             m_max = max;
             m_indeterminate = indeterminate;
@@ -272,9 +293,11 @@ public class InstallActivity extends Activity implements ServiceConnection, Inst
             }
             m_progressText.setText(m_text);
 
-            if(m_finished) {
-                Button b = (Button)findViewById(R.id.control_btn);
-                b.setText(R.string.try_again);
+            if(m_finished > 0) {
+                if(m_finished == 2)
+                    setButtonState(BTN_STATE_DONE);
+                else
+                    setButtonState(BTN_STATE_TRY_AGAIN);
 
                 getWindow().clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
             }
@@ -288,4 +311,5 @@ public class InstallActivity extends Activity implements ServiceConnection, Inst
     private ProgressBar m_progressBar;
     private boolean m_isCancelEnabled;
     private AlertDialog m_rebootDialog;
+    private int m_btnState;
 }
