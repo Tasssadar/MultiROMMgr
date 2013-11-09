@@ -31,6 +31,13 @@ public class SettingsActivity extends PreferenceActivity implements SharedPrefer
         updatePrefText();
     }
 
+    public void onDestroy() {
+        super.onDestroy();
+
+        SharedPreferences p = MultiROMMgrApplication.getPreferences();
+        p.unregisterOnSharedPreferenceChangeListener(this);
+    }
+
     private void updatePrefText() {
         Preference pref = findPreference(UTOUCH_DELETE_FILES);
         pref.setSummary(Utils.getString(R.string.pref_delete_utouch_files_summ,
