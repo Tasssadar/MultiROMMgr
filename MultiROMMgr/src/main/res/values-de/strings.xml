@@ -79,7 +79,7 @@
     <string name="done">Abgeschlossen, zurück.</string>
     <string name="about_ubuntu_touch">Über Ubuntu Touch</string>
     <string name="back">Zurück</string>
-    <string name="about_ubuntu_text"><b>Dieser Abschnitt installiert Ubuntu Touch als sekundären ROM. Es löscht keine deiner Daten, es wird nur Ubuntu Touch in MultiROM hinzufügen.</b>\n\nZur Kanalwahl, <i>saucy</i> ist zurzeit die stabile Version, daher kannst du sie einfach als \"besser\" erwarten. Andererseits ist <i>trusty</i> die Version welche zur Zeit in der Entwicklung ist, d.h. es besitzt die neuesten Updates.</string>
+    <string name="about_ubuntu_text"><b>Dieser Abschnitt installiert Ubuntu Touch als sekundäres ROM. Es löscht keine deiner Daten, es wird nur Ubuntu Touch in MultiROM hinzufügen.</b>\n\nZur Kanalwahl, <i>saucy</i> ist zurzeit die stabile Version, daher kannst du sie einfach als \"besser\" erwarten. Andererseits ist <i>trusty</i> die Version welche zur Zeit in der Entwicklung ist, d.h. es besitzt die neuesten Updates.</string>
     <string name="installation">Installation</string>
 
 </resources>
