@@ -12,8 +12,8 @@
     <string name="mrom_ver_fail">Lesen der MultiROM Version fehlgeschlagen!</string>
     <string name="no_multirom">MultiROM ist nicht installiert.</string>
     <string name="no_recovery">MultiROM Recovery ist nicht installiert.</string>
-    <string name="has_kexec"><![CDATA[<font color=\"#339900\">hat kexec-hardboot Unterstützung</font>]]></string>
-    <string name="no_kexec"><![CDATA[<font color=\"red\">hat keine kexec-hardboot Unterstützung!</font>]]></string>
+    <string name="has_kexec"><![CDATA[<font color=\"#339900\">Hat kexec-hardboot Unterstützung</font>]]></string>
+    <string name="no_kexec"><![CDATA[<font color=\"red\">Hat keine kexec-hardboot Unterstützung!</font>]]></string>
     <string name="update_available"><![CDATA[<font color=\"blue\"> (Update verfügbar)</font>]]></string>
     <string name="manifest_fail">Konnte Update-Info nicht herunterladen!</string>
     <string name="install_multirom">MultiROM v%1$s</string>
@@ -29,7 +29,7 @@
     <string name="reboot_message">Das Gerät muss in die Recovery neustarten um die Installation zu vervollständigen.</string>
     <string name="ubuntu_card">Ubuntu Touch installieren</string>
     <string name="channel">Kanal:</string>
-    <string name="ubuntu_man_failed">Herunterladen und analysieren von Ubuntu Touch Metadaten fehlgeschlagen.</string>
+    <string name="ubuntu_man_failed">Herunterladen und Analysieren von Ubuntu Touch Metadaten fehlgeschlagen.</string>
     <string name="version">Version:</string>
     <string name="destination">Ziel:</string>
     <string name="internal_memory">Interner Speicher</string>
@@ -38,16 +38,16 @@
     <string name="ubuntu_req_recovery">Recovery %s oder neuer ist erforderlich.</string>
     <string name="ubuntu_touch">Ubuntu Touch</string>
     <string name="pref_hidden_channels">Zeige versteckte Kanäle</string>
-    <string name="pref_hidden_channels_summ">Zeigt Update-Kanäle welche normalerweise versteckt sind (meistens inaktive oder developers-only Kanäle).</string>
+    <string name="pref_hidden_channels_summ">Zeigt Update-Kanäle, welche normalerweise versteckt sind (meistens inaktive oder developers-only Kanäle).</string>
     <string name="pref_delete_utouch_files">Lösche Installationsdateien</string>
-    <string name="pref_delete_utouch_files_summ">Löscht Ubuntu Touch Installationsdateien kurz bevor in die Recovery neugestartet wird, um die Installation zu abzuschließen. Das setzt Speicher frei, allerdings müssen die Dateien erneut heruntergeladen werden falls die Installation fehlschlägt.\n\nDateien werden nach %1$s/%2$s heruntergeladen</string>
+    <string name="pref_delete_utouch_files_summ">Löscht Ubuntu Touch Installationsdateien, kurz bevor in die Recovery neugestartet wird, um die Installation zu abzuschließen. Das gibt Speicher frei, allerdings müssen die Dateien erneut heruntergeladen werden, falls die Installation fehlschlägt.\n\nDateien werden nach %1$s/%2$s heruntergeladen.</string>
     <string name="general">Allgemein</string>
     <string name="pref_auto_reboot">Nicht für Neustart fragen</string>
-    <string name="pref_auto_reboot_summ">Automatisch in die Recovery neustarten wenn es benötigt ist, um die Installation abzuschließen.</string>
+    <string name="pref_auto_reboot_summ">Automatisch in die Recovery neustarten, wenn es notwendig ist, um die Installation abzuschließen.</string>
     <string name="install_success">Installation war erfolgreich.</string>
     <string name="install_failed">Installation FEHLGESCHLAGEN!</string>
     <string name="downloading_file">Lädt Datei %s herunter...</string>
-    <string name="success"><![CDATA[<font color=\"green\">Erfolchreich</font><br>]]></string>
+    <string name="success"><![CDATA[<font color=\"green\">Erfolgreich</font><br>]]></string>
     <string name="failed"><![CDATA[<font color=\"red\">FEHLGESCHLAGEN!</font><br>]]></string>
     <string name="preparing_downloads">Downloads werden vorbereitet...%s</string>
     <string name="invalid_url">Ungültige URL: %s</string>
@@ -68,7 +68,7 @@
     <string name="copying_file">Kopiert Datei %s...</string>
     <string name="failed_file_copy"><![CDATA[<br><font color=\"red\">Kopieren der Datei %s fehlgeschlagen!</font><br>]]></string>
     <string name="deleting_used_files"><![CDATA[Löscht bereits verwendete Dateien...<br>]]></string>
-    <string name="ubuntu_free_space">Du hast zurzeit nur noch %1$dMB frei. Es wird empfohlen, mindestens %2$dMB frei im internen Speicher zu haben oder die Installation könnte fehlschlagen!</string>
+    <string name="ubuntu_free_space">Du hast zurzeit nur noch %1$dMB frei. Es wird empfohlen, mindestens %2$dMB frei im internen Speicher zu haben, oder die Installation könnte fehlschlagen!</string>
     <string name="pref_update_check">Auf Updates prüfen</string>
     <string name="pref_update_check_sum">Automatisch ungefähr alle 12 Stunden nach Updates für MultiROM und Recovery suchen und bei Verfügbarkeit benachrichtigen.</string>
     <string name="update_notification">MultiROM Update verfügbar.</string>
@@ -79,7 +79,7 @@
     <string name="done">Abgeschlossen, zurück.</string>
     <string name="about_ubuntu_touch">Über Ubuntu Touch</string>
     <string name="back">Zurück</string>
-    <string name="about_ubuntu_text"><b>Dieser Abschnitt installiert Ubuntu Touch als sekundären ROM. Es löscht keine deiner Daten, es wird nur Ubuntu Touch in MultiROM hinzufügen.</b>\n\nZur Kanalwahl, <i>saucy</i> ist zurzeit die stabile Version, daher kannst du sie einfach als \"besser\" erwaten. Andererseits ist <i>trusty</i> die  Version welche zur Zeit in Entwciklung ist, d.h. es besitzt die neuesten Updates.</string>
+    <string name="about_ubuntu_text"><b>Dieser Abschnitt installiert Ubuntu Touch als sekundären ROM. Es löscht keine deiner Daten, es wird nur Ubuntu Touch in MultiROM hinzufügen.</b>\n\nZur Kanalwahl, <i>saucy</i> ist zurzeit die stabile Version, daher kannst du sie einfach als \"besser\" erwarten. Andererseits ist <i>trusty</i> die Version welche zur Zeit in der Entwicklung ist, d.h. es besitzt die neuesten Updates.</string>
     <string name="installation">Installation</string>
 
 </resources>
