@@ -40,7 +40,7 @@
     <string name="pref_hidden_channels">Zeige versteckte Kanäle</string>
     <string name="pref_hidden_channels_summ">Zeigt Update-Kanäle, welche normalerweise versteckt sind (meistens inaktive oder developers-only Kanäle).</string>
     <string name="pref_delete_utouch_files">Lösche Installationsdateien</string>
-    <string name="pref_delete_utouch_files_summ">Löscht Ubuntu Touch Installationsdateien, kurz bevor in die Recovery neugestartet wird, um die Installation zu abzuschließen. Das gibt Speicher frei, allerdings müssen die Dateien erneut heruntergeladen werden, falls die Installation fehlschlägt.\n\nDateien werden nach %1$s/%2$s heruntergeladen.</string>
+    <string name="pref_delete_utouch_files_summ">Löscht Ubuntu Touch Installationsdateien, kurz bevor in die Recovery neugestartet wird, um die Installation abzuschließen. Das gibt Speicher frei, allerdings müssen die Dateien erneut heruntergeladen werden, falls die Installation fehlschlägt.\n\nDateien werden nach %1$s/%2$s heruntergeladen.</string>
     <string name="general">Allgemein</string>
     <string name="pref_auto_reboot">Nicht für Neustart fragen</string>
     <string name="pref_auto_reboot_summ">Automatisch in die Recovery neustarten, wenn es notwendig ist, um die Installation abzuschließen.</string>
