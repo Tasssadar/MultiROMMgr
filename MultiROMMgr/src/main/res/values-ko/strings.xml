@@ -3,7 +3,6 @@
 
     <string name="app_name">MultiROM 매니저</string>
     <string name="action_settings">설정</string>
-    <string name="hello_world">Hello world!</string>
     <string name="status">상태</string>
     <string name="no_su">루트권한을 얻지 못했습니다!</string>
     <string name="action_refresh">새로고침</string>
