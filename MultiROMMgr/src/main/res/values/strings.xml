@@ -3,7 +3,6 @@
 
     <string name="app_name">MultiROM Manager</string>
     <string name="action_settings">Settings</string>
-    <string name="hello_world">Hello world!</string>
     <string name="status">Status</string>
     <string name="no_su">Failed to get root access!</string>
     <string name="action_refresh">Refresh</string>
