@@ -1,5 +1,7 @@
 package com.tassadar.multirommgr;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.app.Activity;
@@ -94,6 +96,29 @@ public class MainActivity extends Activity implements StatusAsyncTask.StatusAsyn
             case R.id.action_settings:
                 Intent i = new Intent(this, SettingsActivity.class);
                 startActivity(i);
+                return true;
+            case R.id.action_reboot:
+                AlertDialog.Builder b = new AlertDialog.Builder(this);
+                b.setTitle(R.string.reboot)
+                 .setCancelable(true)
+                 .setNegativeButton(R.string.cancel, null)
+                 .setItems(R.array.reboot_options, new DialogInterface.OnClickListener() {
+                     @Override
+                     public void onClick(DialogInterface dialogInterface, int i) {
+                         switch (i) {
+                             case 0:
+                                 Utils.reboot("");
+                                 break;
+                             case 1:
+                                 Utils.reboot("recovery");
+                                 break;
+                             case 2:
+                                 Utils.reboot("bootloader");
+                                 break;
+                         }
+                     }
+                 })
+                 .create().show();
                 return true;
             default:
                 return false;

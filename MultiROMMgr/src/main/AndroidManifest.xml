@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.tassadar.multirommgr"
-    android:versionCode="33"
-    android:versionName="1.33" >
+    android:versionCode="34"
+    android:versionName="1.34" >
 
     <uses-sdk
         android:minSdkVersion="16"
@@ -12,7 +12,7 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
-    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"></uses-permission>
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
 
     <application
         android:name="com.tassadar.multirommgr.MultiROMMgrApplication"
