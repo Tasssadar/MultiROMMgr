@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">MultiROM 매니저</string>
+    <string name="action_settings">설정</string>
+    <string name="status">상태</string>
+    <string name="no_su">루트권한을 얻지 못했습니다!</string>
+    <string name="action_refresh">새로고침</string>
+    <string name="unsupported">(%1$s)(은)는 지원하지 않는 기기입니다!</string>
+    <string name="status_text"><![CDATA[<b>MultiROM:</b> v%1$s%2$s<br><b>리커버리:</b> %3$s%4$s<br><b>커널:</b> %5$s]]></string>
+    <string name="mrom_ver_fail">MultiROM 버전을 읽을 수 없습니다!</string>
+    <string name="no_multirom">MultiROM이 설치되지 않았습니다.</string>
+    <string name="no_recovery">MultiROM 리커버리가 설치되지 않았습니다.</string>
+    <string name="has_kexec"><![CDATA[<font color=\"#339900\">kexec-hardboot 패치됨</font>]]></string>
+    <string name="no_kexec"><![CDATA[<font color=\"red\">kexec-hardboot 패치되지않음!</font>]]></string>
+    <string name="update_available"><![CDATA[<font color=\"blue\"> (업데이트 가능)</font>]]></string>
+    <string name="manifest_fail">업데이트 정보를 다운받지 못했습니다!</string>
+    <string name="install_multirom">MultiROM v%1$s</string>
+    <string name="install_recovery">리커버리 %1$s</string>
+    <string name="install_kernel">커널:</string>
+    <string name="install">설치</string>
+    <string name="install_title">설치/업데이트</string>
+    <string name="cancel">취소</string>
+    <string name="download_progress">%1$s (%3$d kB중 %2$d kB)...</string>
+    <string name="try_again">다시 시도</string>
+    <string name="uninterruptable">이 작업을 중단할 수 없습니다.</string>
+    <string name="reboot">재부팅</string>
+    <string name="reboot_message">설치를 마치려면 리커버리로 재부팅해야합니다.</string>
+    <string name="ubuntu_card">우분투 터치 설치</string>
+    <string name="channel">채널:</string>
+    <string name="ubuntu_man_failed">우분투 터치 메타데이터를 다운로드하고 파싱하는데에 실패했습니다.</string>
+    <string name="version">버전:</string>
+    <string name="destination">경로:</string>
+    <string name="internal_memory">내장메모리</string>
+    <string name="required"><![CDATA[<font color=\"blue\">&nbsp;(필수)</font>]]></string>
+    <string name="ubuntu_req_multirom">MultiROM 버전 v%s 이상이 필요합니다.</string>
+    <string name="ubuntu_req_recovery">리커버리 버전 %s 이상이 필요합니다.</string>
+    <string name="ubuntu_touch">우분투 터치</string>
+    <string name="pref_hidden_channels">숨겨진 채널 보이기</string>
+    <string name="pref_hidden_channels_summ">개발자 전용인 숨겨진 채널을 보이게합니다.</string>
+    <string name="pref_delete_utouch_files">사용된 설치파일 삭제</string>
+    <string name="pref_delete_utouch_files_summ">우분투 터치 설치를 위해 리커버리로 재부팅하기 전에 파일을 삭제합니다. 메모리를 아낄 수 있지만 설치가 실패하면 파일을 다시 다운받아야합니다.\n\n파일들이 %1$s/%2$s(으)로 다운로드되었습니다</string>
+    <string name="general">일반</string>
+    <string name="pref_auto_reboot">재부팅할지 묻지않기</string>
+    <string name="pref_auto_reboot_summ">설치를 위해 재부팅해야할때 재부팅여부를 묻지않습니다.</string>
+    <string name="install_success">설치 성공</string>
+    <string name="install_failed">설치 실패!</string>
+    <string name="downloading_file">%s(을)를 다운받는 중...</string>
+    <string name="success"><![CDATA[<font color=\"green\">성공</font><br>]]></string>
+    <string name="failed"><![CDATA[<font color=\"red\">실패!</font><br>]]></string>
+    <string name="preparing_downloads">%s 다운로드 준비중</string>
+    <string name="invalid_url">유효하지 않은 URL: %s</string>
+    <string name="skipping_file"><![CDATA[%s 이미 다운받은 파일 건너뛰는중...<br>]]></string>
+    <string name="checking_file">%s 파일 검사중... </string>
+    <string name="ok"><![CDATA[<font color=\"green\">확인됨</font><br>]]></string>
+    <string name="installing_files">파일 설치중...</string>
+    <string name="installing_file">%s 설치중...</string>
+    <string name="needs_recovery"><![CDATA[<font color=\"yellow\">리커버리가 필요함</font><br>]]></string>
+    <string name="su_failed_find_dir"><![CDATA[슈퍼유저로 다운경로 찾기 실패.<br>]]></string>
+    <string name="installing_utouch">우분투 터치 설치중...</string>
+    <string name="failed_create_rom"><![CDATA[ROM 폴더 생성 실패!<br>]]></string>
+    <string name="installing_rom"><![CDATA[<br><font color=\"yellow\">%s</font>(으)로 ROM 설치중<br>]]></string>
+    <string name="failed_rom_init"><![CDATA[ROM 폴더 생성 실패!<br>]]></string>
+    <string name="ok_skippping"><![CDATA[<font color=\"green\">확인, 건너뜀.</font><br>]]></string>
+    <string name="failed_redownload"><![CDATA[<font color=\"#FF9900\">실패, 다시 다운로드.</font><br>]]></string>
+    <string name="failed_busybox">비지박스 출력 실패!</string>
+    <string name="copying_file">%s 복사중...</string>
+    <string name="failed_file_copy"><![CDATA[<br><font color=\"red\">%s 복사 실패!</font><br>]]></string>
+    <string name="deleting_used_files"><![CDATA[사용된 파일 삭제중...<br>]]></string>
+    <string name="ubuntu_free_space">저장공간이 %1$dMB밖에 남지 않았습니다. %2$dMB 이상의 저장공간이 필요하며 그렇지 않을 시에는 설치가 실패할 수 있습니다!</string>
+    <string name="pref_update_check">업데이트 확인</string>
+    <string name="pref_update_check_sum">자동으로 MultiROM과 리커버리 업데이트를 ~12시간마다 확인하고 알림을 줍니다.</string>
+    <string name="update_notification">MultiROM 엡데이트 가능.</string>
+    <string name="pref_download_dir_sum">매니저가 설치에 필요한 파일을 이 폴더에 다운로드합니다. 우분투 터치 파일은 이 폴더 안의 \"UbuntuTouch\" 폴더에 다운로드됩니다.</string>
+    <string name="pref_download_dir">다운로드 폴더 변경</string>
+    <string name="changelogs">체인지로그</string>
+    <string name="changelog_failed">\n\n\n체인지로그 다운로드 실패.</string>
+    <string name="done">끝남, 뒤로가기.</string>
+    <string name="about_ubuntu_touch">정보</string>
+    <string name="back">뒤로</string>
+    <string name="about_ubuntu_text"><b>이 카드는 우분투 터치를 두번째 ROM으로 설치합니다. 데이터를 지우지 않고 MultiROM에 설치합니다.</b>\n\n다운받을 채널은 <i>saucy</i>(이)가 최신 스테이블 버전이어서 다른 채널들 보다 더 좋을 수 있습니다. 그리고 <i>trusty</i>(은)는 현재 개발이 진행중이므로 최신 업데이트를 받을 수 있습니다.</string>
+    <string name="installation">설치</string>
+
+</resources>

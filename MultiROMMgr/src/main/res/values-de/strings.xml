@@ -37,7 +37,7 @@
     <string name="ubuntu_req_recovery">Recovery %s oder neuer ist erforderlich.</string>
     <string name="ubuntu_touch">Ubuntu Touch</string>
     <string name="pref_hidden_channels">Zeige versteckte Kanäle</string>
-    <string name="pref_hidden_channels_summ">Zeigt Update-Kanäle, welche normalerweise versteckt sind (meistens inaktive oder developers-only Kanäle).</string>
+    <string name="pref_hidden_channels_summ">Zeigt Update-Kanäle, welche normalerweise versteckt sind (meistens inaktive Kanäle oder Testkanäle nur für den Entwickler).</string>
     <string name="pref_delete_utouch_files">Lösche Installationsdateien</string>
     <string name="pref_delete_utouch_files_summ">Löscht Ubuntu Touch Installationsdateien, kurz bevor in die Recovery neugestartet wird, um die Installation abzuschließen. Das gibt Speicher frei, allerdings müssen die Dateien erneut heruntergeladen werden, falls die Installation fehlschlägt.\n\nDateien werden nach %1$s/%2$s heruntergeladen.</string>
     <string name="general">Allgemein</string>
@@ -71,14 +71,14 @@
     <string name="pref_update_check">Auf Updates prüfen</string>
     <string name="pref_update_check_sum">Automatisch ungefähr alle 12 Stunden nach Updates für MultiROM und Recovery suchen und bei Verfügbarkeit benachrichtigen.</string>
     <string name="update_notification">MultiROM Update verfügbar.</string>
-    <string name="pref_download_dir_sum">Manager wird Installationsdateien in diesen Ordner herunterladen. Ubuntu Touch Dateien werden sich in \"UbuntuTouch\" in diesem Ordner befinden.</string>
+    <string name="pref_download_dir_sum">Manager wird Installationsdateien in diesen Ordner herunterladen. Ubuntu Touch Dateien befinden sich unter sich in \"/UbuntuTouch/\" in diesem Ordner.</string>
     <string name="pref_download_dir">Download Ordner ändern</string>
     <string name="changelogs">Neuerungen</string>
     <string name="changelog_failed">\n\n\Laden der Neuerungen fehlgeschlagen.</string>
     <string name="done">Abgeschlossen, zurück.</string>
     <string name="about_ubuntu_touch">Über Ubuntu Touch</string>
     <string name="back">Zurück</string>
-    <string name="about_ubuntu_text"><b>Dieser Abschnitt installiert Ubuntu Touch als sekundäres ROM. Es löscht keine deiner Daten, es wird nur Ubuntu Touch in MultiROM hinzufügen.</b>\n\nZur Kanalwahl: <i>saucy</i> ist zurzeit die stabile Version, daher kannst du sie einfach als \"besser\" erwarten. Andererseits ist <i>trusty</i> die Version welche zur Zeit in der Entwicklung ist, d.h. es besitzt die neuesten Updates.</string>
+    <string name="about_ubuntu_text"><b>Dieser Abschnitt installiert Ubuntu Touch als sekundäres ROM. Es löscht keine deiner Daten, es fügt nur Ubuntu Touch in MultiROM hinzu.</b>\n\nEs gibt mehrere Kanäle, <i>saucy</i> ist zurzeit die stabile Version, daher kannst du sie einfach als \"besser\" erwarten. Andererseits ist <i>trusty</i> die Version welche zur Zeit in der Entwicklung ist, d.h. es besitzt die neuesten Updates.</string>
     <string name="installation">Installation</string>
 
 </resources>
