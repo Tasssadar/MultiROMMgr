@@ -13,7 +13,9 @@
         android:overScrollMode="never"
         android:paddingLeft="0dp"
         android:paddingRight="0dp"
-        android:scrollbars="vertical">
+        android:scrollbars="vertical"
+        android:paddingBottom="@dimen/card_padding"
+        android:clipToPadding="false">
     </com.fima.cardsui.views.QuickReturnListView>
 
     <FrameLayout
