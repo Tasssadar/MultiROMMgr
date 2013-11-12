@@ -13,8 +13,6 @@
         android:overScrollMode="never"
         android:paddingLeft="0dp"
         android:paddingRight="0dp"
-        android:paddingBottom="20dp"
-        android:clipToPadding="false"
         android:scrollbars="vertical">
     </com.fima.cardsui.views.QuickReturnListView>
 
