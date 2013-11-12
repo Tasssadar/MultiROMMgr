@@ -10,6 +10,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.text.Html;
+import android.text.Spannable;
 import android.text.Spanned;
 import android.text.SpannedString;
 import android.util.Log;
@@ -39,12 +40,33 @@ public class InstallActivity extends Activity implements ServiceConnection, Inst
         m_isCancelEnabled = true;
 
         setButtonState(BTN_STATE_CANCEL);
-
-        Intent i = new Intent(this, InstallService.class);
-        startService(i);
-        bindService(i, this, BIND_AUTO_CREATE);
-
         getActionBar().setDisplayHomeAsUpEnabled(true);
+
+        if(savedInstanceState == null || !savedInstanceState.getBoolean("completed", false)) {
+            Intent i = new Intent(this, InstallService.class);
+            startService(i);
+            bindService(i, this, BIND_AUTO_CREATE);
+        } else {
+            m_term.setText(Html.fromHtml(savedInstanceState.getString("log", "")));
+            m_progressText.setText(savedInstanceState.getString("status"));
+
+            m_progressBar.setIndeterminate(false);
+            m_progressBar.setMax(100);
+            m_progressBar.setProgress(100);
+
+            setButtonState(BTN_STATE_DONE);
+        }
+    }
+
+    protected void onSaveInstanceState (Bundle outState) {
+        super.onSaveInstanceState(outState);
+
+        if(m_service != null && m_service.isInProgress())
+            return;
+
+        outState.putBoolean("completed", true);
+        outState.putString("log", Html.toHtml((Spanned)m_term.getText()));
+        outState.putString("status", m_progressText.getText().toString());
     }
 
     @Override
@@ -56,7 +78,8 @@ public class InstallActivity extends Activity implements ServiceConnection, Inst
             m_rebootDialog = null;
         }
 
-        unbindService(this);
+        if(m_service != null)
+            unbindService(this);
     }
 
     @Override
