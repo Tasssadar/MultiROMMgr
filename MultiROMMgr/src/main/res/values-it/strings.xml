@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">MultiROM Manager</string>
+    <string name="action_settings">Impostationi</string>
+    <string name="status">Stato</string>
+    <string name="no_su">"Impossibile ottenere l'accesso root!"</string>
+    <string name="action_refresh">Aggiorna</string>
+    <string name="unsupported">Questo dispositivo non è supportato: (%1$s)!</string>
+    <string name="status_text"><![CDATA[<b>MultiROM:</b> v%1$s%2$s<br><b>Recovery:</b> %3$s%4$s<br><b>Kernel:</b> %5$s]]></string>
+    <string name="mrom_ver_fail">Impossibile leggere la versione corrente di MultiROM!</string>
+    <string name="no_multirom">MultiROM non è installato.</string>
+    <string name="no_recovery">La recovery di MultiROM non è installata.</string>
+    <string name="has_kexec"><![CDATA[<font color=\"#339900\">kexec-hardboot patch presente</font>]]></string>
+    <string name="no_kexec"><![CDATA[<font color=\"red\">kexec-hardboot patch non presente!</font>]]></string>
+    <string name="update_available"><![CDATA[<font color=\"blue\"> (Aggiornamento disponibile)</font>]]></string>
+    <string name="manifest_fail">Impossibile scaricare le informazioni sugli aggiornamenti!</string>
+    <string name="install_multirom">MultiROM v%1$s</string>
+    <string name="install_recovery">Recovery %1$s</string>
+    <string name="install_kernel">Kernel:</string>
+    <string name="install">Installa</string>
+    <string name="install_title">Installa/Aggiorna</string>
+    <string name="cancel">Annulla</string>
+    <string name="download_progress">%1$s (%2$d kB of %3$d kB)…</string>
+    <string name="try_again">Riprova</string>
+    <string name="uninterruptable">Questa operazione non può essere interrotta.</string>
+    <string name="reboot">Riavvia</string>
+    <string name="reboot_message">"Bisogna riavviare in recovery per completare l'installazione."</string>
+    <string name="ubuntu_card">Installa Ubuntu Touch</string>
+    <string name="channel">Canale:</string>
+    <string name="ubuntu_man_failed">Impossibile scaricare e parsare i metedati di Ubuntu Touch.</string>
+    <string name="version">Versione:</string>
+    <string name="destination">Destinazione:</string>
+    <string name="internal_memory">Memoria interna</string>
+    <string name="required"><![CDATA[<font color=\"blue\">&nbsp;(richiesto)</font>]]></string>
+    <string name="ubuntu_req_multirom">MultiROM v%s o maggiore richiesto.</string>
+    <string name="ubuntu_req_recovery">Recovery %s o maggiore richiesta.</string>
+    <string name="ubuntu_touch">Ubuntu Touch</string>
+    <string name="pref_hidden_channels">Mostra canali nascosti</string>
+    <string name="pref_hidden_channels_summ">Mostra aggiornamenti da canali nascosti per default (generalmente inattivi o per soli sviluppatori).</string>
+    <string name="pref_delete_utouch_files">Elimina dati di installazione utilizzati</string>
+    <string name="pref_delete_utouch_files_summ">"Cancella i file utilizzati da Ubuntu Touch prima di riavviare in recovery. Questo permette di risparmiare spazio, ma se l'installazione fallisce, dovrai riscaricare i file.\n\nI file sono scaricati nella cartella %1$s/%2$s"</string>
+    <string name="general">Generale</string>
+    <string name="pref_auto_reboot">Non chiedere di riavviare</string>
+    <string name="pref_auto_reboot_summ">"Riavvia automaticamente in recovery quando è richiesto per completare l'installazione."</string>
+    <string name="install_success">Installazione completata.</string>
+    <string name="install_failed">Installazione FALLITA!</string>
+    <string name="downloading_file">Download in corso: %s…</string>
+    <string name="success"><![CDATA[<font color=\"green\">completato</font><br>]]></string>
+    <string name="failed"><![CDATA[<font color=\"red\">FALLITO!</font><br>]]></string>
+    <string name="preparing_downloads">Preparazione download…%s</string>
+    <string name="invalid_url">URL non valido: %s</string>
+    <string name="skipping_file"><![CDATA[Saltando file già scaricati %s<br>]]></string>
+    <string name="checking_file">Controllo del file %s… </string>
+    <string name="ok"><![CDATA[<font color=\"green\">ok</font><br>]]></string>
+    <string name="installing_files">Installazione files…</string>
+    <string name="installing_file">Installazione file %s…</string>
+    <string name="needs_recovery"><![CDATA[<font color=\"yellow\">recovery necessaria</font><br>]]></string>
+    <string name="su_failed_find_dir"><![CDATA[Impossibile trovare la directory di download come SU.<br>]]></string>
+    <string name="installing_utouch">Installazione Ubuntu Touch…</string>
+    <string name="failed_create_rom"><![CDATA[Impossibile creare la directory della ROM!<br>]]></string>
+    <string name="installing_rom"><![CDATA[<br>Installazione ROM <font color=\"yellow\">%s</font><br>]]></string>
+    <string name="failed_rom_init"><![CDATA[Impossibile inizializzare la directory delle ROM!<br>]]></string>
+    <string name="ok_skippping"><![CDATA[<font color=\"green\">ok, salto.</font><br>]]></string>
+    <string name="failed_redownload"><![CDATA[<font color=\"#FF9900\">Operazione fallita, re-download.</font><br>]]></string>
+    <string name="failed_busybox">Impossibile estrarre busybox!</string>
+    <string name="copying_file">Copiando il file %s…</string>
+    <string name="failed_file_copy"><![CDATA[<br><font color=\"red\">Impossibile copiare il file %s!</font><br>]]></string>
+    <string name="deleting_used_files"><![CDATA[Eliminazione file usati…<br>]]></string>
+    <string name="ubuntu_free_space">"Al momento hai solo %1$dMB liberi. Si raccomanda di avere almeno %2$dMB liberi nella memoria interna, altrimenti l'installazione potrebbe fallire!"</string>
+    <string name="pref_update_check">Controllando aggiornamenti</string>
+    <string name="pref_update_check_sum">Controlla eventuali aggiornamenti per multiROM e la recoveri ogni 12 ore circa e mostra una notifica se disponibile.</string>
+    <string name="update_notification">Disponibile un aggiornamento per MultiROM.</string>
+    <string name="pref_download_dir_sum">MultiROMManager scaricherà i file di installazione in questa cartella. I file di Ubuntu Touch saranno nella cartella \"UbuntuTouch\" contenuta nella cartella appena definita.</string>
+    <string name="pref_download_dir">Cambia cartella di download</string>
+    <string name="changelogs">Changelogs</string>
+    <string name="changelog_failed">\n\n\nImpossibile scaricare il changelog.</string>
+    <string name="done">Fatto, tornando indietro.</string>
+    <string name="about_ubuntu_touch">About</string>
+    <string name="back">Indietro</string>
+    <string name="about_ubuntu_text"><b>Questa card permette di installare Ubuntu Touch come ROM secondaria. Non eliminerà nessun dato, verrà semplicemente aggiunto a MultiROM.</b>\n\nIn base al canale scelto, <i>saucy</i> è la corrente versione stabile, e quindi ci si può aspettare che sia \"migliore\". D\'altra parte, <i>trusty</i> è la versione correntemente in sviluppo, ciò vuol dire che riceverà velocemente gli ultimi aggiornamenti.</string>
+    <string name="installation">Installazione</string>
+    <string name="action_reboot">Riavvio…</string>
+
+    <string-array name="reboot_options">
+        <item>System</item>
+        <item>Recovery</item>
+        <item>Bootloader</item>
+    </string-array>
+
+</resources>
