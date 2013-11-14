@@ -80,7 +80,7 @@ public class UbuntuChannel {
 
         ByteArrayOutputStream out = new ByteArrayOutputStream(32768);
         try {
-            if(!Utils.downloadFile(UbuntuManifest.BASE_URL + path, out, null))
+            if(!Utils.downloadFile(UbuntuManifest.BASE_URL + path, out, null) || out.size() == 0)
                 return false;
         } catch(IOException e) {
             e.printStackTrace();
@@ -95,8 +95,13 @@ public class UbuntuChannel {
 
         m_images = new TreeMap<Integer, UbuntuImage>();
 
-        JSONObject o = (JSONObject)new JSONTokener(out.toString()).nextValue();
-        JSONArray images = o.getJSONArray("images");
+        Object rawObject = new JSONTokener(out.toString()).nextValue();
+        if(!(rawObject instanceof JSONObject)){
+            Log.e("UbuntuChannel", "Malformed manifest format!");
+            return false;
+        }
+
+        JSONArray images = ((JSONObject)rawObject).getJSONArray("images");
         for(int i = 0; i < images.length(); ++i) {
             JSONObject img = images.getJSONObject(i);
 

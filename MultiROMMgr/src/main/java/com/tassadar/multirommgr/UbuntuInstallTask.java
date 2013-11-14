@@ -46,7 +46,7 @@ public class UbuntuInstallTask extends InstallAsyncTask  {
         destDir.mkdirs();
         String dest = destDir.toString();
 
-       String suDestDir = findSUDestDir(destDir);
+        String suDestDir = findSUDestDir(destDir);
 
         if(suDestDir == null) {
             m_listener.onInstallLog(Utils.getString(R.string.su_failed_find_dir));

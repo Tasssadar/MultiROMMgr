@@ -45,7 +45,7 @@ public class Manifest {
     public boolean downloadAndParse(String dev) {
         ByteArrayOutputStream out = new ByteArrayOutputStream(4096);
         try {
-            if(!Utils.downloadFile(manifestUrl, out, null))
+            if(!Utils.downloadFile(manifestUrl, out, null) || out.size() == 0)
                 return false;
         } catch(IOException e) {
             e.printStackTrace();
@@ -59,7 +59,13 @@ public class Manifest {
         }
 
         try {
-            JSONObject o = (JSONObject)new JSONTokener(out.toString()).nextValue();
+            Object rawObject = new JSONTokener(out.toString()).nextValue();
+            if(!(rawObject instanceof JSONObject)){
+                Log.e("Manifest", "Malformed manifest format!");
+                return false;
+            }
+
+            JSONObject o = (JSONObject)rawObject;
             m_status = o.getString("status");
             if(!m_status.equals("ok")) {
                 Log.e("Manifest", "MultiROM manifest's status is \"" + m_status + "\"");
