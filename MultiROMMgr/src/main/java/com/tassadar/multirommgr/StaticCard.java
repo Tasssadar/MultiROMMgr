@@ -23,16 +23,23 @@ import android.view.View;
 
 import com.fima.cardsui.objects.Card;
 
-public class StatusCard extends StaticCard {
+public class StaticCard extends Card {
 
-    public StatusCard() {
-        super(R.layout.status_card);
+    public StaticCard(String title, int layoutResourceId) {
+        super(title);
+        m_layoutId = layoutResourceId;
+    }
+
+    public StaticCard(int layoutResourceId) {
+        super();
+        m_layoutId = layoutResourceId;
     }
 
     @Override
     public View getCardContent(Context context) {
-        View view = super.getCardContent(context);
-        StatusAsyncTask.instance().setStatusCardLayout(view);
+        View view = LayoutInflater.from(context).inflate(m_layoutId, null);
         return view;
     }
+
+    protected int m_layoutId;
 }

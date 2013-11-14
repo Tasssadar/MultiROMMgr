@@ -271,6 +271,14 @@ public class CardUI extends FrameLayout {
 
 	}
 
+	public void addSwipableCard(Card card, boolean refresh, boolean swipable) {
+		CardStack stack = new CardStack(mSlideIn, swipable);
+		stack.add(card);
+		mStacks.add(stack);
+		if (refresh)
+			refresh();
+	}
+
 	public void addCardToLastStack(Card card) {
 		addCardToLastStack(card, false);
 

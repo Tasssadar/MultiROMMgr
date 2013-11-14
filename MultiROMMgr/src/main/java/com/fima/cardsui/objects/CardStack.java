@@ -27,6 +27,9 @@ public class CardStack extends AbstractCard {
 	private static final float _12F = 12f;
 	private static final float _45F = 45f;
 	private static final String NINE_OLD_TRANSLATION_Y = "translationY";
+	private static final int SWIPE_UNCHANGED = 0;
+	private static final int SWIPE_ENABLE = 1;
+	private static final int SWIPE_DISABLE = 2;
 	private ArrayList<Card> cards;
 	private String title;
 
@@ -35,17 +38,27 @@ public class CardStack extends AbstractCard {
 	private Context mContext;
 	private CardStack mStack;
 	private boolean mSlideIn;
+	private int mSwipable;
 
 	public CardStack() {
 		cards = new ArrayList<Card>();
 		mStack = this;
 		mSlideIn = true;
+		mSwipable = SWIPE_UNCHANGED;
 	}
 
 	public CardStack(boolean slideIn) {
 		cards = new ArrayList<Card>();
 		mStack = this;
 		mSlideIn = slideIn;
+		mSwipable = SWIPE_UNCHANGED;
+	}
+
+	public CardStack(boolean slideIn, boolean swipable) {
+		cards = new ArrayList<Card>();
+		mStack = this;
+		mSlideIn = slideIn;
+		mSwipable = swipable ? SWIPE_ENABLE : SWIPE_DISABLE;
 	}
 
 	public ArrayList<Card> getCards() {
@@ -64,6 +77,9 @@ public class CardStack extends AbstractCard {
 
 	@Override
 	public View getView(Context context, boolean swipable) {
+
+		if(mSwipable != SWIPE_UNCHANGED)
+				swipable = (mSwipable == SWIPE_ENABLE);
 
 		mContext = context;
 

@@ -1,4 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="cardui_padding">40.0dip</dimen>
+    <dimen name="cardui_padding">56.0dip</dimen>
 </resources>

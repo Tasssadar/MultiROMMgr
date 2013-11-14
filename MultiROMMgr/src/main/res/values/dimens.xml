@@ -173,5 +173,5 @@
     <dimen name="histogram_bar_padding">0.0dip</dimen>
     <dimen name="histogram_width">100.0dip</dimen>
 
-    <dimen name="cardui_padding">0.0dip</dimen>
+    <dimen name="cardui_padding">16.0dip</dimen>
 </resources>

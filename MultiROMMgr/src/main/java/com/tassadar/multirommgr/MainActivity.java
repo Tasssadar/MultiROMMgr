@@ -20,12 +20,15 @@ package com.tassadar.multirommgr;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.app.Activity;
 import android.preference.PreferenceManager;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
+import com.fima.cardsui.objects.Card;
 import com.fima.cardsui.views.CardUI;
 
 public class MainActivity extends Activity implements StatusAsyncTask.StatusAsyncTaskListener,
@@ -122,15 +125,9 @@ public class MainActivity extends Activity implements StatusAsyncTask.StatusAsyn
                      @Override
                      public void onClick(DialogInterface dialogInterface, int i) {
                          switch (i) {
-                             case 0:
-                                 Utils.reboot("");
-                                 break;
-                             case 1:
-                                 Utils.reboot("recovery");
-                                 break;
-                             case 2:
-                                 Utils.reboot("bootloader");
-                                 break;
+                             case 0: Utils.reboot(""); break;
+                             case 1: Utils.reboot("recovery"); break;
+                             case 2: Utils.reboot("bootloader"); break;
                          }
                      }
                  })
@@ -147,7 +144,11 @@ public class MainActivity extends Activity implements StatusAsyncTask.StatusAsyn
         if(res.manifest != null) {
             mCardView.addCard(new InstallCard(m_cardsSavedState, res.manifest, res.recovery == null, this));
 
-            if(res.multirom != null && res.recovery != null && res.device.supportsUbuntuTouch()) {
+            if(!res.device.supportsUbuntuTouch()) {
+                SharedPreferences p = MultiROMMgrApplication.getPreferences();
+                if(p.getBoolean("showUbuntuUnsupported", true))
+                    showUbuntuUnsupportedCard();
+            } else if(res.multirom != null && res.recovery != null) {
                 UbuntuManifestAsyncTask.instance().setListener(this);
                 mCardView.addCard(new UbuntuCard(m_cardsSavedState, this, res.manifest, res.multirom, res.recovery));
                 hasUbuntu = true;
@@ -167,6 +168,19 @@ public class MainActivity extends Activity implements StatusAsyncTask.StatusAsyn
     public void onUbuntuTaskFinished(UbuntuManifestAsyncTask.Result res) {
         if(m_menu != null)
             m_menu.findItem(R.id.action_refresh).setEnabled(true);
+    }
+
+    private void showUbuntuUnsupportedCard() {
+        Card c = new StaticCard(R.layout.ubuntu_unsupported_card);
+        c.setOnCardSwipedListener(new Card.OnCardSwiped() {
+            @Override
+            public void onCardSwiped(Card card, View layout) {
+                SharedPreferences.Editor p = MultiROMMgrApplication.getPreferences().edit();
+                p.putBoolean("showUbuntuUnsupported", false);
+                p.commit();
+            }
+        });
+        mCardView.addSwipableCard(c, false, true);
     }
 
     @Override

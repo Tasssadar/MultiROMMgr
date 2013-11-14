@@ -3,8 +3,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:paddingLeft="16dp"
-    android:paddingRight="16dp" >
+    android:paddingLeft="@dimen/cardui_padding"
+    android:paddingRight="@dimen/cardui_padding"
+    android:clipToPadding="false"
+    android:clipChildren="false">
 
     <TextView
         android:id="@+id/stackTitle"
@@ -20,7 +22,9 @@
         android:id="@+id/stackContainer"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:paddingTop="8dp" >
+        android:paddingTop="8dp"
+        android:clipChildren="false"
+        android:clipToPadding="false">
     </RelativeLayout>
 
 </LinearLayout>
