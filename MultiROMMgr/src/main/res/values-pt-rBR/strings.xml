@@ -11,9 +11,9 @@
     <string name="mrom_ver_fail">Falha ao ler a versão do MultiROM!</string>
     <string name="no_multirom">MultiROM não está instalado.</string>
     <string name="no_recovery">MultiROM recovery não está instalado.</string>
-    <string name="has_kexec"><![CDATA[<font color=\"#339900\">has kexec-hardboot patch</font>]]></string>
-    <string name="no_kexec"><![CDATA[<font color=\"red\">doesn\'t have kexec-hardboot patch!</font>]]></string>
-    <string name="update_available"><![CDATA[<font color=\"blue\"> (Update available)</font>]]></string>
+    <string name="has_kexec"><![CDATA[<font color=\"#339900\">tem o patch kexec-hardboot</font>]]></string>
+    <string name="no_kexec"><![CDATA[<font color=\"red\">não tem o patch kexec-hardboot!</font>]]></string>
+    <string name="update_available"><![CDATA[<font color=\"blue\"> (Atualização disponível)</font>]]></string>
     <string name="manifest_fail">Falha ao baixar informações sobre atualizações!</string>
     <string name="install_multirom">MultiROM v%1$s</string>
     <string name="install_recovery">Recovery %1$s</string>
@@ -21,7 +21,7 @@
     <string name="install">Instalar</string>
     <string name="install_title">Instalar/Atualizar</string>
     <string name="cancel">Cancelar</string>
-    <string name="download_progress">%1$s (%2$d kB of %3$d kB)...</string>
+    <string name="download_progress">%1$s (%2$d kB de %3$d kB)...</string>
     <string name="try_again">Tentar novamente</string>
     <string name="uninterruptable">Esta operação não pode ser interrompida.</string>
     <string name="reboot">Reiniciar</string>
@@ -32,14 +32,14 @@
     <string name="version">Versão:</string>
     <string name="destination">Destino:</string>
     <string name="internal_memory">Memória interna</string>
-    <string name="required"><![CDATA[<font color=\"blue\">&nbsp;(required)</font>]]></string>
+    <string name="required"><![CDATA[<font color=\"blue\">&nbsp;(requerido)</font>]]></string>
     <string name="ubuntu_req_multirom">MultiROM v%s ou superior é necessário.</string>
     <string name="ubuntu_req_recovery">Recovery %s ou mais novo é necessário.</string>
     <string name="ubuntu_touch">Ubuntu Touch</string>
     <string name="pref_hidden_channels">Mostrar canais ocultos</string>
     <string name="pref_hidden_channels_summ">Mostra canais de atualização que estão escondidos por padrão (os canais geralmente inativos ou apenas para desenvolvedores).</string>
     <string name="pref_delete_utouch_files">Excluir arquivos de instalação usados</string>
-    <string name="pref_delete_utouch_files_summ">Excluir arquivos do Ubuntu Touch usados apenas antes de reiniciar em recuperação para concluir a instalação. Isso economiza espaço, mas você tem que baixar novamente os arquivos se a instalação falhar.\n\nFiles are downloaded to %1$s/%2$s</string>
+    <string name="pref_delete_utouch_files_summ">Excluir arquivos do Ubuntu Touch usados apenas antes de reiniciar em recuperação para concluir a instalação. Isso economiza espaço, mas você tem que baixar novamente os arquivos se a instalação falhar.\n\nArquivos serão baixados para %1$s/%2$s</string>
     <string name="general">Geral</string>
     <string name="pref_auto_reboot">Não pedir para reiniciar</string>
     <string name="pref_auto_reboot_summ">Reiniciar automaticamente em recuperação quando for necessário para concluir a instalação.</string>
@@ -69,16 +69,16 @@
     <string name="deleting_used_files"><![CDATA[Apagando arquivos usados...<br>]]></string>
     <string name="ubuntu_free_space">Você tem somente %1$dMB de espaço sobrando. É recomendado que tenha pelo menos %2$dMB de espaço livre na memória interna ou a instalação poderá falhar!</string>
     <string name="pref_update_check">Verificar se há atualizações</string>
-    <string name="pref_update_check_sum">Verificar automaticamente se há atualizações para o MultiROM e o Recovery de cada ~12 horas e mostrar a notificação se houver disponível.</string>
-    <string name="update_notification">MultiROM update is available.</string>
-    <string name="pref_download_dir_sum">Manager irá baixar os arquivos de instalação para esta pasta. Arquivos do Ubuntu Touch vai estar na pasta \ "UbuntuTouch \" localizado dentro desta.</string>
+    <string name="pref_update_check_sum">Verificar automaticamente se há atualizações para o MultiROM e o Recovery há cada 12 horas e mostrar a notificação se houver disponível.</string>
+    <string name="update_notification">Atualização do MultiROM disponível.</string>
+    <string name="pref_download_dir_sum">O gerenciador irá baixar os arquivos de instalação para esta pasta. Arquivos do Ubuntu Touch vai estar na pasta \"UbuntuTouch\" localizado dentro desta.</string>
     <string name="pref_download_dir">Alterar pasta de downloads</string>
     <string name="changelogs">Changelogs</string>
     <string name="changelog_failed">\n\n\nFalha ao baixar o changelog.</string>
     <string name="done">Feito, voltar.</string>
     <string name="about_ubuntu_touch">Sobre</string>
     <string name="back">Voltar</string>
-    <string name="about_ubuntu_text"><b>Este card instalará  Ubuntu Touch como ROM secundária. Não irá apagar nenhum de seus dados, ela só vai adicioná-lo em MultiROM. </b>\n\nAs para o canal a escolher, <i>saucy</i> é a versão estável atual, então você pode esperar que ele seja \"melhor\". Por outro lado, <i>trusty</i> é a versão que está atualmente em desenvolvimento, o que significa que tem as últimas atualizações.</string>
+    <string name="about_ubuntu_text"><b>Este card instalará  Ubuntu Touch como ROM secundária. Não irá apagar nenhum de seus dados, ela só vai adicioná-lo ao MultiROM. </b>\n\nAs para o canal a escolher, <i>saucy</i> é a versão estável atual, então você pode esperar que ele seja \"melhor\". Por outro lado, <i>trusty</i> é a versão que está atualmente em desenvolvimento, o que significa que tem as últimas atualizações.</string>
     <string name="installation">Instalação</string>
 
 </resources>
