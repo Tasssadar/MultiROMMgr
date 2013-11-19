@@ -7,17 +7,17 @@
     <string name="no_su">获取root权限失败</string>
     <string name="action_refresh">刷新</string>
     <string name="unsupported">不支持设备 (%1$s)!</string>
-    <string name="status_text"><![CDATA[<b>MultiROM:</b> v%1$s%2$s<br><b>Recovery:</b> %3$s%4$s<br><b>Kernel:</b> %5$s]]></string>
+    <string name="status_text"><![CDATA[<b>MultiROM:</b> v%1$s%2$s<br><b>Recovery:</b> %3$s%4$s<br><b>内核:</b> %5$s]]></string>
     <string name="mrom_ver_fail">读取 MultiROM 版本失败!</string>
     <string name="no_multirom">MultiROM 没有安装</string>
     <string name="no_recovery">MultiROM recovery 没有安装</string>
-    <string name="has_kexec"><![CDATA[<font color=\"#339900\">has kexec-hardboot patch</font>]]></string>
-    <string name="no_kexec"><![CDATA[<font color=\"red\">doesn\'t have kexec-hardboot patch!</font>]]></string>
-    <string name="update_available"><![CDATA[<font color=\"blue\"> (Update available)</font>]]></string>
+    <string name="has_kexec"><![CDATA[<font color=\"#339900\">有 kexec-hardboot 补丁</font>]]></string>
+    <string name="no_kexec"><![CDATA[<font color=\"red\">没有 kexec-hardboot 补丁!</font>]]></string>
+    <string name="update_available"><![CDATA[<font color=\"blue\"> (更新可用)</font>]]></string>
     <string name="manifest_fail">下载更新信息失败</string>
     <string name="install_multirom">MultiROM v%1$s</string>
     <string name="install_recovery">Recovery %1$s</string>
-    <string name="install_kernel">Kernel:</string>
+    <string name="install_kernel">内核:</string>
     <string name="install">安装 </string>
     <string name="install_title">安装/更新</string>
     <string name="cancel">取消</string>
@@ -27,12 +27,12 @@
     <string name="reboot">重启</string>
     <string name="reboot_message">你需要重启到 recovery 来完成操作</string>
     <string name="ubuntu_card">安装 Ubuntu Touch</string>
-    <string name="channel">Channel:</string>
+    <string name="channel">通道:</string>
     <string name="ubuntu_man_failed">下载和解析 Ubuntu Touch 元数据失败</string>
-    <string name="version">Version:</string>
-    <string name="destination">Destination:</string>
+    <string name="version">版本:</string>
+    <string name="destination">目的地:</string>
     <string name="internal_memory">内部储存</string>
-    <string name="required"><![CDATA[<font color=\"blue\">&nbsp;(required)</font>]]></string>
+    <string name="required"><![CDATA[<font color=\"blue\">&nbsp;(需要)</font>]]></string>
     <string name="ubuntu_req_multirom">MultiROM v%s 或者需要高的版本.</string>
     <string name="ubuntu_req_recovery">Recovery %s 或者需要更新的版本.</string>
     <string name="ubuntu_touch">Ubuntu Touch</string>
@@ -40,33 +40,33 @@
     <string name="pref_hidden_channels_summ">显示隐藏更新(通常是未启用或者开发者专用的通道).</string>
     <string name="pref_delete_utouch_files">删除已使用的安装文件</string>
     <string name="pref_delete_utouch_files_summ">删除使用过的 Ubuntu Touch 文件,在需要重启到 recovery 来完成安装之前.这样节省空间,但是你需要重新下载文件当安装失败的时候.\n\n文件下载到 %1$s/%2$s</string>
-    <string name="general">General</string>
+    <string name="general">通用</string>
     <string name="pref_auto_reboot">不要询问重启</string>
     <string name="pref_auto_reboot_summ">自动重启到 recovery 当需要重启来完成安装.</string>
     <string name="install_success">安装成功.</string>
     <string name="install_failed">安装失败!</string>
     <string name="downloading_file">下载文件 %s...</string>
-    <string name="success"><![CDATA[<font color=\"green\">success</font><br>]]></string>
-    <string name="failed"><![CDATA[<font color=\"red\">FAILED!</font><br>]]></string>
+    <string name="success"><![CDATA[<font color=\"green\">成功</font><br>]]></string>
+    <string name="failed"><![CDATA[<font color=\"red\">失败!</font><br>]]></string>
     <string name="preparing_downloads">准备下载...%s</string>
     <string name="invalid_url">不合法的 URL: %s</string>
-    <string name="skipping_file"><![CDATA[Skipping already downloaded file %s<br>]]></string>
+    <string name="skipping_file"><![CDATA[跳过已经下载的文件 %s<br>]]></string>
     <string name="checking_file">检查文件 %s... </string>
     <string name="ok"><![CDATA[<font color=\"green\">ok</font><br>]]></string>
     <string name="installing_files">安装文件中..</string>
     <string name="installing_file">安装文件 %s...</string>
-    <string name="needs_recovery"><![CDATA[<font color=\"yellow\">needs recovery</font><br>]]></string>
-    <string name="su_failed_find_dir"><![CDATA[Failed to find download directory as SU.<br>]]></string>
+    <string name="needs_recovery"><![CDATA[<font color=\"yellow\">需要 recovery</font><br>]]></string>
+    <string name="su_failed_find_dir"><![CDATA[查找下载的目录SU失败.<br>]]></string>
     <string name="installing_utouch">安装 Ubuntu Touch...</string>
-    <string name="failed_create_rom"><![CDATA[Failed to create ROM folder!<br>]]></string>
-    <string name="installing_rom"><![CDATA[<br>Installing as ROM <font color=\"yellow\">%s</font><br>]]></string>
-    <string name="failed_rom_init"><![CDATA[Failed to initialize ROM folder!<br>]]></string>
-    <string name="ok_skippping"><![CDATA[<font color=\"green\">ok, skipping.</font><br>]]></string>
-    <string name="failed_redownload"><![CDATA[<font color=\"#FF9900\">failed, re-downloading.</font><br>]]></string>
+    <string name="failed_create_rom"><![CDATA[创建 ROM 文件夹失败!<br>]]></string>
+    <string name="installing_rom"><![CDATA[<br>安装 ROM <font color=\"yellow\">%s</font><br>]]></string>
+    <string name="failed_rom_init"><![CDATA[初始化 ROM 文件夹失败!<br>]]></string>
+    <string name="ok_skippping"><![CDATA[<font color=\"green\">ok, 跳过.</font><br>]]></string>
+    <string name="failed_redownload"><![CDATA[<font color=\"#FF9900\">失败, 重新下载.</font><br>]]></string>
     <string name="failed_busybox">提取 busybox 失败!</string>
     <string name="copying_file">复制文件 %s...</string>
-    <string name="failed_file_copy"><![CDATA[<br><font color=\"red\">Failed to copy file %s!</font><br>]]></string>
-    <string name="deleting_used_files"><![CDATA[Deleting used files...<br>]]></string>
+    <string name="failed_file_copy"><![CDATA[<br><font color=\"red\">复制文件失败 %s!</font><br>]]></string>
+    <string name="deleting_used_files"><![CDATA[删除已使用文件...<br>]]></string>
     <string name="ubuntu_free_space">您当前只有 %1$dMB 剩下. 至少需要 %2$dMB 的空闲空间在内部存储否者安装可能会失败!</string>
     <string name="pref_update_check">检查更新</string>
     <string name="pref_update_check_sum">每12小时自动检查 MultiROM 和 recovery 更新,如果可用则通知栏提醒.</string>
@@ -78,7 +78,7 @@
     <string name="done">完成,后退</string>
     <string name="about_ubuntu_touch">关于</string>
     <string name="back">后退</string>
-    <string name="about_ubuntu_text"><b>This card installs Ubuntu Touch as secondary ROM. It will not wipe any of your data, it will just add it into MultiROM.</b>\n\nAs for which channel to choose, <i>saucy</i> is the current stable version, so you can expect it to be just \"better\". On the other hand, <i>trusty</i> is the version which is currently in development, meaning it has the latest updates.</string>
+    <string name="about_ubuntu_text"><b>这将会安装 Ubuntu Touch 作为第二个 ROM. 它不会擦除你的任何数据,只会添加进 MultiROM.</b>\n\n至于通道选择, <i>saucy</i> 是当前稳定版本,你可以认为它是更好的.另一方面, <i>trusty</i> 是正在开发的版本,意味着最新更新.</string>
     <string name="installation">安装</string>
     <string name="action_reboot">重启...</string>
     <string name="ubuntu_unsupported">Ubuntu Touch 不适合此设备.</string>
