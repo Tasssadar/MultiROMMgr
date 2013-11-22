@@ -14,14 +14,15 @@ repositories {
 
 android {
     compileSdkVersion 19
-    buildToolsVersion "19"
+    buildToolsVersion '19'
 
     defaultConfig {
         minSdkVersion 16
-        targetSdkVersion 16
+        targetSdkVersion 18
     }
 }
 
 dependencies {
-    compile "com.android.support:support-v4:18.0.+"
+    compile 'com.android.support:support-v4:18.0.+'
+    compile 'com.github.chrisbanes.actionbarpulltorefresh:library:+'
 }

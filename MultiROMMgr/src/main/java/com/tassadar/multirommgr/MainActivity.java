@@ -31,8 +31,12 @@ import android.view.View;
 import com.fima.cardsui.objects.Card;
 import com.fima.cardsui.views.CardUI;
 
+import uk.co.senab.actionbarpulltorefresh.library.ActionBarPullToRefresh;
+import uk.co.senab.actionbarpulltorefresh.library.PullToRefreshLayout;
+import uk.co.senab.actionbarpulltorefresh.library.listeners.OnRefreshListener;
+
 public class MainActivity extends Activity implements StatusAsyncTask.StatusAsyncTaskListener,
-        UbuntuManifestAsyncTask.UbuntuManifestAsyncTaskListener, StartInstallListener {
+        UbuntuManifestAsyncTask.UbuntuManifestAsyncTaskListener, StartInstallListener, OnRefreshListener {
 
     public static final int ACT_INSTALL_MULTIROM = 1;
     public static final int ACT_INSTALL_UBUNTU   = 2;
@@ -52,6 +56,13 @@ public class MainActivity extends Activity implements StatusAsyncTask.StatusAsyn
         mCardView = (CardUI) findViewById(R.id.cardsview);
         mCardView.setSwipeable(false);
         mCardView.setSlideIn(!StatusAsyncTask.instance().isComplete());
+
+        m_prtLayout = (PullToRefreshLayout)findViewById(R.id.ptr_layout);
+        ActionBarPullToRefresh
+                .from(this)
+                .allChildrenArePullable()
+                .listener(this)
+                .setup(m_prtLayout);
 
         if(savedInstanceState != null)
             m_cardsSavedState = savedInstanceState.getBundle("cards_state");
@@ -157,8 +168,8 @@ public class MainActivity extends Activity implements StatusAsyncTask.StatusAsyn
             mCardView.refresh();
         }
 
-        if(m_menu != null && !hasUbuntu)
-            m_menu.findItem(R.id.action_refresh).setEnabled(true);
+        if(!hasUbuntu)
+            setRefreshComplete();
 
         // Saved state is not needed anymore
         m_cardsSavedState = null;
@@ -166,8 +177,13 @@ public class MainActivity extends Activity implements StatusAsyncTask.StatusAsyn
 
     @Override
     public void onUbuntuTaskFinished(UbuntuManifestAsyncTask.Result res) {
+        setRefreshComplete();
+    }
+
+    private void setRefreshComplete() {
         if(m_menu != null)
             m_menu.findItem(R.id.action_refresh).setEnabled(true);
+        m_prtLayout.setRefreshComplete();
     }
 
     private void showUbuntuUnsupportedCard() {
@@ -201,7 +217,13 @@ public class MainActivity extends Activity implements StatusAsyncTask.StatusAsyn
         }
     }
 
+    @Override
+    public void onRefreshStarted(View view) {
+        refresh();
+    }
+
     private CardUI mCardView;
     private Menu m_menu;
     private Bundle m_cardsSavedState;
+    private PullToRefreshLayout m_prtLayout;
 }

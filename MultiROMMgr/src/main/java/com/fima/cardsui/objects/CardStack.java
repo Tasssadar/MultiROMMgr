@@ -161,7 +161,7 @@ public class CardStack extends AbstractCard {
         }
 
         if(mSlideIn) {
-            Animation a = AnimationUtils.loadAnimation(context, R.anim.r_to_l_slide);
+            Animation a = AnimationUtils.loadAnimation(context, R.anim.card_slide_in);
             view.startAnimation(a);
             mSlideIn = false;
         }
