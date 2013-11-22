@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <PreferenceCategory
+        android:title="@string/dev_options"
+        android:key="pref_dev">
+        <EditTextPreference
+            android:key="dev_manifest_url"
+            android:title="@string/pref_manifest_url"/>
+        <EditTextPreference
+            android:key="dev_device_name"
+            android:title="@string/pref_device_name"
+            android:summary="@string/dangerous"/>
+    </PreferenceCategory>
+</PreferenceScreen>

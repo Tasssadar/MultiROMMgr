@@ -82,11 +82,21 @@
     <string name="installation">Installation</string>
     <string name="action_reboot">Reboot...</string>
     <string name="ubuntu_unsupported">Unfortunately, Ubuntu Touch is not available for this device.</string>
+    <string name="about">About</string>
+    <string name="about_version">Version</string>
+    <string name="about_licenses">Licenses</string>
+    <string name="about_licenses_summ">MultiROM Manager is licensed under GNU GPLv3 and it is using following libraries, which are all licensed under Apache 2.0:\nlibsuperuser\nCardsUI\nActionBar-PullToRefresh</string>
+    <string name="already_developer">No need, you are already a developer.</string>
+    <string name="now_developer">You are now a developer!</string>
+    <string name="dev_options">Developer options</string>
+    <string name="pref_manifest_url">Manifest URL</string>
+    <string name="steps_developer">You are now %d steps away from being a developer.</string>
+    <string name="pref_device_name">Override device name</string>
+    <string name="dangerous">Dangerous!</string>
 
     <string-array name="reboot_options">
         <item>System</item>
         <item>Recovery</item>
         <item>Bootloader</item>
     </string-array>
-
 </resources>

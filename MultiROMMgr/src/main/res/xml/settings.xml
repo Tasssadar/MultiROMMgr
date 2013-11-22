@@ -33,4 +33,15 @@
             android:summary="@string/pref_delete_utouch_files_summ"
             android:title="@string/pref_delete_utouch_files" />
     </PreferenceCategory>
+
+    <PreferenceCategory
+        android:title="@string/about">
+        <Preference
+            android:key="about_version"
+            android:title="@string/about_version" />
+        <Preference
+            android:key="about_licenses"
+            android:title="@string/about_licenses"
+            android:summary="@string/about_licenses_summ"/>
+    </PreferenceCategory>
 </PreferenceScreen>

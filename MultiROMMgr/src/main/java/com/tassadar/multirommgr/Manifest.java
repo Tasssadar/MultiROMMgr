@@ -17,6 +17,7 @@
 
 package com.tassadar.multirommgr;
 
+import android.content.SharedPreferences;
 import android.util.Log;
 
 import org.json.JSONArray;
@@ -32,7 +33,7 @@ import java.util.Date;
 import java.util.LinkedHashMap;
 
 public class Manifest {
-    private static final String manifestUrl = "http://83.240.110.90/multirom_manifest.json";
+    public static final String DEFAULT_URL = "http://83.240.110.90/multirom_manifest.json";
 
     public class InstallationFile {
         public String type;
@@ -45,7 +46,9 @@ public class Manifest {
     public boolean downloadAndParse(String dev) {
         ByteArrayOutputStream out = new ByteArrayOutputStream(4096);
         try {
-            if(!Utils.downloadFile(manifestUrl, out, null) || out.size() == 0)
+            SharedPreferences p = MultiROMMgrApplication.getPreferences();
+            String url = p.getString(SettingsActivity.DEV_MANIFEST_URL, DEFAULT_URL);
+            if(!Utils.downloadFile(url, out, null) || out.size() == 0)
                 return false;
         } catch(IOException e) {
             e.printStackTrace();

@@ -17,6 +17,7 @@
 
 package com.tassadar.multirommgr;
 
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.text.Html;
@@ -94,7 +95,8 @@ public class StatusAsyncTask extends AsyncTask <Void, Void, StatusAsyncTask.Resu
     protected Result doInBackground(Void ...arg) {
         Result res = new Result();
 
-        Device dev = Device.load(Build.BOARD);
+        SharedPreferences p = MultiROMMgrApplication.getPreferences();
+        Device dev = Device.load(p.getString(SettingsActivity.DEV_DEVICE_NAME, Build.BOARD));
         if(dev == null) {
             res.code = RES_UNSUPPORTED;
             return res;
