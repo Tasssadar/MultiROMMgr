@@ -80,8 +80,13 @@ public class InstallActivity extends Activity implements ServiceConnection, Inst
         if(m_service != null && m_service.isInProgress())
             return;
 
+        CharSequence s = m_term.getText();
+        if(s instanceof Spanned)
+            outState.putString("log", Html.toHtml((Spanned)m_term.getText()));
+        else
+            outState.putString("log", m_term.getText().toString());
+
         outState.putBoolean("completed", true);
-        outState.putString("log", Html.toHtml((Spanned)m_term.getText()));
         outState.putString("status", m_progressText.getText().toString());
     }
 
