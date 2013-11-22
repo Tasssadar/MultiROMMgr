@@ -194,18 +194,17 @@ public class InstallActivity extends Activity implements ServiceConnection, Inst
     }
 
     public void onControlClicked(View v) {
-        if(m_service == null)
-            return;
-
         switch(m_btnState) {
             case BTN_STATE_CANCEL:
                 tryBack();
                 break;
             case BTN_STATE_TRY_AGAIN:
-                startInstallation();
+                if(m_service != null)
+                    startInstallation();
                 break;
             case BTN_STATE_DONE:
-                m_service.cancel();
+                if(m_service != null)
+                    m_service.cancel();
                 this.finish();
                 break;
         }
