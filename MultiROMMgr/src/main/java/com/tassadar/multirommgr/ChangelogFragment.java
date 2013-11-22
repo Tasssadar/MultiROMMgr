@@ -111,9 +111,9 @@ public class ChangelogFragment extends Fragment {
             } catch(IOException e) {
                 e.printStackTrace();
                 return null;
+            } finally {
+                try { out.close(); } catch (IOException e) { }
             }
-
-            try { out.close(); } catch (IOException e) { }
 
             return out.toString();
         }
