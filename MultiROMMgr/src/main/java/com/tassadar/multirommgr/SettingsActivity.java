@@ -57,15 +57,7 @@ public class SettingsActivity extends PreferenceActivity implements SharedPrefer
 
         addPreferencesFromResource(R.xml.settings);
 
-        if(p.getBoolean(DEV_ENABLE, false)) {
-            m_clickCounter = -1;
-            addPreferencesFromResource(R.xml.dev_options);
-
-            EditTextPreference pref = (EditTextPreference)findPreference(DEV_MANIFEST_URL);
-            pref.setText(p.getString(DEV_MANIFEST_URL, Manifest.DEFAULT_URL));
-            pref = (EditTextPreference)findPreference(DEV_DEVICE_NAME);
-            pref.setText(p.getString(DEV_DEVICE_NAME, Build.BOARD));
-        }
+        addDevOptions();
 
         p.registerOnSharedPreferenceChangeListener(this);
         updatePrefText();
@@ -127,14 +119,13 @@ public class SettingsActivity extends PreferenceActivity implements SharedPrefer
             ++m_clickCounter;
 
             if(m_clickCounter == DEV_STEPS) {
-                m_clickCounter = -1;
                 Toast.makeText(this, R.string.now_developer, Toast.LENGTH_SHORT).show();
-
-                addPreferencesFromResource(R.xml.dev_options);
 
                 SharedPreferences.Editor p = MultiROMMgrApplication.getPreferences().edit();
                 p.putBoolean(DEV_ENABLE, true);
                 p.commit();
+
+                addDevOptions();
             } else if(m_clickCounter >= 3) {
                 String s = getString(R.string.steps_developer, DEV_STEPS - m_clickCounter);
                 Toast.makeText(this, s, Toast.LENGTH_SHORT).show();
@@ -146,6 +137,20 @@ public class SettingsActivity extends PreferenceActivity implements SharedPrefer
             return true;
         }
         return false;
+    }
+
+    private void addDevOptions() {
+        SharedPreferences p = MultiROMMgrApplication.getPreferences();
+        if(!p.getBoolean(DEV_ENABLE, false))
+            return;
+
+        m_clickCounter = -1;
+        addPreferencesFromResource(R.xml.dev_options);
+
+        EditTextPreference pref = (EditTextPreference)findPreference(DEV_MANIFEST_URL);
+        pref.setText(p.getString(DEV_MANIFEST_URL, Manifest.DEFAULT_URL));
+        pref = (EditTextPreference)findPreference(DEV_DEVICE_NAME);
+        pref.setText(p.getString(DEV_DEVICE_NAME, Build.BOARD));
     }
 
     private int m_clickCounter;
