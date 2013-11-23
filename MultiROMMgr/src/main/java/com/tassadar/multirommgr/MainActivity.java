@@ -95,6 +95,7 @@ public class MainActivity extends Activity implements StatusAsyncTask.StatusAsyn
 
         if(m_menu != null)
             m_menu.findItem(R.id.action_refresh).setEnabled(false);
+        m_prtLayout.setRefreshing(true);
     }
 
     private void refresh() {
