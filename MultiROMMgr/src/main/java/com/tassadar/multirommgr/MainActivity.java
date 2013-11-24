@@ -89,13 +89,13 @@ public class MainActivity extends Activity implements StatusAsyncTask.StatusAsyn
         if(!StatusAsyncTask.instance().isComplete())
             m_cardsSavedState = null;
 
-        mCardView.addCard(new StatusCard(), true);
-        StatusAsyncTask.instance().setListener(this);
-        StatusAsyncTask.instance().execute();
-
         if(m_menu != null)
             m_menu.findItem(R.id.action_refresh).setEnabled(false);
         m_prtLayout.setRefreshing(true);
+
+        mCardView.addCard(new StatusCard(), true);
+        StatusAsyncTask.instance().setListener(this);
+        StatusAsyncTask.instance().execute();
     }
 
     private void refresh() {
