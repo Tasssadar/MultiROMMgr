@@ -81,7 +81,7 @@
     <string name="about_ubuntu_text"><b>This card installs Ubuntu Touch as secondary ROM. It will not wipe any of your data, it will just add it into MultiROM.</b>\n\nAs for which channel to choose, <i>saucy</i> is the current stable version, so you can expect it to be just \"better\". On the other hand, <i>trusty</i> is the version which is currently in development, meaning it has the latest updates.</string>
     <string name="installation">Installation</string>
     <string name="action_reboot">Reboot...</string>
-    <string name="ubuntu_unsupported">Unfortunately, Ubuntu Touch is not available for this device.</string>
+    <string name="ubuntu_unsupported">Unfortunately, Ubuntu Touch does not support this device.</string>
     <string name="about">About</string>
     <string name="about_version">Version</string>
     <string name="about_licenses">Licenses</string>
