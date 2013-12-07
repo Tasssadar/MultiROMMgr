@@ -31,7 +31,7 @@ public class Kernel {
                 "if [ -f /proc/config.gz ] && [ -e \"" + busybox + "\" ]; then" +
                 "    " + busybox + " zcat /proc/config.gz | grep -q 'CONFIG_KEXEC_HARDBOOT=y' && echo has_kexec && exit 0;" +
                 "fi;" +
-                "if [ -f /proc/atags ] || [ \"$(grep mrom_kexecd=1 /proc/cmdline)\" ]; then" +
+                "if [ -f /proc/atags ] || [ -d /proc/device-tree ] || [ \"$(grep mrom_kexecd=1 /proc/cmdline)\" ]; then" +
                 "    echo has_kexec;" +
                 "    exit 0;" +
                 "fi;");
