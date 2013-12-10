@@ -48,6 +48,28 @@ public class UpdateChecker {
         updateAlarmStatus();
     }
 
+    public static void lazyUpdateVersions(Device d, String m_ver, String r_ver) {
+        SharedPreferences p = MultiROMMgrApplication.getPreferences();
+        if(!p.getBoolean("has_versions", false))
+            return;
+
+        SharedPreferences.Editor e = p.edit();
+
+        e.putString("update_device", d.getName());
+        if(m_ver != null)
+            e.putString("last_multirom_ver", m_ver);
+
+        if(r_ver != null)
+            e.putString("last_recovery_ver", r_ver);
+
+        e.commit();
+    }
+
+    public static boolean isEnabled() {
+        final SharedPreferences p = MultiROMMgrApplication.getPreferences();
+        return p.getBoolean(SettingsActivity.GENERAL_UPDATE_CHECK, false);
+    }
+
     private static PendingIntent getIntent(Context ctx, int flags) {
         Intent i = new Intent("com.tassadar.multirommgr.CHECK_UPDATES");
         return PendingIntent.getBroadcast(ctx, REQ_UPDATE_CHECK, i, flags);

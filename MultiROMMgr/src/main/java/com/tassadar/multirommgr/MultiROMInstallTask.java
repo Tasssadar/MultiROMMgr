@@ -135,6 +135,25 @@ public class MultiROMInstallTask extends InstallAsyncTask {
 
         unmountTmpCache(cache);
 
+        if(UpdateChecker.isEnabled()) {
+            String m_ver = null, r_ver = null;
+
+            if(m_multirom) {
+                // assume installation completes successfully in recovery,
+                // if not, it version will be update when the user returns to
+                // the MainActivity
+                m_ver = m_manifest.getMultiromVersion();
+            }
+
+            if(m_recovery) {
+                Recovery r = new Recovery();
+                if(r.findRecoveryVersion(m_dev))
+                    r_ver = r.getVersionString();
+            }
+
+            UpdateChecker.lazyUpdateVersions(m_dev, m_ver, r_ver);
+        }
+
         if(needsRecovery)
             m_listener.requestRecovery(false);
 
