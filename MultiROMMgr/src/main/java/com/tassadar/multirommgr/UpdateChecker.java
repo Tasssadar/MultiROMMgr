@@ -106,12 +106,15 @@ public class UpdateChecker {
         i.putExtra("force_refresh", true);
         PendingIntent contentIntent = PendingIntent.getActivity(ctx, 0, i, PendingIntent.FLAG_UPDATE_CURRENT);
 
+        CharSequence update_notify = ctx.getText(R.string.update_notification);
+
         Notification.Builder b = new Notification.Builder(ctx);
         b.setContentTitle(ctx.getText(R.string.app_name))
                 .setAutoCancel(true)
                 .setContentIntent(contentIntent)
                 .setSmallIcon(R.drawable.ic_launcher)
-                .setContentText(ctx.getText(R.string.update_notification));
+                .setContentText(update_notify)
+                .setTicker(update_notify);
 
         NotificationManager mgr = (NotificationManager)ctx.getSystemService(Context.NOTIFICATION_SERVICE);
         mgr.notify(UPDATE_NOTIFICATION_ID, b.build());
