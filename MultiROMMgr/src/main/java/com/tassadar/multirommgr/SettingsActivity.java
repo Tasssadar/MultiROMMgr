@@ -30,6 +30,8 @@ import android.preference.PreferenceActivity;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import java.lang.ref.WeakReference;
+
 public class SettingsActivity extends PreferenceActivity implements SharedPreferences.OnSharedPreferenceChangeListener, Preference.OnPreferenceClickListener {
     public static final String GENERAL_UPDATE_CHECK =  "general_update_check";
     public static final String GENERAL_AUTO_REBOOT = "general_auto_reboot";
@@ -112,23 +114,21 @@ public class SettingsActivity extends PreferenceActivity implements SharedPrefer
     public boolean onPreferenceClick(Preference pref) {
         if(pref.getKey().equals(ABOUT_VERSION)) {
             if(m_clickCounter == -1) {
-                Toast.makeText(this, R.string.already_developer, Toast.LENGTH_SHORT).show();
+                showDevToast(R.string.already_developer);
                 return true;
             }
 
             ++m_clickCounter;
 
             if(m_clickCounter == DEV_STEPS) {
-                Toast.makeText(this, R.string.now_developer, Toast.LENGTH_SHORT).show();
-
                 SharedPreferences.Editor p = MultiROMMgrApplication.getPreferences().edit();
                 p.putBoolean(DEV_ENABLE, true);
                 p.commit();
 
                 addDevOptions();
+                showDevToast(R.string.now_developer);
             } else if(m_clickCounter >= 3) {
-                String s = getString(R.string.steps_developer, DEV_STEPS - m_clickCounter);
-                Toast.makeText(this, s, Toast.LENGTH_SHORT).show();
+                showDevToast(R.string.steps_developer, DEV_STEPS - m_clickCounter);
             }
             return true;
         } else if(pref.getKey().equals(ABOUT_LICENSES)) {
@@ -137,6 +137,22 @@ public class SettingsActivity extends PreferenceActivity implements SharedPrefer
             return true;
         }
         return false;
+    }
+
+    private void showDevToast(int stringId, Object... args) {
+        showDevToast(getString(stringId, args));
+    }
+
+    private void showDevToast(String text) {
+        Toast t = m_clickCountToast.get();
+        if(t == null) {
+            t = Toast.makeText(this, text, Toast.LENGTH_SHORT);
+            m_clickCountToast = new WeakReference<Toast>(t);
+        } else {
+            t.setText(text);
+        }
+
+        t.show();
     }
 
     private void addDevOptions() {
@@ -154,4 +170,5 @@ public class SettingsActivity extends PreferenceActivity implements SharedPrefer
     }
 
     private int m_clickCounter;
+    private WeakReference<Toast> m_clickCountToast = new WeakReference<Toast>(null);
 }
