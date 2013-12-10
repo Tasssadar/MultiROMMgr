@@ -139,9 +139,8 @@ public class MultiROMInstallTask extends InstallAsyncTask {
             String m_ver = null, r_ver = null;
 
             if(m_multirom) {
-                // assume installation completes successfully in recovery,
-                // if not, it version will be update when the user returns to
-                // the MainActivity
+                // Assume installation completes successfully in recovery - if not,
+                // the version will be updated when the user returns to the MainActivity.
                 m_ver = m_manifest.getMultiromVersion();
             }
 
