@@ -48,7 +48,7 @@ public class Manifest {
         try {
             SharedPreferences p = MultiROMMgrApplication.getPreferences();
             String url = p.getString(SettingsActivity.DEV_MANIFEST_URL, DEFAULT_URL);
-            if(!Utils.downloadFile(url, out, null) || out.size() == 0)
+            if(!Utils.downloadFile(url, out, null, true) || out.size() == 0)
                 return false;
         } catch(IOException e) {
             e.printStackTrace();

@@ -19,6 +19,7 @@ package com.tassadar.multirommgr;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.net.http.HttpResponseCache;
 import android.os.Environment;
 import android.util.Log;
 
@@ -168,12 +169,19 @@ public class Utils {
     }
 
     public static boolean downloadFile(String strUrl, OutputStream output, DownloadProgressListener listener) throws IOException {
+        return downloadFile(strUrl, output, listener, false);
+    }
+
+    public static boolean downloadFile(String strUrl, OutputStream output, DownloadProgressListener listener, boolean useCache) throws IOException {
         InputStream in = null;
         HttpURLConnection conn = null;
         try {
             URL url = new URL(strUrl);
             conn = (HttpURLConnection) url.openConnection();
             conn.setInstanceFollowRedirects(true);
+            conn.setUseCaches(useCache);
+            if(useCache)
+                conn.addRequestProperty("Cache-Control", "max-age=0");
             conn.connect();
 
             if(conn.getResponseCode() != HttpURLConnection.HTTP_OK) {
@@ -211,6 +219,22 @@ public class Utils {
                 conn.disconnect();
         }
         return true;
+    }
+
+    public static void installHttpCache(Context ctx) {
+        try {
+            File httpCacheDir = new File(ctx.getCacheDir(), "http");
+            // 1MB should be enough for manifests
+            HttpResponseCache.install(httpCacheDir, 1 * 1024 * 1024);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void flushHttpCache() {
+        HttpResponseCache c = HttpResponseCache.getInstalled();
+        if(c != null)
+            c.flush();
     }
 
     public static boolean isNumeric(char c) {

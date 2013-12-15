@@ -53,6 +53,8 @@ public class MainActivity extends Activity implements StatusAsyncTask.StatusAsyn
 
         PreferenceManager.setDefaultValues(this, R.xml.settings, false);
 
+        Utils.installHttpCache(this);
+
         mCardView = (CardUI) findViewById(R.id.cardsview);
         mCardView.setSwipeable(false);
         mCardView.setSlideIn(!StatusAsyncTask.instance().isComplete());
@@ -82,6 +84,12 @@ public class MainActivity extends Activity implements StatusAsyncTask.StatusAsyn
         Bundle cardsState = new Bundle();
         mCardView.saveInstanceState(cardsState);
         outState.putBundle("cards_state", cardsState);
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        Utils.flushHttpCache();
     }
 
     private void start() {

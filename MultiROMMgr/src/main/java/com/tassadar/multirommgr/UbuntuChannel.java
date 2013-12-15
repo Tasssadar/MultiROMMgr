@@ -80,7 +80,7 @@ public class UbuntuChannel {
 
         ByteArrayOutputStream out = new ByteArrayOutputStream(32768);
         try {
-            if(!Utils.downloadFile(UbuntuManifest.BASE_URL + path, out, null) || out.size() == 0)
+            if(!Utils.downloadFile(UbuntuManifest.BASE_URL + path, out, null, true) || out.size() == 0)
                 return false;
         } catch(IOException e) {
             e.printStackTrace();

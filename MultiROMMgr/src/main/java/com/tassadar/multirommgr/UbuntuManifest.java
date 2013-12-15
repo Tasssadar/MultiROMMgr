@@ -37,7 +37,7 @@ public class UbuntuManifest {
     public boolean downloadAndParse(Device dev) {
         ByteArrayOutputStream out = new ByteArrayOutputStream(8192);
         try {
-            if(!Utils.downloadFile(CHANNELS_URL, out, null) || out.size() == 0)
+            if(!Utils.downloadFile(CHANNELS_URL, out, null, true) || out.size() == 0)
                 return false;
         } catch(IOException e) {
             e.printStackTrace();

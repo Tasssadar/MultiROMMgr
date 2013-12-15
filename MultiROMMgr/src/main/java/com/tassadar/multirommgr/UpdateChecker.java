@@ -148,6 +148,8 @@ public class UpdateChecker {
     public static class UpdateCheckReceiver extends BroadcastReceiver {
         @Override
         public void onReceive(Context context, Intent intent) {
+            Utils.installHttpCache(context);
+
             Thread t = new UpdateCheckThread();
             t.start();
             try {
