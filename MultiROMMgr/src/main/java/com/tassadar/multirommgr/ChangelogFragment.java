@@ -106,7 +106,7 @@ public class ChangelogFragment extends Fragment {
         protected String doInBackground(String... url) {
             ByteArrayOutputStream out = new ByteArrayOutputStream(8192);
             try {
-                if(!Utils.downloadFile(url[0], out, null))
+                if(!Utils.downloadFile(url[0], out, null, true))
                     return null;
             } catch(IOException e) {
                 e.printStackTrace();
