@@ -174,4 +174,8 @@
     <dimen name="histogram_width">100.0dip</dimen>
 
     <dimen name="cardui_padding">16.0dip</dimen>
+    <dimen name="status_card_text">14sp</dimen>
+    <dimen name="terminal_text">8sp</dimen>
+    <dimen name="terminal_activity_padding">8dp</dimen>
+    <dimen name="terminal_padding">4dp</dimen>
 </resources>

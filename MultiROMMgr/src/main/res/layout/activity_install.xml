@@ -3,7 +3,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="16dp">
+    android:padding="@dimen/terminal_activity_padding">
 
     <TextView
         android:id="@+id/term"
@@ -12,10 +12,10 @@
         android:layout_weight="1"
         android:background="#000"
         android:textColor="#BBB"
-        android:padding="8dp"
+        android:padding="@dimen/terminal_padding"
         android:gravity="bottom|left"
         android:fontFamily="monospace"
-        android:textSize="11dp" />
+        android:textSize="@dimen/terminal_text" />
     <TextView
         android:id="@+id/progress_text"
         android:layout_height="wrap_content"

@@ -1,4 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="cardui_padding">56.0dip</dimen>
+    <dimen name="status_card_text">16sp</dimen>
+    <dimen name="terminal_text">11sp</dimen>
+    <dimen name="terminal_activity_padding">16dp</dimen>
+    <dimen name="terminal_padding">8dp</dimen>
 </resources>
