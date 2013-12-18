@@ -41,7 +41,7 @@ public class SettingsActivity extends PreferenceActivity implements SharedPrefer
     public static final String ABOUT_VERSION = "about_version";
     public static final String ABOUT_LICENSES = "about_licenses";
     public static final String DEV_ENABLE = "dev_enable";
-    public static final String DEV_MANIFEST_URL = "dev_manifest_url";
+    public static final String DEV_MANIFEST_URL = "dev_manifest_url_v2";
     public static final String DEV_DEVICE_NAME = "dev_device_name";
 
     private static final String SRC_URL = "http://github.com/Tasssadar/MultiROMMgr";

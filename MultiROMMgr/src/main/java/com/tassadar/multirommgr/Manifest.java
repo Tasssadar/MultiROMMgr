@@ -33,7 +33,7 @@ import java.util.Date;
 import java.util.LinkedHashMap;
 
 public class Manifest {
-    public static final String DEFAULT_URL = "http://83.240.110.90/multirom_manifest.json";
+    public static final String DEFAULT_URL = "http://tasemnice.eu/multirom/manifest.json";
 
     public class InstallationFile {
         public String type;

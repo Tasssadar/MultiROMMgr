@@ -5,7 +5,7 @@
         android:title="@string/dev_options"
         android:key="pref_dev">
         <EditTextPreference
-            android:key="dev_manifest_url"
+            android:key="dev_manifest_url_v2"
             android:title="@string/pref_manifest_url"/>
         <EditTextPreference
             android:key="dev_device_name"
