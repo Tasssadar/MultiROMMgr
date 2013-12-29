@@ -21,7 +21,7 @@
     <string name="install">Installieren</string>
     <string name="install_title">Installieren/Updaten</string>
     <string name="cancel">Abbrechen</string>
-    <string name="download_progress">%1$s (%2$d kB von %3$d kB)...</string>
+    <string name="download_progress">%1$s (%2$d kB von %3$d kB)</string>
     <string name="try_again">Neu versuchen</string>
     <string name="uninterruptable">Diese Operation kann nicht unterbrochen werden.</string>
     <string name="reboot">Reboot</string>
