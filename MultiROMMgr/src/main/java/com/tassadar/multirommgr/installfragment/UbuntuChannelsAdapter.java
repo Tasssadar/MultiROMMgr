@@ -15,7 +15,7 @@
  * along with MultiROM Manager. If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.tassadar.multirommgr;
+package com.tassadar.multirommgr.installfragment;
 
 import android.content.Context;
 import android.util.Log;

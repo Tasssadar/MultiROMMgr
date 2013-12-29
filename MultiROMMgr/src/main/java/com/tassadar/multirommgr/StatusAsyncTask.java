@@ -83,6 +83,10 @@ public class StatusAsyncTask extends AsyncTask <Void, Void, StatusAsyncTask.Resu
         return m_res != null ? m_res.multirom : null;
     }
 
+    public boolean hasKexecKernel() {
+        return (m_res != null && m_res.kernel != null) ? m_res.kernel.hasKexec() : false;
+    }
+
     public void execute() {
         if(this.getStatus() == Status.PENDING)
             this.execute((Void) null);
@@ -115,8 +119,10 @@ public class StatusAsyncTask extends AsyncTask <Void, Void, StatusAsyncTask.Resu
         } else {
             if(!m.findVersion())
                 res.code |= RES_FAIL_MROM_VER;
-            else
+            else {
+                m.findRoms();
                 res.multirom = m;
+            }
         }
 
         Recovery rec = new Recovery();

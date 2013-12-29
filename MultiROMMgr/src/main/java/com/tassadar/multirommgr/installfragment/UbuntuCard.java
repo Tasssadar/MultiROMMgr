@@ -15,7 +15,7 @@
  * along with MultiROM Manager. If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.tassadar.multirommgr;
+package com.tassadar.multirommgr.installfragment;
 
 import android.animation.Animator;
 import android.animation.AnimatorInflater;
@@ -33,6 +33,12 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.fima.cardsui.objects.Card;
+import com.tassadar.multirommgr.Manifest;
+import com.tassadar.multirommgr.MultiROM;
+import com.tassadar.multirommgr.R;
+import com.tassadar.multirommgr.Recovery;
+import com.tassadar.multirommgr.StatusAsyncTask;
+import com.tassadar.multirommgr.Utils;
 
 import java.util.ArrayList;
 
@@ -223,7 +229,7 @@ public class UbuntuCard extends Card implements AdapterView.OnItemSelectedListen
 
                 UbuntuManifestAsyncTask.instance().putInstallInfo(info);
 
-                m_listener.startActivity(bundle, MainActivity.ACT_INSTALL_UBUNTU, InstallActivity.class);
+                m_listener.startActivity(bundle, InstallFragment.ACT_INSTALL_UBUNTU, InstallActivity.class);
                 break;
             }
             case R.id.info_btn:

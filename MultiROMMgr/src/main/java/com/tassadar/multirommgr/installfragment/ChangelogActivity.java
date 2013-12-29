@@ -15,7 +15,7 @@
  * along with MultiROM Manager. If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.tassadar.multirommgr;
+package com.tassadar.multirommgr.installfragment;
 
 import android.app.ActionBar;
 import android.app.FragmentTransaction;
@@ -26,6 +26,8 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.MenuItem;
+
+import com.tassadar.multirommgr.R;
 
 public class ChangelogActivity extends FragmentActivity implements ActionBar.TabListener, ViewPager.OnPageChangeListener {
 

@@ -15,9 +15,12 @@
  * along with MultiROM Manager. If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.tassadar.multirommgr;
+package com.tassadar.multirommgr.installfragment;
 
 import android.os.AsyncTask;
+
+import com.tassadar.multirommgr.Device;
+import com.tassadar.multirommgr.MultiROM;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;

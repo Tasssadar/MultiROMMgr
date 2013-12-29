@@ -20,6 +20,8 @@ package com.tassadar.multirommgr;
 import android.content.SharedPreferences;
 import android.util.Log;
 
+import com.tassadar.multirommgr.installfragment.Changelog;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -133,8 +135,8 @@ public class Manifest {
 
     public void compareVersions(String multirom, String recovery, Kernel kernel) {
         if(multirom != null) {
-            int[] my = getMultiromVersions(multirom);
-            int[] upd = getMultiromVersions(m_multirom.version);
+            int[] my = MultiROM.parseMultiRomVersions(multirom);
+            int[] upd = MultiROM.parseMultiRomVersions(m_multirom.version);
             m_multiromHasUpdate = (upd[0] > my[0]) || (upd[0] == my[0] && upd[1] > my[1]);
         } else
             m_multiromHasUpdate = true;
@@ -153,26 +155,12 @@ public class Manifest {
         m_kernelHasUpdate = kernel == null || !kernel.hasKexec();
     }
 
-    private int[] getMultiromVersions(String ver) {
-        int[] res = { 0, 0 };
-        if(!Utils.isNumeric(ver.charAt(ver.length()-1))) {
-            res[1] = (int)ver.charAt(ver.length()-1);
-            ver = ver.substring(0, ver.length()-1);
-        }
-        try {
-            res[0] = Integer.valueOf(ver);
-        } catch(NumberFormatException e) {
-            e.printStackTrace();
-        }
-        return res;
-    }
-
     public boolean hasUbuntuReqMultiROM(MultiROM m) {
         if(m_ubuntuReqMultiROM == null)
             return true;
 
-        int[] my = getMultiromVersions(m.getVersion());
-        int[] req = getMultiromVersions(m_ubuntuReqMultiROM);
+        int[] my = MultiROM.parseMultiRomVersions(m.getVersion());
+        int[] req = MultiROM.parseMultiRomVersions(m_ubuntuReqMultiROM);
         return (my[0] > req[0]) || (my[0] == req[0] && my[1] >= req[1]);
     }
 

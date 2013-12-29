@@ -1,49 +1,32 @@
-/*
- * This file is part of MultiROM Manager.
- *
- * MultiROM Manager is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * MultiROM Manager is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with MultiROM Manager. If not, see <http://www.gnu.org/licenses/>.
- */
-
 package com.tassadar.multirommgr;
 
+
+import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.FragmentTransaction;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.os.Bundle;
-import android.app.Activity;
+import android.app.FragmentManager;
 import android.preference.PreferenceManager;
+import android.support.v4.app.ActionBarDrawerToggle;
+import android.support.v4.widget.DrawerLayout;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 
-import com.fima.cardsui.objects.Card;
-import com.fima.cardsui.views.CardUI;
+import com.tassadar.multirommgr.installfragment.UbuntuManifestAsyncTask;
 
-import uk.co.senab.actionbarpulltorefresh.library.ActionBarPullToRefresh;
-import uk.co.senab.actionbarpulltorefresh.library.PullToRefreshLayout;
-import uk.co.senab.actionbarpulltorefresh.library.listeners.OnRefreshListener;
 
-public class MainActivity extends Activity implements StatusAsyncTask.StatusAsyncTaskListener,
-        UbuntuManifestAsyncTask.UbuntuManifestAsyncTaskListener, StartInstallListener, OnRefreshListener {
-
-    public static final int ACT_INSTALL_MULTIROM = 1;
-    public static final int ACT_INSTALL_UBUNTU   = 2;
-    public static final int ACT_CHANGELOG        = 3;
+public class MainActivity extends Activity implements StatusAsyncTask.StatusAsyncTaskListener, MainActivityListener {
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
@@ -51,39 +34,58 @@ public class MainActivity extends Activity implements StatusAsyncTask.StatusAsyn
         // of the whole area, so disable the default background
         getWindow().setBackgroundDrawable(null);
 
-        PreferenceManager.setDefaultValues(this, R.xml.settings, false);
-
         Utils.installHttpCache(this);
 
-        mCardView = (CardUI) findViewById(R.id.cardsview);
-        mCardView.setSwipeable(false);
-        mCardView.setSlideIn(!StatusAsyncTask.instance().isComplete());
+        PreferenceManager.setDefaultValues(this, R.xml.settings, false);
 
-        m_prtLayout = (PullToRefreshLayout)findViewById(R.id.ptr_layout);
-        ActionBarPullToRefresh
-                .from(this)
-                .allChildrenArePullable()
-                .listener(this)
-                .setup(m_prtLayout);
+        m_curFragment = -1;
 
-        if(savedInstanceState != null)
-            m_cardsSavedState = savedInstanceState.getBundle("cards_state");
+        m_fragmentTitles = getResources().getStringArray(R.array.main_fragment_titles);
+        m_drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+        m_drawerList = (ListView) findViewById(R.id.left_drawer);
 
-        Intent i = getIntent();
-        if(i == null || !i.getBooleanExtra("force_refresh", false)) {
-            start();
-        } else {
-            i.removeExtra("force_refresh");
-            refresh();
+        m_fragments = new MainFragment[2];
+        FragmentManager fragmentManager = getFragmentManager();
+        FragmentTransaction t = fragmentManager.beginTransaction();
+        for(int i = 0; i < m_fragments.length; ++i) {
+            m_fragments[i] = (MainFragment)fragmentManager.findFragmentByTag(m_fragmentTitles[i]);
+            if(m_fragments[i] == null) {
+                m_fragments[i] = MainFragment.newFragment(i);
+                t.add(R.id.content_frame, m_fragments[i], m_fragmentTitles[i]);
+            }
+            t.hide(m_fragments[i]);
         }
-    }
+        t.commit();
 
-    protected void onSaveInstanceState (Bundle outState) {
-        super.onSaveInstanceState(outState);
+        // Set the adapter for the list view
+        m_drawerList.setAdapter(new ArrayAdapter<String>(this,
+                R.layout.drawer_list_item, m_fragmentTitles));
+        // Set the list's click listener
+        m_drawerList.setOnItemClickListener(new DrawerItemClickListener());
 
-        Bundle cardsState = new Bundle();
-        mCardView.saveInstanceState(cardsState);
-        outState.putBundle("cards_state", cardsState);
+        m_drawerTitle = getText(R.string.app_name);
+
+        m_drawerToggle = new ActionBarDrawerToggle(
+                this, m_drawerLayout, R.drawable.ic_drawer,
+                R.string.drawer_open, R.string.drawer_close) {
+            public void onDrawerClosed(View view) {
+                getActionBar().setTitle(m_title);
+            }
+
+            public void onDrawerOpened(View drawerView) {
+                getActionBar().setTitle(m_drawerTitle);
+            }
+        };
+        m_drawerLayout.setDrawerListener(m_drawerToggle);
+
+        getActionBar().setDisplayHomeAsUpEnabled(true);
+        getActionBar().setHomeButtonEnabled(true);
+
+        if(savedInstanceState != null) {
+            selectItem(savedInstanceState.getInt("curFragment", 0));
+        } else {
+            selectItem(0);
+        }
     }
 
     @Override
@@ -92,42 +94,76 @@ public class MainActivity extends Activity implements StatusAsyncTask.StatusAsyn
         Utils.flushHttpCache();
     }
 
-    private void start() {
-        // not the same data, something might have changed
-        if(!StatusAsyncTask.instance().isComplete())
-            m_cardsSavedState = null;
-
-        if(m_menu != null)
-            m_menu.findItem(R.id.action_refresh).setEnabled(false);
-        m_prtLayout.setRefreshing(true);
-
-        mCardView.addCard(new StatusCard(), true);
-        StatusAsyncTask.instance().setListener(this);
-        StatusAsyncTask.instance().execute();
-    }
-
-    private void refresh() {
-        StatusAsyncTask.destroy();
-        UbuntuManifestAsyncTask.destroy();
-
-        mCardView.clearCards();
-        mCardView.setSlideIn(true);
-        start();
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putInt("curFragment", m_curFragment);
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
+    public boolean onCreateOptionsMenu (Menu menu) {
         getMenuInflater().inflate(R.menu.main, menu);
 
-        m_menu = menu;
-
+        m_refreshItem = menu.findItem(R.id.action_refresh);
         if(!StatusAsyncTask.instance().isComplete())
-            menu.findItem(R.id.action_refresh).setEnabled(false);
+            m_refreshItem.setEnabled(false);
         return true;
     }
 
+    private class DrawerItemClickListener implements ListView.OnItemClickListener {
+        @Override
+        public void onItemClick(AdapterView parent, View view, int position, long id) {
+            selectItem(position);
+        }
+    }
+
+    /** Swaps fragments in the main content view */
+    private void selectItem(int position) {
+        if(position < 0 || position >= m_fragments.length) {
+            Log.e("MultiROMMgr", "Invalid fragment index " + position);
+            return;
+        }
+
+        // Insert the fragment by replacing any existing fragment
+        FragmentManager fragmentManager = getFragmentManager();
+        FragmentTransaction t = fragmentManager.beginTransaction();
+
+        if(m_curFragment != -1)
+            t.hide(m_fragments[m_curFragment]);
+        t.show(m_fragments[position]);
+        t.commit();
+
+        m_curFragment = position;
+
+        // Highlight the selected item, update the title, and close the drawer
+        m_drawerList.setItemChecked(position, true);
+        setTitle(m_fragmentTitles[position]);
+        m_drawerLayout.closeDrawer(m_drawerList);
+    }
+
     @Override
-    public boolean onMenuItemSelected(int featureId, MenuItem it) {
+    public void setTitle(CharSequence title) {
+        m_title = title;
+        getActionBar().setTitle(m_title);
+    }
+
+    @Override
+    protected void onPostCreate(Bundle savedInstanceState) {
+        super.onPostCreate(savedInstanceState);
+        m_drawerToggle.syncState();
+    }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        m_drawerToggle.onConfigurationChanged(newConfig);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem it) {
+        if (m_drawerToggle.onOptionsItemSelected(it))
+            return true;
+
         switch(it.getItemId()) {
             case R.id.action_refresh:
                 refresh();
@@ -137,102 +173,92 @@ public class MainActivity extends Activity implements StatusAsyncTask.StatusAsyn
                 startActivity(i);
                 return true;
             case R.id.action_reboot:
+            {
                 AlertDialog.Builder b = new AlertDialog.Builder(this);
                 b.setTitle(R.string.reboot)
-                 .setCancelable(true)
-                 .setNegativeButton(R.string.cancel, null)
-                 .setItems(R.array.reboot_options, new DialogInterface.OnClickListener() {
-                     @Override
-                     public void onClick(DialogInterface dialogInterface, int i) {
-                         switch (i) {
-                             case 0: Utils.reboot(""); break;
-                             case 1: Utils.reboot("recovery"); break;
-                             case 2: Utils.reboot("bootloader"); break;
-                         }
-                     }
-                 })
-                 .create().show();
+                        .setCancelable(true)
+                        .setNegativeButton(R.string.cancel, null)
+                        .setItems(R.array.reboot_options, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                switch (i) {
+                                    case 0: Utils.reboot(""); break;
+                                    case 1: Utils.reboot("recovery"); break;
+                                    case 2: Utils.reboot("bootloader"); break;
+                                }
+                            }
+                        })
+                        .create().show();
                 return true;
+            }
             default:
                 return false;
         }
     }
 
     @Override
+    public void startRefresh() {
+        if(m_refreshItem != null)
+            m_refreshItem.setEnabled(false);
+
+        for(int i = 0; i < m_fragments.length; ++i)
+            m_fragments[i].startRefresh();
+
+        StatusAsyncTask.instance().setListener(this);
+        StatusAsyncTask.instance().execute();
+    }
+
+    @Override
+    public void refresh() {
+        StatusAsyncTask.destroy();
+        UbuntuManifestAsyncTask.destroy();
+
+        for(int i = 0; i < m_fragments.length; ++i)
+            m_fragments[i].refresh();
+
+        startRefresh();
+    }
+
+    @Override
+    public void setRefreshComplete() {
+        if(m_refreshItem != null)
+            m_refreshItem.setEnabled(true);
+        for(int i = 0; i < m_fragments.length; ++i)
+            m_fragments[i].setRefreshComplete();
+    }
+
+    @Override
+    public void onFragmentViewCreated() {
+        if(++m_fragmentViewsCreated == m_fragments.length) {
+            Intent i = getIntent();
+            if(i == null || !i.getBooleanExtra("force_refresh", false)) {
+                startRefresh();
+            } else {
+                i.removeExtra("force_refresh");
+                refresh();
+            }
+        }
+    }
+
+    @Override
+    public void onFragmentViewDestroyed() {
+        --m_fragmentViewsCreated;
+    }
+
+    @Override
     public void onStatusTaskFinished(StatusAsyncTask.Result res) {
-        boolean hasUbuntu = false;
-        if(res.manifest != null) {
-            mCardView.addCard(new InstallCard(m_cardsSavedState, res.manifest, res.recovery == null, this));
-
-            if(!res.device.supportsUbuntuTouch()) {
-                SharedPreferences p = MultiROMMgrApplication.getPreferences();
-                if(p.getBoolean("showUbuntuUnsupported", true))
-                    showUbuntuUnsupportedCard();
-            } else if(res.multirom != null && res.recovery != null) {
-                UbuntuManifestAsyncTask.instance().setListener(this);
-                mCardView.addCard(new UbuntuCard(m_cardsSavedState, this, res.manifest, res.multirom, res.recovery));
-                hasUbuntu = true;
-            }
-
-            mCardView.refresh();
-        }
-
-        if(!hasUbuntu)
-            setRefreshComplete();
-
-        // Saved state is not needed anymore
-        m_cardsSavedState = null;
+        for(int i = 0; i < m_fragments.length; ++i)
+            m_fragments[i].onStatusTaskFinished(res);
     }
 
-    @Override
-    public void onUbuntuTaskFinished(UbuntuManifestAsyncTask.Result res) {
-        setRefreshComplete();
-    }
-
-    private void setRefreshComplete() {
-        if(m_menu != null)
-            m_menu.findItem(R.id.action_refresh).setEnabled(true);
-        m_prtLayout.setRefreshComplete();
-    }
-
-    private void showUbuntuUnsupportedCard() {
-        Card c = new StaticCard(R.layout.ubuntu_unsupported_card);
-        c.setOnCardSwipedListener(new Card.OnCardSwiped() {
-            @Override
-            public void onCardSwiped(Card card, View layout) {
-                SharedPreferences.Editor p = MultiROMMgrApplication.getPreferences().edit();
-                p.putBoolean("showUbuntuUnsupported", false);
-                p.commit();
-            }
-        });
-        mCardView.addSwipableCard(c, false, true);
-    }
-
-    @Override
-    public void startActivity(Bundle data, int id, Class<?> cls) {
-        Intent i = new Intent(this, cls);
-        if(data != null)
-            i.putExtras(data);
-        startActivityForResult(i, id);
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        switch(requestCode) {
-            case ACT_INSTALL_MULTIROM:
-                if(resultCode == RESULT_OK)
-                    refresh();
-                break;
-        }
-    }
-
-    @Override
-    public void onRefreshStarted(View view) {
-        refresh();
-    }
-
-    private CardUI mCardView;
-    private Menu m_menu;
-    private Bundle m_cardsSavedState;
-    private PullToRefreshLayout m_prtLayout;
+    private DrawerLayout m_drawerLayout;
+    private ListView m_drawerList;
+    private String[] m_fragmentTitles;
+    private MainFragment[] m_fragments;
+    private int m_curFragment;
+    private CharSequence m_title;
+    private ActionBarDrawerToggle m_drawerToggle;
+    private CharSequence m_drawerTitle;
+    private MenuItem m_refreshItem;
+    private int m_fragmentViewsCreated;
 }

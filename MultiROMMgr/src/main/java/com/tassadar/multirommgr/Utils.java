@@ -37,7 +37,7 @@ import eu.chainfire.libsuperuser.Shell;
 
 public class Utils {
 
-    private static final int BUSYBOX_VER = 2;
+    private static final int BUSYBOX_VER = 3;
 
     private static String m_downloadDir = null;
     public static String getDownloadDir() {
@@ -118,7 +118,7 @@ public class Utils {
                 "sync;" +
                 "umount tmpcache && rmdir tmpcache";
 
-        Thread t = new Thread(new ShellRunnable(cmd));
+        ShellThread t = new ShellThread(cmd);
         t.start();
         try {
             t.join();
@@ -132,7 +132,7 @@ public class Utils {
         if(target != null && !target.isEmpty())
             cmd += " " + target;
 
-        Thread t = new Thread(new ShellRunnable(cmd));
+        ShellThread t = new ShellThread(cmd);
         t.start();
         try {
             t.join(5000);
@@ -151,10 +151,14 @@ public class Utils {
         return str.substring(0, part-1) + "..." + str.substring(str.length()-part+2);
     }
 
-    private static class ShellRunnable implements Runnable {
+    private static class ShellThread extends Thread {
         private String m_cmd;
-        public ShellRunnable(String cmd) {
+        public ShellThread(String cmd) {
             m_cmd = cmd;
+        }
+
+        public ShellThread(String fmt, Object... args) {
+            m_cmd = String.format(fmt, args);
         }
 
         @Override

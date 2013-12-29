@@ -1,0 +1,32 @@
+<uk.co.senab.actionbarpulltorefresh.library.PullToRefreshLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/ptr_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#fff">
+
+    <ProgressBar
+        android:id="@+id/progress_bar"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_gravity="center"
+        android:indeterminateOnly="true" />
+
+    <ListView
+        android:id="@+id/rom_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"/>
+
+    <TextView
+        android:id="@+id/rom_list_empty_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_marginTop="100dp"
+        android:layout_gravity="center_horizontal"
+        android:visibility="gone"
+        android:text="@string/rom_list_empty"
+        android:drawableLeft="@drawable/action_about"/>
+
+</uk.co.senab.actionbarpulltorefresh.library.PullToRefreshLayout>

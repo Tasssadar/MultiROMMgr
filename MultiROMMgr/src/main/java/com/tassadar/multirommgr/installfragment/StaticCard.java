@@ -15,29 +15,31 @@
  * along with MultiROM Manager. If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.tassadar.multirommgr;
+package com.tassadar.multirommgr.installfragment;
 
-import java.util.ArrayList;
+import android.content.Context;
+import android.view.LayoutInflater;
+import android.view.View;
 
-public class UbuntuInstallInfo {
+import com.fima.cardsui.objects.Card;
 
-    public UbuntuInstallInfo() {
-        addDefaultKeyrings();
+public class StaticCard extends Card {
+
+    public StaticCard(String title, int layoutResourceId) {
+        super(title);
+        m_layoutId = layoutResourceId;
     }
 
-    private void addDefaultKeyrings() {
-        keyrings.add(new UbuntuFile("/gpg/image-master.tar.xz", 0));
-        keyrings.add(new UbuntuFile("/gpg/image-signing.tar.xz", 1));
+    public StaticCard(int layoutResourceId) {
+        super();
+        m_layoutId = layoutResourceId;
     }
 
-    public ArrayList<UbuntuFile> buildDownloadList() {
-        ArrayList<UbuntuFile> res = new ArrayList<UbuntuFile>();
-        res.addAll(installFiles);
-        res.addAll(keyrings);
-        return res;
+    @Override
+    public View getCardContent(Context context) {
+        View view = LayoutInflater.from(context).inflate(m_layoutId, null);
+        return view;
     }
 
-    public ArrayList<UbuntuFile> keyrings = new ArrayList<UbuntuFile>();
-    public ArrayList<UbuntuFile> installFiles = new ArrayList<UbuntuFile>();
-    public String channelName;
+    protected int m_layoutId;
 }

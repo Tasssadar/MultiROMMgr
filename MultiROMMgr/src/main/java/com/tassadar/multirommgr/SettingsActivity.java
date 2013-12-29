@@ -30,6 +30,8 @@ import android.preference.PreferenceActivity;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import com.tassadar.multirommgr.installfragment.UbuntuInstallTask;
+
 import java.lang.ref.WeakReference;
 
 public class SettingsActivity extends PreferenceActivity implements SharedPreferences.OnSharedPreferenceChangeListener, Preference.OnPreferenceClickListener {

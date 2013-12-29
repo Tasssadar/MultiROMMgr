@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.tassadar.multirommgr"
-    android:versionCode="53"
-    android:versionName="1.53" >
+    android:versionCode="54"
+    android:versionName="1.54" >
 
     <uses-sdk
         android:minSdkVersion="16"
@@ -28,16 +28,16 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".InstallActivity"
+        <activity android:name=".installfragment.InstallActivity"
             android:label="@string/installation"
             android:exported="false"
             android:launchMode="singleTop"/>
-        <service android:name=".InstallService"
+        <service android:name=".installfragment.InstallService"
             android:exported="false"/>
         <activity android:name=".SettingsActivity"
             android:exported="false"
             android:label="@string/action_settings" />
-        <activity android:name=".ChangelogActivity"
+        <activity android:name=".installfragment.ChangelogActivity"
             android:exported="false"
             android:label="@string/changelogs" />
 

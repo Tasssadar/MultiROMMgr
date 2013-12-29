@@ -15,12 +15,10 @@
  * along with MultiROM Manager. If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.tassadar.multirommgr;
+package com.tassadar.multirommgr.installfragment;
 
-public interface InstallListener {
-    void onInstallLog(String str);
-    void onInstallComplete(boolean success);
-    void onProgressUpdate(int val, int max, boolean indeterminate, String text);
-    void enableCancel(boolean enabled);
-    void requestRecovery(boolean force);
+import android.os.Bundle;
+
+public interface StartInstallListener {
+    void startActivity(Bundle data, int id, java.lang.Class<?> cls);
 }

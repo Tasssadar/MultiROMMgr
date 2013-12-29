@@ -15,7 +15,7 @@
  * along with MultiROM Manager. If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.tassadar.multirommgr;
+package com.tassadar.multirommgr.installfragment;
 
 
 import android.os.AsyncTask;
@@ -26,6 +26,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
+import com.tassadar.multirommgr.R;
+import com.tassadar.multirommgr.Utils;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;

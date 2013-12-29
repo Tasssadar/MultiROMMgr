@@ -1,0 +1,40 @@
+<com.tassadar.multirommgr.romlistfragment.RomListItem
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    android:orientation="horizontal"
+    android:gravity="center_vertical"
+    android:minHeight="50dp"
+    android:descendantFocusability="blocksDescendants" >
+
+    <TextView
+        android:layout_margin="8dp"
+        android:id="@+id/rom_name"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:textStyle="bold"
+        android:textSize="20sp"
+        android:fontFamily="sans-serif-condensed"/>
+
+    <View android:layout_height="match_parent"
+        android:layout_width="2dp"
+        android:background="#ccc"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"/>
+
+    <ImageButton android:id="@+id/rename_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="fill_parent"
+        android:src="@drawable/content_edit"
+        android:background="@drawable/transparent_btn"
+        android:padding="5dp" />
+
+    <ImageButton android:id="@+id/erase_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="fill_parent"
+        android:src="@drawable/content_discard"
+        android:background="@drawable/transparent_btn"
+        android:padding="5dp" />
+
+</com.tassadar.multirommgr.romlistfragment.RomListItem>

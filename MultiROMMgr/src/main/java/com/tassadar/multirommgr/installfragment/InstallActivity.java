@@ -15,7 +15,7 @@
  * along with MultiROM Manager. If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.tassadar.multirommgr;
+package com.tassadar.multirommgr.installfragment;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -38,6 +38,14 @@ import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.tassadar.multirommgr.Device;
+import com.tassadar.multirommgr.Manifest;
+import com.tassadar.multirommgr.MultiROMMgrApplication;
+import com.tassadar.multirommgr.R;
+import com.tassadar.multirommgr.SettingsActivity;
+import com.tassadar.multirommgr.StatusAsyncTask;
+import com.tassadar.multirommgr.Utils;
 
 public class InstallActivity extends Activity implements ServiceConnection, InstallListener {
 

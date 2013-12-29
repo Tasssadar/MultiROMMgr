@@ -15,10 +15,15 @@
  * along with MultiROM Manager. If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.tassadar.multirommgr;
+package com.tassadar.multirommgr.installfragment;
 
 import android.content.SharedPreferences;
 import android.util.Log;
+
+import com.tassadar.multirommgr.Device;
+import com.tassadar.multirommgr.MultiROMMgrApplication;
+import com.tassadar.multirommgr.SettingsActivity;
+import com.tassadar.multirommgr.Utils;
 
 import org.json.JSONException;
 import org.json.JSONObject;

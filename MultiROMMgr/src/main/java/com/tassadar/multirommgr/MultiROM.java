@@ -19,13 +19,19 @@ package com.tassadar.multirommgr;
 
 import android.util.Log;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import eu.chainfire.libsuperuser.Shell;
 
 public class MultiROM {
+    // Minimum MultiROM version which is able to boot ROMs
+    // via --boot-rom argument
+    public static final String MIN_BOOT_ROM_VER = "19f";
 
-    private static final int MAX_ROM_NAME = 26;
+    public static final int MAX_ROM_NAME = 26;
     private static final String UTOUCH_ROM_INFO = "ubuntu_touch.txt";
 
     public boolean findMultiROMDir() {
@@ -55,6 +61,104 @@ public class MultiROM {
         Log.d("MultiROM", "MultiROM version: " + m_version);
         return true;
     }
+
+    public void findRoms() {
+        String b = Utils.extractAsset("busybox");
+        if(b == null) {
+            Log.e("MultiROM", "Failed to extract busybox!");
+            return;
+        }
+
+        List<String> out = Shell.SU.run(b + " ls -1 -p \"" + m_path + "/roms/\"");
+        if (out == null || out.isEmpty())
+            return;
+
+        for(String rom : out) {
+            if(rom.endsWith("/"))
+                m_roms.add(rom.substring(0, rom.length()-1));
+        }
+
+        Collections.sort(m_roms, new RomNameComparator());
+    }
+
+    private static class RomNameComparator implements Comparator<String> {
+        @Override
+        public int compare(String a, String b) {
+            if(a.equals("Internal"))
+                return -1;
+
+            if(b.equals("Internal"))
+                return 1;
+
+            return a.compareToIgnoreCase(b);
+        }
+    }
+
+    public void renameRom(String old_name, String new_name) {
+        Shell.SU.run("cd \"%s/roms/\" && mv \"%s\" \"%s\"", m_path, old_name, new_name);
+    }
+
+    public void eraseROM(String rom) {
+        String b = Utils.extractAsset("busybox");
+        if(b == null) {
+            Log.e("MultiROM", "Failed to extract busybox!");
+            return;
+        }
+
+        Shell.SU.run("%s chattr -R -i \"%s/roms/%s\"; %s rm -rf \"%s/roms/%s\"",
+                b, m_path, rom, b, m_path, rom);
+    }
+
+    public void bootRom(String name) {
+        Shell.SU.run("%s/multirom --boot-rom=\"%s\"", m_path, name);
+    }
+
+    public boolean isKexecNeededFor(String rom_name) {
+        if(rom_name.equals("Internal"))
+            return false;
+
+        // if android ROM check for boot.img, else kexec
+        List<String> out = Shell.SU.run(String.format(
+                "cd \"%s/roms/%s\"; " +
+                "if [ -d boot ] && [ -d system ] && [ -d data ] && [ -d cache ]; then" +
+                "    if [ -e boot.img ]; then" +
+                "        echo kexec;" +
+                "    else" +
+                "        echo normal;" +
+                "    fi;" +
+                "else" +
+                "    echo kexec;" +
+                "fi;",
+                m_path, rom_name));
+
+        if (out == null || out.isEmpty()) {
+            Log.e("MultiROM", "Failed to check for kexec in ROM " + rom_name);
+            return true;
+        }
+
+        return out.get(0).equals("kexec");
+    }
+
+    public boolean hasBootRomReqMultiROM() {
+        int[] my = parseMultiRomVersions(m_version);
+        int[] req = parseMultiRomVersions(MultiROM.MIN_BOOT_ROM_VER);
+        return (my[0] > req[0]) || (my[0] == req[0] && my[1] >= req[1]);
+    }
+
+    public static int[] parseMultiRomVersions(String ver) {
+        int[] res = { 0, 0 };
+        if(!Utils.isNumeric(ver.charAt(ver.length()-1))) {
+            res[1] = (int)ver.charAt(ver.length()-1);
+            ver = ver.substring(0, ver.length()-1);
+        }
+        try {
+            res[0] = Integer.valueOf(ver);
+        } catch(NumberFormatException e) {
+            e.printStackTrace();
+        }
+        return res;
+    }
+
 
     public String getNewRomFolder(String base) {
         if(base.length() > MAX_ROM_NAME)
@@ -119,7 +223,9 @@ public class MultiROM {
         return m_version;
     }
     public String getPath() { return m_path; }
+    public ArrayList<String> getRoms() { return m_roms; }
 
     private String m_path;
     private String m_version;
+    private ArrayList<String> m_roms = new ArrayList<String>();
 }

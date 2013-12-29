@@ -15,31 +15,24 @@
  * along with MultiROM Manager. If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.tassadar.multirommgr;
+package com.tassadar.multirommgr.installfragment;
 
 import android.content.Context;
-import android.view.LayoutInflater;
 import android.view.View;
 
-import com.fima.cardsui.objects.Card;
+import com.tassadar.multirommgr.R;
+import com.tassadar.multirommgr.StatusAsyncTask;
 
-public class StaticCard extends Card {
+public class StatusCard extends StaticCard {
 
-    public StaticCard(String title, int layoutResourceId) {
-        super(title);
-        m_layoutId = layoutResourceId;
-    }
-
-    public StaticCard(int layoutResourceId) {
-        super();
-        m_layoutId = layoutResourceId;
+    public StatusCard() {
+        super(R.layout.status_card);
     }
 
     @Override
     public View getCardContent(Context context) {
-        View view = LayoutInflater.from(context).inflate(m_layoutId, null);
+        View view = super.getCardContent(context);
+        StatusAsyncTask.instance().setStatusCardLayout(view);
         return view;
     }
-
-    protected int m_layoutId;
 }

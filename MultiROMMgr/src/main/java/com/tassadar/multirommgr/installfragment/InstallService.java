@@ -15,7 +15,7 @@
  * along with MultiROM Manager. If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.tassadar.multirommgr;
+package com.tassadar.multirommgr.installfragment;
 
 import android.app.Notification;
 import android.app.NotificationManager;
@@ -27,6 +27,11 @@ import android.os.Binder;
 import android.os.IBinder;
 import android.os.PowerManager;
 import android.text.Html;
+
+import com.tassadar.multirommgr.Device;
+import com.tassadar.multirommgr.Manifest;
+import com.tassadar.multirommgr.MultiROM;
+import com.tassadar.multirommgr.R;
 
 import java.lang.ref.WeakReference;
 

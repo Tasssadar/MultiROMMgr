@@ -15,9 +15,13 @@
  * along with MultiROM Manager. If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.tassadar.multirommgr;
+package com.tassadar.multirommgr.installfragment;
 
 import android.os.AsyncTask;
+
+import com.tassadar.multirommgr.MultiROMMgrApplication;
+import com.tassadar.multirommgr.R;
+import com.tassadar.multirommgr.Utils;
 
 import java.io.File;
 import java.io.FileNotFoundException;
