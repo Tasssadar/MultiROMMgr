@@ -17,7 +17,8 @@
         android:textSize="20sp"
         android:fontFamily="sans-serif-condensed"/>
 
-    <View android:layout_height="match_parent"
+    <View android:id="@+id/separator"
+        android:layout_height="match_parent"
         android:layout_width="2dp"
         android:background="#ccc"
         android:layout_marginTop="10dp"
