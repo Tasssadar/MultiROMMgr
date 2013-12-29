@@ -45,8 +45,7 @@ public class RomListFragment extends MainFragment implements AdapterView.OnItemC
         m_romList.setAdapter(m_adapter);
         m_romList.setOnItemClickListener(this);
 
-        setPtrLayout(R.id.ptr_layout);
-
+        m_actListener.addPullableView(m_romList);
         m_actListener.onFragmentViewCreated();
         return m_view;
     }

@@ -24,11 +24,7 @@ import android.view.View;
 import com.tassadar.multirommgr.installfragment.InstallFragment;
 import com.tassadar.multirommgr.romlistfragment.RomListFragment;
 
-import uk.co.senab.actionbarpulltorefresh.library.ActionBarPullToRefresh;
-import uk.co.senab.actionbarpulltorefresh.library.PullToRefreshLayout;
-import uk.co.senab.actionbarpulltorefresh.library.listeners.OnRefreshListener;
-
-public class MainFragment extends Fragment implements OnRefreshListener {
+public class MainFragment extends Fragment {
 
     public static final int MAIN_FRAG_INSTALL   = 0;
     public static final int MAIN_FRAG_ROM_LIST  = 1;
@@ -66,32 +62,11 @@ public class MainFragment extends Fragment implements OnRefreshListener {
         return m_view.findViewById(id);
     }
 
-    @Override
-    public void onRefreshStarted(View view) {
-        m_actListener.refresh();
-    }
-
-    protected void setPtrLayout(int id) {
-        m_ptrLayout = (PullToRefreshLayout)findViewById(id);
-        ActionBarPullToRefresh
-                .from(getActivity())
-                .allChildrenArePullable()
-                .listener(this)
-                .setup(m_ptrLayout);
-    }
-
-    public void startRefresh() {
-        m_ptrLayout.setRefreshing(true);
-    }
-
+    public void startRefresh() { }
     public void refresh() { }
     public void onStatusTaskFinished(StatusAsyncTask.Result res) { }
-
-    public void setRefreshComplete() {
-        m_ptrLayout.setRefreshComplete();
-    }
+    public void setRefreshComplete() { }
 
     protected MainActivityListener m_actListener;
     protected View m_view;
-    protected PullToRefreshLayout m_ptrLayout;
 }

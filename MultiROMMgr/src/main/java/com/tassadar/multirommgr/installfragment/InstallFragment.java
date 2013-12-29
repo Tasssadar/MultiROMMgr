@@ -48,11 +48,10 @@ public class InstallFragment extends MainFragment implements StatusAsyncTask.Sta
         mCardView.setSwipeable(false);
         mCardView.setSlideIn(!StatusAsyncTask.instance().isComplete());
 
-        setPtrLayout(R.id.ptr_layout);
-
         if(savedInstanceState != null)
             m_cardsSavedState = savedInstanceState.getBundle("cards_state");
 
+        m_actListener.addPullableView(findViewById(R.id.cardui_listview));
         m_actListener.onFragmentViewCreated();
         return m_view;
     }

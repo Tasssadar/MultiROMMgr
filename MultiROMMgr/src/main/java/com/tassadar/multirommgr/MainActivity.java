@@ -38,7 +38,11 @@ import android.widget.ListView;
 
 import com.tassadar.multirommgr.installfragment.UbuntuManifestAsyncTask;
 
-public class MainActivity extends Activity implements StatusAsyncTask.StatusAsyncTaskListener, MainActivityListener {
+import uk.co.senab.actionbarpulltorefresh.library.ActionBarPullToRefresh;
+import uk.co.senab.actionbarpulltorefresh.library.PullToRefreshLayout;
+import uk.co.senab.actionbarpulltorefresh.library.listeners.OnRefreshListener;
+
+public class MainActivity extends Activity implements StatusAsyncTask.StatusAsyncTaskListener, MainActivityListener, OnRefreshListener {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -50,7 +54,6 @@ public class MainActivity extends Activity implements StatusAsyncTask.StatusAsyn
         getWindow().setBackgroundDrawable(null);
 
         Utils.installHttpCache(this);
-
         PreferenceManager.setDefaultValues(this, R.xml.settings, false);
 
         m_curFragment = -1;
@@ -79,7 +82,6 @@ public class MainActivity extends Activity implements StatusAsyncTask.StatusAsyn
         m_drawerList.setOnItemClickListener(new DrawerItemClickListener());
 
         m_drawerTitle = getText(R.string.app_name);
-
         m_drawerToggle = new ActionBarDrawerToggle(
                 this, m_drawerLayout, R.drawable.ic_drawer,
                 R.string.drawer_open, R.string.drawer_close) {
@@ -95,6 +97,12 @@ public class MainActivity extends Activity implements StatusAsyncTask.StatusAsyn
 
         getActionBar().setDisplayHomeAsUpEnabled(true);
         getActionBar().setHomeButtonEnabled(true);
+
+        m_ptrLayout = (PullToRefreshLayout)findViewById(R.id.content_frame);
+        m_ptrPullableViews = new View[0];
+        m_ptrSetup = ActionBarPullToRefresh
+                .from(this)
+                .listener(this);
 
         if(savedInstanceState != null) {
             selectItem(savedInstanceState.getInt("curFragment", 0));
@@ -213,6 +221,8 @@ public class MainActivity extends Activity implements StatusAsyncTask.StatusAsyn
 
     @Override
     public void startRefresh() {
+        m_ptrLayout.setRefreshing(true);
+
         if(m_refreshItem != null)
             m_refreshItem.setEnabled(false);
 
@@ -236,8 +246,11 @@ public class MainActivity extends Activity implements StatusAsyncTask.StatusAsyn
 
     @Override
     public void setRefreshComplete() {
+        m_ptrLayout.setRefreshComplete();
+
         if(m_refreshItem != null)
             m_refreshItem.setEnabled(true);
+
         for(int i = 0; i < m_fragments.length; ++i)
             m_fragments[i].setRefreshComplete();
     }
@@ -245,6 +258,12 @@ public class MainActivity extends Activity implements StatusAsyncTask.StatusAsyn
     @Override
     public void onFragmentViewCreated() {
         if(++m_fragmentViewsCreated == m_fragments.length) {
+            m_ptrSetup.theseChildrenArePullable(m_ptrPullableViews)
+                      .setup(m_ptrLayout);
+
+            m_ptrSetup = null;
+            m_ptrPullableViews = null;
+
             Intent i = getIntent();
             if(i == null || !i.getBooleanExtra("force_refresh", false)) {
                 startRefresh();
@@ -261,9 +280,22 @@ public class MainActivity extends Activity implements StatusAsyncTask.StatusAsyn
     }
 
     @Override
+    public void addPullableView(View view) {
+        View[] newViews = new View[m_ptrPullableViews.length + 1];
+        newViews[0] = view;
+        System.arraycopy(m_ptrPullableViews, 0, newViews, 1, m_ptrPullableViews.length);
+        m_ptrPullableViews = newViews;
+    }
+
+    @Override
     public void onStatusTaskFinished(StatusAsyncTask.Result res) {
         for(int i = 0; i < m_fragments.length; ++i)
             m_fragments[i].onStatusTaskFinished(res);
+    }
+
+    @Override
+    public void onRefreshStarted(View view) {
+        refresh();
     }
 
     private DrawerLayout m_drawerLayout;
@@ -276,4 +308,8 @@ public class MainActivity extends Activity implements StatusAsyncTask.StatusAsyn
     private CharSequence m_drawerTitle;
     private MenuItem m_refreshItem;
     private int m_fragmentViewsCreated;
+
+    private PullToRefreshLayout m_ptrLayout;
+    private ActionBarPullToRefresh.SetupWizard m_ptrSetup;
+    private View[] m_ptrPullableViews;
 }
