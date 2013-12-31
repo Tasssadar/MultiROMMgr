@@ -39,11 +39,11 @@ public class RomEraseDialog extends DialogFragment implements View.OnClickListen
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         Activity a = getActivity();
-        Bundle args = getArguments();
+        Rom rom = getArguments().getParcelable("rom");
 
         AlertDialog.Builder b = new AlertDialog.Builder(a);
 
-        return b.setMessage(Utils.getString(R.string.erase_rom, args.getString("rom_name")))
+        return b.setMessage(Utils.getString(R.string.erase_rom, rom.name))
                 .setTitle(R.string.erase_rom_title)
                 .setIcon(R.drawable.alerts_and_states_warning)
                 .setNegativeButton(R.string.cancel, null)
@@ -62,8 +62,8 @@ public class RomEraseDialog extends DialogFragment implements View.OnClickListen
 
     @Override
     public void onClick(View view) {
-        Bundle args = getArguments();
         AlertDialog d = (AlertDialog)getDialog();
+        Rom rom = getArguments().getParcelable("rom");
 
         ProgressBar b = new ProgressBar(getActivity());
         b.setIndeterminate(true);
@@ -80,7 +80,6 @@ public class RomEraseDialog extends DialogFragment implements View.OnClickListen
         d.getButton(AlertDialog.BUTTON_NEGATIVE).setVisibility(View.GONE);
         d.getButton(AlertDialog.BUTTON_POSITIVE).setVisibility(View.GONE);
 
-        Rom rom = new Rom(args.getString("rom_name"), args.getInt("rom_type"));
         new Thread(new RomEraseRunnable(rom)).start();
     }
 

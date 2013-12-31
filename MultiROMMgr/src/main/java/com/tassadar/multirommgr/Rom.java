@@ -17,9 +17,12 @@
 
 package com.tassadar.multirommgr;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.util.Comparator;
 
-public class Rom {
+public class Rom implements Parcelable {
     public static final int ROM_PRIMARY   = 0;
     public static final int ROM_SECONDARY = 1;
 
@@ -36,9 +39,36 @@ public class Rom {
         }
     }
 
+    public static final Parcelable.Creator<Rom> CREATOR
+            = new Parcelable.Creator<Rom>() {
+        public Rom createFromParcel(Parcel in) {
+            return new Rom(in);
+        }
+
+        public Rom[] newArray(int size) {
+            return new Rom[size];
+        }
+    };
+
     public Rom(String name, int type) {
         this.name = name;
         this.type = type;
+    }
+
+    public Rom(Parcel in) {
+        this.name = in.readString();
+        this.type = in.readInt();
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(this.name);
+        dest.writeInt(this.type);
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
     }
 
     public String name;

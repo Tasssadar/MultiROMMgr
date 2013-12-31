@@ -94,8 +94,7 @@ public class RomListFragment extends MainFragment implements AdapterView.OnItemC
         } else {
             Bundle b = new Bundle();
             Rom rom = m_adapter.getItem(pos);
-            b.putString("rom_name", rom.name);
-            b.putInt("rom_type", rom.type);
+            b.putParcelable("rom", rom);
 
             RomBootDialog d = new RomBootDialog();
             d.setArguments(b);
@@ -106,8 +105,7 @@ public class RomListFragment extends MainFragment implements AdapterView.OnItemC
     @Override
     public void onRenameClicked(Rom rom) {
         Bundle b = new Bundle();
-        b.putString("rom_name", rom.name);
-        b.putInt("rom_type", rom.type);
+        b.putParcelable("rom", rom);
 
         RomRenameDialog d = new RomRenameDialog();
         d.setArguments(b);
@@ -117,8 +115,7 @@ public class RomListFragment extends MainFragment implements AdapterView.OnItemC
     @Override
     public void onEraseClicked(Rom rom) {
         Bundle b = new Bundle();
-        b.putString("rom_name", rom.name);
-        b.putInt("rom_type", rom.type);
+        b.putParcelable("rom", rom);
 
         RomEraseDialog d = new RomEraseDialog();
         d.setArguments(b);

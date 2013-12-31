@@ -72,7 +72,7 @@ public class RomRenameDialog extends DialogFragment implements View.OnClickListe
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         Activity a = getActivity();
-        Bundle args = getArguments();
+        Rom rom = getArguments().getParcelable("rom");
 
         LinearLayout view = (LinearLayout)a.getLayoutInflater()
                 .inflate(R.layout.dialog_rename_rom, null, false);
@@ -82,7 +82,7 @@ public class RomRenameDialog extends DialogFragment implements View.OnClickListe
                 new InputFilter.LengthFilter(MultiROM.MAX_ROM_NAME),
                 new RomNameFilter()
         });
-        t.setText(args.getString("rom_name"));
+        t.setText(rom.name);
 
         AlertDialog.Builder b = new AlertDialog.Builder(a);
 
@@ -112,7 +112,7 @@ public class RomRenameDialog extends DialogFragment implements View.OnClickListe
         TextView err_text = (TextView)d.findViewById(R.id.error_text);
 
         String new_name = t.getText().toString();
-        Rom rom = new Rom(args.getString("rom_name"), args.getInt("rom_type"));
+        Rom rom = args.getParcelable("rom");
 
         if(new_name.length() == 0) {
             err_text.setVisibility(View.VISIBLE);

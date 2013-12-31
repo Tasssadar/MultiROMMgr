@@ -34,11 +34,11 @@ public class RomBootDialog extends DialogFragment implements View.OnClickListene
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         Activity a = getActivity();
-        Bundle args = getArguments();
+        Rom rom = getArguments().getParcelable("rom");
 
         AlertDialog.Builder b = new AlertDialog.Builder(a);
 
-        return b.setMessage(Utils.getString(R.string.boot_rom, args.getString("rom_name")))
+        return b.setMessage(Utils.getString(R.string.boot_rom, rom.name))
                 .setNegativeButton(R.string.cancel, null)
                 .setCancelable(true)
                 .setPositiveButton(R.string.boot, null)
@@ -56,8 +56,8 @@ public class RomBootDialog extends DialogFragment implements View.OnClickListene
 
     @Override
     public void onClick(View view) {
-        Bundle args = getArguments();
         AlertDialog d = (AlertDialog)getDialog();
+        Rom rom = getArguments().getParcelable("rom");
 
         setCancelable(false);
         d.setMessage(getString(R.string.booting));
@@ -65,7 +65,6 @@ public class RomBootDialog extends DialogFragment implements View.OnClickListene
         d.getButton(AlertDialog.BUTTON_NEGATIVE).setVisibility(View.GONE);
         d.getButton(AlertDialog.BUTTON_POSITIVE).setVisibility(View.GONE);
 
-        Rom rom = new Rom(args.getString("rom_name"), args.getInt("rom_type"));
         new Thread(new RomBootRunnable(rom)).start();
     }
 
