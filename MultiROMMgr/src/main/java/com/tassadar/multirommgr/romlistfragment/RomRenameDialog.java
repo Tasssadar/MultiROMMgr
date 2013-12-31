@@ -125,7 +125,7 @@ public class RomRenameDialog extends DialogFragment implements View.OnClickListe
             return;
         }
 
-        if(new_name.equals(MultiROM.INTERNAL_ROM)) {
+        if(rom.type != Rom.ROM_PRIMARY && new_name.equals(MultiROM.INTERNAL_ROM)) {
             err_text.setVisibility(View.VISIBLE);
             err_text.setText(R.string.rom_name_taken);
             return;
