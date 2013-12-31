@@ -35,6 +35,7 @@ import android.widget.TextView;
 import com.tassadar.multirommgr.MainActivity;
 import com.tassadar.multirommgr.MultiROM;
 import com.tassadar.multirommgr.R;
+import com.tassadar.multirommgr.Rom;
 import com.tassadar.multirommgr.StatusAsyncTask;
 
 public class RomRenameDialog extends DialogFragment implements View.OnClickListener {
@@ -111,7 +112,7 @@ public class RomRenameDialog extends DialogFragment implements View.OnClickListe
         TextView err_text = (TextView)d.findViewById(R.id.error_text);
 
         String new_name = t.getText().toString();
-        String old_name = args.getString("rom_name");
+        Rom rom = new Rom(args.getString("rom_name"), args.getInt("rom_type"));
 
         if(new_name.length() == 0) {
             err_text.setVisibility(View.VISIBLE);
@@ -119,15 +120,23 @@ public class RomRenameDialog extends DialogFragment implements View.OnClickListe
             return;
         }
 
-        if(new_name.equals(old_name)) {
+        if(new_name.equals(rom.name)) {
             dismiss();
             return;
         }
 
-        if(m.getRoms().contains(new_name)) {
+        if(new_name.equals(MultiROM.INTERNAL_ROM)) {
             err_text.setVisibility(View.VISIBLE);
             err_text.setText(R.string.rom_name_taken);
             return;
+        }
+
+        for(Rom r : m.getRoms()) {
+            if(r.name.equals(new_name)) {
+                err_text.setVisibility(View.VISIBLE);
+                err_text.setText(R.string.rom_name_taken);
+                return;
+            }
         }
 
         setCancelable(false);
@@ -138,20 +147,21 @@ public class RomRenameDialog extends DialogFragment implements View.OnClickListe
         t.setEnabled(false);
         err_text.setVisibility(View.GONE);
 
-        new Thread(new RomRenameRunnable(old_name, new_name)).start();
+        new Thread(new RomRenameRunnable(rom, new_name)).start();
     }
 
     private class RomRenameRunnable implements Runnable {
-        private String m_old_name, m_new_name;
-        public RomRenameRunnable(String old_name, String new_name) {
-            m_old_name = old_name;
+        private Rom m_rom;
+        private String m_new_name;
+        private RomRenameRunnable(Rom rom, String new_name) {
+            m_rom = rom;
             m_new_name = new_name;
         }
 
         @Override
         public void run() {
             MultiROM m = StatusAsyncTask.instance().getMultiROM();
-            m.renameRom(m_old_name, m_new_name);
+            m.renameRom(m_rom, m_new_name);
 
             Activity a = getActivity();
             if(a == null)

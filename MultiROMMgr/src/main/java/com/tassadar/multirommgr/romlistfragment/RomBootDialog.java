@@ -26,6 +26,7 @@ import android.view.View;
 
 import com.tassadar.multirommgr.MultiROM;
 import com.tassadar.multirommgr.R;
+import com.tassadar.multirommgr.Rom;
 import com.tassadar.multirommgr.StatusAsyncTask;
 import com.tassadar.multirommgr.Utils;
 
@@ -64,13 +65,14 @@ public class RomBootDialog extends DialogFragment implements View.OnClickListene
         d.getButton(AlertDialog.BUTTON_NEGATIVE).setVisibility(View.GONE);
         d.getButton(AlertDialog.BUTTON_POSITIVE).setVisibility(View.GONE);
 
-        new Thread(new RomBootRunnable(args.getString("rom_name"))).start();
+        Rom rom = new Rom(args.getString("rom_name"), args.getInt("rom_type"));
+        new Thread(new RomBootRunnable(rom)).start();
     }
 
     private class RomBootRunnable implements Runnable {
-        private String m_rom_name;
-        public RomBootRunnable(String rom_name) {
-            m_rom_name = rom_name;
+        private Rom m_rom;
+        public RomBootRunnable(Rom rom) {
+            m_rom = rom;
         }
 
         @Override
@@ -81,7 +83,7 @@ public class RomBootDialog extends DialogFragment implements View.OnClickListene
             if(a == null)
                 return;
 
-            if(!has_kexec && m.isKexecNeededFor(m_rom_name)) {
+            if(!has_kexec && m.isKexecNeededFor(m_rom)) {
                 a.runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
@@ -99,7 +101,7 @@ public class RomBootDialog extends DialogFragment implements View.OnClickListene
             }
 
             // this won't return unless it fails
-            m.bootRom(m_rom_name);
+            m.bootRom(m_rom);
 
             a.runOnUiThread(new Runnable() {
                 @Override

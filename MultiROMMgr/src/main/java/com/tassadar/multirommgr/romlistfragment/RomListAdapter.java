@@ -25,6 +25,7 @@ import android.view.ViewGroup;
 import android.widget.ListAdapter;
 
 import com.tassadar.multirommgr.R;
+import com.tassadar.multirommgr.Rom;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -43,8 +44,8 @@ public class RomListAdapter implements ListAdapter {
             o.onInvalidated();
     }
 
-    public void set(ArrayList<String> roms) {
-        m_roms = new ArrayList<String>(roms);
+    public void set(ArrayList<Rom> roms) {
+        m_roms = new ArrayList<Rom>(roms);
         for(DataSetObserver o : m_observers)
             o.onChanged();
     }
@@ -92,7 +93,7 @@ public class RomListAdapter implements ListAdapter {
     }
 
     @Override
-    public String getItem(int i) {
+    public Rom getItem(int i) {
         return m_roms.get(i);
     }
 
@@ -121,7 +122,7 @@ public class RomListAdapter implements ListAdapter {
         return m_roms.isEmpty();
     }
 
-    private ArrayList<String> m_roms = new ArrayList<String>();
+    private ArrayList<Rom> m_roms = new ArrayList<Rom>();
     private Set<DataSetObserver> m_observers = new HashSet<DataSetObserver>();
     private LayoutInflater m_inflater;
     private RomListItem.OnRomActionListener m_listener;

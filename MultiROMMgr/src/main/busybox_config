@@ -1,7 +1,7 @@
 #
 # Automatically generated make config: don't edit
 # Busybox version: 1.21.0
-# Sun Dec 29 18:03:12 2013
+# Tue Dec 31 17:06:53 2013
 #
 CONFIG_HAVE_DOT_CONFIG=y
 
@@ -381,7 +381,7 @@ CONFIG_FEATURE_VI_MAX_LEN=0
 # CONFIG_FEATURE_DIFF_LONG_OPTIONS is not set
 # CONFIG_FEATURE_DIFF_DIR is not set
 # CONFIG_ED is not set
-# CONFIG_SED is not set
+CONFIG_SED=y
 # CONFIG_FEATURE_ALLOW_EXEC is not set
 
 #
@@ -410,7 +410,7 @@ CONFIG_FEATURE_VI_MAX_LEN=0
 # CONFIG_FEATURE_FIND_REGEX is not set
 # CONFIG_FEATURE_FIND_CONTEXT is not set
 # CONFIG_FEATURE_FIND_LINKS is not set
-# CONFIG_GREP is not set
+CONFIG_GREP=y
 # CONFIG_FEATURE_GREP_EGREP_ALIAS is not set
 # CONFIG_FEATURE_GREP_FGREP_ALIAS is not set
 # CONFIG_FEATURE_GREP_CONTEXT is not set

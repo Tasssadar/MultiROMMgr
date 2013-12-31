@@ -25,12 +25,13 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.tassadar.multirommgr.R;
+import com.tassadar.multirommgr.Rom;
 
 public class RomListItem extends LinearLayout implements View.OnClickListener {
 
     public interface OnRomActionListener {
-        public void onRenameClicked(String rom);
-        public void onEraseClicked(String rom);
+        public void onRenameClicked(Rom rom);
+        public void onEraseClicked(Rom rom);
     }
 
     public RomListItem(Context ctx) {
@@ -66,21 +67,16 @@ public class RomListItem extends LinearLayout implements View.OnClickListener {
         }
     }
 
-    public void setRom(String rom) {
+    public void setRom(Rom rom) {
         m_rom = rom;
 
         TextView t = (TextView)findViewById(R.id.rom_name);
-        t.setText(rom);
+        t.setText(rom.name);
 
-        boolean internal = rom.equals("Internal");
-        View v = findViewById(R.id.rename_btn);
-        v.setVisibility(internal ? View.GONE : View.VISIBLE);
-        v = findViewById(R.id.erase_btn);
-        v.setVisibility(internal ? View.GONE : View.VISIBLE);
-        v = findViewById(R.id.separator);
-        v.setVisibility(internal ? View.GONE : View.VISIBLE);
+        View v = findViewById(R.id.erase_btn);
+        v.setVisibility((rom.type == Rom.ROM_PRIMARY) ? View.INVISIBLE : View.VISIBLE);
     }
 
-    private String m_rom;
+    private Rom m_rom;
     private OnRomActionListener m_listener;
 }

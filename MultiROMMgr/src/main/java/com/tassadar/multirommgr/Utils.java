@@ -37,7 +37,7 @@ import eu.chainfire.libsuperuser.Shell;
 
 public class Utils {
 
-    private static final int BUSYBOX_VER = 3;
+    private static final int BUSYBOX_VER = 4;
 
     private static String m_downloadDir = null;
     public static String getDownloadDir() {

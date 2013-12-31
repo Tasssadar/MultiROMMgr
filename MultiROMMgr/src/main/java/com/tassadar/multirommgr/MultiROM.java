@@ -29,9 +29,10 @@ import eu.chainfire.libsuperuser.Shell;
 public class MultiROM {
     // Minimum MultiROM version which is able to boot ROMs
     // via --boot-rom argument
-    public static final String MIN_BOOT_ROM_VER = "19f";
+    public static final String MIN_BOOT_ROM_VER = "19g";
 
     public static final int MAX_ROM_NAME = 26;
+    public static final String INTERNAL_ROM = "Internal";
     private static final String UTOUCH_ROM_INFO = "ubuntu_touch.txt";
 
     public boolean findMultiROMDir() {
@@ -62,6 +63,20 @@ public class MultiROM {
         return true;
     }
 
+    private String findInternalRomName(String bb) {
+        List<String> out = Shell.SU.run(bb + " cat \"" + m_path + "/multirom.ini\"");
+        if (out == null || out.isEmpty())
+            return INTERNAL_ROM;
+
+        String entry;
+        for(int i = 0; i < out.size(); ++i) {
+            entry = out.get(i).trim();
+            if(entry.startsWith("int_display_name="))
+                return entry.substring(17); // strlen("int_display_name=");
+        }
+        return INTERNAL_ROM;
+    }
+
     public void findRoms() {
         String b = Utils.extractAsset("busybox");
         if(b == null) {
@@ -69,36 +84,62 @@ public class MultiROM {
             return;
         }
 
+        String internal = findInternalRomName(b);
+
         List<String> out = Shell.SU.run(b + " ls -1 -p \"" + m_path + "/roms/\"");
         if (out == null || out.isEmpty())
             return;
 
-        for(String rom : out) {
-            if(rom.endsWith("/"))
-                m_roms.add(rom.substring(0, rom.length()-1));
+        Rom rom;
+        int type;
+        String name;
+        for(int i = 0; i < out.size(); ++i) {
+            name = out.get(i);
+            if(!name.endsWith("/"))
+                continue;
+
+            name = name.substring(0, name.length() - 1);
+            if(name.equals(INTERNAL_ROM)) {
+                name = internal;
+                type = Rom.ROM_PRIMARY;
+            } else {
+                type = Rom.ROM_SECONDARY;
+            }
+
+            rom = new Rom(name, type);
+            m_roms.add(rom);
         }
 
-        Collections.sort(m_roms, new RomNameComparator());
+        Collections.sort(m_roms, new Rom.NameComparator());
     }
 
-    private static class RomNameComparator implements Comparator<String> {
-        @Override
-        public int compare(String a, String b) {
-            if(a.equals("Internal"))
-                return -1;
+    public void renameRom(Rom rom, String new_name) {
+        if(rom.type == Rom.ROM_PRIMARY) {
+            String b = Utils.extractAsset("busybox");
+            if(b == null) {
+                Log.e("MultiROM", "Failed to extract busybox!");
+                return;
+            }
 
-            if(b.equals("Internal"))
-                return 1;
-
-            return a.compareToIgnoreCase(b);
+            Shell.SU.run(
+                    "cd \"%s\";" +
+                    "if [ \"$(%s grep 'int_display_name=.*' multirom.ini)\" ]; then" +
+                    "    %s sed -i -e \"s/int_display_name=.*/int_display_name=%s/g\" multirom.ini;" +
+                    "else" +
+                    "    echo \"int_display_name=%s\" >> multirom.ini;" +
+                    "fi",
+                    m_path, b, b, new_name, new_name);
+        } else {
+            Shell.SU.run("cd \"%s/roms/\" && mv \"%s\" \"%s\"", m_path, rom.name, new_name);
         }
     }
 
-    public void renameRom(String old_name, String new_name) {
-        Shell.SU.run("cd \"%s/roms/\" && mv \"%s\" \"%s\"", m_path, old_name, new_name);
-    }
+    public void eraseROM(Rom rom) {
+        if(rom.type == Rom.ROM_PRIMARY) {
+            Log.e("MultiROM", "Attempted to delete primary ROM!");
+            return;
+        }
 
-    public void eraseROM(String rom) {
         String b = Utils.extractAsset("busybox");
         if(b == null) {
             Log.e("MultiROM", "Failed to extract busybox!");
@@ -106,15 +147,16 @@ public class MultiROM {
         }
 
         Shell.SU.run("%s chattr -R -i \"%s/roms/%s\"; %s rm -rf \"%s/roms/%s\"",
-                b, m_path, rom, b, m_path, rom);
+                b, m_path, rom.name, b, m_path, rom.name);
     }
 
-    public void bootRom(String name) {
+    public void bootRom(Rom rom) {
+        String name = (rom.type == Rom.ROM_PRIMARY) ? INTERNAL_ROM : rom.name;
         Shell.SU.run("%s/multirom --boot-rom=\"%s\"", m_path, name);
     }
 
-    public boolean isKexecNeededFor(String rom_name) {
-        if(rom_name.equals("Internal"))
+    public boolean isKexecNeededFor(Rom rom) {
+        if(rom.type == Rom.ROM_PRIMARY)
             return false;
 
         // if android ROM check for boot.img, else kexec
@@ -129,10 +171,10 @@ public class MultiROM {
                 "else" +
                 "    echo kexec;" +
                 "fi;",
-                m_path, rom_name));
+                m_path, rom.name));
 
         if (out == null || out.isEmpty()) {
-            Log.e("MultiROM", "Failed to check for kexec in ROM " + rom_name);
+            Log.e("MultiROM", "Failed to check for kexec in ROM " + rom.name);
             return true;
         }
 
@@ -223,9 +265,9 @@ public class MultiROM {
         return m_version;
     }
     public String getPath() { return m_path; }
-    public ArrayList<String> getRoms() { return m_roms; }
+    public ArrayList<Rom> getRoms() { return m_roms; }
 
     private String m_path;
     private String m_version;
-    private ArrayList<String> m_roms = new ArrayList<String>();
+    private ArrayList<Rom> m_roms = new ArrayList<Rom>();
 }

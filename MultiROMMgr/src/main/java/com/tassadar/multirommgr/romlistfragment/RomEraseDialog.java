@@ -31,6 +31,7 @@ import android.widget.ProgressBar;
 import com.tassadar.multirommgr.MainActivity;
 import com.tassadar.multirommgr.MultiROM;
 import com.tassadar.multirommgr.R;
+import com.tassadar.multirommgr.Rom;
 import com.tassadar.multirommgr.StatusAsyncTask;
 import com.tassadar.multirommgr.Utils;
 
@@ -79,19 +80,20 @@ public class RomEraseDialog extends DialogFragment implements View.OnClickListen
         d.getButton(AlertDialog.BUTTON_NEGATIVE).setVisibility(View.GONE);
         d.getButton(AlertDialog.BUTTON_POSITIVE).setVisibility(View.GONE);
 
-        new Thread(new RomEraseRunnable(args.getString("rom_name"))).start();
+        Rom rom = new Rom(args.getString("rom_name"), args.getInt("rom_type"));
+        new Thread(new RomEraseRunnable(rom)).start();
     }
 
     private class RomEraseRunnable implements Runnable {
-        private String m_rom_name;
-        public RomEraseRunnable(String rom_name) {
-            m_rom_name = rom_name;
+        private Rom m_rom;
+        public RomEraseRunnable(Rom rom) {
+            m_rom = rom;
         }
 
         @Override
         public void run() {
             MultiROM m = StatusAsyncTask.instance().getMultiROM();
-            m.eraseROM(m_rom_name);
+            m.eraseROM(m_rom);
 
             Activity a = getActivity();
             if(a == null)

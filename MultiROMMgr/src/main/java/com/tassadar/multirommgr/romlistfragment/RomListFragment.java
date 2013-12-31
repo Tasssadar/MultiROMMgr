@@ -28,6 +28,7 @@ import android.widget.ListView;
 import com.tassadar.multirommgr.MainFragment;
 import com.tassadar.multirommgr.MultiROM;
 import com.tassadar.multirommgr.R;
+import com.tassadar.multirommgr.Rom;
 import com.tassadar.multirommgr.StatusAsyncTask;
 import com.tassadar.multirommgr.Utils;
 
@@ -92,7 +93,9 @@ public class RomListFragment extends MainFragment implements AdapterView.OnItemC
             b.create().show();
         } else {
             Bundle b = new Bundle();
-            b.putString("rom_name", m_adapter.getItem(pos));
+            Rom rom = m_adapter.getItem(pos);
+            b.putString("rom_name", rom.name);
+            b.putInt("rom_type", rom.type);
 
             RomBootDialog d = new RomBootDialog();
             d.setArguments(b);
@@ -101,9 +104,10 @@ public class RomListFragment extends MainFragment implements AdapterView.OnItemC
     }
 
     @Override
-    public void onRenameClicked(String rom) {
+    public void onRenameClicked(Rom rom) {
         Bundle b = new Bundle();
-        b.putString("rom_name", rom);
+        b.putString("rom_name", rom.name);
+        b.putInt("rom_type", rom.type);
 
         RomRenameDialog d = new RomRenameDialog();
         d.setArguments(b);
@@ -111,9 +115,10 @@ public class RomListFragment extends MainFragment implements AdapterView.OnItemC
     }
 
     @Override
-    public void onEraseClicked(String rom) {
+    public void onEraseClicked(Rom rom) {
         Bundle b = new Bundle();
-        b.putString("rom_name", rom);
+        b.putString("rom_name", rom.name);
+        b.putInt("rom_type", rom.type);
 
         RomEraseDialog d = new RomEraseDialog();
         d.setArguments(b);
