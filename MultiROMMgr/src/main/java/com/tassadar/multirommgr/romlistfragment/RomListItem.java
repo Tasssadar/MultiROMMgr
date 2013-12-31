@@ -32,6 +32,7 @@ public class RomListItem extends LinearLayout implements View.OnClickListener {
     public interface OnRomActionListener {
         public void onRenameClicked(Rom rom);
         public void onEraseClicked(Rom rom);
+        public void onIconClicked(Rom rom);
     }
 
     public RomListItem(Context ctx) {
@@ -53,6 +54,8 @@ public class RomListItem extends LinearLayout implements View.OnClickListener {
         b.setOnClickListener(this);
         b = (ImageButton)findViewById(R.id.erase_btn);
         b.setOnClickListener(this);
+        b = (ImageButton)findViewById(R.id.rom_icon);
+        b.setOnClickListener(this);
     }
 
     @Override
@@ -63,6 +66,9 @@ public class RomListItem extends LinearLayout implements View.OnClickListener {
                 break;
             case R.id.erase_btn:
                 m_listener.onEraseClicked(m_rom);
+                break;
+            case R.id.rom_icon:
+                m_listener.onIconClicked(m_rom);
                 break;
         }
     }
@@ -75,6 +81,9 @@ public class RomListItem extends LinearLayout implements View.OnClickListener {
 
         View v = findViewById(R.id.erase_btn);
         v.setVisibility((rom.type == Rom.ROM_PRIMARY) ? View.INVISIBLE : View.VISIBLE);
+
+        ImageButton b = (ImageButton)findViewById(R.id.rom_icon);
+        b.setImageDrawable(rom.getIcon());
     }
 
     private Rom m_rom;

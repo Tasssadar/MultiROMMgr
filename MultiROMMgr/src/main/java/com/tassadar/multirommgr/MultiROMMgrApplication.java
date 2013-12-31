@@ -19,6 +19,7 @@ package com.tassadar.multirommgr;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.drawable.Drawable;
 import android.preference.PreferenceManager;
 
 import eu.chainfire.libsuperuser.Application;

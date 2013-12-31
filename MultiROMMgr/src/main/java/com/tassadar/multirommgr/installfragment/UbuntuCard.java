@@ -33,6 +33,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.fima.cardsui.objects.Card;
+import com.tassadar.multirommgr.MainActivity;
 import com.tassadar.multirommgr.Manifest;
 import com.tassadar.multirommgr.MultiROM;
 import com.tassadar.multirommgr.R;
@@ -229,7 +230,7 @@ public class UbuntuCard extends Card implements AdapterView.OnItemSelectedListen
 
                 UbuntuManifestAsyncTask.instance().putInstallInfo(info);
 
-                m_listener.startActivity(bundle, InstallFragment.ACT_INSTALL_UBUNTU, InstallActivity.class);
+                m_listener.startActivity(bundle, MainActivity.ACT_INSTALL_UBUNTU, InstallActivity.class);
                 break;
             }
             case R.id.info_btn:

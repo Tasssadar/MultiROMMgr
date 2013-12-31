@@ -17,9 +17,12 @@
 
 package com.tassadar.multirommgr;
 
+import android.content.res.Resources;
+import android.graphics.drawable.Drawable;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import java.io.File;
 import java.util.Comparator;
 
 public class Rom implements Parcelable {
@@ -58,12 +61,16 @@ public class Rom implements Parcelable {
     public Rom(Parcel in) {
         this.name = in.readString();
         this.type = in.readInt();
+        this.icon_id = in.readInt();
+        this.icon_hash = (String)in.readValue(String.class.getClassLoader());
     }
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(this.name);
         dest.writeInt(this.type);
+        dest.writeInt(this.icon_id);
+        dest.writeValue(this.icon_hash);
     }
 
     @Override
@@ -71,6 +78,42 @@ public class Rom implements Parcelable {
         return 0;
     }
 
+    public Drawable getIcon() {
+        if(m_icon == null)
+            m_icon = loadIcon();
+        return m_icon;
+    }
+
+    private Drawable loadIcon() {
+        Drawable res = null;
+        Resources r = MultiROMMgrApplication.getAppContext().getResources();
+
+        if(this.icon_id == R.id.user_defined_icon) {
+            File path = new File(MultiROMMgrApplication.getAppContext().getCacheDir(),
+                    "icons/" + this.icon_hash + ".png");
+            res = Drawable.createFromPath(path.getAbsolutePath());
+        } else {
+            try {
+                res = r.getDrawable(this.icon_id);
+            } catch(Resources.NotFoundException e) {
+                // expected
+            }
+        }
+
+        if(res == null)
+            res = r.getDrawable(R.drawable.romic_default);
+
+        return res;
+    }
+
+    public void resetIconDrawable() {
+        m_icon = null;
+    }
+
     public String name;
     public int type;
+    public int icon_id = R.drawable.romic_default;
+    public String icon_hash = null;
+
+    private Drawable m_icon;
 }

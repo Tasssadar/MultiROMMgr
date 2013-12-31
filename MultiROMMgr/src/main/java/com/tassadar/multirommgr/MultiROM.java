@@ -17,8 +17,15 @@
 
 package com.tassadar.multirommgr;
 
+import android.content.Context;
+import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.util.Log;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -111,6 +118,57 @@ public class MultiROM {
         }
 
         Collections.sort(m_roms, new Rom.NameComparator());
+
+        loadRomIconData(b);
+    }
+
+    private void loadRomIconData(String b) {
+        // Load icon data
+        List<String> out = Shell.SU.run(
+                "cd \"%s/roms\"; " +
+                "for d in $(\"%s\" ls -1); do " +
+                "    ([ ! -d \"$d\" ]) && continue;" +
+                "    ([ ! -f \"$d/.icon_data\" ]) && continue;" +
+                "    echo \"ROM:$d\";" +
+                "    cat \"$d/.icon_data\";" +
+                "done;",
+                m_path, b);
+
+        if (out == null || out.isEmpty())
+            return;
+
+        Resources res = MultiROMMgrApplication.getAppContext().getResources();
+        Rom rom;
+        String line;
+        int type;
+        for(int i = 0; i+2 < out.size(); ++i) {
+            rom = null;
+            line = out.get(i);
+
+            if(!line.startsWith("ROM:"))
+                continue;
+
+            line = line.substring(4);
+
+            type = line.equals(INTERNAL_ROM) ? Rom.ROM_PRIMARY : Rom.ROM_SECONDARY;
+            for(Rom r : m_roms) {
+                if (r.type == type && (type == Rom.ROM_PRIMARY || line.equals(r.name)))
+                    rom = r;
+            }
+
+            if(rom == null)
+                continue;
+
+            line = out.get(++i);
+            if(line.equals("predef_set")) {
+                line = out.get(++i);
+                rom.icon_id = res.getIdentifier(line, null, null);
+                rom.icon_hash = null;
+            } else if(line.equals("user_defined")) {
+                rom.icon_id = R.id.user_defined_icon;
+                rom.icon_hash = out.get(++i);
+            }
+        }
     }
 
     public void renameRom(Rom rom, String new_name) {
@@ -201,7 +259,6 @@ public class MultiROM {
         return res;
     }
 
-
     public String getNewRomFolder(String base) {
         if(base.length() > MAX_ROM_NAME)
             base = base.substring(0, MAX_ROM_NAME);
@@ -259,6 +316,60 @@ public class MultiROM {
             e.printStackTrace();
             return -1;
         }
+    }
+
+    public void setRomIcon(Rom rom, String path) {
+        String hash = Utils.calculateSHA256(path);
+        if(hash == null)
+            return;
+
+        FileOutputStream out = null;
+        try {
+            File destDir = new File(MultiROMMgrApplication.getAppContext().getCacheDir(), "icons");
+            destDir.mkdirs();
+
+            out = new FileOutputStream(new File(destDir, hash + ".png"));
+
+            Bitmap b = Utils.resizeBitmap(BitmapFactory.decodeFile(path), 64, 64);
+            b.compress(Bitmap.CompressFormat.PNG, 0, out);
+
+            storeRomIcon(rom, R.id.user_defined_icon, hash);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } finally {
+            if(out != null)
+                try { out.close(); } catch(Exception e) { }
+        }
+    }
+
+    public void setRomIcon(Rom rom, int drawableId) {
+        storeRomIcon(rom, drawableId, null);
+    }
+
+    private void storeRomIcon(Rom rom, int icon_id, String hash) {
+        String name = rom.name;
+        if(rom.type == Rom.ROM_PRIMARY)
+            name = INTERNAL_ROM;
+
+        String data, ic_type;
+        if(icon_id == R.id.user_defined_icon) {
+            data = hash;
+            ic_type = "user_defined";
+        } else {
+            Resources res = MultiROMMgrApplication.getAppContext().getResources();
+            data = res.getResourceName(icon_id);
+            ic_type = "predef_set";
+        }
+
+        Shell.SU.run(
+                "cd \"%s/roms/%s\" && " +
+                "echo '%s' > .icon_data &&" +
+                "echo '%s' >> .icon_data"
+                , m_path, name, ic_type, data);
+
+        rom.icon_id = icon_id;
+        rom.icon_hash = hash;
+        rom.resetIconDrawable();
     }
 
     public String getVersion() {

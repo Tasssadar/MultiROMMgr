@@ -31,6 +31,7 @@ import android.widget.ImageButton;
 import android.widget.Spinner;
 
 import com.fima.cardsui.objects.Card;
+import com.tassadar.multirommgr.MainActivity;
 import com.tassadar.multirommgr.Manifest;
 import com.tassadar.multirommgr.R;
 import com.tassadar.multirommgr.Recovery;
@@ -192,7 +193,7 @@ public class InstallCard extends Card implements CompoundButton.OnCheckedChangeL
                     bundle.putString("kernel_name", name);
                 }
 
-                m_listener.startActivity(bundle, InstallFragment.ACT_INSTALL_MULTIROM, InstallActivity.class);
+                m_listener.startActivity(bundle, MainActivity.ACT_INSTALL_MULTIROM, InstallActivity.class);
                 break;
             }
             case R.id.changelog_btn:
@@ -210,7 +211,7 @@ public class InstallCard extends Card implements CompoundButton.OnCheckedChangeL
                 b.putStringArray("changelog_names", names);
                 b.putStringArray("changelog_urls", urls);
 
-                m_listener.startActivity(b,InstallFragment.ACT_CHANGELOG, ChangelogActivity.class);
+                m_listener.startActivity(b, MainActivity.ACT_CHANGELOG, ChangelogActivity.class);
                 break;
             }
         }

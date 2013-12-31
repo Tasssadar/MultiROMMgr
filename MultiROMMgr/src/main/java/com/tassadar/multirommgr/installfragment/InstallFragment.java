@@ -27,6 +27,7 @@ import android.view.ViewGroup;
 
 import com.fima.cardsui.objects.Card;
 import com.fima.cardsui.views.CardUI;
+import com.tassadar.multirommgr.MainActivity;
 import com.tassadar.multirommgr.MainFragment;
 import com.tassadar.multirommgr.MultiROMMgrApplication;
 import com.tassadar.multirommgr.R;
@@ -34,10 +35,6 @@ import com.tassadar.multirommgr.StatusAsyncTask;
 
 public class InstallFragment extends MainFragment implements StatusAsyncTask.StatusAsyncTaskListener,
         UbuntuManifestAsyncTask.UbuntuManifestAsyncTaskListener, StartInstallListener {
-
-    public static final int ACT_INSTALL_MULTIROM = 1;
-    public static final int ACT_INSTALL_UBUNTU   = 2;
-    public static final int ACT_CHANGELOG        = 3;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -139,7 +136,7 @@ public class InstallFragment extends MainFragment implements StatusAsyncTask.Sta
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         switch(requestCode) {
-            case ACT_INSTALL_MULTIROM:
+            case MainActivity.ACT_INSTALL_MULTIROM:
                 if(resultCode == Activity.RESULT_OK)
                     m_actListener.refresh();
                 break;

@@ -50,6 +50,11 @@ public class RomListAdapter implements ListAdapter {
             o.onChanged();
     }
 
+    public void setChanged() {
+        for(DataSetObserver o : m_observers)
+            o.onChanged();
+    }
+
     @Override
     public View getView(int pos, View convertView, ViewGroup parent) {
         RomListItem view;

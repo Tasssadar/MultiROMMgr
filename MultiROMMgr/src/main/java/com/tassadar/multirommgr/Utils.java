@@ -18,7 +18,12 @@
 package com.tassadar.multirommgr;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
+import android.graphics.Bitmap;
+import android.graphics.Matrix;
 import android.net.http.HttpResponseCache;
 import android.os.Environment;
 import android.util.Log;
@@ -32,6 +37,7 @@ import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.security.MessageDigest;
+import java.util.List;
 
 import eu.chainfire.libsuperuser.Shell;
 
@@ -329,5 +335,30 @@ public class Utils {
 
     public static String getString(int id, Object... args) {
         return MultiROMMgrApplication.getAppContext().getResources().getString(id, args);
+    }
+
+    public static boolean isIntentAvailable(String action) {
+        final PackageManager packageManager = MultiROMMgrApplication.getAppContext().getPackageManager();
+        final Intent intent = new Intent(action);
+        List<ResolveInfo> list =
+                packageManager.queryIntentActivities(intent, PackageManager.MATCH_DEFAULT_ONLY);
+        return list.size() > 0;
+    }
+
+    public static Bitmap resizeBitmap(Bitmap bmp, int targetW, int targetH) {
+        if(bmp == null)
+            return null;
+
+        int w = bmp.getWidth();
+        int h = bmp.getHeight();
+
+        float scale = ((float)targetW) / w;
+        if(h * scale > targetH)
+            scale = ((float)targetH) / h;
+
+        Matrix matrix = new Matrix();
+        matrix.postScale(scale, scale);
+
+        return Bitmap.createBitmap(bmp, 0, 0, w, h, matrix, false);
     }
 }

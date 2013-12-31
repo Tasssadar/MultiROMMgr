@@ -44,6 +44,11 @@ import uk.co.senab.actionbarpulltorefresh.library.listeners.OnRefreshListener;
 
 public class MainActivity extends Activity implements StatusAsyncTask.StatusAsyncTaskListener, MainActivityListener, OnRefreshListener {
 
+    public static final int ACT_INSTALL_MULTIROM = 1;
+    public static final int ACT_INSTALL_UBUNTU   = 2;
+    public static final int ACT_CHANGELOG        = 3;
+    public static final int ACT_SELECT_ICON      = 4;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

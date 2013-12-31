@@ -112,6 +112,9 @@
     <string name="ok_nohtml">OK</string>
     <string name="boot">Boot</string>
     <string name="boot_rom_title">Boot into ROM?</string>
+    <string name="icon_source">Select icon source</string>
+    <string name="select_icon">Select icon</string>
+    <string name="browse">Browse&#8230;</string>
 
     <string-array name="reboot_options">
         <item>System</item>
@@ -122,5 +125,10 @@
     <string-array name="main_fragment_titles">
         <item>Install/update</item>
         <item>Manage ROMs</item>
+    </string-array>
+
+    <string-array name="icon_sources">
+        <item>Default icon set</item>
+        <item>Select file&#8230;</item>
     </string-array>
 </resources>

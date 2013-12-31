@@ -7,8 +7,16 @@
     android:minHeight="50dp"
     android:descendantFocusability="blocksDescendants" >
 
+    <ImageButton android:id="@+id/rom_icon"
+        android:layout_width="43dp"
+        android:layout_height="match_parent"
+        android:src="@drawable/ic_launcher"
+        android:background="@drawable/transparent_btn"
+        android:paddingLeft="3dp"
+        android:paddingRight="8dp"
+        android:scaleType="fitCenter" />
+
     <TextView
-        android:layout_margin="8dp"
         android:id="@+id/rom_name"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -24,7 +32,8 @@
         android:layout_width="2dp"
         android:background="#ccc"
         android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp"/>
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="5dp"/>
 
     <ImageButton android:id="@+id/rename_btn"
         android:layout_width="wrap_content"

@@ -17,20 +17,29 @@
 
 package com.tassadar.multirommgr.romlistfragment;
 
+import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import com.tassadar.multirommgr.MainActivity;
 import com.tassadar.multirommgr.MainFragment;
 import com.tassadar.multirommgr.MultiROM;
 import com.tassadar.multirommgr.R;
 import com.tassadar.multirommgr.Rom;
 import com.tassadar.multirommgr.StatusAsyncTask;
 import com.tassadar.multirommgr.Utils;
+
+import java.lang.ref.WeakReference;
 
 public class RomListFragment extends MainFragment implements AdapterView.OnItemClickListener, RomListItem.OnRomActionListener {
 
@@ -49,6 +58,11 @@ public class RomListFragment extends MainFragment implements AdapterView.OnItemC
         m_actListener.addPullableView(m_romList);
         m_actListener.onFragmentViewCreated();
         return m_view;
+    }
+
+    public void invalidateAdapter() {
+        if(m_adapter != null)
+            m_adapter.setChanged();
     }
 
     private void setRefreshing(boolean refreshing) {
@@ -120,6 +134,16 @@ public class RomListFragment extends MainFragment implements AdapterView.OnItemC
         RomEraseDialog d = new RomEraseDialog();
         d.setArguments(b);
         d.show(getFragmentManager(), "RomEraseFragment");
+    }
+
+    @Override
+    public void onIconClicked(Rom rom) {
+        Bundle b = new Bundle();
+        b.putParcelable("rom", rom);
+
+        RomIconDialog d = new RomIconDialog();
+        d.setArguments(b);
+        d.show(getFragmentManager(), "RomPredefIconFragment");
     }
 
     private ListView m_romList;
