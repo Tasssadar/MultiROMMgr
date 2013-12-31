@@ -180,7 +180,7 @@ public class MultiROM {
 
     public void deleteUnusedIcons(Set<String> usedIconHashes) {
         String hash;
-        File iconDir = new File(MultiROMMgrApplication.getAppContext().getCacheDir(), "icons");
+        File iconDir = MultiROMMgrApplication.getAppContext().getDir("icons", 0);
         File[] files = iconDir.listFiles();
         for(File f : files) {
             hash = f.getName();
@@ -344,10 +344,8 @@ public class MultiROM {
 
         FileOutputStream out = null;
         try {
-            File destDir = new File(MultiROMMgrApplication.getAppContext().getCacheDir(), "icons");
-            destDir.mkdirs();
-
-            out = new FileOutputStream(new File(destDir, hash + ".png"));
+            File dest = new File(MultiROMMgrApplication.getAppContext().getDir("icons", 0), hash + ".png");
+            out = new FileOutputStream(dest);
 
             Bitmap b = Utils.resizeBitmap(BitmapFactory.decodeFile(path), 64, 64);
             b.compress(Bitmap.CompressFormat.PNG, 0, out);
