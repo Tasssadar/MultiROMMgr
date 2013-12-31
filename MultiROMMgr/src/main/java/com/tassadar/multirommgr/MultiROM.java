@@ -29,7 +29,9 @@ import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import eu.chainfire.libsuperuser.Shell;
 
@@ -141,6 +143,7 @@ public class MultiROM {
         Rom rom;
         String line;
         int type;
+        Set<String> presentHashes = new HashSet<String>();
         for(int i = 0; i+2 < out.size(); ++i) {
             rom = null;
             line = out.get(i);
@@ -167,7 +170,23 @@ public class MultiROM {
             } else if(line.equals("user_defined")) {
                 rom.icon_id = R.id.user_defined_icon;
                 rom.icon_hash = out.get(++i);
+
+                presentHashes.add(rom.icon_hash);
             }
+        }
+
+        deleteUnusedIcons(presentHashes);
+    }
+
+    public void deleteUnusedIcons(Set<String> usedIconHashes) {
+        String hash;
+        File iconDir = new File(MultiROMMgrApplication.getAppContext().getCacheDir(), "icons");
+        File[] files = iconDir.listFiles();
+        for(File f : files) {
+            hash = f.getName();
+            hash = hash.substring(0, hash.length()-4); // remove .png
+            if(!usedIconHashes.contains(hash))
+                f.delete();
         }
     }
 
