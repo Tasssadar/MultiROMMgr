@@ -48,7 +48,7 @@ public class Manifest {
     public boolean downloadAndParse(String dev) {
         ByteArrayOutputStream out = new ByteArrayOutputStream(4096);
         try {
-            SharedPreferences p = MultiROMMgrApplication.getPreferences();
+            SharedPreferences p = MgrApp.getPreferences();
             String url = p.getString(SettingsActivity.DEV_MANIFEST_URL, DEFAULT_URL);
             if(!Utils.downloadFile(url, out, null, true) || out.size() == 0)
                 return false;

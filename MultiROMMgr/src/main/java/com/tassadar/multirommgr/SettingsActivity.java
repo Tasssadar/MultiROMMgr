@@ -55,7 +55,7 @@ public class SettingsActivity extends PreferenceActivity implements SharedPrefer
 
         getActionBar().setDisplayHomeAsUpEnabled(true);
 
-        SharedPreferences p = MultiROMMgrApplication.getPreferences();
+        SharedPreferences p = MgrApp.getPreferences();
         if(p.getString(GENERAL_DOWNLOAD_DIR, null) == null)
             Utils.setDownloadDir(Utils.getDefaultDownloadDir());
 
@@ -82,7 +82,7 @@ public class SettingsActivity extends PreferenceActivity implements SharedPrefer
     public void onDestroy() {
         super.onDestroy();
 
-        SharedPreferences p = MultiROMMgrApplication.getPreferences();
+        SharedPreferences p = MgrApp.getPreferences();
         p.unregisterOnSharedPreferenceChangeListener(this);
     }
 
@@ -123,7 +123,7 @@ public class SettingsActivity extends PreferenceActivity implements SharedPrefer
             ++m_clickCounter;
 
             if(m_clickCounter == DEV_STEPS) {
-                SharedPreferences.Editor p = MultiROMMgrApplication.getPreferences().edit();
+                SharedPreferences.Editor p = MgrApp.getPreferences().edit();
                 p.putBoolean(DEV_ENABLE, true);
                 p.commit();
 
@@ -158,7 +158,7 @@ public class SettingsActivity extends PreferenceActivity implements SharedPrefer
     }
 
     private void addDevOptions() {
-        SharedPreferences p = MultiROMMgrApplication.getPreferences();
+        SharedPreferences p = MgrApp.getPreferences();
         if(!p.getBoolean(DEV_ENABLE, false))
             return;
 

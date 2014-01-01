@@ -19,7 +19,7 @@ package com.tassadar.multirommgr.installfragment;
 
 import android.os.AsyncTask;
 
-import com.tassadar.multirommgr.MultiROMMgrApplication;
+import com.tassadar.multirommgr.MgrApp;
 import com.tassadar.multirommgr.R;
 import com.tassadar.multirommgr.Utils;
 
@@ -34,7 +34,7 @@ public abstract class InstallAsyncTask extends AsyncTask<Void, Void, Void> imple
         super();
 
         m_downFilename = "";
-        m_downProgressTemplate = MultiROMMgrApplication.getAppContext()
+        m_downProgressTemplate = MgrApp.getAppContext()
                 .getResources().getString(R.string.download_progress);
 
         m_lastUpdate = System.currentTimeMillis();

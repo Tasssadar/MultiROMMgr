@@ -29,7 +29,7 @@ import com.fima.cardsui.objects.Card;
 import com.fima.cardsui.views.CardUI;
 import com.tassadar.multirommgr.MainActivity;
 import com.tassadar.multirommgr.MainFragment;
-import com.tassadar.multirommgr.MultiROMMgrApplication;
+import com.tassadar.multirommgr.MgrApp;
 import com.tassadar.multirommgr.R;
 import com.tassadar.multirommgr.StatusAsyncTask;
 
@@ -88,7 +88,7 @@ public class InstallFragment extends MainFragment implements StatusAsyncTask.Sta
             mCardView.addCard(new InstallCard(m_cardsSavedState, res.manifest, res.recovery == null, this));
 
             if(!res.device.supportsUbuntuTouch()) {
-                SharedPreferences p = MultiROMMgrApplication.getPreferences();
+                SharedPreferences p = MgrApp.getPreferences();
                 if(p.getBoolean("showUbuntuUnsupported", true))
                     showUbuntuUnsupportedCard();
             } else if(res.multirom != null && res.recovery != null) {
@@ -117,7 +117,7 @@ public class InstallFragment extends MainFragment implements StatusAsyncTask.Sta
         c.setOnCardSwipedListener(new Card.OnCardSwiped() {
             @Override
             public void onCardSwiped(Card card, View layout) {
-                SharedPreferences.Editor p = MultiROMMgrApplication.getPreferences().edit();
+                SharedPreferences.Editor p = MgrApp.getPreferences().edit();
                 p.putBoolean("showUbuntuUnsupported", false);
                 p.commit();
             }

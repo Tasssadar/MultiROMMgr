@@ -49,6 +49,8 @@ public class MainActivity extends Activity implements StatusAsyncTask.StatusAsyn
     public static final int ACT_CHANGELOG        = 3;
     public static final int ACT_SELECT_ICON      = 4;
 
+    public static final String INTENT_EXTRA_SHOW_ROM_LIST = "show_rom_list";
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -109,10 +111,22 @@ public class MainActivity extends Activity implements StatusAsyncTask.StatusAsyn
                 .from(this)
                 .listener(this);
 
-        if(savedInstanceState != null) {
+        if (getIntent().hasExtra(INTENT_EXTRA_SHOW_ROM_LIST) &&
+            getIntent().getBooleanExtra(INTENT_EXTRA_SHOW_ROM_LIST, false)) {
+            selectItem(1);
+        } else if(savedInstanceState != null) {
             selectItem(savedInstanceState.getInt("curFragment", 0));
         } else {
             selectItem(0);
+        }
+    }
+
+    @Override
+    protected void onNewIntent(Intent i) {
+        super.onNewIntent(i);
+        if (i.hasExtra(INTENT_EXTRA_SHOW_ROM_LIST) &&
+            i.getBooleanExtra(INTENT_EXTRA_SHOW_ROM_LIST, false)) {
+            selectItem(1);
         }
     }
 

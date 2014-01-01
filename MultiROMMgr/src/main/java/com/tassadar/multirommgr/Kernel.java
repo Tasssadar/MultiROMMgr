@@ -17,6 +17,8 @@
 
 package com.tassadar.multirommgr;
 
+import android.util.Log;
+
 import java.util.List;
 
 import eu.chainfire.libsuperuser.Shell;
@@ -24,6 +26,15 @@ import eu.chainfire.libsuperuser.Shell;
 public class Kernel {
     public Kernel() {
         m_hasKexec = false;
+    }
+
+    public boolean findKexecHardboot() {
+        String b = Utils.extractAsset("busybox");
+        if(b == null) {
+            Log.e("Kernel", "Failed to extract busybox!");
+            return false;
+        }
+        return findKexecHardboot(b);
     }
 
     public boolean findKexecHardboot(String busybox) {

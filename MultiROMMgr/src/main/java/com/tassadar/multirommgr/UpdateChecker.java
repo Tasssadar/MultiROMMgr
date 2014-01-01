@@ -34,7 +34,7 @@ public class UpdateChecker {
     private static final int UPDATE_NOTIFICATION_ID = 1;
 
     public static void setVersions(Device d, MultiROM m, Recovery r) {
-        SharedPreferences.Editor p = MultiROMMgrApplication.getPreferences().edit();
+        SharedPreferences.Editor p = MgrApp.getPreferences().edit();
         if(m != null && r != null) {
             p.putBoolean("has_versions", true);
             p.putString("update_device", d.getName());
@@ -49,7 +49,7 @@ public class UpdateChecker {
     }
 
     public static void lazyUpdateVersions(Device d, String m_ver, String r_ver) {
-        SharedPreferences p = MultiROMMgrApplication.getPreferences();
+        SharedPreferences p = MgrApp.getPreferences();
         if(!p.getBoolean("has_versions", false))
             return;
 
@@ -66,7 +66,7 @@ public class UpdateChecker {
     }
 
     public static boolean isEnabled() {
-        final SharedPreferences p = MultiROMMgrApplication.getPreferences();
+        final SharedPreferences p = MgrApp.getPreferences();
         return p.getBoolean(SettingsActivity.GENERAL_UPDATE_CHECK, false);
     }
 
@@ -76,7 +76,7 @@ public class UpdateChecker {
     }
 
     public static void updateAlarmStatus() {
-        Context ctx = MultiROMMgrApplication.getAppContext();
+        Context ctx = MgrApp.getAppContext();
         SharedPreferences p = PreferenceManager.getDefaultSharedPreferences(ctx);
         PendingIntent i = getIntent(ctx, PendingIntent.FLAG_NO_CREATE);
 
@@ -125,7 +125,7 @@ public class UpdateChecker {
         public void run() {
             Log.d("MultiROMMgr", "Checking for updates...");
 
-            SharedPreferences p = MultiROMMgrApplication.getPreferences();
+            SharedPreferences p = MgrApp.getPreferences();
             String dev = p.getString("update_device", null);
             String mromVer = p.getString("last_multirom_ver", null);
             String recoveryVer = p.getString("last_recovery_ver", null);
@@ -141,7 +141,7 @@ public class UpdateChecker {
 
             man.compareVersions(mromVer, recoveryVer, null);
             if(man.hasMultiromUpdate() || man.hasRecoveryUpdate())
-                spawnUpdateNotification(MultiROMMgrApplication.getAppContext());
+                spawnUpdateNotification(MgrApp.getAppContext());
         }
     }
 

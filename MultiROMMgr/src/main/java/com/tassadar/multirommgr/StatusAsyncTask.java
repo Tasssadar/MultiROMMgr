@@ -99,7 +99,7 @@ public class StatusAsyncTask extends AsyncTask <Void, Void, StatusAsyncTask.Resu
     protected Result doInBackground(Void ...arg) {
         Result res = new Result();
 
-        SharedPreferences p = MultiROMMgrApplication.getPreferences();
+        SharedPreferences p = MgrApp.getPreferences();
         Device dev = Device.load(p.getString(SettingsActivity.DEV_DEVICE_NAME, Build.BOARD));
         if(dev == null) {
             res.code = RES_UNSUPPORTED;

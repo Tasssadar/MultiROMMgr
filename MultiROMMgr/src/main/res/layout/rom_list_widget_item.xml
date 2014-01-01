@@ -1,0 +1,32 @@
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/rom_list_widget_item"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    android:orientation="horizontal"
+    android:gravity="center_vertical" >
+
+    <ImageView android:id="@+id/rom_icon"
+        android:layout_width="43dp"
+        android:layout_height="38dp"
+        android:src="@drawable/ic_launcher"
+        android:background="@drawable/transparent"
+        android:paddingLeft="3dp"
+        android:paddingRight="8dp"
+        android:paddingTop="3dp"
+        android:paddingBottom="3dp"
+        android:scaleType="fitCenter" />
+
+    <TextView
+        android:id="@+id/rom_name"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:textStyle="bold"
+        android:textSize="20sp"
+        android:fontFamily="sans-serif-condensed"
+        android:singleLine="true"
+        android:ellipsize="middle"
+        android:textColor="#000"/>
+
+</LinearLayout>

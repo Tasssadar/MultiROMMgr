@@ -115,6 +115,7 @@
     <string name="icon_source">Select icon source</string>
     <string name="select_icon">Select icon</string>
     <string name="browse">Browse&#8230;</string>
+    <string name="rom_list_widget">Choose ROM to boot.</string>
 
     <string-array name="reboot_options">
         <item>System</item>

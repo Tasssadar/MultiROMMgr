@@ -31,7 +31,7 @@ import java.util.HashMap;
 
 public class Device {
     public static Device load(String name) {
-        Context ctx = MultiROMMgrApplication.getAppContext();
+        Context ctx = MgrApp.getAppContext();
         StringBuilder b = new StringBuilder();
 
         name = name.toLowerCase();

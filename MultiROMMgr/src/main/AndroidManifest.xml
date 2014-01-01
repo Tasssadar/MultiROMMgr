@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.tassadar.multirommgr"
-    android:versionCode="63"
-    android:versionName="1.63" >
+    android:versionCode="64"
+    android:versionName="1.64" >
 
     <uses-sdk
         android:minSdkVersion="16"
@@ -15,14 +15,15 @@
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
 
     <application
-        android:name="com.tassadar.multirommgr.MultiROMMgrApplication"
+        android:name=".MgrApp"
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme">
         <activity
             android:name="com.tassadar.multirommgr.MainActivity"
-            android:label="@string/app_name">
+            android:label="@string/app_name"
+            android:launchMode="singleTop">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -57,6 +58,27 @@
                 <action android:name="com.tassadar.multirommgr.CHECK_UPDATES" />
             </intent-filter>
         </receiver>
+
+        <receiver android:name=".romlistwidget.RomListWidgetProvider" >
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+            <meta-data android:name="android.appwidget.provider"
+                android:resource="@xml/rom_list_widget_info" />
+        </receiver>
+        <service android:name=".romlistwidget.RomListWidgetService"
+            android:permission="android.permission.BIND_REMOTEVIEWS"
+            android:exported="false"/>
+        <provider android:name=".romlistwidget.RomListDataProvider"
+            android:authorities="com.tassadar.multirommgr.provider"
+            android:exported="true"/>
+
+        <activity
+            android:name="com.tassadar.multirommgr.romlistfragment.RomBootActivity"
+            android:exported="true"
+            android:label="@string/boot_rom_title"
+            android:theme="@android:style/Theme.Holo.Light.Dialog"/>
+
     </application>
 
 </manifest>

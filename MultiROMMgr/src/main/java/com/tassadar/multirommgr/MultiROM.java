@@ -17,18 +17,22 @@
 
 package com.tassadar.multirommgr;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.util.Log;
 
+import com.tassadar.multirommgr.romlistwidget.RomListDataProvider;
+import com.tassadar.multirommgr.romlistwidget.RomListOpenHelper;
+import com.tassadar.multirommgr.romlistwidget.RomListWidgetProvider;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -102,6 +106,7 @@ public class MultiROM {
         Rom rom;
         int type;
         String name;
+
         for(int i = 0; i < out.size(); ++i) {
             name = out.get(i);
             if(!name.endsWith("/"))
@@ -122,6 +127,7 @@ public class MultiROM {
         Collections.sort(m_roms, new Rom.NameComparator());
 
         loadRomIconData(b);
+        storeRomDataToProvider();
     }
 
     private void loadRomIconData(String b) {
@@ -139,7 +145,7 @@ public class MultiROM {
         if (out == null || out.isEmpty())
             return;
 
-        Resources res = MultiROMMgrApplication.getAppContext().getResources();
+        Resources res = MgrApp.getAppContext().getResources();
         Rom rom;
         String line;
         int type;
@@ -178,9 +184,32 @@ public class MultiROM {
         deleteUnusedIcons(presentHashes);
     }
 
+    private void storeRomDataToProvider() {
+        Rom rom;
+        Context ctx = MgrApp.getAppContext();
+        Resources res = ctx.getResources();
+        ContentValues[] vals = new ContentValues[m_roms.size()];
+
+        for(int i = 0; i < m_roms.size(); ++i) {
+            rom = m_roms.get(i);
+            vals[i] = new ContentValues();
+            vals[i].put(RomListOpenHelper.KEY_NAME, rom.name);
+            vals[i].put(RomListOpenHelper.KEY_TYPE, rom.type);
+            if(rom.icon_hash != null)
+                vals[i].put(RomListOpenHelper.KEY_ICON_NAME, rom.icon_hash);
+            else
+                vals[i].put(RomListOpenHelper.KEY_ICON_NAME, res.getResourceName(rom.icon_id));
+        }
+
+        ctx.getContentResolver().delete(RomListDataProvider.CONTENT_URI, null, null);
+        ctx.getContentResolver().bulkInsert(RomListDataProvider.CONTENT_URI, vals);
+
+        RomListWidgetProvider.notifyChanged();
+    }
+
     public void deleteUnusedIcons(Set<String> usedIconHashes) {
         String hash;
-        File iconDir = MultiROMMgrApplication.getAppContext().getDir("icons", 0);
+        File iconDir = MgrApp.getAppContext().getDir("icons", 0);
         File[] files = iconDir.listFiles();
         for(File f : files) {
             hash = f.getName();
@@ -344,7 +373,7 @@ public class MultiROM {
 
         FileOutputStream out = null;
         try {
-            File dest = new File(MultiROMMgrApplication.getAppContext().getDir("icons", 0), hash + ".png");
+            File dest = new File(MgrApp.getAppContext().getDir("icons", 0), hash + ".png");
             out = new FileOutputStream(dest);
 
             Bitmap b = Utils.resizeBitmap(BitmapFactory.decodeFile(path), 64, 64);
@@ -373,7 +402,7 @@ public class MultiROM {
             data = hash;
             ic_type = "user_defined";
         } else {
-            Resources res = MultiROMMgrApplication.getAppContext().getResources();
+            Resources res = MgrApp.getAppContext().getResources();
             data = res.getResourceName(icon_id);
             ic_type = "predef_set";
         }
@@ -387,6 +416,20 @@ public class MultiROM {
         rom.icon_id = icon_id;
         rom.icon_hash = hash;
         rom.resetIconDrawable();
+
+        ContentValues val = new ContentValues();
+        if(rom.icon_id == R.id.user_defined_icon)
+            val.put(RomListOpenHelper.KEY_ICON_NAME, rom.icon_hash);
+        else {
+            String resName = MgrApp.getAppContext().getResources().getResourceName(rom.icon_id);
+            val.put(RomListOpenHelper.KEY_ICON_NAME, resName);
+        }
+
+        MgrApp.getCntnResolver().update(RomListDataProvider.CONTENT_URI, val,
+                RomListOpenHelper.KEY_NAME + "=\"" + rom.name + "\" AND " +
+                        RomListOpenHelper.KEY_TYPE + "=" + rom.type,
+                null);
+        RomListWidgetProvider.notifyChanged();
     }
 
     public String getVersion() {

@@ -86,10 +86,10 @@ public class Rom implements Parcelable {
 
     private Drawable loadIcon() {
         Drawable res = null;
-        Resources r = MultiROMMgrApplication.getAppContext().getResources();
+        Resources r = MgrApp.getAppContext().getResources();
 
         if(this.icon_id == R.id.user_defined_icon) {
-            File path = new File(MultiROMMgrApplication.getAppContext().getDir("icons", 0),
+            File path = new File(MgrApp.getAppContext().getDir("icons", 0),
                     this.icon_hash + ".png");
             res = Drawable.createFromPath(path.getAbsolutePath());
         } else {

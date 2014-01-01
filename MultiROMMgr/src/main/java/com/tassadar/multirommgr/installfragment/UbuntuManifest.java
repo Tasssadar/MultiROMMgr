@@ -21,7 +21,7 @@ import android.content.SharedPreferences;
 import android.util.Log;
 
 import com.tassadar.multirommgr.Device;
-import com.tassadar.multirommgr.MultiROMMgrApplication;
+import com.tassadar.multirommgr.MgrApp;
 import com.tassadar.multirommgr.SettingsActivity;
 import com.tassadar.multirommgr.Utils;
 
@@ -63,7 +63,7 @@ public class UbuntuManifest {
             }
 
             JSONObject o = (JSONObject)rawObject;
-            SharedPreferences pref = MultiROMMgrApplication.getPreferences();
+            SharedPreferences pref = MgrApp.getPreferences();
 
             Iterator itr = o.keys();
             while(itr.hasNext()) {

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:drawable="@drawable/dark_blue" android:state_checked="true"/>
+    <item android:drawable="@drawable/dark_blue" android:state_selected="true"/>
+    <item android:drawable="@drawable/light_blue" android:state_pressed="true"/>
+    <item android:drawable="@color/rom_list_widget_header" android:state_enabled="true" />
+    <item android:drawable="@drawable/light_gray" android:state_enabled="false" />
+</selector>

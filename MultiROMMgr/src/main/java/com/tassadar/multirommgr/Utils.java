@@ -50,7 +50,7 @@ public class Utils {
         if(m_downloadDir != null)
             return m_downloadDir;
 
-        SharedPreferences p = MultiROMMgrApplication.getPreferences();
+        SharedPreferences p = MgrApp.getPreferences();
         m_downloadDir = p.getString(SettingsActivity.GENERAL_DOWNLOAD_DIR, getDefaultDownloadDir());
         return m_downloadDir;
     }
@@ -62,13 +62,13 @@ public class Utils {
     public static void setDownloadDir(String path) {
         m_downloadDir = path;
 
-        SharedPreferences.Editor p = MultiROMMgrApplication.getPreferences().edit();
+        SharedPreferences.Editor p = MgrApp.getPreferences().edit();
         p.putString(SettingsActivity.GENERAL_DOWNLOAD_DIR, path);
         p.commit();
     }
 
     public static String extractAsset(String name) {
-        Context ctx = MultiROMMgrApplication.getAppContext();
+        Context ctx = MgrApp.getAppContext();
 
         String path = "/data/data/" + ctx.getPackageName() + "/" + name;
         File f = new File(path);
@@ -76,7 +76,7 @@ public class Utils {
             if(!name.equals("busybox"))
                 return path;
 
-            SharedPreferences pref = MultiROMMgrApplication.getPreferences();
+            SharedPreferences pref = MgrApp.getPreferences();
             if(pref.getInt("busybox_ver", 0) == BUSYBOX_VER)
                 return path;
         }
@@ -95,7 +95,7 @@ public class Utils {
             f.setExecutable(true);
 
             if(name.equals("busybox")) {
-                SharedPreferences pref = MultiROMMgrApplication.getPreferences();
+                SharedPreferences pref = MgrApp.getPreferences();
                 pref.edit().putInt("busybox_ver", BUSYBOX_VER).commit();
             }
             return path;
@@ -106,7 +106,7 @@ public class Utils {
     }
 
     public static File getCacheOpenRecoveryScript() {
-        return new File(MultiROMMgrApplication.getAppContext().getCacheDir(), "openrecoveryscript");
+        return new File(MgrApp.getAppContext().getCacheDir(), "openrecoveryscript");
     }
 
     public static void deployOpenRecoveryScript(String cacheDev) {
@@ -330,15 +330,15 @@ public class Utils {
     }
 
     public static String getString(int id) {
-        return MultiROMMgrApplication.getAppContext().getResources().getString(id);
+        return MgrApp.getAppContext().getResources().getString(id);
     }
 
     public static String getString(int id, Object... args) {
-        return MultiROMMgrApplication.getAppContext().getResources().getString(id, args);
+        return MgrApp.getAppContext().getResources().getString(id, args);
     }
 
     public static boolean isIntentAvailable(String action) {
-        final PackageManager packageManager = MultiROMMgrApplication.getAppContext().getPackageManager();
+        final PackageManager packageManager = MgrApp.getAppContext().getPackageManager();
         final Intent intent = new Intent(action);
         List<ResolveInfo> list =
                 packageManager.queryIntentActivities(intent, PackageManager.MATCH_DEFAULT_ONLY);

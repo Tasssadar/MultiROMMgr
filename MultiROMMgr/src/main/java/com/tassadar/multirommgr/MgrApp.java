@@ -17,6 +17,7 @@
 
 package com.tassadar.multirommgr;
 
+import android.content.ContentResolver;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
@@ -24,7 +25,7 @@ import android.preference.PreferenceManager;
 
 import eu.chainfire.libsuperuser.Application;
 
-public class MultiROMMgrApplication extends Application {
+public class MgrApp extends Application {
     private static Context m_context;
 
     public void onCreate(){
@@ -34,6 +35,10 @@ public class MultiROMMgrApplication extends Application {
 
     public static SharedPreferences getPreferences() {
         return PreferenceManager.getDefaultSharedPreferences(m_context);
+    }
+
+    public static ContentResolver getCntnResolver() {
+        return m_context.getContentResolver();
     }
 
     public static Context getAppContext() {

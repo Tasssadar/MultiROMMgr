@@ -21,7 +21,7 @@ import android.util.Log;
 
 import com.tassadar.multirommgr.Device;
 import com.tassadar.multirommgr.Manifest;
-import com.tassadar.multirommgr.MultiROMMgrApplication;
+import com.tassadar.multirommgr.MgrApp;
 import com.tassadar.multirommgr.R;
 import com.tassadar.multirommgr.Recovery;
 import com.tassadar.multirommgr.UpdateChecker;
@@ -175,7 +175,7 @@ public class MultiROMInstallTask extends InstallAsyncTask {
             return false;
         }
 
-        File tmprecovery = new File(MultiROMMgrApplication.getAppContext().getCacheDir(), f.destFile.getName());
+        File tmprecovery = new File(MgrApp.getAppContext().getCacheDir(), f.destFile.getName());
         Utils.copyFile(f.destFile, tmprecovery);
 
         String cmd = String.format("$(\"%s\" dd if=\"%s\" of=\"%s\" bs=8192 conv=fsync);" +
@@ -197,7 +197,7 @@ public class MultiROMInstallTask extends InstallAsyncTask {
     private boolean addScriptInstall(Manifest.InstallationFile f, File scriptFile, String cache) {
         String bb = Utils.extractAsset("busybox");
 
-        File tmpfile = new File(MultiROMMgrApplication.getAppContext().getCacheDir(), f.destFile.getName());
+        File tmpfile = new File(MgrApp.getAppContext().getCacheDir(), f.destFile.getName());
         Utils.copyFile(f.destFile, tmpfile);
 
         List<String> res = Shell.SU.run("%s cp \"%s\" \"%s/recovery/\" && echo success",

@@ -22,8 +22,13 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.TextView;
 
+import com.tassadar.multirommgr.Kernel;
 import com.tassadar.multirommgr.MultiROM;
 import com.tassadar.multirommgr.R;
 import com.tassadar.multirommgr.Rom;
@@ -31,6 +36,24 @@ import com.tassadar.multirommgr.StatusAsyncTask;
 import com.tassadar.multirommgr.Utils;
 
 public class RomBootDialog extends DialogFragment implements View.OnClickListener {
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        Rom rom = getArguments().getParcelable("rom");
+
+        View v = inflater.inflate(R.layout.fragment_rom_boot, container, false);
+
+        TextView t = (TextView)v.findViewById(R.id.dialog_text);
+        t.setText(Utils.getString(R.string.boot_rom, rom.name));
+
+        Button b = (Button)v.findViewById(R.id.cancel_btn);
+        b.setOnClickListener(this);
+        b = (Button)v.findViewById(R.id.boot_btn);
+        b.setOnClickListener(this);
+        return v;
+    }
+
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         Activity a = getActivity();
@@ -51,21 +74,49 @@ public class RomBootDialog extends DialogFragment implements View.OnClickListene
         super.onStart();
 
         AlertDialog d = (AlertDialog)getDialog();
-        d.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(this);
+        if(d != null)
+            d.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(this);
     }
 
     @Override
     public void onClick(View view) {
-        AlertDialog d = (AlertDialog)getDialog();
-        Rom rom = getArguments().getParcelable("rom");
+        switch (view.getId()){
+            case R.id.cancel_btn:
+                getActivity().finish();
+                break;
+            case R.id.boot_btn:
+            {
+                View v = getView();
+                Rom rom = getArguments().getParcelable("rom");
 
-        setCancelable(false);
-        d.setMessage(getString(R.string.booting));
+                setCancelable(false);
 
-        d.getButton(AlertDialog.BUTTON_NEGATIVE).setVisibility(View.GONE);
-        d.getButton(AlertDialog.BUTTON_POSITIVE).setVisibility(View.GONE);
+                TextView t = (TextView)v.findViewById(R.id.dialog_text);
+                t.setText(R.string.booting);
 
-        new Thread(new RomBootRunnable(rom)).start();
+                Button b = (Button)v.findViewById(R.id.cancel_btn);
+                b.setEnabled(false);
+                b = (Button)v.findViewById(R.id.boot_btn);
+                b.setEnabled(false);
+
+                new Thread(new RomBootRunnable(rom)).start();
+                break;
+            }
+            default:
+            {
+                AlertDialog d = (AlertDialog)getDialog();
+                Rom rom = getArguments().getParcelable("rom");
+
+                setCancelable(false);
+                d.setMessage(getString(R.string.booting));
+
+                d.getButton(AlertDialog.BUTTON_NEGATIVE).setVisibility(View.GONE);
+                d.getButton(AlertDialog.BUTTON_POSITIVE).setVisibility(View.GONE);
+
+                new Thread(new RomBootRunnable(rom)).start();
+                break;
+            }
+        }
     }
 
     private class RomBootRunnable implements Runnable {
@@ -76,44 +127,57 @@ public class RomBootDialog extends DialogFragment implements View.OnClickListene
 
         @Override
         public void run() {
-            MultiROM m = StatusAsyncTask.instance().getMultiROM();
-            boolean has_kexec = StatusAsyncTask.instance().hasKexecKernel();
             Activity a = getActivity();
             if(a == null)
                 return;
 
+            MultiROM m = StatusAsyncTask.instance().getMultiROM();
+            boolean has_kexec = StatusAsyncTask.instance().hasKexecKernel();
+            if(m == null) {
+                m = new MultiROM();
+                if(!m.findMultiROMDir()) {
+                    a.runOnUiThread(new SetErrorTextRunnable(R.string.rom_boot_failed));
+                    return;
+                }
+
+                Kernel k = new Kernel();
+                has_kexec = k.findKexecHardboot();
+            }
+
             if(!has_kexec && m.isKexecNeededFor(m_rom)) {
-                a.runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        AlertDialog d = (AlertDialog)getDialog();
-                        if(d == null)
-                            return;
-
-                        d.getButton(AlertDialog.BUTTON_NEGATIVE).setVisibility(View.VISIBLE);
-                        d.setMessage(getString(R.string.rom_boot_kexec));
-                        setCancelable(true);
-                    }
-                });
-
+                a.runOnUiThread(new SetErrorTextRunnable(R.string.rom_boot_kexec));
                 return;
             }
 
             // this won't return unless it fails
             m.bootRom(m_rom);
 
-            a.runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    AlertDialog d = (AlertDialog)getDialog();
-                    if(d == null)
-                        return;
+            a.runOnUiThread(new SetErrorTextRunnable(R.string.rom_boot_failed));
+        }
+    }
 
-                    d.getButton(AlertDialog.BUTTON_NEGATIVE).setVisibility(View.VISIBLE);
-                    d.setMessage(getString(R.string.rom_boot_failed));
-                    setCancelable(true);
-                }
-            });
+    private class SetErrorTextRunnable implements Runnable {
+        private int m_text_id;
+        public SetErrorTextRunnable(int textId) {
+            m_text_id = textId;
+        }
+
+        @Override
+        public void run() {
+            setCancelable(true);
+
+            AlertDialog d = (AlertDialog)getDialog();
+            View v = getView();
+            if(d != null) {
+                d.getButton(AlertDialog.BUTTON_NEGATIVE).setVisibility(View.VISIBLE);
+                d.setMessage(getString(m_text_id));
+            } else if(v != null) {
+                TextView t = (TextView)v.findViewById(R.id.dialog_text);
+                t.setText(m_text_id);
+
+                Button b = (Button)v.findViewById(R.id.cancel_btn);
+                b.setEnabled(true);
+            }
         }
     }
 }
