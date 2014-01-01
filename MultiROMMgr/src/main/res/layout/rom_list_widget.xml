@@ -24,14 +24,14 @@
                 android:layout_height="wrap_content"
                 android:text="@string/app_name"
                 android:textStyle="bold"
-                android:textColor="#000"
+                android:textColor="#fff"
                 android:ellipsize="end"
                 android:singleLine="true"/>
             <TextView android:id="@+id/rom_boot_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/rom_list_widget"
-                android:textColor="#000"
+                android:textColor="#fff"
                 android:ellipsize="end"
                 android:singleLine="true"/>
         </LinearLayout>
@@ -39,15 +39,16 @@
         <ImageButton android:id="@+id/refresh_btn"
             android:layout_width="wrap_content"
             android:layout_height="fill_parent"
-            android:src="@drawable/navigation_refresh_light"
+            android:src="@drawable/navigation_refresh"
             android:background="@drawable/transparent_btn"
             android:padding="5dp" />
 
     </LinearLayout>
 
-    <FrameLayout android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="#ccc"/>
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="#ff9f9f9f"/>
 
     <ListView
         android:id="@+id/rom_list"

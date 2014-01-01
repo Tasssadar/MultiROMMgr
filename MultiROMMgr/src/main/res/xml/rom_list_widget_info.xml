@@ -5,5 +5,6 @@
     android:minResizeHeight="110dp"
     android:initialLayout="@layout/rom_list_widget"
     android:resizeMode="horizontal|vertical"
-    android:widgetCategory="home_screen">
+    android:widgetCategory="home_screen"
+    android:previewImage="@drawable/rom_list_widget_preview">
 </appwidget-provider>

@@ -9,7 +9,7 @@
     <color name="card_grid_text">#ff707070</color>
     <color name="card_separator">#ffe5e5e5</color>
     <color name="card_border">#ffdedede</color>
-    <color name="rom_list_widget_header">#eeeeee</color>
+    <color name="rom_list_widget_header">#0099CC</color>
 
      <drawable name="light_blue">#33B5E5</drawable>
      <drawable name="dark_blue">#0099CC</drawable>
