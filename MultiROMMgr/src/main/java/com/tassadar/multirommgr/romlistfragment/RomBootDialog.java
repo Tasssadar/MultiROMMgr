@@ -56,34 +56,23 @@ public class RomBootDialog extends DialogFragment implements View.OnClickListene
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        Activity a = getActivity();
-        Rom rom = getArguments().getParcelable("rom");
-
-        AlertDialog.Builder b = new AlertDialog.Builder(a);
-
-        return b.setMessage(Utils.getString(R.string.boot_rom, rom.name))
-                .setNegativeButton(R.string.cancel, null)
-                .setCancelable(true)
-                .setPositiveButton(R.string.boot, null)
-                .setTitle(R.string.boot_rom_title)
-                .create();
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-
-        AlertDialog d = (AlertDialog)getDialog();
-        if(d != null)
-            d.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(this);
+        Dialog d = super.onCreateDialog(savedInstanceState);
+        d.setTitle(R.string.boot_rom_title);
+        return d;
     }
 
     @Override
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.cancel_btn:
-                getActivity().finish();
+            {
+                Activity a = getActivity();
+                if(a instanceof RomBootActivity)
+                    a.finish();
+                else
+                    dismiss();
                 break;
+            }
             case R.id.boot_btn:
             {
                 View v = getView();
@@ -98,20 +87,6 @@ public class RomBootDialog extends DialogFragment implements View.OnClickListene
                 b.setEnabled(false);
                 b = (Button)v.findViewById(R.id.boot_btn);
                 b.setEnabled(false);
-
-                new Thread(new RomBootRunnable(rom)).start();
-                break;
-            }
-            default:
-            {
-                AlertDialog d = (AlertDialog)getDialog();
-                Rom rom = getArguments().getParcelable("rom");
-
-                setCancelable(false);
-                d.setMessage(getString(R.string.booting));
-
-                d.getButton(AlertDialog.BUTTON_NEGATIVE).setVisibility(View.GONE);
-                d.getButton(AlertDialog.BUTTON_POSITIVE).setVisibility(View.GONE);
 
                 new Thread(new RomBootRunnable(rom)).start();
                 break;
@@ -166,12 +141,8 @@ public class RomBootDialog extends DialogFragment implements View.OnClickListene
         public void run() {
             setCancelable(true);
 
-            AlertDialog d = (AlertDialog)getDialog();
             View v = getView();
-            if(d != null) {
-                d.getButton(AlertDialog.BUTTON_NEGATIVE).setVisibility(View.VISIBLE);
-                d.setMessage(getString(m_text_id));
-            } else if(v != null) {
+            if(v != null) {
                 TextView t = (TextView)v.findViewById(R.id.dialog_text);
                 t.setText(m_text_id);
 
