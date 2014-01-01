@@ -79,13 +79,9 @@ public class RomListFragment extends MainFragment implements AdapterView.OnItemC
     }
 
     @Override
-    public void setRefreshComplete() {
-        super.setRefreshComplete();
-        setRefreshing(false);
-    }
-
-    @Override
     public void onStatusTaskFinished(StatusAsyncTask.Result res) {
+        setRefreshing(false);
+
         if(res.multirom != null) {
             m_adapter.set(res.multirom.getRoms());
         } else {

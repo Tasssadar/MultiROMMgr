@@ -47,12 +47,30 @@ public class UbuntuCard extends Card implements AdapterView.OnItemSelectedListen
 
     private static final int MIN_FREE_SPACE = 2300;
 
+    private static final int ERROR_NONE         = 0x00;
+    private static final int ERROR_MULTIROM_VER = 0x01;
+    private static final int ERROR_RECOVERY_VER = 0x02;
+
+
     public UbuntuCard(Bundle savedState, StartInstallListener listener, Manifest man, MultiROM multirom, Recovery recovery) {
         m_savedState = savedState;
         m_listener = listener;
         m_manifest = man;
         m_multirom = multirom;
         m_recovery = recovery;
+
+        m_error = ERROR_NONE;
+
+        if(!m_manifest.hasUbuntuReqMultiROM(m_multirom))
+            m_error |= ERROR_MULTIROM_VER;
+
+        if(!m_manifest.hasUbuntuReqRecovery(m_recovery))
+            m_error |= ERROR_RECOVERY_VER;
+
+        if(m_error == ERROR_NONE) {
+            UbuntuManifestAsyncTask.instance()
+                    .executeTask(StatusAsyncTask.instance().getDevice(), multirom);
+        }
     }
 
     @Override
@@ -91,25 +109,20 @@ public class UbuntuCard extends Card implements AdapterView.OnItemSelectedListen
         ImageButton ib = (ImageButton)m_view.findViewById(R.id.info_btn);
         ib.setOnClickListener(this);
 
-        boolean error = false;
         TextView t = (TextView)m_view.findViewById(R.id.error_text);
-        if(!m_manifest.hasUbuntuReqMultiROM(m_multirom)) {
-            error = true;
-
+        if((m_error & ERROR_MULTIROM_VER) != 0) {
             String f = t.getResources().getString(R.string.ubuntu_req_multirom);
             t.append(String.format(f, m_manifest.getUbuntuReqMultiROM()) + "\n");
         }
-        if(!m_manifest.hasUbuntuReqRecovery(m_recovery)) {
-            error = true;
 
+        if((m_error & ERROR_RECOVERY_VER) != 0) {
             String f = t.getResources().getString(R.string.ubuntu_req_recovery);
             String ver = Recovery.DISPLAY_FMT.format(m_manifest.getUbuntuReqRecovery());
             t.append(String.format(f, ver) + "\n");
         }
 
-        if(!error) {
+        if(m_error == ERROR_NONE) {
             UbuntuManifestAsyncTask.instance().setCard(this);
-            UbuntuManifestAsyncTask.instance().executeTask(StatusAsyncTask.instance().getDevice(), m_multirom);
         } else {
             t.setVisibility(View.VISIBLE);
             m_view.findViewById(R.id.progress_bar).setVisibility(View.GONE);
@@ -292,4 +305,5 @@ public class UbuntuCard extends Card implements AdapterView.OnItemSelectedListen
     private MultiROM m_multirom;
     private Recovery m_recovery;
     private Bundle m_savedState;
+    private int m_error;
 }
