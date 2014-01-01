@@ -28,6 +28,7 @@ import android.widget.RemoteViews;
 import android.widget.RemoteViewsService;
 
 import com.tassadar.multirommgr.R;
+import com.tassadar.multirommgr.Rom;
 
 import java.io.File;
 
@@ -87,7 +88,7 @@ class RomListViewsFactory implements RemoteViewsService.RemoteViewsFactory {
         if(iconName.startsWith(m_context.getApplicationContext().getPackageName())) {
             icon_id = m_context.getResources().getIdentifier(iconName, null, null);
         } else {
-            File path = new File(m_context.getDir("icons", 0), iconName + ".png");
+            File path = new File(Rom.getIconsDir(), iconName + ".png");
             icon_bitmap = BitmapFactory.decodeFile(path.getAbsolutePath());
         }
 

@@ -209,10 +209,13 @@ public class MultiROM {
 
     public void deleteUnusedIcons(Set<String> usedIconHashes) {
         String hash;
-        File iconDir = MgrApp.getAppContext().getDir("icons", 0);
-        File[] files = iconDir.listFiles();
+        File[] files = Rom.getIconsDir().listFiles();
         for(File f : files) {
             hash = f.getName();
+
+            if(!hash.endsWith(".png"))
+                continue;
+
             hash = hash.substring(0, hash.length()-4); // remove .png
             if(!usedIconHashes.contains(hash))
                 f.delete();
@@ -373,7 +376,7 @@ public class MultiROM {
 
         FileOutputStream out = null;
         try {
-            File dest = new File(MgrApp.getAppContext().getDir("icons", 0), hash + ".png");
+            File dest = new File(Rom.getIconsDir(), hash + ".png");
             out = new FileOutputStream(dest);
 
             Bitmap b = Utils.resizeBitmap(BitmapFactory.decodeFile(path), 64, 64);
@@ -427,7 +430,7 @@ public class MultiROM {
 
         MgrApp.getCntnResolver().update(RomListDataProvider.CONTENT_URI, val,
                 RomListOpenHelper.KEY_NAME + "=\"" + rom.name + "\" AND " +
-                        RomListOpenHelper.KEY_TYPE + "=" + rom.type,
+                RomListOpenHelper.KEY_TYPE + "=" + rom.type,
                 null);
         RomListWidgetProvider.notifyChanged();
     }

@@ -53,6 +53,10 @@ public class Rom implements Parcelable {
         }
     };
 
+    public static File getIconsDir() {
+        return MgrApp.getAppContext().getExternalFilesDir(null);
+    }
+
     public Rom(String name, int type) {
         this.name = name;
         this.type = type;
@@ -89,8 +93,7 @@ public class Rom implements Parcelable {
         Resources r = MgrApp.getAppContext().getResources();
 
         if(this.icon_id == R.id.user_defined_icon) {
-            File path = new File(MgrApp.getAppContext().getDir("icons", 0),
-                    this.icon_hash + ".png");
+            File path = new File(getIconsDir(), this.icon_hash + ".png");
             res = Drawable.createFromPath(path.getAbsolutePath());
         } else {
             try {
