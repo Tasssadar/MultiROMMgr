@@ -35,6 +35,8 @@ import com.tassadar.multirommgr.MultiROM;
 import com.tassadar.multirommgr.R;
 import com.tassadar.multirommgr.romlistfragment.RomBootActivity;
 
+import java.lang.ref.WeakReference;
+
 public class RomListWidgetProvider extends AppWidgetProvider {
     private static final String ACTION_REFRESH = "com.tassadar.multirommgr.romlistwidget.REFRESH";
     private static final String ACTION_ROM_CLICK = "com.tassadar.multirommgr.romlistwidget.ROM_CLICK";
@@ -45,14 +47,6 @@ public class RomListWidgetProvider extends AppWidgetProvider {
         int[] ids = man.getAppWidgetIds(new ComponentName(ctx, RomListWidgetProvider.class));
         if(ids != null && ids.length != 0)
             man.notifyAppWidgetViewDataChanged(ids, R.id.rom_list);
-    }
-
-    public RomListWidgetProvider() {
-        super();
-
-        workerThread = new HandlerThread("RomListWidgetProvider-worker");
-        workerThread.start();
-        worker = new Handler(workerThread.getLooper());
     }
 
     @Override
@@ -104,17 +98,7 @@ public class RomListWidgetProvider extends AppWidgetProvider {
     public void onReceive(Context ctx, Intent intent) {
         final String action = intent.getAction();
         if (action.equals(ACTION_REFRESH)) {
-            worker.removeMessages(0);
-            worker.post(new Runnable() {
-                @Override
-                public void run() {
-                    MultiROM m = new MultiROM();
-                    if(!m.findMultiROMDir())
-                        return;
-
-                    m.findRoms();
-                }
-            });
+            RefreshThread.startIfNotRunning();
         } else if(action.equals(ACTION_ROM_CLICK)) {
             Intent i = new Intent(MgrApp.getAppContext(), RomBootActivity.class);
             i.putExtras(intent.getExtras());
@@ -126,6 +110,26 @@ public class RomListWidgetProvider extends AppWidgetProvider {
         super.onReceive(ctx, intent);
     }
 
-    private static HandlerThread workerThread;
-    private static Handler worker;
+    private static class RefreshThread extends Thread {
+        private static WeakReference<RefreshThread> s_instance = new WeakReference<RefreshThread>(null);
+
+        static public synchronized void startIfNotRunning() {
+            RefreshThread t = s_instance.get();
+            if(t != null && t.isAlive())
+                return;
+
+            t = new RefreshThread();
+            t.start();
+            s_instance = new WeakReference<RefreshThread>(t);
+        }
+
+        @Override
+        public void run() {
+            MultiROM m = new MultiROM();
+            if(!m.findMultiROMDir())
+                return;
+
+            m.findRoms();
+        }
+    }
 }
