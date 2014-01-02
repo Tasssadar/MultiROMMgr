@@ -178,4 +178,5 @@
     <dimen name="terminal_text">8sp</dimen>
     <dimen name="terminal_activity_padding">8dp</dimen>
     <dimen name="terminal_padding">4dp</dimen>
+    <dimen name="drawer_width">180dp</dimen>
 </resources>

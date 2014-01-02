@@ -5,4 +5,5 @@
     <dimen name="terminal_text">11sp</dimen>
     <dimen name="terminal_activity_padding">16dp</dimen>
     <dimen name="terminal_padding">8dp</dimen>
+    <dimen name="drawer_width">240dp</dimen>
 </resources>
