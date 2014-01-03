@@ -70,6 +70,8 @@ public class RomListFragment extends MainFragment implements AdapterView.OnItemC
         p.setVisibility(refreshing ? View.VISIBLE : View.GONE);
 
         m_romList.setVisibility(refreshing ? View.GONE : View.VISIBLE);
+        m_romList.getEmptyView()
+                .setVisibility((!refreshing && !m_adapter.isEmpty()) ? View.VISIBLE : View.GONE);
     }
 
     @Override
