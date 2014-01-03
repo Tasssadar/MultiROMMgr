@@ -38,27 +38,32 @@ import com.tassadar.multirommgr.Utils;
 public class RomBootDialog extends DialogFragment implements View.OnClickListener {
 
     @Override
+    public void onCreate(Bundle savedInstance) {
+        super.onCreate(savedInstance);
+        setStyle(DialogFragment.STYLE_NO_TITLE, 0);
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         Rom rom = getArguments().getParcelable("rom");
 
         View v = inflater.inflate(R.layout.fragment_rom_boot, container, false);
 
+        Button cancelBtn = (Button)v.findViewById(R.id.cancel_btn);
+        cancelBtn.setOnClickListener(this);
+        Button bootBtn = (Button)v.findViewById(R.id.boot_btn);
+        bootBtn.setOnClickListener(this);
+
         TextView t = (TextView)v.findViewById(R.id.dialog_text);
-        t.setText(Utils.getString(R.string.boot_rom, rom.name));
-
-        Button b = (Button)v.findViewById(R.id.cancel_btn);
-        b.setOnClickListener(this);
-        b = (Button)v.findViewById(R.id.boot_btn);
-        b.setOnClickListener(this);
+        MultiROM m = StatusAsyncTask.instance().getMultiROM();
+        if(m != null && !m.hasBootRomReqMultiROM()) {
+            t.setText(Utils.getString(R.string.rom_boot_req_ver, MultiROM.MIN_BOOT_ROM_VER));
+            bootBtn.setVisibility(View.GONE);
+        } else {
+            t.setText(Utils.getString(R.string.boot_rom, rom.name));
+        }
         return v;
-    }
-
-    @Override
-    public Dialog onCreateDialog(Bundle savedInstanceState) {
-        Dialog d = super.onCreateDialog(savedInstanceState);
-        d.setTitle(R.string.boot_rom_title);
-        return d;
     }
 
     @Override
@@ -110,8 +115,14 @@ public class RomBootDialog extends DialogFragment implements View.OnClickListene
             boolean has_kexec = StatusAsyncTask.instance().hasKexecKernel();
             if(m == null) {
                 m = new MultiROM();
-                if(!m.findMultiROMDir()) {
+                if(!m.findMultiROMDir() || !m.findVersion()) {
                     a.runOnUiThread(new SetErrorTextRunnable(R.string.rom_boot_failed));
+                    return;
+                }
+
+                if(!m.hasBootRomReqMultiROM()) {
+                    a.runOnUiThread(new SetErrorTextRunnable(R.string.rom_boot_req_ver,
+                            MultiROM.MIN_BOOT_ROM_VER));
                     return;
                 }
 
@@ -132,9 +143,9 @@ public class RomBootDialog extends DialogFragment implements View.OnClickListene
     }
 
     private class SetErrorTextRunnable implements Runnable {
-        private int m_text_id;
-        public SetErrorTextRunnable(int textId) {
-            m_text_id = textId;
+        private String m_text;
+        public SetErrorTextRunnable(int text_fmt, Object... args) {
+            m_text = Utils.getString(text_fmt, args);
         }
 
         @Override
@@ -144,10 +155,12 @@ public class RomBootDialog extends DialogFragment implements View.OnClickListene
             View v = getView();
             if(v != null) {
                 TextView t = (TextView)v.findViewById(R.id.dialog_text);
-                t.setText(m_text_id);
+                t.setText(m_text);
 
                 Button b = (Button)v.findViewById(R.id.cancel_btn);
                 b.setEnabled(true);
+                b = (Button)v.findViewById(R.id.boot_btn);
+                b.setVisibility(View.GONE);
             }
         }
     }

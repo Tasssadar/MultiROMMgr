@@ -91,25 +91,13 @@ public class RomListFragment extends MainFragment implements AdapterView.OnItemC
 
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int pos, long id) {
-        MultiROM m = StatusAsyncTask.instance().getMultiROM();
-        if(m == null)
-            return;
+        Bundle b = new Bundle();
+        Rom rom = m_adapter.getItem(pos);
+        b.putParcelable("rom", rom);
 
-        if(!m.hasBootRomReqMultiROM()) {
-            AlertDialog.Builder b = new AlertDialog.Builder(getActivity());
-            b.setMessage(Utils.getString(R.string.rom_boot_req_ver, MultiROM.MIN_BOOT_ROM_VER))
-             .setNegativeButton(R.string.ok_nohtml, null)
-             .setCancelable(true);
-            b.create().show();
-        } else {
-            Bundle b = new Bundle();
-            Rom rom = m_adapter.getItem(pos);
-            b.putParcelable("rom", rom);
-
-            RomBootDialog d = new RomBootDialog();
-            d.setArguments(b);
-            d.show(getFragmentManager(), "RomBootFragment");
-        }
+        RomBootDialog d = new RomBootDialog();
+        d.setArguments(b);
+        d.show(getFragmentManager(), "RomBootFragment");
     }
 
     @Override
