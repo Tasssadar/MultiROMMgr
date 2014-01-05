@@ -114,7 +114,7 @@
     <string name="boot_rom_title">ROM starten?</string>
     <string name="icon_source">Bildquelle wählen</string>
     <string name="select_icon">Bild wählen</string>
-    <string name="browse">Durchsuche &#8230;</string>
+    <string name="browse">Durchsuchen &#8230;</string>
     <string name="rom_list_widget">Wähle den ROM zum starten.</string>
 
     <string-array name="reboot_options">
@@ -125,7 +125,7 @@
 
     <string-array name="main_fragment_titles">
         <item>Installieren/Aktualisieren</item>
-        <item>manage ROMs</item>
+        <item>ROMs bearbeiten</item>
     </string-array>
 
     <string-array name="icon_sources">
