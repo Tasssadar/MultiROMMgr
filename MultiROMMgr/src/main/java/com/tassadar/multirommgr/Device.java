@@ -57,7 +57,7 @@ public class Device {
                 names = o.getJSONArray("names");
                 for(int x = 0; x < names.length(); ++x)
                     if(names.getString(x).equals(name))
-                        return new Device(o);
+                        return new Device(name, o);
             }
             return null;
         } catch (JSONException e) {
@@ -66,8 +66,8 @@ public class Device {
         }
     }
 
-    private Device(JSONObject info) throws JSONException {
-        m_name = info.getJSONArray("names").getString(0);
+    private Device(String name, JSONObject info) throws JSONException {
+        m_name = name;
         JSONArray a = info.getJSONArray("devices");
 
         Log.d("Device", "Loading device name: " + m_name);
