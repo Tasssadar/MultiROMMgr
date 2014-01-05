@@ -27,10 +27,10 @@ public class UbuntuFile {
         order = file.getInt("order");
         path = file.getString("path");
         signature = file.getString("signature");
-        size = file.getInt("size");
+        size = file.getLong("size");
     }
 
-    public UbuntuFile(String keyringPath,int order) {
+    public UbuntuFile(String keyringPath, int order) {
         this.order = order;
         this.path = keyringPath;
         this.signature = keyringPath + ".asc";
@@ -40,5 +40,5 @@ public class UbuntuFile {
     public int order;
     public String path;
     public String signature;
-    public int size;
+    public long size;
 }

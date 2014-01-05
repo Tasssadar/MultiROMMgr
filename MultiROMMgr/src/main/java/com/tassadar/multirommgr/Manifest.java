@@ -42,6 +42,8 @@ public class Manifest {
         public String version;
         public String url;
         public String md5;
+        public long size;
+
         public File destFile;
     }
 
@@ -116,6 +118,7 @@ public class Manifest {
             file.version = f.getString("version");
             file.url = f.getString("url");
             file.md5 = f.getString("md5");
+            file.size = f.getLong("size");
 
             if(file.type.equals("multirom"))
                 m_multirom = file;

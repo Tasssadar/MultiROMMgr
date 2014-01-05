@@ -174,15 +174,19 @@ public class Utils {
     }
 
     public interface DownloadProgressListener {
-        public void onProgressChanged(int downloaded, int total);
+        public void onProgressChanged(long downloaded, long total);
         public boolean isCanceled();
     }
 
     public static boolean downloadFile(String strUrl, OutputStream output, DownloadProgressListener listener) throws IOException {
-        return downloadFile(strUrl, output, listener, false);
+        return downloadFile(strUrl, output, listener, false, 0);
     }
 
     public static boolean downloadFile(String strUrl, OutputStream output, DownloadProgressListener listener, boolean useCache) throws IOException {
+        return downloadFile(strUrl, output, listener, useCache, 0);
+    }
+
+    public static boolean downloadFile(String strUrl, OutputStream output, DownloadProgressListener listener, boolean useCache, long offset) throws IOException {
         InputStream in = null;
         HttpURLConnection conn = null;
         try {
@@ -190,17 +194,26 @@ public class Utils {
             conn = (HttpURLConnection) url.openConnection();
             conn.setInstanceFollowRedirects(true);
             conn.setUseCaches(useCache);
+
             if(useCache)
                 conn.addRequestProperty("Cache-Control", "max-age=0");
+
+            if(offset > 0) {
+                conn.addRequestProperty("Range", "Bytes=" + offset + "-");
+            } else {
+                offset = 0;
+            }
+
             conn.connect();
 
-            if(conn.getResponseCode() != HttpURLConnection.HTTP_OK) {
-                Log.e("Utils", "downloadFile failed for url \"" + strUrl + "\" with code " + conn.getResponseCode());
+            int res = conn.getResponseCode();
+            if(res != HttpURLConnection.HTTP_OK && res != HttpURLConnection.HTTP_PARTIAL) {
+                Log.e("Utils", "downloadFile failed for url \"" + strUrl + "\" with code " + res);
                 return false;
             }
 
-            int total = conn.getContentLength();
-            int downloaded = 0;
+            long total = conn.getContentLength() + offset;
+            long downloaded = offset;
 
             byte[] buff = new byte[8192];
             in = conn.getInputStream();

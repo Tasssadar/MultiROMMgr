@@ -68,7 +68,7 @@ public class UbuntuInstallTask extends InstallAsyncTask  {
         for(int i = 0; i < files.size(); ++i) {
             UbuntuFile f = files.get(i);
 
-            if(!downloadFile(destDir, UbuntuManifest.BASE_URL + f.path, f.checksum))
+            if(!downloadFile(destDir, UbuntuManifest.BASE_URL + f.path, f))
                 return null;
 
             if(f.signature != null && !downloadFile(destDir, UbuntuManifest.BASE_URL + f.signature, null))
@@ -110,7 +110,7 @@ public class UbuntuInstallTask extends InstallAsyncTask  {
         return null;
     }
 
-    private boolean downloadFile(File destDir, String url, String checksum) {
+    private boolean downloadFile(File destDir, String url, UbuntuFile file) {
         String filename = Utils.getFilenameFromUrl(url);
         if(filename == null || filename.isEmpty()) {
             m_listener.onInstallLog(Utils.getString(R.string.invalid_url, url));
@@ -119,27 +119,33 @@ public class UbuntuInstallTask extends InstallAsyncTask  {
         }
 
         File destFile = new File(destDir, filename);
-        if(destFile.exists() && checksum != null) {
-            m_listener.onInstallLog(Utils.getString(R.string.checking_file, Utils.trim(filename, 40)));
-            String sha256 = Utils.calculateSHA256(destFile);
-            if(checksum.equals(sha256)) {
-                m_listener.onInstallLog(Utils.getString(R.string.ok_skippping));
-                return true;
-            } else {
-                m_listener.onInstallLog(Utils.getString(R.string.failed_redownload));
+        long startOffset = 0;
+        if(destFile.exists() && file != null) {
+            long fileSize = destFile.length();
+            if(fileSize < file.size) {
+                startOffset = fileSize;
+            } else if(file.checksum != null) {
+                m_listener.onInstallLog(Utils.getString(R.string.checking_file, Utils.trim(filename, 40)));
+                String sha256 = Utils.calculateSHA256(destFile);
+                if(file.checksum.equals(sha256)) {
+                    m_listener.onInstallLog(Utils.getString(R.string.ok_skippping));
+                    return true;
+                } else {
+                    m_listener.onInstallLog(Utils.getString(R.string.failed_redownload));
+                }
             }
         }
 
-        if(!downloadFile(url, destFile)) {
+        if(!downloadFile(url, destFile, startOffset)) {
             if(!m_canceled)
                 m_listener.onInstallComplete(false);
             return false;
         }
 
-        if(checksum != null && !checksum.isEmpty()) {
+        if(file != null && file.checksum != null) {
             m_listener.onInstallLog(Utils.getString(R.string.checking_file, m_downFilename));
             String sha256 = Utils.calculateSHA256(destFile);
-            if(checksum.equals(sha256))
+            if(file.checksum.equals(sha256))
                 m_listener.onInstallLog(Utils.getString(R.string.ok));
             else {
                 m_listener.onInstallLog(Utils.getString(R.string.failed));

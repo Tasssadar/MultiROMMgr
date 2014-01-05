@@ -83,16 +83,22 @@ public class MultiROMInstallTask extends InstallAsyncTask {
                 return null;
             }
 
+            long startOffset = 0;
             f.destFile = new File(destDir, filename);
             if(f.destFile.exists()) {
-                String md5 = Utils.calculateMD5(f.destFile);
-                if(f.md5.equals(md5)) {
-                    m_listener.onInstallLog(Utils.getString(R.string.skipping_file, filename));
-                    continue;
+                long size = f.destFile.length();
+                if(size < f.size) {
+                    startOffset = size;
+                } else {
+                    String md5 = Utils.calculateMD5(f.destFile);
+                    if(f.md5.equals(md5)) {
+                        m_listener.onInstallLog(Utils.getString(R.string.skipping_file, filename));
+                        continue;
+                    }
                 }
             }
 
-            if(!downloadFile(files.get(i).url, f.destFile)) {
+            if(!downloadFile(files.get(i).url, f.destFile, startOffset)) {
                 if(!m_canceled)
                     m_listener.onInstallComplete(false);
                 return null;
