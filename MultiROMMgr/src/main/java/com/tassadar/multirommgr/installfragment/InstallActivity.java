@@ -160,6 +160,7 @@ public class InstallActivity extends Activity implements ServiceConnection, Inst
 
         m_term.setText("");
         m_isCancelEnabled = true;
+        setButtonState(BTN_STATE_CANCEL);
 
         setResult(RESULT_CANCELED);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
