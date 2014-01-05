@@ -81,11 +81,54 @@
     <string name="about_ubuntu_text"><b>Questa card permette di installare Ubuntu Touch come ROM secondaria. Non eliminerà nessun dato, verrà semplicemente aggiunto a MultiROM.</b>\n\nIn base al canale scelto, <i>saucy</i> è la corrente versione stabile, e quindi ci si può aspettare che sia \"migliore\". D\'altra parte, <i>trusty</i> è la versione correntemente in sviluppo, ciò vuol dire che riceverà velocemente gli ultimi aggiornamenti.</string>
     <string name="installation">Installazione</string>
     <string name="action_reboot">Riavvio…</string>
+       <string name="ubuntu_unsupported">Sfortunatamente, Ubuntu Touch non è supportato dal tuo dispositivo.</string>
+    <string name="about">About</string>
+    <string name="about_version">Versione</string>
+    <string name="about_licenses">Licenze</string>
+    <string name="about_licenses_summ">MultiROM Manager è concesso sotto licenza GNU GPLv3 ed usa le seguenti librerie, fornite sotto licenza Apache 2.0:\nlibsuperuser\nCardsUI\nActionBar-PullToRefresh</string>
+    <string name="already_developer">Non è necessario, sei già uno sviluppatore.</string>
+    <string name="now_developer">Ora sei uno sviluppatore!</string>
+    <string name="dev_options">Opzioni sviluppatore</string>
+    <string name="pref_manifest_url">Manifest URL</string>
+    <string name="steps_developer">Mancano ancora %d passaggi per diventare uno sviluppatore.</string>
+    <string name="pref_device_name">Sovrascrivi nome del dispositivo</string>
+    <string name="dangerous">Pericoloso!</string>
+    <string name="drawer_open">Apri il drawer</string>
+    <string name="drawer_close">Chiudi il drawer</string>
+    <string name="rom_list_empty">Nessuna ROM secondaria trovata.</string>
+    <string name="rename_rom">Rinomina ROM</string>
+    <string name="rename">Rinomina</string>
+    <string name="rom_name_taken">Questo nome è già stato utilizzato!</string>
+    <string name="rom_name_empty">Non puoi inserire un nome vuoto!</string>
+    <string name="erase_rom">Questo eliminerà completamente la tua ROM \"%s\"!</string>
+    <string name="erase_rom_title">Cancellare la ROM?</string>
+    <string name="erase">Cancella</string>
+    <string name="erasing_rom">Eliminazione ROM...</string>
+    <string name="boot_rom">Vuoi davvero avviare la ROM \"%s\"?</string>
+    <string name="booting">Avvio ROM...</string>
+    <string name="rom_boot_kexec">Questa ROM richiede un kernel con la patch kexec-hardboot, si prega di installarlo.</string>
+    <string name="rom_boot_failed">Avvio della ROM fallito!</string>
+    <string name="rom_boot_req_ver">Per avviare una ROM direttamente da questa applicazione è richiesto MultiROM v%s o maggiore.</string>
+    <string name="ok_nohtml">OK</string>
+    <string name="boot">Boot</string>
+    <string name="boot_rom_title">Avvia questa ROM?</string>
+    <string name="icon_source">Seleziona icona</string>
+    <string name="select_icon">Seleziona icona</string>
+    <string name="browse">Browse&#8230;</string>
+    <string name="rom_list_widget">Seleziona ROM da avviare.</string>
 
     <string-array name="reboot_options">
         <item>System</item>
         <item>Recovery</item>
         <item>Bootloader</item>
     </string-array>
+	<string-array name="main_fragment_titles">
+        <item>Installa/aggiorna</item>
+        <item>gestisci ROMs</item>
+    </string-array>
 
+    <string-array name="icon_sources">
+        <item>Icone di default</item>
+        <item>Seleziona file&#8230;</item>
+    </string-array>
 </resources>
