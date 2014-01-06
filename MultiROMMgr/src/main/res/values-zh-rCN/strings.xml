@@ -91,10 +91,10 @@
     <string name="dev_options">开发者选项</string>
     <string name="pref_manifest_url">Manifest URL</string>
     <string name="steps_developer">你还剩 %d 步成为开发者.</string>
-    <string name="pref_device_name">Override device name</string>
+    <string name="pref_device_name">覆盖设备名称</string>
     <string name="dangerous">危险!</string>
-    <string name="drawer_open">Open drawer</string>
-    <string name="drawer_close">Close drawer</string>
+    <string name="drawer_open">打开 drawer</string>
+    <string name="drawer_close">关闭 drawer</string>
     <string name="rom_list_empty">没有发现第二个 ROM.</string>
     <string name="rename_rom">重命名 ROM</string>
     <string name="rename">重命名</string>
@@ -116,5 +116,21 @@
     <string name="select_icon">选择图标</string>
     <string name="browse">浏览&#8230;</string>
     <string name="rom_list_widget">选择 ROM 来重启.</string>
+
+    <string-array name="reboot_options">
+        <item>System</item>
+        <item>Recovery</item>
+        <item>Bootloader</item>
+    </string-array>
+
+    <string-array name="main_fragment_titles">
+        <item>安装/更新</item>
+        <item>管理 ROM</item>
+    </string-array>
+
+    <string-array name="icon_sources">
+        <item>默认图标</item>
+        <item>选择文件&#8230;</item>
+    </string-array>
 
 </resources>
