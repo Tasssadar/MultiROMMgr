@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">MultiROM Manager</string>
+    <string name="action_settings">Instellingen</string>
+    <string name="status">Status</string>
+    <string name="no_su">Het verkrijgen van root-toegang is mislukt!</string>
+    <string name="action_refresh">Verversen</string>
+    <string name="unsupported">Dit apparaat wordt niet ondersteund (%1$s)!</string>
+    <string name="status_text"><![CDATA[<b>MultiROM:</b> v%1$s%2$s<br><b>Recovery:</b> %3$s%4$s<br><b>Kernel:</b> %5$s]]></string>
+    <string name="mrom_ver_fail">Het uitlezen van de MultiROM versie is mislukt!</string>
+    <string name="no_multirom">MultiROM is niet geinstalleerd.</string>
+    <string name="no_recovery">MultiROM-recovery is niet geinstalleerd.</string>
+    <string name="has_kexec"><![CDATA[<font color=\"#339900\">heeft een kexec-hardboot patch</font>]]></string>
+    <string name="no_kexec"><![CDATA[<font color=\"red\">heeft geen kexec-hardboot patch!</font>]]></string>
+    <string name="update_available"><![CDATA[<font color=\"blue\"> (Update beschikbaar)</font>]]></string>
+    <string name="manifest_fail">Het downloaden van de update-informatie is mislukt!</string>
+    <string name="install_multirom">MultiROM v%1$s</string>
+    <string name="install_recovery">Recovery %1$s</string>
+    <string name="install_kernel">Kernel:</string>
+    <string name="install">Installeren</string>
+    <string name="install_title">Installeren/Updaten</string>
+    <string name="cancel">Annuleren</string>
+    <string name="download_progress">%1$s (%2$d kB van %3$d kB)...</string>
+    <string name="try_again">Probeer opnieuw</string>
+    <string name="uninterruptable">Dit proces kan niet onderbroken worden.</string>
+    <string name="reboot">Reboot</string>
+    <string name="reboot_message">U moet rebooten naar de recovery om de installatie te voltooien.</string>
+    <string name="ubuntu_card">Installeer Ubuntu Touch</string>
+    <string name="channel">Kanaal:</string>
+    <string name="ubuntu_man_failed">Het downloaden en verwerken van de Ubuntu Touch-metadata is mislukt.</string>
+    <string name="version">Versie:</string>
+    <string name="destination">Doel:</string>
+    <string name="internal_memory">Interne opslag</string>
+    <string name="required"><![CDATA[<font color=\"blue\">&nbsp;(vereist)</font>]]></string>
+    <string name="ubuntu_req_multirom">MultiROM v%s of hoger is vereist.</string>
+    <string name="ubuntu_req_recovery">Recovery %s of nieuwer is vereist.</string>
+    <string name="ubuntu_touch">Ubuntu Touch</string>
+    <string name="pref_hidden_channels">Laat verborgen kanalen zien</string>
+    <string name="pref_hidden_channels_summ">Laat verborgen kanalen zien, die standaard verborgen zijn (meestal inactieve- en ontwikkelaarskanalen).</string>
+    <string name="pref_delete_utouch_files">Verwijder gebruikte installatie-bestanden</string>
+    <string name="pref_delete_utouch_files_summ">Verwijdert gebruikte Ubuntu Touch-bestanden, nog voor het rebooten naar de recovery om de installatie te voltooien. Dit bespaart opslagruimte, u moet echter wel de bestanden opnieuw downloaden na een mislukte installatie.\n\nBestanden worden gedownload naar %1$s/%2$s</string>
+    <string name="general">Algemeen</string>
+    <string name="pref_auto_reboot">Vraag niet om een reboot</string>
+    <string name="pref_auto_reboot_summ">Automatisch rebooten naar de recovery, als dit vereist is, om de installatie te voltooien.</string>
+    <string name="install_success">Installatie is succesvol afgerond.</string>
+    <string name="install_failed">Installatie MISLUKT!</string>
+    <string name="downloading_file">Bestand downloaden %s...</string>
+    <string name="success"><![CDATA[<font color=\"green\">gelukt</font><br>]]></string>
+    <string name="failed"><![CDATA[<font color=\"red\">MISLUKT!</font><br>]]></string>
+    <string name="preparing_downloads">Downloads voorbereiden: %s...</string>
+    <string name="invalid_url">Ongeldige URL: %s</string>
+    <string name="skipping_file"><![CDATA[Downloaden van bestand %s wordt overgeslagen, al gedaan<br>]]></string>
+    <string name="checking_file">Bestand controleren %s... </string>
+    <string name="ok"><![CDATA[<font color=\"green\">ok</font><br>]]></string>
+    <string name="installing_files">Bestanden installeren...</string>
+    <string name="installing_file">Bestand installeren %s...</string>
+    <string name="needs_recovery"><![CDATA[<font color=\"yellow\">heeft recovery nodig</font><br>]]></string>
+    <string name="su_failed_find_dir"><![CDATA[Het vinden van de downloadmap, als SU, is mislukt.<br>]]></string>
+    <string name="installing_utouch">Ubuntu Touch installeren...</string>
+    <string name="failed_create_rom"><![CDATA[Het maken van de ROM-map is mislukt!<br>]]></string>
+    <string name="installing_rom"><![CDATA[<br>Installeren van ROM <font color=\"yellow\">%s</font><br>]]></string>
+    <string name="failed_rom_init"><![CDATA[Het initialiseren van de ROM-map is mislukt!<br>]]></string>
+    <string name="ok_skippping"><![CDATA[<font color=\"green\">ok, wordt overgeslagen.</font><br>]]></string>
+    <string name="failed_redownload"><![CDATA[<font color=\"#FF9900\">mislukt, wordt opnieuw gedownload.</font><br>]]></string>
+    <string name="failed_busybox">Het uitpakken van busybox is mislukt!</string>
+    <string name="copying_file">Bestand kopiëren: %s...</string>
+    <string name="failed_file_copy"><![CDATA[<br><font color=\"red\">Het kopiëren van het bestand is mislukt! %s</font><br>]]></string>
+    <string name="deleting_used_files"><![CDATA[Oude bestanden verwijderen...<br>]]></string>
+    <string name="ubuntu_free_space">U heeft maar %1$dMB aan vrije ruimte over. Het is verstandig om minstens %2$dMB aan vrije, interne ruimte te hebben voor een succesvolle installatie!</string>
+    <string name="pref_update_check">Op updates controleren</string>
+    <string name="pref_update_check_sum">Controleer automatisch elke 12 uur of er updates beschikbaar zijn voor MultiROM of de recovery en laat hier een notificatie van zien (indien beschikbaar).</string>
+    <string name="update_notification">MultiROM update is available.</string>
+    <string name="pref_download_dir_sum">De Manager zal bestanden naar deze map downloaden. Ubuntu Touch-bestanden zullen zich in de sub-map \"UbuntuTouch\" bevinden.</string>
+    <string name="pref_download_dir">Downloadmap wijzigen</string>
+    <string name="changelogs">Changelogs</string>
+    <string name="changelog_failed">\n\n\nHet downloaden van de changelog is mislukt.</string>
+    <string name="done">Voltooid, ga terug.</string>
+    <string name="about_ubuntu_touch">Over</string>
+    <string name="back">Terug</string>
+    <string name="about_ubuntu_text"><b>Deze functie installeert Ubuntu Touch als secundaire ROM. Al uw data blijft bewaard, Ubuntu Touch wordt gewoon aan MultiROM toegevoegd.</b>\n\nOver het keizen van een kanaal, <i>saucy</i> is de huidige stabiele versie, u kunt verwachten dat deze \"beter\" is. Anderzijds, <i>trusty</i> is de versie die op dit moment in ontwikkeling is, deze zal de laatste updates bevatten.</string>
+    <string name="installation">Installatie</string>
+    <string name="action_reboot">Rebooten...</string>
+    <string name="ubuntu_unsupported">Sorry, uw apparaat ondersteunt Ubuntu Touch niet.</string>
+    <string name="about">Over</string>
+    <string name="about_version">Versie</string>
+    <string name="about_licenses">Licensies</string>
+    <string name="about_licenses_summ">MultiROM Manager is gelicenseerd onder GNU GPLv3 en het gebruikt de volgende libraries(deze zijn allemaal gelicenseerd onder Apache 2.0):\nlibsuperuser\nCardsUI\nActionBar-PullToRefresh</string>
+    <string name="already_developer">Niet nodig, u bent al een ontwikkelaar.</string>
+    <string name="now_developer">U bent nu een ontwikkelaar!</string>
+    <string name="dev_options">Opties voor ontwikkelaars</string>
+    <string name="pref_manifest_url">Manifest URL</string>
+    <string name="steps_developer">Nog %d stappen vereist om een developer te worden.</string>
+    <string name="pref_device_name">Apparaatnaam overschrijven</string>
+    <string name="dangerous">Riskant!</string>
+    <string name="drawer_open">Open drawer</string>
+    <string name="drawer_close">Sluit drawer</string>
+    <string name="rom_list_empty">Geen secundaire ROMs gevonden.</string>
+    <string name="rename_rom">Hernoem ROM</string>
+    <string name="rename">Hernoemen</string>
+    <string name="rom_name_taken">Deze naam wordt al gebruikt!</string>
+    <string name="rom_name_empty">U kunt geen lege naam opgeven!</string>
+    <string name="erase_rom">Dit zal de complete ROM verwijderen \"%s\"!</string>
+    <string name="erase_rom_title">ROM verwijderen?</string>
+    <string name="erase">Verwijderen</string>
+    <string name="erasing_rom">Verwijdert ROM...</string>
+    <string name="boot_rom">Weet u zeker dat u wilt booten naar ROM \"%s\"?</string>
+    <string name="booting">ROM wordt geboot...</string>
+    <string name="rom_boot_kexec">Deze ROM heeft een kernel met de kexec-hardboot patch nodig, installeer deze a.u.b.</string>
+    <string name="rom_boot_failed">Het booten naar deze ROM is mislukt!</string>
+    <string name="rom_boot_req_ver">Het direct booten naar ROMs vanuit deze app vereist MultiROM v%s of hoger.</string>
+    <string name="ok_nohtml">OK</string>
+    <string name="boot">Boot</string>
+    <string name="boot_rom_title">Booten naar deze ROM?</string>
+    <string name="icon_source">Selecteer icoon-locatie</string>
+    <string name="select_icon">Selecteer icoon</string>
+    <string name="browse">Bladeren&#8230;</string>
+    <string name="rom_list_widget">Kies een ROM om te booten.</string>
+
+    <string-array name="reboot_options">
+        <item>Systeem</item>
+        <item>Recovery</item>
+        <item>Bootloader</item>
+    </string-array>
+
+    <string-array name="main_fragment_titles">
+        <item>Installeren/updaten</item>
+        <item>Beheer ROMs</item>
+    </string-array>
+
+    <string-array name="icon_sources">
+        <item>Standaard iconen-set</item>
+        <item>Selecteer bestand&#8230;</item>
+    </string-array>
+</resources>
