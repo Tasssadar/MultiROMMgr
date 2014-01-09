@@ -82,6 +82,17 @@
     <string name="installation">Inštalácia</string>
     <string name="action_reboot">Reštartovanie...</string>
     <string name="ubuntu_unsupported">Bohužiaľ, Ubuntu Touch nie je dostupné pre toto zariadenie.</string>
+    <string name="about">O aplikácii</string>
+    <string name="about_version">Verzia</string>
+    <string name="about_licenses">Licencie</string>
+    <string name="about_licenses_summ">MultiROM Manager je licencovaný pod GNU GPLv3 a používa nasledovné knižnice, ktoré sú licencované pod Apache 2.0:\nlibsuperuser\nCardsUI\nActionBar-PullToRefresh</string>
+    <string name="already_developer">Nie je potrebné, už ste vývojár.</string>
+    <string name="now_developer">Teraz ste vývojár!</string>
+    <string name="dev_options">Možnosti pre vývojárov</string>
+    <string name="pref_manifest_url">Manifest URL</string>
+    <string name="steps_developer">Teraz ste %d krokov od možnosti byť vývojár.</string>
+    <string name="pref_device_name">Prepísať názov zariadenia</string>
+    <string name="dangerous">Nebezpečné!</string>
 
     <string-array name="reboot_options">
         <item>System</item>
