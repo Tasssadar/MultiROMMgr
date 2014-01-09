@@ -89,9 +89,17 @@ public class UbuntuManifest {
         while(itr.hasNext()) {
             UbuntuChannel c = itr.next().getValue();
 
-            if(!c.hasDevice(dev.getName())) {
-                itr.remove();
-                continue;
+            // Devices like deb or tilapia won't be in
+            // Ubuntu Touch manifests, yet the versions
+            // for flo/grouper work fine - select those.
+            String dev_name = dev.getName();
+            if(!c.hasDevice(dev_name)) {
+                dev_name = dev.getBaseVariantName();
+
+                if(!c.hasDevice(dev_name)) {
+                    itr.remove();
+                    continue;
+                }
             }
 
             if(c.getAlias() != null) {
@@ -104,7 +112,7 @@ public class UbuntuManifest {
             }
 
             try {
-                if(!c.loadDeviceImages(dev.getName()))
+                if(!c.loadDeviceImages(dev_name))
                     return false;
             } catch (Exception e) {
                 e.printStackTrace();

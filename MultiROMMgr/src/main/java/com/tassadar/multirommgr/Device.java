@@ -50,14 +50,14 @@ public class Device {
         try {
             JSONObject o = (JSONObject)new JSONTokener(b.toString()).nextValue();
             JSONArray devices = o.getJSONArray("devices");
-            JSONArray names = null;
+            JSONArray names;
             for(int i = 0; i < devices.length(); ++i) {
                 o = devices.getJSONObject(i);
 
                 names = o.getJSONArray("names");
                 for(int x = 0; x < names.length(); ++x)
                     if(names.getString(x).equals(name))
-                        return new Device(name, o);
+                        return new Device(name, names.getString(0), o);
             }
             return null;
         } catch (JSONException e) {
@@ -66,8 +66,10 @@ public class Device {
         }
     }
 
-    private Device(String name, JSONObject info) throws JSONException {
+    private Device(String name, String base_variant, JSONObject info) throws JSONException {
         m_name = name;
+        m_base_variant_name = base_variant;
+
         JSONArray a = info.getJSONArray("devices");
 
         Log.d("Device", "Loading device name: " + m_name);
@@ -84,9 +86,11 @@ public class Device {
     public String getRecoveryDev() { return m_devices.get("recovery"); }
     public String getCacheDev() { return m_devices.get("cache"); }
     public String getName() { return m_name; }
+    public String getBaseVariantName() { return m_base_variant_name; }
     public boolean supportsUbuntuTouch() { return m_supportsUbuntuTouch; }
 
     private String m_name;
+    private String m_base_variant_name;
     private HashMap<String, String> m_devices = new HashMap<String, String>();
     private boolean m_supportsUbuntuTouch;
 }
