@@ -51,7 +51,6 @@ public class UbuntuCard extends Card implements AdapterView.OnItemSelectedListen
     private static final int ERROR_MULTIROM_VER = 0x01;
     private static final int ERROR_RECOVERY_VER = 0x02;
 
-
     public UbuntuCard(Bundle savedState, StartInstallListener listener, Manifest man, MultiROM multirom, Recovery recovery) {
         m_savedState = savedState;
         m_listener = listener;
@@ -147,6 +146,15 @@ public class UbuntuCard extends Card implements AdapterView.OnItemSelectedListen
             TextView t = (TextView)m_view.findViewById(R.id.error_text);
             t.setVisibility(View.VISIBLE);
             t.setText(R.string.ubuntu_man_failed);
+
+            m_savedState = null;
+            return;
+        }
+
+        if(res.manifest.getChannels().isEmpty()) {
+            TextView t = (TextView)m_view.findViewById(R.id.error_text);
+            t.setVisibility(View.VISIBLE);
+            t.setText(R.string.ubuntu_man_no_channels);
 
             m_savedState = null;
             return;
