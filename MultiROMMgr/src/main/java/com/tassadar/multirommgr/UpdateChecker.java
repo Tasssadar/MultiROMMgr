@@ -150,13 +150,7 @@ public class UpdateChecker {
         public void onReceive(Context context, Intent intent) {
             Utils.installHttpCache(context);
 
-            Thread t = new UpdateCheckThread();
-            t.start();
-            try {
-                t.join();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+            new UpdateCheckThread().start();
         }
     }
 
