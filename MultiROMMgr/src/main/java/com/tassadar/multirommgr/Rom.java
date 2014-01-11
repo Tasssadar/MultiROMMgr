@@ -60,6 +60,8 @@ public class Rom implements Parcelable {
     public Rom(String name, int type) {
         this.name = name;
         this.type = type;
+        this.icon_id = R.drawable.romic_default;
+        this.icon_hash = null;
     }
 
     public Rom(Parcel in) {
@@ -103,8 +105,11 @@ public class Rom implements Parcelable {
             }
         }
 
-        if(res == null)
+        if(res == null) {
             res = r.getDrawable(R.drawable.romic_default);
+            this.icon_id = R.drawable.romic_default;
+            this.icon_hash = null;
+        }
 
         return res;
     }
@@ -115,8 +120,8 @@ public class Rom implements Parcelable {
 
     public String name;
     public int type;
-    public int icon_id = R.drawable.romic_default;
-    public String icon_hash = null;
+    public int icon_id;
+    public String icon_hash;
 
     private Drawable m_icon;
 }

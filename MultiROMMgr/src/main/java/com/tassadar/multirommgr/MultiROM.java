@@ -173,6 +173,9 @@ public class MultiROM {
                 line = out.get(++i);
                 rom.icon_id = res.getIdentifier(line, null, null);
                 rom.icon_hash = null;
+
+                if(rom.icon_id == 0)
+                    rom.icon_id = R.drawable.romic_default;
             } else if(line.equals("user_defined")) {
                 rom.icon_id = R.id.user_defined_icon;
                 rom.icon_hash = out.get(++i);
