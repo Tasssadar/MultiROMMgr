@@ -133,6 +133,7 @@ public class MultiROM {
     private void loadRomIconData(String b) {
         // Load icon data
         List<String> out = Shell.SU.run(
+                "IFS=$'\\n'; " +
                 "cd \"%s/roms\"; " +
                 "for d in $(\"%s\" ls -1); do " +
                 "    ([ ! -d \"$d\" ]) && continue;" +
