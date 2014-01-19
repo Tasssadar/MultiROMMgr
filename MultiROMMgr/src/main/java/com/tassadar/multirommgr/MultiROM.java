@@ -237,13 +237,13 @@ public class MultiROM {
             Shell.SU.run(
                     "cd \"%s\";" +
                     "if [ \"$(%s grep 'int_display_name=.*' multirom.ini)\" ]; then" +
-                    "    %s sed -i -e \"s/int_display_name=.*/int_display_name=%s/g\" multirom.ini;" +
+                    "    %s sed -i -e 's/int_display_name=.*/int_display_name=%s/g' multirom.ini;" +
                     "else" +
-                    "    echo \"int_display_name=%s\" >> multirom.ini;" +
+                    "    echo 'int_display_name=%s' >> multirom.ini;" +
                     "fi",
                     m_path, b, b, new_name, new_name);
         } else {
-            Shell.SU.run("cd \"%s/roms/\" && mv \"%s\" \"%s\"", m_path, rom.name, new_name);
+            Shell.SU.run("cd \"%s/roms/\" && mv '%s' '%s'", m_path, rom.name, new_name);
         }
     }
 
@@ -259,13 +259,13 @@ public class MultiROM {
             return;
         }
 
-        Shell.SU.run("%s chattr -R -i \"%s/roms/%s\"; %s rm -rf \"%s/roms/%s\"",
+        Shell.SU.run("%s chattr -R -i '%s/roms/%s'; %s rm -rf '%s/roms/%s'",
                 b, m_path, rom.name, b, m_path, rom.name);
     }
 
     public void bootRom(Rom rom) {
         String name = (rom.type == Rom.ROM_PRIMARY) ? INTERNAL_ROM : rom.name;
-        Shell.SU.run("%s/multirom --boot-rom=\"%s\"", m_path, name);
+        Shell.SU.run("%s/multirom --boot-rom='%s'", m_path, name);
     }
 
     public boolean isKexecNeededFor(Rom rom) {
@@ -320,9 +320,9 @@ public class MultiROM {
 
         List<String> out = Shell.SU.run(String.format(
                 "cd \"%s/roms\"; " +
-                "rom=\"%s\"; c=0; " +
+                "rom='%s'; c=0; " +
                 "while [ $c -lt 10 ]; do" +
-                "    if [ ! -d \"$rom\" ]; then" +
+                "    if [ ! -d '$rom' ]; then" +
                 "        echo $(pwd)/$rom;" +
                 "        exit 0;" +
                 "    fi;" +
@@ -338,7 +338,7 @@ public class MultiROM {
 
     public boolean initUbuntuDir(String path) {
         List<String> out = Shell.SU.run(String.format(
-                "mkdir -p \"%s\" && cd \"%s\" && " +
+                "mkdir -p '%s' && cd '%s' && " +
                 "mkdir system data cache && " +
                 "mkdir cache/recovery && " +
                 "cat ../../infos/%s > rom_info.txt &&" +
@@ -353,7 +353,7 @@ public class MultiROM {
     public int getFreeSpaceMB() {
         String bb = Utils.extractAsset("busybox");
 
-        List<String> out = Shell.SU.run("\"%s\" df -Pm \"%s\"", bb, m_path);
+        List<String> out = Shell.SU.run("\"%s\" df -Pm '%s'", bb, m_path);
         if (out == null || out.size() < 2 || !out.get(0).startsWith("Filesystem"))
             return -1;
 
@@ -415,7 +415,7 @@ public class MultiROM {
         }
 
         Shell.SU.run(
-                "cd \"%s/roms/%s\" && " +
+                "cd '%s/roms/%s' && " +
                 "echo '%s' > .icon_data &&" +
                 "echo '%s' >> .icon_data"
                 , m_path, name, ic_type, data);

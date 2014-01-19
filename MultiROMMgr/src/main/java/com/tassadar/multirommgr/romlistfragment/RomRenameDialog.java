@@ -65,7 +65,7 @@ public class RomRenameDialog extends DialogFragment implements View.OnClickListe
         }
 
         private static boolean isAllowed(char c, int pos) {
-            return c != '/' && c != '\\' && (pos != 0 || c != '.');
+            return c != '/' && c != '\\' && (pos != 0 || c != '.') && c < 127;
         }
     }
 
