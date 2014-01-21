@@ -100,7 +100,7 @@ public class StatusAsyncTask extends AsyncTask <Void, Void, StatusAsyncTask.Resu
         Result res = new Result();
 
         SharedPreferences p = MgrApp.getPreferences();
-        Device dev = Device.load(p.getString(SettingsActivity.DEV_DEVICE_NAME, Build.BOARD));
+        Device dev = Device.load(p.getString(SettingsActivity.DEV_DEVICE_NAME, Build.DEVICE));
         if(dev == null) {
             res.code = RES_UNSUPPORTED;
             return res;
@@ -173,7 +173,7 @@ public class StatusAsyncTask extends AsyncTask <Void, Void, StatusAsyncTask.Resu
                 t.setVisibility(View.VISIBLE);
                 return;
             case RES_UNSUPPORTED: {
-                String s = t.getResources().getString(R.string.unsupported, Build.BOARD);
+                String s = t.getResources().getString(R.string.unsupported, Build.DEVICE);
                 t.setText(s);
                 t.setVisibility(View.VISIBLE);
                 return;

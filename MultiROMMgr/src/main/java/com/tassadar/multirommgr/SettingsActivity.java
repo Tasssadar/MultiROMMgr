@@ -168,7 +168,7 @@ public class SettingsActivity extends PreferenceActivity implements SharedPrefer
         EditTextPreference pref = (EditTextPreference)findPreference(DEV_MANIFEST_URL);
         pref.setText(p.getString(DEV_MANIFEST_URL, Manifest.DEFAULT_URL));
         pref = (EditTextPreference)findPreference(DEV_DEVICE_NAME);
-        pref.setText(p.getString(DEV_DEVICE_NAME, Build.BOARD));
+        pref.setText(p.getString(DEV_DEVICE_NAME, Build.DEVICE));
     }
 
     private int m_clickCounter;
