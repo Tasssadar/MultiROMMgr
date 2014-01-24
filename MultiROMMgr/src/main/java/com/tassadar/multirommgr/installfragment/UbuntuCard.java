@@ -235,6 +235,7 @@ public class UbuntuCard extends Card implements AdapterView.OnItemSelectedListen
         switch(view.getId()) {
             case R.id.install_btn:
             {
+                Bundle extras = new Bundle();
                 Bundle bundle = new Bundle();
                 bundle.putString("installation_type", "ubuntu");
 
@@ -251,7 +252,9 @@ public class UbuntuCard extends Card implements AdapterView.OnItemSelectedListen
 
                 UbuntuManifestAsyncTask.instance().putInstallInfo(info);
 
-                m_listener.startActivity(bundle, MainActivity.ACT_INSTALL_UBUNTU, InstallActivity.class);
+                extras.putBundle("installation_info", bundle);
+
+                m_listener.startActivity(extras, MainActivity.ACT_INSTALL_UBUNTU, InstallActivity.class);
                 break;
             }
             case R.id.info_btn:

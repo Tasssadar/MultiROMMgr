@@ -66,6 +66,8 @@ public class InstallActivity extends Activity implements ServiceConnection, Inst
         setButtonState(BTN_STATE_CANCEL);
         getActionBar().setDisplayHomeAsUpEnabled(true);
 
+        m_installInfo = getIntent().getBundleExtra("installation_info");
+
         if(savedInstanceState == null || !savedInstanceState.getBoolean("completed", false)) {
             Intent i = new Intent(this, InstallService.class);
             startService(i);
@@ -137,13 +139,18 @@ public class InstallActivity extends Activity implements ServiceConnection, Inst
     }
 
     private void startInstallation() {
-        Intent i = getIntent();
-        final String type = i.getStringExtra("installation_type");
+        if(m_installInfo == null) {
+            Log.e("InstallActivity", "No installation info!");
+            m_term.append("No installation info!");
+            return;
+        }
+
+        final String type = m_installInfo.getString("installation_type");
         if(type.equals("multirom")) {
-            boolean multirom = i.getBooleanExtra("install_multirom", false);
-            boolean recovery = i.getBooleanExtra("install_recovery", false);
-            boolean kernel = i.getBooleanExtra("install_kernel", false);
-            String kernel_name = i.getStringExtra("kernel_name");
+            boolean multirom = m_installInfo.getBoolean("install_multirom", false);
+            boolean recovery = m_installInfo.getBoolean("install_recovery", false);
+            boolean kernel = m_installInfo.getBoolean("install_kernel", false);
+            String kernel_name = m_installInfo.getString("kernel_name");
 
             Manifest man = StatusAsyncTask.instance().getManifest();
             Device dev = StatusAsyncTask.instance().getDevice();
@@ -364,4 +371,5 @@ public class InstallActivity extends Activity implements ServiceConnection, Inst
     private boolean m_isCancelEnabled;
     private AlertDialog m_rebootDialog;
     private int m_btnState;
+    private Bundle m_installInfo;
 }

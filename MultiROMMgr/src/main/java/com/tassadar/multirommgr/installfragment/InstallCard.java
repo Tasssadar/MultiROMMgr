@@ -175,6 +175,8 @@ public class InstallCard extends Card implements CompoundButton.OnCheckedChangeL
         switch(view.getId()) {
             case R.id.install_btn:
             {
+                Bundle extras = new Bundle();
+
                 Bundle bundle = new Bundle();
                 bundle.putString("installation_type", "multirom");
 
@@ -193,7 +195,9 @@ public class InstallCard extends Card implements CompoundButton.OnCheckedChangeL
                     bundle.putString("kernel_name", name);
                 }
 
-                m_listener.startActivity(bundle, MainActivity.ACT_INSTALL_MULTIROM, InstallActivity.class);
+                extras.putBundle("installation_info", bundle);
+
+                m_listener.startActivity(extras, MainActivity.ACT_INSTALL_MULTIROM, InstallActivity.class);
                 break;
             }
             case R.id.changelog_btn:
