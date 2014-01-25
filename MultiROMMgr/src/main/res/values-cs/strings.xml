@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">MultiROM Manager</string>
+    <string name="action_settings">Nastavení</string>
+    <string name="status">Stav</string>
+    <string name="no_su">Nemůžu získat root přístup!</string>
+    <string name="action_refresh">Obnovit</string>
+    <string name="unsupported">Tohle zařízení není podporované (%1$s)!</string>
+    <string name="status_text"><![CDATA[<b>MultiROM:</b> v%1$s%2$s<br><b>Recovery:</b> %3$s%4$s<br><b>Kernel:</b> %5$s]]></string>
+    <string name="mrom_ver_fail">Chyba při zjišťování verze MultiROM!</string>
+    <string name="no_multirom">MultiROM není nainstalována.</string>
+    <string name="no_recovery">MultiROM recovery není nainstalována.</string>
+    <string name="has_kexec"><![CDATA[<font color=\"#339900\">má kexec-hardboot patch</font>]]></string>
+    <string name="no_kexec"><![CDATA[<font color=\"red\">nemá kexec-hardboot patch!</font>]]></string>
+    <string name="update_available"><![CDATA[<font color=\"blue\"> (nová aktualizace)</font>]]></string>
+    <string name="manifest_fail">Nemůžu stáhnout seznam aktualizací!</string>
+    <string name="install_multirom">MultiROM v%1$s</string>
+    <string name="install_recovery">Recovery %1$s</string>
+    <string name="install_kernel">Kernel:</string>
+    <string name="install">Instalovat</string>
+    <string name="install_title">Instalace/Aktualizace</string>
+    <string name="cancel">Zrušit</string>
+    <string name="download_progress">%1$s (%2$d kB z %3$d kB)...</string>
+    <string name="try_again">Zkusit znovu</string>
+    <string name="uninterruptable">Tuhle operace není možné přerušit.</string>
+    <string name="reboot">Restartovat</string>
+    <string name="reboot_message">Pro dokončení instalace je potřeba restart do recovery.</string>
+    <string name="ubuntu_card">Instalace Ubuntu Touch</string>
+    <string name="channel">Kanál:</string>
+    <string name="ubuntu_man_failed">Nemůžu stáhnout a zpracovat data pro Ubuntu Touch.</string>
+    <string name="version">Verze:</string>
+    <string name="destination">Cíl instalace:</string>
+    <string name="internal_memory">Interní paměť</string>
+    <string name="required"><![CDATA[<font color=\"blue\">&nbsp;(vyžadované)</font>]]></string>
+    <string name="ubuntu_req_multirom">Je potřeba MultiROM v%s nebo novější.</string>
+    <string name="ubuntu_req_recovery">Je potřeba recovery %s nebo novější.</string>
+    <string name="ubuntu_touch">Ubuntu Touch</string>
+    <string name="pref_hidden_channels">Zobrazovat skryté kanály</string>
+    <string name="pref_hidden_channels_summ">Zobrazí kanály, které jsou ve výchozím nastavení skryté (obvykle neakvitní nebo developer-only kanály).</string>
+    <string name="pref_delete_utouch_files">Mazat použité instalační soubory</string>
+    <string name="pref_delete_utouch_files_summ">Použíté instalační soubory Ubuntu Touch se tesně před restartem do recovery smažou. To sice ušetří místo, ale pokud instalce selže, budete muset instalační soubory stáhnout znovu.\n\nSoubory jsou stahované do %1$s/%2$s</string>
+    <string name="general">Obecné</string>
+    <string name="pref_auto_reboot">Neptat se o povolení restartovat se</string>
+    <string name="pref_auto_reboot_summ">Automaticky restartovat do recovery pokud je to potřeba k dokončení instalace.</string>
+    <string name="install_success">Instalace byla úspěšná.</string>
+    <string name="install_failed">Instalace skončila neúspěšně!</string>
+    <string name="downloading_file">Stahuji %s...</string>
+    <string name="success"><![CDATA[<font color=\"green\">ok</font><br>]]></string>
+    <string name="failed"><![CDATA[<font color=\"red\">CHYBA!</font><br>]]></string>
+    <string name="preparing_downloads">Připravuji seznam souborů...%s</string>
+    <string name="invalid_url">Chybné URL: %s</string>
+    <string name="skipping_file"><![CDATA[Přeskakuji existující soubor %s<br>]]></string>
+    <string name="checking_file">Kontroluji %s... </string>
+    <string name="ok"><![CDATA[<font color=\"green\">ok</font><br>]]></string>
+    <string name="installing_files">Instaluji...</string>
+    <string name="installing_file">Instaluji soubor %s...</string>
+    <string name="needs_recovery"><![CDATA[<font color=\"yellow\">potřebuje recovery</font><br>]]></string>
+    <string name="su_failed_find_dir"><![CDATA[Nemůžu najít složku pro stažení jako SuperUser<br>]]></string>
+    <string name="installing_utouch">Instaluji Ubuntu Touch...</string>
+    <string name="failed_create_rom"><![CDATA[Nemůžu vytvořit složku pro ROM!<br>]]></string>
+    <string name="installing_rom"><![CDATA[<br>Instaluji jako ROM <font color=\"yellow\">%s</font><br>]]></string>
+    <string name="failed_rom_init"><![CDATA[Chyba při inicializaci složky pro ROM!<br>]]></string>
+    <string name="ok_skippping"><![CDATA[<font color=\"green\">ok, přeskakuji.</font><br>]]></string>
+    <string name="failed_redownload"><![CDATA[<font color=\"#FF9900\">chyba, stahuji znovu.</font><br>]]></string>
+    <string name="failed_busybox">Nemůžu extrahovat busybox!</string>
+    <string name="copying_file">Kopíruji soubor %s...</string>
+    <string name="failed_file_copy"><![CDATA[<br><font color=\"red\">Chyba při kopírování %s!</font><br>]]></string>
+    <string name="deleting_used_files"><![CDATA[Mažu použité soubory...<br>]]></string>
+    <string name="ubuntu_free_space">Máte pouze %1$dMB volného místa. Je doporučeno mít před instalací Ubuntu Touch alespoň %2$dMB volného místa, jinak může instalace skončit neúspěšně.</string>
+    <string name="pref_update_check">Kontrolovat aktualizace</string>
+    <string name="pref_update_check_sum">Automaticky zkontroluje aktualizace MultiROM a recovery každých ~12 hodin a ukáže notifikaci, pokud budou nějaké dostupné.</string>
+    <string name="update_notification">Je dostupná nová aktualizace MultiROM.</string>
+    <string name="pref_download_dir_sum">Manager bude stahovat instalační soubory do této složky. Soubory Ubuntu Touch budou v podsložce \"UbuntuTouch\".</string>
+    <string name="pref_download_dir">Změnit složku pro stahování</string>
+    <string name="changelogs">Seznam změn</string>
+    <string name="changelog_failed">\n\n\nNemůžu stáhnout seznam změn.</string>
+    <string name="done">Hotovo, zpět.</string>
+    <string name="about_ubuntu_touch">O Ubuntu Touch</string>
+    <string name="back">Zpět</string>
+    <string name="about_ubuntu_text"><b>Tato karta nainstaluje Ubuntu Touch jako vedlejší ROM. Tato akce nesmaže žádná vaše data, pouze přidá Ubuntu do MultiROM.</b>\n\nKanál <i>saucy</i> je současná stabilní verze, takže je možné předpokládat, že je jednoduše \"lepší\". Kanál \"trusty\" je oproti tomu právě vyvíjená, takže v ní budou ty nejnovější vylepšení.</string>
+    <string name="installation">Instalace</string>
+    <string name="action_reboot">Restartovat...</string>
+    <string name="ubuntu_unsupported">Ubuntu Touch bohužel nepodporuje toto zařízení.</string>
+    <string name="about">O aplikaci</string>
+    <string name="about_version">Verze</string>
+    <string name="about_licenses">Licence</string>
+    <string name="about_licenses_summ">MultiROM Manager je vydán pod GNU GPLv3 licencí a používá následující knihovny, které jsou všechny licencovány pod licencí Apache 2.0:\nlibsuperuser\nCardsUI\nActionBar-PullToRefresh</string>
+    <string name="already_developer">Není potřeba, již jste vývojář.</string>
+    <string name="now_developer">Voilà! Stal se z vás vývojář.</string>
+    <string name="dev_options">Pro vývojáře</string>
+    <string name="pref_manifest_url">Manifest URL</string>
+    <string name="steps_developer">Ještě %d klepnutí a bude z vás vývojář.</string>
+    <string name="pref_device_name">Přepsat jméno zařízení</string>
+    <string name="dangerous">Nebezpečné!</string>
+    <string name="drawer_open">Otevřít menu</string>
+    <string name="drawer_close">Zavřít menu</string>
+    <string name="rom_list_empty">Nebyly nalezeny žádné vedlejší ROM.</string>
+    <string name="rename_rom">Přejmenovat ROM</string>
+    <string name="rename">Přejmenovat</string>
+    <string name="rom_name_taken">Tohle jméno už je zabrané.</string>
+    <string name="rom_name_empty">Nemůžete zadat prázdné jméno.</string>
+    <string name="erase_rom">Tato akce kompletně smaže ROM \"%s\"!</string>
+    <string name="erase_rom_title">Smazat ROM?</string>
+    <string name="erase">Smazat</string>
+    <string name="erasing_rom">Mažu ROM...</string>
+    <string name="boot_rom">Opravdu chcete nabootovat do ROM \"%s\"?</string>
+    <string name="booting">Bootuji ROM...</string>
+    <string name="rom_boot_kexec">Tahle ROM potřebuje kernel s kexec-hardboot patchem, prosím nainstaluje ho.</string>
+    <string name="rom_boot_failed">Chyba při bootování této ROM!</string>
+    <string name="rom_boot_req_ver">Bootování do ROM přímo z této aplikace vyžaduje MultiROM v%s nebo novější.</string>
+    <string name="ok_nohtml">OK</string>
+    <string name="boot">Nabootovat</string>
+    <string name="boot_rom_title">Nabootovat do ROM?</string>
+    <string name="select_icon">Vyberte ikonu</string>
+    <string name="browse">Prohlížet&#8230;</string>
+    <string name="rom_list_widget">Vyberte ROM, do které chcete nabootovat.</string>
+    <string name="ubuntu_man_no_channels">Pro toto zařízení neexistují žádné kanály s daty.</string>
+
+    <string-array name="reboot_options">
+        <item>Systém</item>
+        <item>Recovery</item>
+        <item>Bootloader</item>
+    </string-array>
+
+    <string-array name="main_fragment_titles">
+        <item>Instalace/aktualizace</item>
+        <item>Spravovat ROM</item>
+    </string-array>
+</resources>
