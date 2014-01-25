@@ -30,8 +30,6 @@
     <string name="channel">Channel:</string>
     <string name="ubuntu_man_failed">Failed to download and parse Ubuntu Touch metadata.</string>
     <string name="version">Version:</string>
-    <string name="destination">Destination:</string>
-    <string name="internal_memory">Internal memory</string>
     <string name="required"><![CDATA[<font color=\"blue\">&nbsp;(required)</font>]]></string>
     <string name="ubuntu_req_multirom">MultiROM v%s or higher is required.</string>
     <string name="ubuntu_req_recovery">Recovery %s or newer is required.</string>
@@ -112,7 +110,6 @@
     <string name="ok_nohtml">OK</string>
     <string name="boot">Boot</string>
     <string name="boot_rom_title">Boot into ROM?</string>
-    <string name="icon_source">Select icon source</string>
     <string name="select_icon">Select icon</string>
     <string name="browse">Browse&#8230;</string>
     <string name="rom_list_widget">Choose ROM to boot.</string>
@@ -127,10 +124,5 @@
     <string-array name="main_fragment_titles">
         <item>Install/update</item>
         <item>Manage ROMs</item>
-    </string-array>
-
-    <string-array name="icon_sources">
-        <item>Default icon set</item>
-        <item>Select file&#8230;</item>
     </string-array>
 </resources>
