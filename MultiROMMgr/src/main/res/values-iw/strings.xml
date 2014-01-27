@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="app_name">מנהל MultiROM</string>
+  <string name="no_su">קבלת הרשאת root נכשלה!</string>
+  <string name="action_refresh">רענן</string>
+  <string name="unsupported">מכשיר זה לא נתמך (%1$s)!</string>
+  <string name="status_text"><![CDATA[<b>MultiROM:</b> v%1$s%2$s<br><b>Recovery:</b> %3$s%4$s<br><b>ליבה:</b> %5$s]]></string>
+  <string name="mrom_ver_fail">קריאת גירסת MultiROM נכשלה!</string>
+  <string name="no_multirom">MultiROM לא מותקן.</string>
+  <string name="no_recovery">MultiROM recovery אינו מותקן.</string>
+  <string name="has_kexec"><![CDATA[<font color="#339900">מכיל תוספת kexec-hardboot </font>]]></string>
+  <string name="no_kexec"><![CDATA[<font color="red">לא מכיל תוספת kexec-hardboot!</font>]]></string>
+  <string name="update_available"><![CDATA[<font color="blue"> (יש עדכון)</font>]]></string>
+  <string name="manifest_fail">לא הצליח להוריד מידע אודות עדכונים!</string>
+  <string name="install_kernel">ליבה:</string>
+  <string name="install">התקן</string>
+  <string name="install_title">התקן/עדכן</string>
+  <string name="try_again">נסה שוב</string>
+  <string name="uninterruptable">פעולה זו אינה ניתנת לעצירה.</string>
+  <string name="reboot">אתחול מחדש</string>
+  <string name="reboot_message">עליך לאתחל ל-recovery כדי להשלים את ההתקנה.</string>
+  <string name="ubuntu_card">התקן Ubuntu Touch</string>
+  <string name="channel">ערוץ:</string>
+  <string name="ubuntu_man_failed">נכשל בהורדת ופירוק מידע על Ubuntu Touch.</string>
+  <string name="version">גרסה:</string>
+  <string name="required"><![CDATA[<font color="blue">&nbsp;(נדרש)</font>]]></string>
+  <string name="ubuntu_req_multirom">MultiROM גרסה %s או יותר נדרש.</string>
+  <string name="ubuntu_req_recovery">Recovery %s או חדש יותר נדרש.</string>
+  <string name="pref_hidden_channels">הצג ערוצים סמויים</string>
+  <string name="pref_hidden_channels_summ">הראה ערוצי עדכון שמוסתרים כברירת מחדל (לא פעילים או עבור מתכנתים בלבד).</string>
+  <string name="pref_delete_utouch_files">מחק קבצי התקנה משומשים</string>
+  <string name="pref_delete_utouch_files_summ">מחק קבצי Ubuntu Touch משומשים לפני האתחול כדי להשלים התקנה. זה ישמור שטח זיכרון, אבל יהיה צורך בהורדה חוזרת במידה וההתקנה נכשלה.\n\nקבצים מורדים ל-%1$s/%2$s</string>
+  <string name="general">כללי</string>
+  <string name="pref_auto_reboot">אל תשאל כדי לאתחל</string>
+  <string name="pref_auto_reboot_summ">אתחל אוטומטית ל-recovery כדי לסיים התקנה.</string>
+  <string name="install_success">ההתקנה בוצעה בהצלחה.</string>
+  <string name="install_failed">התקנה נכשלה!</string>
+  <string name="downloading_file">מוריד קובץ %s...</string>
+  <string name="success"><![CDATA[<font color="green">הצלחה</font><br>]]></string>
+  <string name="failed"><![CDATA[<font color="red">כישלון!</font><br>]]></string>
+  <string name="preparing_downloads">מכין הורדות...%s</string>
+  <string name="invalid_url">URL לא חוקי: %s</string>
+  <string name="skipping_file"><![CDATA[מדלג על הורדת קובץ שכבר הורד %s<br>]]></string>
+  <string name="checking_file">בודק קובץ %s... </string>
+  <string name="ok"><![CDATA[<font color="green">בסדר</font><br>]]></string>
+  <string name="installing_files">מתקין קבצים...</string>
+  <string name="installing_file">מתקין קובץ %s...</string>
+  <string name="needs_recovery"><![CDATA[<font color="yellow">דורש recovery</font><br>]]></string>
+  <string name="su_failed_find_dir"><![CDATA[נכשל במציאת תיקיית הורדות כ-SU.<br>]]></string>
+  <string name="installing_utouch">מתקין Ubuntu Touch...</string>
+  <string name="failed_create_rom"><![CDATA[נכשל ביצירת תיקיית ROM!<br>]]></string>
+  <string name="installing_rom"><![CDATA[<br>מתקין כ-ROM <font color="yellow">%s</font><br>]]></string>
+  <string name="failed_rom_init"><![CDATA[נכשל ביצירת תיקייה ל-ROM!<br>]]></string>
+  <string name="ok_skippping"><![CDATA[<font color="green">אוקי, מדלג.</font><br>]]></string>
+  <string name="failed_redownload"><![CDATA[<font color="#FF9900">נכשל, מוריד מחדש.</font><br>]]></string>
+  <string name="failed_busybox">נכשל בחילוץ busybox!</string>
+  <string name="copying_file">מעתיק קובץ %s...</string>
+  <string name="failed_file_copy"><![CDATA[<br><font color="red">נכשל בהעתקת קובץ %s!</font><br>]]></string>
+  <string name="deleting_used_files"><![CDATA[מוחק קבצים משומשים...<br>]]></string>
+  <string name="ubuntu_free_space">נותר לך רק %1$dMB מקום פנוי. מומלץ שיהיה לך לפחות %2$dMB של מקום פנוי אחרת ההתקנה תיכשל!</string>
+  <string name="pref_update_check">בדיקת עדכונים</string>
+  <string name="pref_update_check_sum">אוטומטית בדוק עדכונים ל-MultiROMו-recovery כל 12 שעות והצג הודעה אם קיים עדכון.</string>
+  <string name="update_notification">עדכון ל-MultiROM זמין.</string>
+  <string name="pref_download_dir_sum">התוכנה תוריד קבצי התקנה לתיקייה זו. קבצי Ubuntu Touch יהיו בתקיית Ubuntu Touch שתימצא בתיקייה זו.</string>
+  <string name="pref_download_dir">שנה תיקיית הורדות</string>
+  <string name="changelogs">רשימת שינויים</string>
+  <string name="changelog_failed">\n\n\nנכשל בהורדת עדכון.</string>
+  <string name="done">סיים, חזור.</string>
+  <string name="back">חזור</string>
+  <string name="about_ubuntu_text"><b>כרטיסייה זו מתקינה Ubuntu Touch כ-ROM משני. זה לא ימחק שום מידע קיים, זה רק יוסיף אותו ל-MultiROM.</b>\n\nבקשר לאיזה ערוץ לבחור,  <i>saucy</i> זוהי הגרסה היציבה הנוכחית, אז אתה יכול לצפות ממנה להיות טובה יותר. מצד שני, <i>trusty</i> זוהי הגרסה בבנייה, ולכן לה יהיו העדכונים האחרונים.</string>
+  <string name="installation">התקנה</string>
+  <string name="action_reboot">אתחול מחדש...</string>
+  <string name="ubuntu_unsupported">לצערנו, Ubuntu Touch לא תומך במכשיר זה.</string>
+  <string name="about_version">גרסה</string>
+  <string name="about_licenses">רשיונות</string>
+  <string name="about_licenses_summ">מנהל MultiROM נמצא תחת רישיון GNU GPLv3 ומשתמש בסיפריות הבאות, אשר נמצאות תחת רישיון Apache 2.0:\nlibsuperuser\nCardsUI\nActionBar-PullToRefresh</string>
+  <string name="already_developer">אין צורך, אתה כבר מפתח.</string>
+  <string name="now_developer">אתה עכשיו מפתח!</string>
+  <string name="dev_options">אפשרויות מפתח</string>
+  <string name="steps_developer">אתה עכשיו ב-%d צעדים מלהיות מפתח.</string>
+  <string name="pref_device_name">שנה שם התקן</string>
+  <string name="dangerous">מסוכן!</string>
+  <string name="drawer_open">פתח מגירה</string>
+  <string name="drawer_close">סגור מגירה</string>
+  <string name="rom_list_empty">לא נמצאו ROM-ים משניים.</string>
+  <string name="rename_rom">שנה שם של ROM</string>
+  <string name="rom_name_taken">שם זה כבר תפוס!</string>
+  <string name="rom_name_empty">לא ניתן להזין שם ריק!</string>
+  <string name="erase_rom">זה ימחק לחלוטין את ה-ROM \"%s\"!</string>
+  <string name="erase_rom_title">למחוק ROM?</string>
+  <string name="erase">למחוק</string>
+  <string name="erasing_rom">מוחק ROM...</string>
+  <string name="boot_rom">האם אתה באמת רוצה לאתחל ל-ROM \"%s\"?</string>
+  <string name="booting">מאתחל ל-ROM...</string>
+  <string name="rom_boot_kexec">ROM זה דורש ליבה עם תמיכה ב-kexec-hardboot, התקן ליבה כזאת.</string>
+  <string name="rom_boot_failed">לא הצליח לאתחל ל-ROM זה!</string>
+  <string name="rom_boot_req_ver">אתחול לתוך ROM-ים ישירות מתוכנה זו דורש גרסה %s או חדש יותר.</string>
+  <string name="ok_nohtml">אישור</string>
+  <string name="boot">אתחול</string>
+  <string name="boot_rom_title">לאתחל ל-ROM?</string>
+  <string name="select_icon">בחר סמל</string>
+  <string name="browse">עיון…</string>
+  <string name="rom_list_widget">בחר ROM לאתחול.</string>
+  <string name="ubuntu_man_no_channels">לא נמצאו ערוצי עדכון למכשיר זה.</string>
+  <string-array name="reboot_options">
+    <item>מערכת</item>
+    <item>Recovery</item>
+    <item>Bootloader</item>
+  </string-array>
+  <string-array name="main_fragment_titles">
+    <item>התקן/עדכן</item>
+    <item>ניהול ROM-ים</item>
+  </string-array>
+</resources>
