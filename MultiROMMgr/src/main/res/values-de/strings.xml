@@ -91,7 +91,7 @@
     <string name="dev_options">Entwickleroptionen</string>
     <string name="pref_manifest_url">Manifest URL</string>
     <string name="steps_developer">In %d Schritten bist du ein Entwickler.</string>
-    <string name="pref_device_name">Override device name</string>
+    <string name="pref_device_name">Gerätenamen überschreiben</string>
     <string name="dangerous">Gefährlich!</string>
     <string name="drawer_open">Übersicht öffnen</string>
     <string name="drawer_close">Übersicht schließen</string>
@@ -100,13 +100,13 @@
     <string name="rename">Umbennen</string>
     <string name="rom_name_taken">Dieser Name wurde bereits verwendet!</string>
     <string name="rom_name_empty">Du musst einen Namen eingeben!</string>
-    <string name="erase_rom">Das wird den ROM \"%s\" unwiderruflich löschen!</string>
+    <string name="erase_rom">Das wird das ROM \"%s\" unwiderruflich löschen!</string>
     <string name="erase_rom_title">ROM löschen?</string>
     <string name="erase">Löschen</string>
     <string name="erasing_rom">ROM wird gelöscht...</string>
     <string name="boot_rom">Wirklich in ROM \"%s\" neustarten?</string>
     <string name="booting">ROM wird gestartet...</string>
-    <string name="rom_boot_kexec">Dieser ROM erfordert einen Kernel mit kexec-hardboot patch, bitte installiere einen.</string>
+    <string name="rom_boot_kexec">Dieses ROM erfordert einen Kernel mit kexec-hardboot patch, bitte installiere einen.</string>
     <string name="rom_boot_failed">Konnte nicht in diesen ROM neustarten!</string>
     <string name="rom_boot_req_ver">ROMs direkt aus dieser App zu starten erfordert MultiROM v%s oder höher.</string>
     <string name="ok_nohtml">OK</string>
@@ -115,7 +115,7 @@
     <string name="icon_source">Bildquelle wählen</string>
     <string name="select_icon">Bild wählen</string>
     <string name="browse">Durchsuchen &#8230;</string>
-    <string name="rom_list_widget">Wähle den ROM zum starten.</string>
+    <string name="rom_list_widget">Wähle das ROM zum Starten.</string>
 
     <string-array name="reboot_options">
         <item>System</item>
