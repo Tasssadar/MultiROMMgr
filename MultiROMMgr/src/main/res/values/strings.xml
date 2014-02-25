@@ -114,6 +114,13 @@
     <string name="browse">Browse&#8230;</string>
     <string name="rom_list_widget">Choose ROM to boot.</string>
     <string name="ubuntu_man_no_channels">No update channels were found for this device.</string>
+    <string name="prog_checking_root">Getting root access</string>
+    <string name="prog_detecting_dev">Detecting device type</string>
+    <string name="prog_looking_for_multirom">Looking for MultiROM</string>
+    <string name="prog_getting_roms">Loading secondary ROMs</string>
+    <string name="prog_check_recovery">Checking recovery</string>
+    <string name="prog_check_kernel">Checking kernel</string>
+    <string name="prog_download_manifest">Downloading updates metadata</string>
 
     <string-array name="reboot_options">
         <item>System</item>

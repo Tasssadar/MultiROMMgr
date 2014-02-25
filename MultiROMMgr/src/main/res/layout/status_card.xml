@@ -43,6 +43,14 @@
             android:layout_gravity="center"
             android:indeterminateOnly="true" />
         <TextView
+            android:id="@+id/progress_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            style="@style/CardText"
+            android:textSize="@dimen/status_card_text"/>
+
+        <TextView
             android:id="@+id/info_text"
             style="@style/CardText"
             android:textSize="@dimen/status_card_text"

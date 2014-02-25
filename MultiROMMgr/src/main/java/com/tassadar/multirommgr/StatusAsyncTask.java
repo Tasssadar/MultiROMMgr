@@ -29,7 +29,7 @@ import java.lang.ref.WeakReference;
 
 import eu.chainfire.libsuperuser.Shell;
 
-public class StatusAsyncTask extends AsyncTask <Void, Void, StatusAsyncTask.Result> {
+public class StatusAsyncTask extends AsyncTask <Void, String, StatusAsyncTask.Result> {
 
     static final int RES_OK                 = 0x00;
     static final int RES_NO_SU              = 0x01;
@@ -99,12 +99,16 @@ public class StatusAsyncTask extends AsyncTask <Void, Void, StatusAsyncTask.Resu
     protected Result doInBackground(Void ...arg) {
         Result res = new Result();
 
+        publishProgress(Utils.getString(R.string.prog_detecting_dev));
+
         SharedPreferences p = MgrApp.getPreferences();
         Device dev = Device.load(p.getString(SettingsActivity.DEV_DEVICE_NAME, Build.DEVICE));
         if(dev == null) {
             res.code = RES_UNSUPPORTED;
             return res;
         }
+
+        publishProgress(Utils.getString(R.string.prog_checking_root));
 
         if(!Shell.SU.available()) {
             res.code = RES_NO_SU;
@@ -113,6 +117,8 @@ public class StatusAsyncTask extends AsyncTask <Void, Void, StatusAsyncTask.Resu
 
         res.device = dev;
 
+        publishProgress(Utils.getString(R.string.prog_looking_for_multirom));
+
         MultiROM m = new MultiROM();
         if(!m.findMultiROMDir()) {
             res.code |= RES_NO_MULTIROM;
@@ -120,10 +126,14 @@ public class StatusAsyncTask extends AsyncTask <Void, Void, StatusAsyncTask.Resu
             if(!m.findVersion())
                 res.code |= RES_FAIL_MROM_VER;
             else {
+                publishProgress(Utils.getString(R.string.prog_getting_roms));
+
                 m.findRoms();
                 res.multirom = m;
             }
         }
+
+        publishProgress(Utils.getString(R.string.prog_check_recovery));
 
         Recovery rec = new Recovery();
         if(!rec.findRecoveryVersion(dev))
@@ -131,8 +141,12 @@ public class StatusAsyncTask extends AsyncTask <Void, Void, StatusAsyncTask.Resu
         else
             res.recovery = rec;
 
+        publishProgress(Utils.getString(R.string.prog_check_kernel));
+
         res.kernel = new Kernel();
         res.kernel.findKexecHardboot(m != null ? m.getPath() + "busybox" : "");
+
+        publishProgress(Utils.getString(R.string.prog_download_manifest));
 
         Manifest man = new Manifest();
         if(man.downloadAndParse(dev.getName())) {
@@ -149,6 +163,16 @@ public class StatusAsyncTask extends AsyncTask <Void, Void, StatusAsyncTask.Resu
         return res;
     }
 
+    protected void onProgressUpdate(String... progress) {
+        m_progressText = progress[0];
+
+        View l = m_layout.get();
+        if(l != null) {
+            TextView t = (TextView)l.findViewById(R.id.progress_text);
+            t.setText(m_progressText);
+        }
+    }
+
     protected void onPostExecute(Result res) {
         m_res = res;
         applyResult();
@@ -159,10 +183,18 @@ public class StatusAsyncTask extends AsyncTask <Void, Void, StatusAsyncTask.Resu
     protected void applyResult() {
         View l = m_layout.get();
 
-        if(l == null || m_res == null)
+        if(l == null)
             return;
 
+        if(m_res == null) {
+            TextView t = (TextView)l.findViewById(R.id.progress_text);
+            t.setText(m_progressText);
+            return;
+        }
+
         View v = l.findViewById(R.id.progress_bar);
+        v.setVisibility(View.GONE);
+        v = l.findViewById(R.id.progress_text);
         v.setVisibility(View.GONE);
 
         TextView t = (TextView) l.findViewById(R.id.error_text);
@@ -232,4 +264,5 @@ public class StatusAsyncTask extends AsyncTask <Void, Void, StatusAsyncTask.Resu
     private WeakReference<View> m_layout;
     private StatusAsyncTaskListener m_listener;
     private Result m_res;
+    private String m_progressText;
 }
