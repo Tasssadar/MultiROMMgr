@@ -36,13 +36,14 @@ import java.util.Map;
 import java.util.TreeMap;
 
 public class UbuntuManifest {
-    public static final String BASE_URL = "http://system-image.ubuntu.com";
-    public static final String CHANNELS_URL = BASE_URL + "/channels.json";
+    public static final String DEFAULT_BASE_URL = "https://system-image.ubuntu.com";
+    public static final String CHANNELS_PATH = "/channels.json";
 
     public boolean downloadAndParse(Device dev) {
         ByteArrayOutputStream out = new ByteArrayOutputStream(8192);
         try {
-            if(!Utils.downloadFile(CHANNELS_URL, out, null, true) || out.size() == 0)
+            final String url = dev.getUbuntuBaseUrl() + CHANNELS_PATH;
+            if(!Utils.downloadFile(url, out, null, true) || out.size() == 0)
                 return false;
         } catch(IOException e) {
             e.printStackTrace();
@@ -112,7 +113,7 @@ public class UbuntuManifest {
             }
 
             try {
-                if(!c.loadDeviceImages(dev_name))
+                if(!c.loadDeviceImages(dev_name, dev))
                     return false;
             } catch (Exception e) {
                 e.printStackTrace();

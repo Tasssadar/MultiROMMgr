@@ -21,6 +21,7 @@ import android.content.SharedPreferences;
 import android.os.Environment;
 import android.util.Log;
 
+import com.tassadar.multirommgr.Device;
 import com.tassadar.multirommgr.MgrApp;
 import com.tassadar.multirommgr.MultiROM;
 import com.tassadar.multirommgr.R;
@@ -38,9 +39,10 @@ public class UbuntuInstallTask extends InstallAsyncTask  {
 
     public static final String DOWN_DIR = "UbuntuTouch";
 
-    public UbuntuInstallTask(UbuntuInstallInfo info, MultiROM multirom) {
+    public UbuntuInstallTask(UbuntuInstallInfo info, MultiROM multirom, Device dev) {
         m_info = info;
         m_multirom = multirom;
+        m_device = dev;
     }
 
     @Override
@@ -64,14 +66,15 @@ public class UbuntuInstallTask extends InstallAsyncTask  {
         Log.d("UbuntuInstallTask", "Using SU download directory: " + suDestDir);
 
         ArrayList<UbuntuFile> files = m_info.buildDownloadList();
+        final String base_url = m_device.getUbuntuBaseUrl();
 
         for(int i = 0; i < files.size(); ++i) {
             UbuntuFile f = files.get(i);
 
-            if(!downloadFile(destDir, UbuntuManifest.BASE_URL + f.path, f))
+            if(!downloadFile(destDir, base_url + f.path, f))
                 return null;
 
-            if(f.signature != null && !downloadFile(destDir, UbuntuManifest.BASE_URL + f.signature, null))
+            if(f.signature != null && !downloadFile(destDir, base_url + f.signature, null))
                 return null;
         }
 
@@ -276,4 +279,5 @@ public class UbuntuInstallTask extends InstallAsyncTask  {
 
     private UbuntuInstallInfo m_info;
     private MultiROM m_multirom;
+    private Device m_device;
 }

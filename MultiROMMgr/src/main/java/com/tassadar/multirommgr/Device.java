@@ -20,6 +20,8 @@ package com.tassadar.multirommgr;
 import android.content.Context;
 import android.util.Log;
 
+import com.tassadar.multirommgr.installfragment.UbuntuManifest;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -79,7 +81,9 @@ public class Device {
             Log.d("Device", "Loading device " + d.getString("name") + " path " + d.getString("path"));
         }
 
-        m_supportsUbuntuTouch = info.getBoolean("ubuntu_touch");
+        JSONObject o = info.getJSONObject("ubuntu_touch");
+        m_supportsUbuntuTouch = o.getBoolean("enabled");
+        m_ubuntuBaseUrl = o.optString("base_url", UbuntuManifest.DEFAULT_BASE_URL);
     }
 
     public String getBootDev() { return m_devices.get("boot"); }
@@ -88,9 +92,11 @@ public class Device {
     public String getName() { return m_name; }
     public String getBaseVariantName() { return m_base_variant_name; }
     public boolean supportsUbuntuTouch() { return m_supportsUbuntuTouch; }
+    public String getUbuntuBaseUrl() { return m_ubuntuBaseUrl; }
 
     private String m_name;
     private String m_base_variant_name;
     private HashMap<String, String> m_devices = new HashMap<String, String>();
     private boolean m_supportsUbuntuTouch;
+    private String m_ubuntuBaseUrl;
 }

@@ -2,7 +2,9 @@
     "devices": [
         {
             "names": [ "flo", "deb" ],
-            "ubuntu_touch": false,
+            "ubuntu_touch": {
+                "enabled": true
+            },
             "devices": [
                 {
                     "name": "recovery",
@@ -20,7 +22,9 @@
         },
         {
             "names": [ "grouper", "tilapia" ],
-            "ubuntu_touch": true,
+            "ubuntu_touch": {
+                "enabled": true
+            },
             "devices": [
                 {
                     "name": "recovery",
@@ -38,7 +42,9 @@
         },
         {
             "names": [ "mako" ],
-            "ubuntu_touch": true,
+            "ubuntu_touch": {
+                "enabled": true
+            },
             "devices": [
                 {
                     "name": "recovery",
@@ -56,7 +62,10 @@
         },
         {
             "names": [ "hammerhead" ],
-            "ubuntu_touch": false,
+            "ubuntu_touch": {
+                "enabled": false,
+                "base_url": "http://system-image.tasemnice.eu"
+            },
             "devices": [
                 {
                     "name": "recovery",

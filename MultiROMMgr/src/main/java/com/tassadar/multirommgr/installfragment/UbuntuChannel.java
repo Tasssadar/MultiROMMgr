@@ -19,6 +19,7 @@ package com.tassadar.multirommgr.installfragment;
 
 import android.util.Log;
 
+import com.tassadar.multirommgr.Device;
 import com.tassadar.multirommgr.Utils;
 
 import org.json.JSONArray;
@@ -73,16 +74,16 @@ public class UbuntuChannel {
         return res;
     }
 
-    public boolean loadDeviceImages(String device) throws Exception {
-        String path = m_devices.get(device);
+    public boolean loadDeviceImages(String device_name, Device dev) throws Exception {
+        String path = m_devices.get(device_name);
         if(path == null || path.isEmpty())
-            throw new Exception("Device " + device + " was not found in this channel!");
+            throw new Exception("Device " + device_name + " was not found in this channel!");
 
         Log.d("UbuntuChannel", "Loading index " + path);
 
         ByteArrayOutputStream out = new ByteArrayOutputStream(32768);
         try {
-            if(!Utils.downloadFile(UbuntuManifest.BASE_URL + path, out, null, true) || out.size() == 0)
+            if(!Utils.downloadFile(dev.getUbuntuBaseUrl() + path, out, null, true) || out.size() == 0)
                 return false;
         } catch(IOException e) {
             e.printStackTrace();

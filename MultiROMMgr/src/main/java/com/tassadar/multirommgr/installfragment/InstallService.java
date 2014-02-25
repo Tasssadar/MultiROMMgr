@@ -93,8 +93,8 @@ public class InstallService extends Service implements InstallListener {
         startInstallation(t);
     }
 
-    public void startUbuntuInstallation(UbuntuInstallInfo info, MultiROM multirom) {
-        startInstallation(new UbuntuInstallTask(info, multirom));
+    public void startUbuntuInstallation(UbuntuInstallInfo info, MultiROM multirom, Device dev) {
+        startInstallation(new UbuntuInstallTask(info, multirom, dev));
     }
 
     private void startInstallation(InstallAsyncTask task) {

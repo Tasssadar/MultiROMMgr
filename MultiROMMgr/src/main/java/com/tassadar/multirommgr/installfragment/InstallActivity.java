@@ -159,7 +159,8 @@ public class InstallActivity extends Activity implements ServiceConnection, Inst
         } else if(type.equals("ubuntu")) {
             m_service.startUbuntuInstallation(
                     UbuntuManifestAsyncTask.instance().getInstallInfo(),
-                    StatusAsyncTask.instance().getMultiROM());
+                    StatusAsyncTask.instance().getMultiROM(),
+                    StatusAsyncTask.instance().getDevice());
         } else {
             Log.e("InstallActivity", "Unknown installation type: " + type);
             return;

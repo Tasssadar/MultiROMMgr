@@ -26,3 +26,9 @@ dependencies {
     compile 'com.android.support:support-v4:18.0.+'
     compile 'com.github.chrisbanes.actionbarpulltorefresh:library:+'
 }
+
+android {
+    lintOptions {
+        abortOnError false
+    }
+}
