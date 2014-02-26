@@ -185,15 +185,14 @@ public class UbuntuCard extends Card implements AdapterView.OnItemSelectedListen
         s = (Spinner) m_view.findViewById(R.id.destination);
         s.setAdapter(m_destAdapter);*/
 
-        if(m_savedState != null) {
-            String c = m_savedState.getString("utouch_selected_chan");
-            if(c != null) {
-                for(int i = 0; i < m_channelAdapter.getCount(); ++i) {
-                    if(m_channelAdapter.getItem(i).getRawName().equals(c)) {
-                        chanSpinner.setSelection(i);
-                        break;
-                    }
-                }
+        String preselected = "trusty";
+        if(m_savedState != null && m_savedState.containsKey("utouch_selected_chan"))
+            preselected = m_savedState.getString("utouch_selected_chan");
+
+        for(int i = 0; i < m_channelAdapter.getCount(); ++i) {
+            if(m_channelAdapter.getItem(i).getRawName().equals(preselected)) {
+                chanSpinner.setSelection(i);
+                break;
             }
         }
     }
