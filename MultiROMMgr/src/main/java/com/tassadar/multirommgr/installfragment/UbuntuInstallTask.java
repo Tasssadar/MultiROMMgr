@@ -102,7 +102,8 @@ public class UbuntuInstallTask extends InstallAsyncTask  {
             return null;
         }
 
-        if(!copyFiles(suDestDir, romPath + "/cache/recovery", files)) {
+        if(!copyFiles(suDestDir, romPath + "/cache/recovery", files) ||
+                !writeBaseUrl(romPath + "/cache/recovery")) {
             Shell.SU.run("rm -r \"%s\"", romPath);
             m_listener.onInstallComplete(false);
             return null;
@@ -274,6 +275,12 @@ public class UbuntuInstallTask extends InstallAsyncTask  {
         cmd.add("echo success");
 
         List<String> out = Shell.SU.run(cmd);
+        return out != null && !out.isEmpty() && out.get(0).equals("success");
+    }
+
+    private boolean writeBaseUrl(String destDir) {
+        List<String> out = Shell.SU.run("echo \"%s\" > \"%s\" && echo success",
+                m_device.getUbuntuBaseUrl(), destDir + "/base_url");
         return out != null && !out.isEmpty() && out.get(0).equals("success");
     }
 
