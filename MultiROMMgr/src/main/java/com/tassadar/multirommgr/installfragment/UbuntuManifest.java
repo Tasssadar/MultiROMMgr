@@ -120,6 +120,12 @@ public class UbuntuManifest {
                 return false;
             }
 
+            // Remove channels with no images for our device
+            if(!c.hasImages()) {
+                itr.remove();
+                continue;
+            }
+
             Log.d("UbuntuManifest", "Got channel: " + c.getDisplayName());
         }
         return true;

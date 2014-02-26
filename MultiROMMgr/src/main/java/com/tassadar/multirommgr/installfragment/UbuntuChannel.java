@@ -130,6 +130,7 @@ public class UbuntuChannel {
     public String getRawName() { return m_name; }
     public String getAlias() { return m_alias; }
     public ArrayList<String> getDuplicates() { return m_duplicates; }
+    public boolean hasImages() { return !m_images.isEmpty(); }
 
     private String m_name;
     private String m_alias;
