@@ -22,10 +22,7 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
 import android.os.Bundle;
-import android.view.Gravity;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.FrameLayout;
 import android.widget.ProgressBar;
 
 import com.tassadar.multirommgr.MainActivity;
@@ -70,10 +67,7 @@ public class RomEraseDialog extends DialogFragment implements View.OnClickListen
 
         d.setTitle(R.string.erasing_rom);
         d.setMessage("");
-        d.addContentView(b, new FrameLayout.LayoutParams(
-                ViewGroup.LayoutParams.WRAP_CONTENT,
-                ViewGroup.LayoutParams.WRAP_CONTENT,
-                Gravity.CENTER));
+        d.setContentView(b);
 
         setCancelable(false);
 
