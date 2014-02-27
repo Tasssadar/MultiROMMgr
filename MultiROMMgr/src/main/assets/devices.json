@@ -63,7 +63,7 @@
         {
             "names": [ "hammerhead" ],
             "ubuntu_touch": {
-                "enabled": false,
+                "enabled": true,
                 "base_url": "http://system-image.tasemnice.eu"
             },
             "devices": [
