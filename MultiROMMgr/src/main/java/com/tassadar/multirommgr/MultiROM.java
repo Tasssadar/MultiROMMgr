@@ -322,8 +322,8 @@ public class MultiROM {
                 "cd \"%s/roms\"; " +
                 "rom='%s'; c=0; " +
                 "while [ $c -lt 10 ]; do" +
-                "    if [ ! -d '$rom' ]; then" +
-                "        echo $(pwd)/$rom;" +
+                "    if [ ! -d \"$rom\" ]; then" +
+                "        echo \"$(pwd)/$rom\";" +
                 "        exit 0;" +
                 "    fi;" +
                 "    c=$(($c+1));" +
