@@ -28,13 +28,29 @@ public class MainFragment extends Fragment {
 
     public static final int MAIN_FRAG_INSTALL   = 0;
     public static final int MAIN_FRAG_ROM_LIST  = 1;
+    public static final int MAIN_FRAG_CNT       = 2;
 
     static public MainFragment newFragment(int type) {
+        Class cls = getFragmentClass(type);
+        if(cls == null)
+            return null;
+
+        try {
+            return (MainFragment)cls.newInstance();
+        } catch (java.lang.InstantiationException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    static public Class getFragmentClass(int type) {
         switch(type) {
             case MAIN_FRAG_INSTALL:
-                return new InstallFragment();
+                return InstallFragment.class;
             case MAIN_FRAG_ROM_LIST:
-                return new RomListFragment();
+                return RomListFragment.class;
             default:
                 return null;
         }

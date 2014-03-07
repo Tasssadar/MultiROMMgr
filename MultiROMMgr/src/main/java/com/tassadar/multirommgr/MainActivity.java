@@ -69,14 +69,18 @@ public class MainActivity extends Activity implements StatusAsyncTask.StatusAsyn
         m_drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         m_drawerList = (ListView) findViewById(R.id.left_drawer);
 
-        m_fragments = new MainFragment[2];
+        String[] fragmentClsNames = new String[MainFragment.MAIN_FRAG_CNT];
+        for(int i = 0; i < fragmentClsNames.length; ++i)
+            fragmentClsNames[i] = MainFragment.getFragmentClass(i).getName();
+
+        m_fragments = new MainFragment[MainFragment.MAIN_FRAG_CNT];
         FragmentManager fragmentManager = getFragmentManager();
         FragmentTransaction t = fragmentManager.beginTransaction();
         for(int i = 0; i < m_fragments.length; ++i) {
-            m_fragments[i] = (MainFragment)fragmentManager.findFragmentByTag(m_fragmentTitles[i]);
+            m_fragments[i] = (MainFragment)fragmentManager.findFragmentByTag(fragmentClsNames[i]);
             if(m_fragments[i] == null) {
                 m_fragments[i] = MainFragment.newFragment(i);
-                t.add(R.id.content_frame, m_fragments[i], m_fragmentTitles[i]);
+                t.add(R.id.content_frame, m_fragments[i], fragmentClsNames[i]);
             }
             t.hide(m_fragments[i]);
         }
