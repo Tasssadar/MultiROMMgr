@@ -120,13 +120,15 @@ public class Manifest {
             file.md5 = f.getString("md5");
             file.size = f.getLong("size");
 
-            if(file.type.equals("multirom"))
+            if (file.type.equals("multirom")) {
                 m_multirom = file;
-            else if(file.type.equals("recovery")) {
+            } else if(file.type.equals("recovery")) {
                 m_recovery = file;
-            }
-            else if(file.type.equals("kernel"))
+            } else if(file.type.equals("uninstaller")) {
+                m_uninstaller = file;
+            } else if(file.type.equals("kernel")) {
                 m_kernels.put(file.version, file);
+            }
         }
     }
 
@@ -225,6 +227,7 @@ public class Manifest {
 
     public InstallationFile getMultiromFile() { return m_multirom; }
     public InstallationFile getRecoveryFile() { return m_recovery; }
+    public InstallationFile getUninstallerFile() { return m_uninstaller; }
     public InstallationFile getKernelFile(String name) { return m_kernels.get(name); }
 
     public String getStatus() { return m_status; }
@@ -235,6 +238,7 @@ public class Manifest {
     private boolean m_kernelHasUpdate = false;
     private InstallationFile m_multirom;
     private InstallationFile m_recovery;
+    private InstallationFile m_uninstaller;
     private LinkedHashMap<String, InstallationFile> m_kernels = new LinkedHashMap<String, InstallationFile>();
     private String m_status;
     private String m_ubuntuReqMultiROM;

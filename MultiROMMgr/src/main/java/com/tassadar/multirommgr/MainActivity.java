@@ -44,10 +44,11 @@ import uk.co.senab.actionbarpulltorefresh.library.listeners.OnRefreshListener;
 
 public class MainActivity extends Activity implements StatusAsyncTask.StatusAsyncTaskListener, MainActivityListener, OnRefreshListener {
 
-    public static final int ACT_INSTALL_MULTIROM = 1;
-    public static final int ACT_INSTALL_UBUNTU   = 2;
-    public static final int ACT_CHANGELOG        = 3;
-    public static final int ACT_SELECT_ICON      = 4;
+    public static final int ACT_INSTALL_MULTIROM   = 1;
+    public static final int ACT_INSTALL_UBUNTU     = 2;
+    public static final int ACT_CHANGELOG          = 3;
+    public static final int ACT_SELECT_ICON        = 4;
+    public static final int ACT_UNINSTALL_MULTIROM = 5;
 
     public static final String INTENT_EXTRA_SHOW_ROM_LIST = "show_rom_list";
 

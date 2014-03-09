@@ -35,12 +35,10 @@ import java.util.List;
 
 import eu.chainfire.libsuperuser.Shell;
 
-public class MultiROMInstallTask extends InstallAsyncTask {
+public class MultiROMInstallTask extends MultiROMTask {
 
     public MultiROMInstallTask(Manifest man, Device dev) {
-        super();
-        m_manifest = man;
-        m_dev = dev;
+        super(man, dev);
     }
 
     public void setParts(boolean multirom, boolean recovery, String kernel) {
@@ -48,11 +46,6 @@ public class MultiROMInstallTask extends InstallAsyncTask {
         m_recovery = recovery;
         m_kernel = kernel;
     }
-
-    public void setListener(InstallListener listener) {
-        m_listener = listener;
-    }
-    public void setCanceled(boolean canceled) { m_canceled = canceled; }
 
     @Override
     protected Void doInBackground(Void... results) {
@@ -74,45 +67,8 @@ public class MultiROMInstallTask extends InstallAsyncTask {
         m_listener.onInstallLog(Utils.getString(R.string.preparing_downloads, "<br>"));
 
         for(int i = 0; i < files.size(); ++i) {
-            Manifest.InstallationFile f = files.get(i);
-
-            String filename = Utils.getFilenameFromUrl(f.url);
-            if(filename == null || filename.isEmpty()) {
-                m_listener.onInstallLog(Utils.getString(R.string.invalid_url, f.url));
-                m_listener.onInstallComplete(false);
+            if(!downloadInstallationFile(files.get(i), destDir))
                 return null;
-            }
-
-            long startOffset = 0;
-            f.destFile = new File(destDir, filename);
-            if(f.destFile.exists()) {
-                long size = f.destFile.length();
-                if(size < f.size) {
-                    startOffset = size;
-                } else {
-                    String md5 = Utils.calculateMD5(f.destFile);
-                    if(f.md5.equals(md5)) {
-                        m_listener.onInstallLog(Utils.getString(R.string.skipping_file, filename));
-                        continue;
-                    }
-                }
-            }
-
-            if(!downloadFile(files.get(i).url, f.destFile, startOffset)) {
-                if(!m_canceled)
-                    m_listener.onInstallComplete(false);
-                return null;
-            }
-
-            m_listener.onInstallLog(Utils.getString(R.string.checking_file, filename));
-            String md5 = Utils.calculateMD5(f.destFile);
-            if(f.md5.isEmpty() || f.md5.equals(md5))
-                m_listener.onInstallLog(Utils.getString(R.string.ok));
-            else {
-                m_listener.onInstallLog(Utils.getString(R.string.failed));
-                m_listener.onInstallComplete(false);
-                return null;
-            }
         }
 
         m_listener.onProgressUpdate(0, 0, true, Utils.getString(R.string.installing_files));
@@ -200,73 +156,7 @@ public class MultiROMInstallTask extends InstallAsyncTask {
         return true;
     }
 
-    private boolean addScriptInstall(Manifest.InstallationFile f, File scriptFile, String cache) {
-        String bb = Utils.extractAsset("busybox");
-
-        File tmpfile = new File(MgrApp.getAppContext().getCacheDir(), f.destFile.getName());
-        Utils.copyFile(f.destFile, tmpfile);
-
-        List<String> res = Shell.SU.run("%s cp \"%s\" \"%s/recovery/\" && echo success",
-                bb, tmpfile.getAbsolutePath(), cache);
-
-        tmpfile.delete();
-
-        if(res == null || res.size() != 1 || !res.get(0).equals("success")) {
-            m_listener.onInstallLog("Failed to copy file to cache!");
-            return false;
-        }
-
-        FileOutputStream out = null;
-        try {
-            out = new FileOutputStream(scriptFile, true);
-            String line = String.format("install /cache/recovery/%s\n", f.destFile.getName());
-            out.write(line.getBytes());
-            line = String.format("cmd rm \"/cache/recovery/%s\"\n", f.destFile.getName());
-            out.write(line.getBytes());
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            if(out != null)
-                try { out.close(); } catch(IOException e) {}
-        }
-        return true;
-    }
-
-    private String mountTmpCache(String cacheDev) {
-        String bb = Utils.extractAsset("busybox");
-        if(bb == null) {
-            Log.e("InstallAsyncTask", "Failed to extract busybox!");
-            return null;
-        }
-
-        // We need to mount the real /cache, we might be running in secondary ROM
-        String cmd =
-                "mkdir -p /data/local/tmp/tmpcache; " +
-                "cd /data/local/tmp/; " +
-                bb + " mount -t auto " + cacheDev + " tmpcache && " +
-                "mkdir -p tmpcache/recovery && " +
-                "sync && echo /data/local/tmp/tmpcache";
-
-        List<String> out = Shell.SU.run(cmd);
-        if(out == null || out.size() != 1) {
-            m_listener.onInstallLog("Failed to mount /cache!<br>");
-            return null;
-        }
-        return out.get(0);
-    }
-
-    private void unmountTmpCache(String path) {
-        Shell.SU.run("umount \"%s\" && rmdir \"%s\"", path, path);
-    }
-
-    @Override
-    public boolean isCanceled() {
-        return m_canceled;
-    }
-
     private boolean m_multirom;
     private boolean m_recovery;
     private String m_kernel;
-    private Manifest m_manifest;
-    private Device m_dev;
 }

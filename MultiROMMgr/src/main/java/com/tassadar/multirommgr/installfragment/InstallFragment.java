@@ -18,12 +18,18 @@
 package com.tassadar.multirommgr.installfragment;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
+import android.widget.PopupMenu;
+import android.widget.Spinner;
 
 import com.fima.cardsui.objects.Card;
 import com.fima.cardsui.views.CardUI;
@@ -34,7 +40,8 @@ import com.tassadar.multirommgr.R;
 import com.tassadar.multirommgr.StatusAsyncTask;
 
 public class InstallFragment extends MainFragment implements StatusAsyncTask.StatusAsyncTaskListener,
-        UbuntuManifestAsyncTask.UbuntuManifestAsyncTaskListener, StartInstallListener {
+        UbuntuManifestAsyncTask.UbuntuManifestAsyncTaskListener, StartInstallListener,
+        PopupMenu.OnMenuItemClickListener {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -70,7 +77,7 @@ public class InstallFragment extends MainFragment implements StatusAsyncTask.Sta
         if(!StatusAsyncTask.instance().isComplete())
             m_cardsSavedState = null;
 
-        mCardView.addCard(new StatusCard(), true);
+        mCardView.addCard(new StatusCard(this), true);
     }
 
     @Override
@@ -137,10 +144,37 @@ public class InstallFragment extends MainFragment implements StatusAsyncTask.Sta
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         switch(requestCode) {
             case MainActivity.ACT_INSTALL_MULTIROM:
+            case MainActivity.ACT_UNINSTALL_MULTIROM:
                 if(resultCode == Activity.RESULT_OK)
                     m_actListener.refresh();
                 break;
         }
+    }
+
+    @Override
+    public boolean onMenuItemClick(MenuItem menuItem) {
+        if(menuItem.getItemId() != R.id.uninstall_multirom)
+            return false;
+
+        AlertDialog.Builder b = new AlertDialog.Builder(getActivity());
+        b.setTitle(R.string.uninstall_dialog_title)
+         .setIcon(R.drawable.alerts_and_states_warning)
+         .setMessage(R.string.uninstall_dialog_text)
+         .setNegativeButton(R.string.cancel, null)
+         .setCancelable(true)
+         .setPositiveButton(R.string.continue_text, new DialogInterface.OnClickListener() {
+             @Override
+             public void onClick(DialogInterface dialogInterface, int i) {
+                 Bundle bundle = new Bundle();
+                 bundle.putString("installation_type", "uninstall_multirom");
+                 Bundle extras = new Bundle();
+                 extras.putBundle("installation_info", bundle);
+
+                 startActivity(extras, MainActivity.ACT_UNINSTALL_MULTIROM, InstallActivity.class);
+             }
+         });
+        b.create().show();
+        return true;
     }
 
     private CardUI mCardView;

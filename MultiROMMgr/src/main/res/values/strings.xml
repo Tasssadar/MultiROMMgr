@@ -121,6 +121,10 @@
     <string name="prog_check_recovery">Checking recovery</string>
     <string name="prog_check_kernel">Checking kernel</string>
     <string name="prog_download_manifest">Downloading updates metadata</string>
+    <string name="uninstall">Uninstall MultiROM</string>
+    <string name="uninstall_dialog_title">Uninstall MultiROM?</string>
+    <string name="uninstall_dialog_text">This action will completely remove MultiROM and all installed secondary systems. Your primary ROM will remain intact. MultiROM recovery will still be installed, if you want to remove it, you have to replace it with different recovery.</string>
+    <string name="continue_text">Continue</string>
 
     <string-array name="reboot_options">
         <item>System</item>

@@ -23,6 +23,7 @@ import android.os.Build;
 import android.text.Html;
 import android.text.Spanned;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import java.lang.ref.WeakReference;
@@ -249,6 +250,10 @@ public class StatusAsyncTask extends AsyncTask <Void, String, StatusAsyncTask.Re
                 kexec_text));
         t.setText(s);
         t.setVisibility(View.VISIBLE);
+
+        boolean canUninstall = (m_res.code == RES_OK && man.getUninstallerFile() != null);
+        ImageButton b = (ImageButton) l.findViewById(R.id.uninstall_btn);
+        b.setVisibility(canUninstall ? View.VISIBLE : View.GONE);
     }
 
     public class Result {

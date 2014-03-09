@@ -156,6 +156,10 @@ public class InstallActivity extends Activity implements ServiceConnection, Inst
             Device dev = StatusAsyncTask.instance().getDevice();
 
             m_service.startMultiROMInstallation(man, dev, multirom, recovery, kernel, kernel_name);
+        } else if(type.equals("uninstall_multirom")) {
+            Manifest man = StatusAsyncTask.instance().getManifest();
+            Device dev = StatusAsyncTask.instance().getDevice();
+            m_service.startMultiROMUninstallation(man, dev);
         } else if(type.equals("ubuntu")) {
             m_service.startUbuntuInstallation(
                     UbuntuManifestAsyncTask.instance().getInstallInfo(),

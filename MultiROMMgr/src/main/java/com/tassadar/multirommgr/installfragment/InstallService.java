@@ -93,6 +93,10 @@ public class InstallService extends Service implements InstallListener {
         startInstallation(t);
     }
 
+    public void startMultiROMUninstallation(Manifest man, Device dev) {
+        startInstallation(new MultiROMUninstallTask(man, dev));
+    }
+
     public void startUbuntuInstallation(UbuntuInstallInfo info, MultiROM multirom, Device dev) {
         startInstallation(new UbuntuInstallTask(info, multirom, dev));
     }
