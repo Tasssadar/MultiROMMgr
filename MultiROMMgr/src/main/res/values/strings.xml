@@ -125,6 +125,7 @@
     <string name="uninstall_dialog_title">Uninstall MultiROM?</string>
     <string name="uninstall_dialog_text">This action will completely remove MultiROM and all installed secondary systems. Your primary ROM will remain intact. MultiROM recovery will still be installed, if you want to remove it, you have to replace it with different recovery.</string>
     <string name="continue_text">Continue</string>
+    <string name="flavour">Flavour:</string>
 
     <string-array name="reboot_options">
         <item>System</item>

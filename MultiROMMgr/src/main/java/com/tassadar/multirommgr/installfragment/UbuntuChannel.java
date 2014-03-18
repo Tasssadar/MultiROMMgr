@@ -41,6 +41,13 @@ public class UbuntuChannel {
         m_name = name;
         m_alias = c.optString("alias", null);
 
+        // Remove flavour name
+        if(m_alias != null) {
+            int idx = m_alias.indexOf('/');
+            if(idx != -1)
+                m_alias = m_alias.substring(idx+1);
+        }
+
         JSONObject dev = c.getJSONObject("devices");
         Iterator itr = dev.keys();
         while(itr.hasNext()) {

@@ -70,6 +70,21 @@
             android:textColor="#FF0000" />
 
         <LinearLayout
+            android:id="@+id/flavour_layout"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:visibility="gone">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/flavour"/>
+            <Spinner
+                android:id="@+id/flavour"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content" />
+        </LinearLayout>
+
+        <LinearLayout
             android:id="@+id/channel_layout"
             android:layout_height="wrap_content"
             android:layout_width="match_parent"

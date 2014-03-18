@@ -77,7 +77,7 @@ public class UbuntuManifest {
                     continue;
                 }
 
-                m_channels.put(name, new UbuntuChannel(name, c));
+                addChannel(name, c);
             }
         } catch (JSONException e) {
             e.printStackTrace();
@@ -86,52 +86,80 @@ public class UbuntuManifest {
 
         // Remove duplicate channels (they have "alias" set) and
         // channels without the device we're currently running on
-        Iterator<Map.Entry<String,UbuntuChannel>> itr = m_channels.entrySet().iterator();
-        while(itr.hasNext()) {
-            UbuntuChannel c = itr.next().getValue();
+        Iterator<Map.Entry<String, TreeMap<String,UbuntuChannel>>> f_itr = m_flavours.entrySet().iterator();
+        while(f_itr.hasNext()) {
+            Map<String, UbuntuChannel> channelMap = f_itr.next().getValue();
+            Iterator<Map.Entry<String,UbuntuChannel>> c_itr = channelMap.entrySet().iterator();
+            while(c_itr.hasNext()) {
+                UbuntuChannel c = c_itr.next().getValue();
 
-            // Devices like deb or tilapia won't be in
-            // Ubuntu Touch manifests, yet the versions
-            // for flo/grouper work fine - select those.
-            String dev_name = dev.getName();
-            if(!c.hasDevice(dev_name)) {
-                dev_name = dev.getBaseVariantName();
-
+                // Devices like deb or tilapia won't be in
+                // Ubuntu Touch manifests, yet the versions
+                // for flo/grouper work fine - select those.
+                String dev_name = dev.getName();
                 if(!c.hasDevice(dev_name)) {
-                    itr.remove();
-                    continue;
-                }
-            }
+                    dev_name = dev.getBaseVariantName();
 
-            if(c.getAlias() != null) {
-                UbuntuChannel orig = m_channels.get(c.getAlias());
-                if(orig != null) {
-                    orig.addDuplicate(c.getRawName());
-                    itr.remove();
-                    continue;
+                    if(!c.hasDevice(dev_name)) {
+                        c_itr.remove();
+                        continue;
+                    }
                 }
-            }
 
-            try {
-                if(!c.loadDeviceImages(dev_name, dev))
+                if(c.getAlias() != null) {
+                    UbuntuChannel orig = channelMap.get(c.getAlias());
+                    if(orig != null) {
+                        orig.addDuplicate(c.getRawName());
+                        c_itr.remove();
+                        continue;
+                    }
+                }
+
+                try {
+                    if(!c.loadDeviceImages(dev_name, dev))
+                        return false;
+                } catch (Exception e) {
+                    e.printStackTrace();
                     return false;
-            } catch (Exception e) {
-                e.printStackTrace();
-                return false;
+                }
+
+                // Remove channels with no images for our device
+                if(!c.hasImages()) {
+                    c_itr.remove();
+                    continue;
+                }
+
+                Log.d("UbuntuManifest", "Got channel: " + c.getDisplayName());
             }
 
-            // Remove channels with no images for our device
-            if(!c.hasImages()) {
-                itr.remove();
-                continue;
-            }
-
-            Log.d("UbuntuManifest", "Got channel: " + c.getDisplayName());
+            if(channelMap.isEmpty())
+                f_itr.remove();
         }
         return true;
     }
 
-    public Map<String,UbuntuChannel> getChannels() { return m_channels; }
+    private void addChannel(String full_name, JSONObject channelObject) throws JSONException {
+        String flavour_name, channel_name;
+        int idx = full_name.indexOf('/');
+        if(idx == -1) {
+            flavour_name = "(None)";
+            channel_name = full_name;
+        } else {
+            flavour_name = full_name.substring(0, idx);
+            channel_name = full_name.substring(idx+1);
+        }
 
-    private TreeMap<String, UbuntuChannel> m_channels = new TreeMap<String, UbuntuChannel>();
+        UbuntuChannel channel = new UbuntuChannel(channel_name, channelObject);
+        TreeMap<String, UbuntuChannel> channelMap = m_flavours.get(flavour_name);
+        if(channelMap == null) {
+            channelMap = new TreeMap<String, UbuntuChannel>();
+            m_flavours.put(flavour_name, channelMap);
+        }
+        channelMap.put(channel_name, channel);
+    }
+
+    public TreeMap<String, TreeMap<String, UbuntuChannel>> getFlavours() { return m_flavours; }
+
+    private TreeMap<String, TreeMap<String, UbuntuChannel>> m_flavours =
+            new TreeMap<String, TreeMap<String, UbuntuChannel>>();
 }

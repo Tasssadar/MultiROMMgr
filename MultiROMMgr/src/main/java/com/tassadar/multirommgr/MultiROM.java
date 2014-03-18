@@ -317,6 +317,7 @@ public class MultiROM {
     public String getNewRomFolder(String base) {
         if(base.length() > MAX_ROM_NAME)
             base = base.substring(0, MAX_ROM_NAME);
+        base = base.replace('/', '_');
 
         List<String> out = Shell.SU.run(String.format(
                 "cd \"%s/roms\"; " +

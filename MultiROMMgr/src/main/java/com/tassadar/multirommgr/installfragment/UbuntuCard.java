@@ -42,6 +42,8 @@ import com.tassadar.multirommgr.StatusAsyncTask;
 import com.tassadar.multirommgr.Utils;
 
 import java.util.ArrayList;
+import java.util.Map;
+import java.util.TreeMap;
 
 public class UbuntuCard extends Card implements AdapterView.OnItemSelectedListener, View.OnClickListener {
 
@@ -79,6 +81,13 @@ public class UbuntuCard extends Card implements AdapterView.OnItemSelectedListen
         if(m_view == null)
             return;
 
+        if(m_flavourAdapter != null) {
+            Spinner s = (Spinner) m_view.findViewById(R.id.flavour);
+            Map.Entry<String, TreeMap<String, UbuntuChannel>> e = m_flavourAdapter.getEntry(s.getSelectedItemPosition());
+            if(e != null)
+                outState.putString("utouch_selected_flavour", e.getKey());
+        }
+
         Spinner s = (Spinner) m_view.findViewById(R.id.channel);
         UbuntuChannel c = (UbuntuChannel)s.getSelectedItem();
         if(c != null)
@@ -97,8 +106,12 @@ public class UbuntuCard extends Card implements AdapterView.OnItemSelectedListen
     public View getCardContent(Context context) {
         m_view = LayoutInflater.from(context).inflate(R.layout.ubuntu_card, null);
 
-        Spinner s = (Spinner) m_view.findViewById(R.id.channel);
+        Spinner s = (Spinner) m_view.findViewById(R.id.flavour);
         s.setOnItemSelectedListener(this);
+
+        s = (Spinner) m_view.findViewById(R.id.channel);
+        s.setOnItemSelectedListener(this);
+
 
         Button b = (Button) m_view.findViewById(R.id.install_btn);
         b.setOnClickListener(this);
@@ -151,7 +164,7 @@ public class UbuntuCard extends Card implements AdapterView.OnItemSelectedListen
             return;
         }
 
-        if(res.manifest.getChannels().isEmpty()) {
+        if(res.manifest.getFlavours().isEmpty()) {
             TextView t = (TextView)m_view.findViewById(R.id.error_text);
             t.setVisibility(View.VISIBLE);
             t.setText(R.string.ubuntu_man_no_channels);
@@ -172,9 +185,29 @@ public class UbuntuCard extends Card implements AdapterView.OnItemSelectedListen
             v.setVisibility(View.VISIBLE);
         }
 
-        Spinner chanSpinner = (Spinner) m_view.findViewById(R.id.channel);
-        m_channelAdapter = new UbuntuChannelsAdapter(m_view.getContext(), res.manifest.getChannels());
-        chanSpinner.setAdapter(m_channelAdapter);
+        v = m_view.findViewById(R.id.flavour_layout);
+        v.setVisibility(res.manifest.getFlavours().size() > 1 ? View.VISIBLE : View.GONE);
+
+        m_flavourAdapter = new TreeMapAdapter<String, TreeMap<String, UbuntuChannel>>
+                (m_view.getContext(), res.manifest.getFlavours(), null);
+
+        Spinner flavourSpinner = (Spinner) m_view.findViewById(R.id.flavour);
+        flavourSpinner.setAdapter(m_flavourAdapter);
+
+        // We need to call the listener to initialize channelAdapter
+        onItemSelected(flavourSpinner, flavourSpinner.getSelectedView(),
+                flavourSpinner.getSelectedItemPosition(), flavourSpinner.getSelectedItemId());
+
+        String preselected = "ubuntu-touch";
+        if(m_savedState != null && m_savedState.containsKey("utouch_selected_flavour"))
+            preselected = m_savedState.getString("utouch_selected_flavour");
+
+        for(int i = 0; i < m_flavourAdapter.getCount(); ++i) {
+            if(m_flavourAdapter.getEntry(i).getKey().equals(preselected)) {
+                flavourSpinner.setSelection(i);
+                break;
+            }
+        }
 
         // TODO: support installation to USB drive
         /*m_destAdapter = new ArrayAdapter<String>(m_view.getContext(),
@@ -184,48 +217,72 @@ public class UbuntuCard extends Card implements AdapterView.OnItemSelectedListen
 
         s = (Spinner) m_view.findViewById(R.id.destination);
         s.setAdapter(m_destAdapter);*/
+    }
 
-        String preselected = "trusty";
-        if(m_savedState != null && m_savedState.containsKey("utouch_selected_chan"))
-            preselected = m_savedState.getString("utouch_selected_chan");
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        switch(parent.getId()) {
+            case R.id.flavour: {
+                Spinner chanSpinner = (Spinner) m_view.findViewById(R.id.channel);
+                TreeMap<String, UbuntuChannel> channelMap = m_flavourAdapter.getItem(position);
+                m_channelAdapter = new TreeMapAdapter<String, UbuntuChannel>(m_view.getContext(),
+                        channelMap, new TreeMapAdapter.NameResolver<String, UbuntuChannel>() {
+                    @Override
+                    public String getName(String key, UbuntuChannel entry) {
+                        return entry.getDisplayName();
+                    }
+                });
+                chanSpinner.setAdapter(m_channelAdapter);
 
-        for(int i = 0; i < m_channelAdapter.getCount(); ++i) {
-            if(m_channelAdapter.getItem(i).getRawName().equals(preselected)) {
-                chanSpinner.setSelection(i);
+                String preselected = "trusty";
+                if(m_savedState != null && m_savedState.containsKey("utouch_selected_chan"))
+                    preselected = m_savedState.getString("utouch_selected_chan");
+
+                for(int i = 0; i < m_channelAdapter.getCount(); ++i) {
+                    if(m_channelAdapter.getItem(i).getRawName().equals(preselected)) {
+                        chanSpinner.setSelection(i);
+                        break;
+                    }
+                }
+                break;
+            }
+            case R.id.channel: {
+                m_versionAdapter = new ArrayAdapter<Integer>(m_view.getContext(),
+                        android.R.layout.simple_spinner_dropdown_item);
+
+                UbuntuChannel c = m_channelAdapter.getItem(position);
+                m_versionAdapter.addAll(c.getImageVersions());
+
+                Spinner s = (Spinner) m_view.findViewById(R.id.version);
+                s.setAdapter(m_versionAdapter);
+                s.setSelection(m_versionAdapter.getCount() - 1);
+
+                if (m_savedState != null) {
+                    Integer ver = m_savedState.getInt("utouch_selected_ver");
+                    if (ver != null && m_versionAdapter != null) {
+                        for (int i = 0; i < m_versionAdapter.getCount(); ++i) {
+                            if (m_versionAdapter.getItem(i).equals(ver)) {
+                                s.setSelection(i);
+                                break;
+                            }
+                        }
+                    }
+                    m_savedState = null;
+                }
                 break;
             }
         }
     }
 
     @Override
-    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        m_versionAdapter = new ArrayAdapter<Integer>(m_view.getContext(),
-                android.R.layout.simple_spinner_dropdown_item);
-
-        UbuntuChannel c = m_channelAdapter.getItem(position);
-        m_versionAdapter.addAll(c.getImageVersions());
-
-        Spinner s = (Spinner) m_view.findViewById(R.id.version);
-        s.setAdapter(m_versionAdapter);
-        s.setSelection(m_versionAdapter.getCount()-1);
-
-        if(m_savedState != null) {
-            Integer ver = m_savedState.getInt("utouch_selected_ver");
-            if(ver != null && m_versionAdapter != null) {
-                for(int i = 0; i < m_versionAdapter.getCount(); ++i) {
-                    if(m_versionAdapter.getItem(i).equals(ver)) {
-                        s.setSelection(i);
-                        break;
-                    }
-                }
-            }
-            m_savedState = null;
-        }
-    }
-
-    @Override
     public void onNothingSelected(AdapterView<?> parent) {
-        Spinner s = (Spinner) m_view.findViewById(R.id.version);
+        int id;
+        switch(parent.getId()) {
+            case R.id.flavour: id = R.id.channel; break;
+            case R.id.channel: id = R.id.version; break;
+            default: return;
+        }
+        Spinner s = (Spinner) m_view.findViewById(id);
         s.setAdapter(null);
     }
 
@@ -307,7 +364,8 @@ public class UbuntuCard extends Card implements AdapterView.OnItemSelectedListen
     }
 
     private View m_view;
-    private UbuntuChannelsAdapter m_channelAdapter;
+    private TreeMapAdapter<String, TreeMap<String, UbuntuChannel>> m_flavourAdapter;
+    private TreeMapAdapter<String, UbuntuChannel> m_channelAdapter;
     private ArrayAdapter<Integer> m_versionAdapter;
     private ArrayAdapter<String> m_destAdapter;
     private StartInstallListener m_listener;
