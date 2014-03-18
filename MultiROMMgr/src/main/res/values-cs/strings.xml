@@ -115,6 +115,19 @@
     <string name="browse">Prohlížet&#8230;</string>
     <string name="rom_list_widget">Vyberte ROM, do které chcete nabootovat.</string>
     <string name="ubuntu_man_no_channels">Pro toto zařízení neexistují žádné kanály s daty.</string>
+    <string name="prog_checking_root">Žádám o root přístup</string>
+    <string name="prog_detecting_dev">Rozpoznávám zařízení</string>
+    <string name="prog_looking_for_multirom">Hledám MultiROM</string>
+    <string name="prog_getting_roms">Načítám seznam vedlejších systémů</string>
+    <string name="prog_check_recovery">Kontroluji recovery</string>
+    <string name="prog_check_kernel">Kontroluji kernel</string>
+    <string name="prog_download_manifest">Stahuji informace o aktualizacích</string>
+    <string name="uninstall">Odinstalovat MultiROM</string>
+    <string name="uninstall_dialog_title">Odinstalovat MultiROM?</string>
+    <string name="uninstall_dialog_text">Tato akce odstraní MultiROM a všechny nainstalované vedlejší systémy. Vaše hlavní ROM zůstane neporušena. MultiROM recovery zůstane pořád nainstalována, pokud ji chcete odebrat, musíte ji přepsat nějakou jinou recovery.</string>
+    <string name="continue_text">Pokračovat:</string>
+    <string name="flavour">Odnož:</string>
+
 
     <string-array name="reboot_options">
         <item>Systém</item>
@@ -124,6 +137,6 @@
 
     <string-array name="main_fragment_titles">
         <item>Instalace/aktualizace</item>
-        <item>Spravovat ROM</item>
+        <item>Správa ROM</item>
     </string-array>
 </resources>
