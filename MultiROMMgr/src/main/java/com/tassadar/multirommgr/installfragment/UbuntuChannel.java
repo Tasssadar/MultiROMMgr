@@ -37,16 +37,10 @@ import java.util.TreeMap;
 
 public class UbuntuChannel {
 
-    public UbuntuChannel(String name, JSONObject c) throws JSONException {
-        m_name = name;
+    public UbuntuChannel(String channelName, String fullName, JSONObject c) throws JSONException {
+        m_name = channelName;
+        m_fullName = fullName;
         m_alias = c.optString("alias", null);
-
-        // Remove flavour name
-        if(m_alias != null) {
-            int idx = m_alias.indexOf('/');
-            if(idx != -1)
-                m_alias = m_alias.substring(idx+1);
-        }
 
         JSONObject dev = c.getJSONObject("devices");
         Iterator itr = dev.keys();
@@ -58,10 +52,14 @@ public class UbuntuChannel {
         }
     }
 
-    public void addDuplicate(String name) {
+    public void addDuplicate(UbuntuChannel dup) {
         if(m_duplicates == null)
             m_duplicates = new ArrayList<String>();
-        m_duplicates.add(name);
+
+        if(dup.getFlavour().equals(getFlavour()))
+            m_duplicates.add(dup.getRawName());
+        else
+            m_duplicates.add(dup.getFullName());
     }
 
     public boolean hasDevice(String name) {
@@ -130,16 +128,27 @@ public class UbuntuChannel {
         files.addAll(img.files);
     }
 
+    public String getFlavour() {
+        int idx = m_fullName.indexOf('/');
+        if(idx != -1) {
+            return m_fullName.substring(0, idx);
+        } else {
+            return UbuntuManifest.NO_FLAVOUR;
+        }
+    }
+
     public Set<Integer> getImageVersions() {
         return m_images.keySet();
     }
 
     public String getRawName() { return m_name; }
+    public String getFullName() { return m_fullName; }
     public String getAlias() { return m_alias; }
     public ArrayList<String> getDuplicates() { return m_duplicates; }
     public boolean hasImages() { return !m_images.isEmpty(); }
 
     private String m_name;
+    private String m_fullName;
     private String m_alias;
     private HashMap<String, String> m_devices = new HashMap<String, String>();
     private ArrayList<String> m_duplicates = null;

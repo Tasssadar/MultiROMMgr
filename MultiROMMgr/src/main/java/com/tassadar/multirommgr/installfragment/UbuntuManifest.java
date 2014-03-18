@@ -38,6 +38,7 @@ import java.util.TreeMap;
 public class UbuntuManifest {
     public static final String DEFAULT_BASE_URL = "https://system-image.ubuntu.com";
     public static final String CHANNELS_PATH = "/channels.json";
+    public static final String NO_FLAVOUR = "*none*";
 
     public boolean downloadAndParse(Device dev) {
         ByteArrayOutputStream out = new ByteArrayOutputStream(8192);
@@ -107,9 +108,9 @@ public class UbuntuManifest {
                 }
 
                 if(c.getAlias() != null) {
-                    UbuntuChannel orig = channelMap.get(c.getAlias());
+                    UbuntuChannel orig = findChannel(c.getAlias());
                     if(orig != null) {
-                        orig.addDuplicate(c.getRawName());
+                        orig.addDuplicate(c);
                         c_itr.remove();
                         continue;
                     }
@@ -142,20 +143,38 @@ public class UbuntuManifest {
         String flavour_name, channel_name;
         int idx = full_name.indexOf('/');
         if(idx == -1) {
-            flavour_name = "(None)";
+            flavour_name = NO_FLAVOUR;
             channel_name = full_name;
+            full_name = NO_FLAVOUR + "/" + full_name;
         } else {
             flavour_name = full_name.substring(0, idx);
             channel_name = full_name.substring(idx+1);
         }
 
-        UbuntuChannel channel = new UbuntuChannel(channel_name, channelObject);
+        UbuntuChannel channel = new UbuntuChannel(channel_name, full_name, channelObject);
         TreeMap<String, UbuntuChannel> channelMap = m_flavours.get(flavour_name);
         if(channelMap == null) {
             channelMap = new TreeMap<String, UbuntuChannel>();
             m_flavours.put(flavour_name, channelMap);
         }
         channelMap.put(channel_name, channel);
+    }
+
+    public UbuntuChannel findChannel(String full_name) {
+        String flavour_name, channel_name;
+        int idx = full_name.indexOf('/');
+        if(idx == -1) {
+            flavour_name = NO_FLAVOUR;
+            channel_name = full_name;
+        } else {
+            flavour_name = full_name.substring(0, idx);
+            channel_name = full_name.substring(idx+1);
+        }
+
+        TreeMap<String, UbuntuChannel> channelMap = m_flavours.get(flavour_name);
+        if(channelMap != null)
+            return channelMap.get(channel_name);
+        return null;
     }
 
     public TreeMap<String, TreeMap<String, UbuntuChannel>> getFlavours() { return m_flavours; }
