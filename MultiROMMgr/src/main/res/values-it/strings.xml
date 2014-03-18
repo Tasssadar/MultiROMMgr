@@ -126,7 +126,7 @@
     <string name="prog_download_manifest">Scarico gli aggiornamenti dei metadati</string>
     <string name="uninstall">Disinstalla MultiROM</string>
     <string name="uninstall_dialog_title">Disinstallare MultiROM?</string>
-    <string name="uninstall_dialog_text">Questa azione rimuoverà completamente MultiROM e tutti i sistemi secondari installati. La tua ROM principale rimarrà intatta. La recovery MultiROM resterà installata, se vuoi rimuoverla devi sostituirla con un'altra.</string>
+    <string name="uninstall_dialog_text">Questa azione rimuoverà completamente MultiROM e tutti i sistemi secondari installati. La tua ROM principale rimarrà intatta. La recovery MultiROM resterà installata, se vuoi rimuoverla devi sostituirla con un\'altra.</string>
     <string name="continue_text">Continua</string>
     <string name="flavour">Variante:</string>
 
