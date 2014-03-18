@@ -81,7 +81,7 @@
     <string name="about_ubuntu_text"><b>Questa card permette di installare Ubuntu Touch come ROM secondaria. Non eliminerà nessun dato, verrà semplicemente aggiunto a MultiROM.</b>\n\nIn base al canale scelto, <i>saucy</i> è la corrente versione stabile, e quindi ci si può aspettare che sia \"migliore\". D\'altra parte, <i>trusty</i> è la versione correntemente in sviluppo, ciò vuol dire che riceverà velocemente gli ultimi aggiornamenti.</string>
     <string name="installation">Installazione</string>
     <string name="action_reboot">Riavvio…</string>
-       <string name="ubuntu_unsupported">Sfortunatamente, Ubuntu Touch non è supportato dal tuo dispositivo.</string>
+    <string name="ubuntu_unsupported">Sfortunatamente, Ubuntu Touch non è supportato dal tuo dispositivo.</string>
     <string name="about">About</string>
     <string name="about_version">Versione</string>
     <string name="about_licenses">Licenze</string>
@@ -116,19 +116,28 @@
     <string name="select_icon">Seleziona icona</string>
     <string name="browse">Browse&#8230;</string>
     <string name="rom_list_widget">Seleziona ROM da avviare.</string>
+    <string name="ubuntu_man_no_channels">Non è stato trovato nessun canale di update per questo dispositivo.</string>
+    <string name="prog_checking_root">Controllo dei permessi di root</string>
+    <string name="prog_detecting_dev">Identificazione del dispositivo</string>
+    <string name="prog_looking_for_multirom">Ricerca MultiROM</string>
+    <string name="prog_getting_roms">Caricamento ROM secondarie</string>
+    <string name="prog_check_recovery">Controllo la recovery</string>
+    <string name="prog_check_kernel">Controllo il kernel</string>
+    <string name="prog_download_manifest">Scarico gli aggiornamenti dei metadati</string>
+    <string name="uninstall">Disinstalla MultiROM</string>
+    <string name="uninstall_dialog_title">Disinstallare MultiROM?</string>
+    <string name="uninstall_dialog_text">Questa azione rimuoverà completamente MultiROM e tutti i sistemi secondari installati. La tua ROM principale rimarrà intatta. La recovery MultiROM resterà installata, se vuoi rimuoverla devi sostituirla con un'altra.</string>
+    <string name="continue_text">Continua</string>
+    <string name="flavour">Variante:</string>
 
     <string-array name="reboot_options">
         <item>System</item>
         <item>Recovery</item>
         <item>Bootloader</item>
     </string-array>
-	<string-array name="main_fragment_titles">
+
+    <string-array name="main_fragment_titles">
         <item>Installa/aggiorna</item>
         <item>Gestisci ROM</item>
-    </string-array>
-
-    <string-array name="icon_sources">
-        <item>Icone di default</item>
-        <item>Seleziona file&#8230;</item>
     </string-array>
 </resources>
