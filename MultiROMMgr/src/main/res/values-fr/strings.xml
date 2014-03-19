@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">MultiROM Manager</string>
+    <string name="action_settings">Settings</string>
+    <string name="status">Status</string>
+    <string name="no_su">Failed to get root access!</string>
+    <string name="action_refresh">Refresh</string>
+    <string name="unsupported">This is unsupported device (%1$s)!</string>
+    <string name="status_text"><![CDATA[<b>MultiROM:</b> v%1$s%2$s<br><b>Recovery:</b> %3$s%4$s<br><b>Kernel:</b> %5$s]]></string>
+    <string name="mrom_ver_fail">Failed to read MultiROM version!</string>
+    <string name="no_multirom">MultiROM is not installed.</string>
+    <string name="no_recovery">MultiROM recovery is not installed.</string>
+    <string name="has_kexec"><![CDATA[<font color=\"#339900\">has kexec-hardboot patch</font>]]></string>
+    <string name="no_kexec"><![CDATA[<font color=\"red\">doesn\'t have kexec-hardboot patch!</font>]]></string>
+    <string name="update_available"><![CDATA[<font color=\"blue\"> (Update available)</font>]]></string>
+    <string name="manifest_fail">Failed to download info about updates!</string>
+    <string name="install_multirom">MultiROM v%1$s</string>
+    <string name="install_recovery">Recovery %1$s</string>
+    <string name="install_kernel">Kernel:</string>
+    <string name="install">Install</string>
+    <string name="install_title">Install/Update</string>
+    <string name="cancel">Cancel</string>
+    <string name="download_progress">%1$s (%2$d kB of %3$d kB)...</string>
+    <string name="try_again">Try again</string>
+    <string name="uninterruptable">This operation can\'t be interrupted.</string>
+    <string name="reboot">Reboot</string>
+    <string name="reboot_message">You have to reboot into recovery to complete the installation.</string>
+    <string name="ubuntu_card">Install Ubuntu Touch</string>
+    <string name="channel">Channel:</string>
+    <string name="ubuntu_man_failed">Failed to download and parse Ubuntu Touch metadata.</string>
+    <string name="version">Version:</string>
+    <string name="required"><![CDATA[<font color=\"blue\">&nbsp;(required)</font>]]></string>
+    <string name="ubuntu_req_multirom">MultiROM v%s or higher is required.</string>
+    <string name="ubuntu_req_recovery">Recovery %s or newer is required.</string>
+    <string name="ubuntu_touch">Ubuntu Touch</string>
+    <string name="pref_hidden_channels">Show hidden channels</string>
+    <string name="pref_hidden_channels_summ">Shows update channels which are hidden by default (usually inactive or developers-only channels).</string>
+    <string name="pref_delete_utouch_files">Delete used installation files</string>
+    <string name="pref_delete_utouch_files_summ">Delete used Ubuntu Touch files just before rebooting into recovery to complete the installation. This saves space, but you have to re-download the files should the installation fail.\n\nFiles are downloaded to %1$s/%2$s</string>
+    <string name="general">General</string>
+    <string name="pref_auto_reboot">Don\'t ask to reboot</string>
+    <string name="pref_auto_reboot_summ">Automatically reboot into recovery when it is required to complete the installation.</string>
+    <string name="install_success">Installation was successful.</string>
+    <string name="install_failed">Installation FAILED!</string>
+    <string name="downloading_file">Downloading file %s...</string>
+    <string name="success"><![CDATA[<font color=\"green\">success</font><br>]]></string>
+    <string name="failed"><![CDATA[<font color=\"red\">FAILED!</font><br>]]></string>
+    <string name="preparing_downloads">Preparing downloads...%s</string>
+    <string name="invalid_url">Invalid URL: %s</string>
+    <string name="skipping_file"><![CDATA[Skipping already downloaded file %s<br>]]></string>
+    <string name="checking_file">Checking file %s... </string>
+    <string name="ok"><![CDATA[<font color=\"green\">ok</font><br>]]></string>
+    <string name="installing_files">Installing files...</string>
+    <string name="installing_file">Installing file %s...</string>
+    <string name="needs_recovery"><![CDATA[<font color=\"yellow\">needs recovery</font><br>]]></string>
+    <string name="su_failed_find_dir"><![CDATA[Failed to find download directory as SU.<br>]]></string>
+    <string name="installing_utouch">Installing Ubuntu Touch...</string>
+    <string name="failed_create_rom"><![CDATA[Failed to create ROM folder!<br>]]></string>
+    <string name="installing_rom"><![CDATA[<br>Installing as ROM <font color=\"yellow\">%s</font><br>]]></string>
+    <string name="failed_rom_init"><![CDATA[Failed to initialize ROM folder!<br>]]></string>
+    <string name="ok_skippping"><![CDATA[<font color=\"green\">ok, skipping.</font><br>]]></string>
+    <string name="failed_redownload"><![CDATA[<font color=\"#FF9900\">failed, re-downloading.</font><br>]]></string>
+    <string name="failed_busybox">Failed to extract busybox!</string>
+    <string name="copying_file">Copying file %s...</string>
+    <string name="failed_file_copy"><![CDATA[<br><font color=\"red\">Failed to copy file %s!</font><br>]]></string>
+    <string name="deleting_used_files"><![CDATA[Deleting used files...<br>]]></string>
+    <string name="ubuntu_free_space">You currently have only %1$dMB left. It is recommended to have at least %2$dMB of free space in internal memory or the installation might fail!</string>
+    <string name="pref_update_check">Check for updates</string>
+    <string name="pref_update_check_sum">Automatically check for MultiROM and recovery updates every ~12 hours and show notification if any available.</string>
+    <string name="update_notification">MultiROM update is available.</string>
+    <string name="pref_download_dir_sum">Manager will download installation files to this folder. Ubuntu Touch files will be in folder \"UbuntuTouch\" located within this one.</string>
+    <string name="pref_download_dir">Change downloads folder</string>
+    <string name="changelogs">Changelogs</string>
+    <string name="changelog_failed">\n\n\nFailed to download changelog.</string>
+    <string name="done">Done, go back.</string>
+    <string name="about_ubuntu_touch">About</string>
+    <string name="back">Back</string>
+    <string name="about_ubuntu_text"><b>This card installs Ubuntu Touch as secondary ROM. It will not wipe any of your data, it will just add it into MultiROM.</b>\n\nAs for which channel to choose, <i>saucy</i> is the current stable version, so you can expect it to be just \"better\". On the other hand, <i>trusty</i> is the version which is currently in development, meaning it has the latest updates.</string>
+    <string name="installation">Installation</string>
+    <string name="action_reboot">Reboot...</string>
+    <string name="ubuntu_unsupported">Unfortunately, Ubuntu Touch does not support this device.</string>
+    <string name="about">About</string>
+    <string name="about_version">Version</string>
+    <string name="about_licenses">Licenses</string>
+    <string name="about_licenses_summ">MultiROM Manager is licensed under GNU GPLv3 and it is using following libraries, which are all licensed under Apache 2.0:\nlibsuperuser\nCardsUI\nActionBar-PullToRefresh</string>
+    <string name="already_developer">No need, you are already a developer.</string>
+    <string name="now_developer">You are now a developer!</string>
+    <string name="dev_options">Developer options</string>
+    <string name="pref_manifest_url">Manifest URL</string>
+    <string name="steps_developer">You are now %d steps away from being a developer.</string>
+    <string name="pref_device_name">Override device name</string>
+    <string name="dangerous">Dangerous!</string>
+    <string name="drawer_open">Open drawer</string>
+    <string name="drawer_close">Close drawer</string>
+    <string name="rom_list_empty">No secondary ROMs were found.</string>
+    <string name="rename_rom">Rename ROM</string>
+    <string name="rename">Rename</string>
+    <string name="rom_name_taken">This name is already taken!</string>
+    <string name="rom_name_empty">You can\'t enter empty name!</string>
+    <string name="erase_rom">This will completely remove ROM \"%s\"!</string>
+    <string name="erase_rom_title">Erase ROM?</string>
+    <string name="erase">Erase</string>
+    <string name="erasing_rom">Erasing ROM...</string>
+    <string name="boot_rom">Do you really wish to boot into ROM \"%s\"?</string>
+    <string name="booting">Booting ROM...</string>
+    <string name="rom_boot_kexec">This ROM requires kernel with kexec-hardboot patch, please install it.</string>
+    <string name="rom_boot_failed">Failed to boot into this ROM!</string>
+    <string name="rom_boot_req_ver">Booting into ROMs directly from this app requires MultiROM v%s or higher.</string>
+    <string name="ok_nohtml">OK</string>
+    <string name="boot">Boot</string>
+    <string name="boot_rom_title">Boot into ROM?</string>
+    <string name="select_icon">Select icon</string>
+    <string name="browse">Browse&#8230;</string>
+    <string name="rom_list_widget">Choose ROM to boot.</string>
+    <string name="ubuntu_man_no_channels">No update channels were found for this device.</string>
+    <string name="prog_checking_root">Getting root access</string>
+    <string name="prog_detecting_dev">Detecting device type</string>
+    <string name="prog_looking_for_multirom">Looking for MultiROM</string>
+    <string name="prog_getting_roms">Loading secondary ROMs</string>
+    <string name="prog_check_recovery">Checking recovery</string>
+    <string name="prog_check_kernel">Checking kernel</string>
+    <string name="prog_download_manifest">Downloading updates metadata</string>
+    <string name="uninstall">Uninstall MultiROM</string>
+    <string name="uninstall_dialog_title">Uninstall MultiROM?</string>
+    <string name="uninstall_dialog_text">This action will completely remove MultiROM and all installed secondary systems. Your primary ROM will remain intact. MultiROM recovery will still be installed, if you want to remove it, you have to replace it with different recovery.</string>
+    <string name="continue_text">Continue</string>
+    <string name="flavour">Flavour:</string>
+
+    <string-array name="reboot_options">
+        <item>System</item>
+        <item>Recovery</item>
+        <item>Bootloader</item>
+    </string-array>
+
+    <string-array name="main_fragment_titles">
+        <item>Install/update</item>
+        <item>Manage ROMs</item>
+    </string-array>
+</resources>
