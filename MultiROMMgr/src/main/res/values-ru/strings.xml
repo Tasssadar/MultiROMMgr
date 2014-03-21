@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">MultiROM Manager</string>
+    <string name="action_settings">Настройки</string>
+    <string name="status">Статус установки </string>
+    <string name="no_su">Не удалось получить рут доступ!</string>
+    <string name="action_refresh">Обновить</string>
+    <string name="unsupported">Ваше устройство(%1$s) не поддерживается!</string>
+    <string name="status_text"><![CDATA[<b>MultiROM:</b> v%1$s%2$s<br><b>Рекавери:</b> %3$s%4$s<br><b>Ядро:</b> %5$s]]></string>
+    <string name="mrom_ver_fail">Не удалось получить версию MultiROM!</string>
+    <string name="no_multirom">MultiROM не установлен.</string>
+    <string name="no_recovery">MultiROM рекавери не установлено.</string>
+    <string name="has_kexec"><![CDATA[<font color=\"#339900\">имеет  kexec-hardboot патч</font>]]></string>
+    <string name="no_kexec"><![CDATA[<font color=\"red\">не имеет kexec-hardboot  патча </font>]]></string>
+    <string name="update_available"><![CDATA[<font color=\"blue\"> (Обновление доступно)</font>]]></string>
+    <string name="manifest_fail">Не удалось загрузить информацию об обновлениях!</string>
+    <string name="install_multirom">MultiROM v%1$s</string>
+    <string name="install_recovery">Рекавери %1$s</string>
+    <string name="install_kernel">Ядро:</string>
+    <string name="install">Установить</string>
+    <string name="install_title">Установка/Обновление</string>
+    <string name="cancel">Отменить</string>
+    <string name="download_progress">%1$s (%2$d кб of %3$d кб)...</string>
+    <string name="try_again">Попробуйте еще раз</string>
+    <string name="uninterruptable">Эта операция не может быть прервана.</string>
+    <string name="reboot">Перезагрузка</string>
+    <string name="reboot_message">Вы должны перезагрузиться в рекавери, чтобы завершить установку.</string>
+    <string name="ubuntu_card">Установить \nUbuntu Touch</string>
+    <string name="channel">Канал:</string>
+    <string name="ubuntu_man_failed">Не удалось загрузить и обработать метаданные Ubuntu Touch.</string>
+    <string name="version">Версия:</string>
+    <string name="required"><![CDATA[<font color=\"blue\">&nbsp;(требуется)</font>]]></string>
+    <string name="ubuntu_req_multirom">требуется MultiROM версии  v%s или выше .</string>
+    <string name="ubuntu_req_recovery">требуется Рекавери версии %s или выше.</string>
+    <string name="ubuntu_touch">Ubuntu Touch</string>
+    <string name="pref_hidden_channels">Показать скрытые каналы</string>
+    <string name="pref_hidden_channels_summ">Показывает обновления каналов, которые скрыты по умолчанию (обычно неактивные или только для разработчиков).</string>
+    <string name="pref_delete_utouch_files">Удаление файлов</string>
+    <string name="pref_delete_utouch_files_summ">Удалить файлы уже установленной   Ubuntu Touch непосредственно после  перезагрузки из ​​рекавери, чтобы завершить установку.. Это экономит место, но вы должны повторно загрузить файлы,если произойдет ошибка при  установке .\n\nФайлы загружаются в%1$s/%2$s</string>
+    <string name="general">Основные</string>
+    <string name="pref_auto_reboot">Авто-перезагрузка</string>
+    <string name="pref_auto_reboot_summ">Автоматическая перезагрузка в рекавери, когда это требуется для завершения установки.</string>
+    <string name="install_success">Установка прошла успешно.</string>
+    <string name="install_failed">Установка НЕ ВЫПОЛНЕНА!</string>
+    <string name="downloading_file">Скачиваем файлы %s...</string>
+    <string name="success"><![CDATA[<font color=\"green\">удачно</font><br>]]></string>
+    <string name="failed"><![CDATA[<font color=\"red\">НЕУДАЧНО!</font><br>]]></string>
+    <string name="preparing_downloads">Подготовка к скачиванию...%s</string>
+    <string name="invalid_url">Неправильная ссылка: %s</string>
+    <string name="skipping_file"><![CDATA[Пропуск уже скачанных файлов %s<br>]]></string>
+    <string name="checking_file">Проверка файла %s... </string>
+    <string name="ok"><![CDATA[<font color=\"green\">ок</font><br>]]></string>
+    <string name="installing_files">Установка файлов...</string>
+    <string name="installing_file">Установка файла %s...</string>
+    <string name="needs_recovery"><![CDATA[<font color=\"yellow\">нужно рекавери</font><br>]]></string>
+    <string name="su_failed_find_dir"><![CDATA[Не удалось найти и скачать каталог как SU.<br>]]></string>
+    <string name="installing_utouch">Установка Ubuntu Touch...</string>
+    <string name="failed_create_rom"><![CDATA[Не удалось создать папку для прошивки!<br>]]></string>
+    <string name="installing_rom"><![CDATA[<br>Установить  как прошивку <font color=\"yellow\">%s</font><br>]]></string>
+    <string name="failed_rom_init"><![CDATA[Не удалось инициализировать папку прошивки!br>]]></string>
+    <string name="ok_skippping"><![CDATA[<font color=\"green\">ok, пропускаем.</font><br>]]></string>
+    <string name="failed_redownload"><![CDATA[<font color=\"#FF9900\">не удалось, повторное скачивание.</font><br>]]></string>
+    <string name="failed_busybox">Не удалось извлечь busybox!</string>
+    <string name="copying_file">Копирование файла %s...</string>
+    <string name="failed_file_copy"><![CDATA[<br><font color=\"red\">Не удалось скопировать файл %s!</font><br>]]></string>
+    <string name="deleting_used_files"><![CDATA[Удаление используемых файлов ...<br>]]></string>
+    <string name="ubuntu_free_space">У вас осталось только %1$dМб. Рекомендуется иметь по крайней мере %2$dМб свободного пространства во внутренней памяти или установка невозможна!</string>
+    <string name="pref_update_check">Проверка на обновления</string>
+    <string name="pref_update_check_sum">Автоматически проверять обновления для  MultiROM и рекавери каждые 12 часов и показывать уведомление, если они доступны.</string>
+    <string name="update_notification">Обновление для MultiROM доступно.</string>
+    <string name="pref_download_dir_sum">Менеджер загрузит файлы в выбраную вами папку. Файлы будут распологаться в папке \"UbuntuTouch\".</string>
+    <string name="pref_download_dir">Изменить  папку загрузки</string>
+    <string name="changelogs">Изменения</string>
+    <string name="changelog_failed">\n\n\nНе удалось загрузить список изменений.</string>
+    <string name="done">Сделано,возвращаемся назад.</string>
+    <string name="about_ubuntu_touch">Об этой опции</string>
+    <string name="back">Назад</string>
+    <string name="about_ubuntu_text"><b>Эта опция установит  Ubuntu Touch как вторичную прошивку. При установке вы не потеряете свои данные , она просто добавится в MultiROM.</b>\n\nЧто касается того, какую версию выбрать, <i>saucy</i> является стабильной версией, по этому она будет  \"лучшим \" выбором. С другой стороны, <i>trusty</i>  версия для разработчиков, то есть в ней все  самые последние изменения.</string>
+    <string name="installation">установка</string>
+    <string name="action_reboot">Перезагрузка ...</string>
+    <string name="ubuntu_unsupported">К сожалению, Ubuntu Touch не поддерживает ваше устройство.</string>
+    <string name="about">О программе</string>
+    <string name="about_version">Версия</string>
+    <string name="about_licenses">Лицензия</string>
+    <string name="about_licenses_summ">MultiROM Manager  распространяется под лицензией GNU GPLv3 и  использует библиотеки, которые распространяются под лицензией Apache 2.0
+	\nСписок библиотек:\nlibsuperuser\nCardsUI\nActionBar-PullToRefresh</string>
+    <string name="already_developer">Не надо, вы уже разработчик.</string>
+    <string name="now_developer">Теперь вы разработчк!</string>
+    <string name="dev_options">Опции для разработчиков</string>
+    <string name="pref_manifest_url">Манифест URL</string>
+    <string name="steps_developer">Вы в %d шагах до того как стать разработчиком.</string>
+    <string name="pref_device_name">Переименовать имя устройства</string>
+    <string name="dangerous">Опасно!</string>
+    <string name="drawer_open">Open drawer</string>
+    <string name="drawer_close">Close drawer</string>
+    <string name="rom_list_empty">Дополнительные  прошивки не найдены.</string>
+    <string name="rename_rom">Переименовать прошивку</string>
+    <string name="rename">Переименовать</string>
+    <string name="rom_name_taken">Это имя уже занято!</string>
+    <string name="rom_name_empty">Вы не можете оставить имя пустым!</string>
+    <string name="erase_rom">Это  полностью удалить прошивку \"%s\"!</string>
+    <string name="erase_rom_title">Удалить прошивку?</string>
+    <string name="erase">Удаление</string>
+    <string name="erasing_rom">Удаление прошивки...</string>
+    <string name="boot_rom">Вы  хотите загрузить эту прошивку  \%s\?</string>
+    <string name="booting">Загрузка прошивки...</string>
+    <string name="rom_boot_kexec">Этой прошивке требуется  патч для ядра , пожалуйста, установите его.</string>
+    <string name="rom_boot_failed">Ошибка при загрузке этой прошивки!</string>
+    <string name="rom_boot_req_ver">Что бы перезагрузиться в эту прошивку напрямую из этого приложения вам потребуется   MultiROM v%s  или выше.</string>
+    <string name="ok_nohtml">OK</string>
+    <string name="boot">Загрузить</string>
+    <string name="boot_rom_title">Boot into ROM?</string>
+    <string name="select_icon">Выберите иконку</string>
+    <string name="browse">Обзор&#8230;</string>
+    <string name="rom_list_widget">Выберите прошивку для загрузки.</string>
+    <string name="ubuntu_man_no_channels">No update channels were found for this device.</string>
+    <string name="prog_checking_root">Получаем рут доступ</string>
+    <string name="prog_detecting_dev">Определяем устройство</string>
+    <string name="prog_looking_for_multirom">Ищем  MultiROM</string>
+    <string name="prog_getting_roms">Загружаем вторичные прошивки </string>
+    <string name="prog_check_recovery">Проверяем  рекавери</string>
+    <string name="prog_check_kernel">Проверяем ядро</string>
+    <string name="prog_download_manifest">Загружаем обновление метаданных</string>
+    <string name="uninstall">Удаление MultiROM</string>
+    <string name="uninstall_dialog_title">Удалить MultiROM?</string>
+    <string name="uninstall_dialog_text">Это действие  полностью удалит MultiROM и все установленные вторичные прошивки. Ваша основная прошивка не будет затронута. MultiROM рекавери останется, если вы хотите заменить его, вы можете сделать это любым доступным вам способом.</string>
+    <string name="continue_text">Продолжить</string>
+    <string name="flavour">Flavour:</string>
+
+    <string-array name="reboot_options">
+        <item>Перезагрузка Системы</item>
+        <item>Рекавери</item>
+        <item>Загрузчик</item>
+    </string-array>
+
+    <string-array name="main_fragment_titles">
+        <item>Устан./Обновл.</item>
+        <item>Управл. прошивками</item>
+    </string-array>
+</resources>
