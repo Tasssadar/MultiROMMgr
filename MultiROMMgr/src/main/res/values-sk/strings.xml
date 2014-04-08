@@ -30,8 +30,6 @@
     <string name="channel">Kanál:</string>
     <string name="ubuntu_man_failed">Chyba pri sťahovaní Ubuntu Touch dát.</string>
     <string name="version">Verzia:</string>
-    <string name="destination">Umiestnenie:</string>
-    <string name="internal_memory">Interná pamäť</string>
     <string name="required"><![CDATA[<font color=\"blue\">&nbsp;(potrebné)</font>]]></string>
     <string name="ubuntu_req_multirom">Je potrebný MultiROM v%s alebo vyššia.</string>
     <string name="ubuntu_req_recovery">Je potrebné Recovery %s alebo novšia.</string>
@@ -93,11 +91,51 @@
     <string name="steps_developer">Teraz ste %d krokov od možnosti byť vývojár.</string>
     <string name="pref_device_name">Prepísať názov zariadenia</string>
     <string name="dangerous">Nebezpečné!</string>
+    <string name="drawer_open">Otvoriť menu</string>
+    <string name="drawer_close">Zatvoriť menu</string>
+    <string name="rom_list_empty">Žiadne druhé ROMky neboli nájdené.</string>
+    <string name="rename_rom">Premenovať ROM</string>
+    <string name="rename">Premenovať</string>
+    <string name="rom_name_taken">Tento názov je už použitý!</string>
+    <string name="rom_name_empty">Nemôžete nechať prázdny názov!</string>
+    <string name="erase_rom">Toto kompletne odstráni ROM \"%s\"!</string>
+    <string name="erase_rom_title">Odstrániť ROM?</string>
+    <string name="erase">Odstrániť</string>
+    <string name="erasing_rom">Odstraňovanie ROM...</string>
+    <string name="boot_rom">Naozaj chcete nabootovať do ROM \"%s\"?</string>
+    <string name="booting">Bootovanie ROM...</string>
+    <string name="rom_boot_kexec">Táto ROM potrebuje kernel s kexec-hardboot patchom, prosím nainštalujte ho.</string>
+    <string name="rom_boot_failed">Nepodarilo sa nabootovať do tejto ROM!</string>
+    <string name="rom_boot_req_ver">Bootovanie do ROM priamo z tejto aplikácie vyžaduje MultiROM v%s alebo novšiu.</string>
+    <string name="ok_nohtml">OK</string>
+    <string name="boot">Nabootovať</string>
+    <string name="boot_rom_title">Nabootovať do ROM?</string>
+    <string name="select_icon">Vyberte ikonu</string>
+    <string name="browse">Vyhľadať&#8230;</string>
+    <string name="rom_list_widget">Vyberte ROM, do ktorej chcete nabootovať.</string>
+    <string name="ubuntu_man_no_channels">Pre toto zariadenie neexistujú žiadne kanály s dátami.</string>
+    <string name="prog_checking_root">Žiadam o root prístup</string>
+    <string name="prog_detecting_dev">Rozpoznávam zariadenie</string>
+    <string name="prog_looking_for_multirom">Hľadám MultiROM</string>
+    <string name="prog_getting_roms">Načítavam zoznam vedľajších systémov</string>
+    <string name="prog_check_recovery">Kontrolujem recovery</string>
+    <string name="prog_check_kernel">Kontrolujem kernel</string>
+    <string name="prog_download_manifest">Sťahujem informácie o aktualizáciách</string>
+    <string name="uninstall">Odinštalovať MultiROM</string>
+    <string name="uninstall_dialog_title">Odinštalovať MultiROM?</string>
+    <string name="uninstall_dialog_text">Táto akcia odstráni MultiROM a všetky nainštalované vedľajšie systémy. Vaša hlavná ROM zostane neporušená. MultiROM recovery zostane stále nainštalované, ak ho chcete odobrať, musíte ho prepísať nejakým iným recovery.</string>
+    <string name="continue_text">Pokračovať:</string>
+    <string name="flavour">Odnož:</string>
 
     <string-array name="reboot_options">
-        <item>System</item>
+        <item>Systém</item>
         <item>Recovery</item>
         <item>Bootloader</item>
+    </string-array>
+
+    <string-array name="main_fragment_titles">
+        <item>Inštalovať/aktualizovať</item>
+        <item>Správa ROMiek</item>
     </string-array>
 
 </resources>
