@@ -46,6 +46,7 @@ public class Manifest {
         public String url;
         public String md5;
         public long size;
+        public JSONObject extra;
 
         public File destFile;
     }
@@ -146,6 +147,7 @@ public class Manifest {
             file.url = f.getString("url");
             file.md5 = f.getString("md5");
             file.size = f.getLong("size");
+            file.extra = f.optJSONObject("extra");
 
             if (file.type.equals("multirom")) {
                 m_multirom = file;

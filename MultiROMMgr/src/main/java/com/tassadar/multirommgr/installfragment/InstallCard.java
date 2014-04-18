@@ -19,6 +19,7 @@ package com.tassadar.multirommgr.installfragment;
 
 import android.content.Context;
 import android.content.res.Resources;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.Html;
 import android.view.LayoutInflater;
@@ -36,7 +37,13 @@ import com.tassadar.multirommgr.Manifest;
 import com.tassadar.multirommgr.R;
 import com.tassadar.multirommgr.Recovery;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.Date;
+import java.util.Iterator;
+import java.util.Map;
 
 public class InstallCard extends Card implements CompoundButton.OnCheckedChangeListener, View.OnClickListener {
 
@@ -101,6 +108,7 @@ public class InstallCard extends Card implements CompoundButton.OnCheckedChangeL
         Spinner s = (Spinner)m_view.findViewById(R.id.kernel_options);
         s.setAdapter(adapter);
         s.setEnabled(false);
+        s.setSelection(getDefaultKernel());
 
         b = (CheckBox)m_view.findViewById(R.id.install_kernel);
         b.setOnCheckedChangeListener(this);
@@ -219,6 +227,37 @@ public class InstallCard extends Card implements CompoundButton.OnCheckedChangeL
                 break;
             }
         }
+    }
+
+    private int getDefaultKernel() {
+        int res = 0;
+        Iterator<Map.Entry<String, Manifest.InstallationFile>> itr = m_manifest.getKernels().entrySet().iterator();
+        for(int i = 0; itr.hasNext(); ++i) {
+            JSONObject extra = itr.next().getValue().extra;
+            if(extra == null)
+                continue;
+            try {
+                if(extra.has("display") && Build.DISPLAY.indexOf(extra.getString("display")) == -1)
+                    continue;
+
+                if(extra.has("releases")) {
+                    JSONArray r = extra.getJSONArray("releases");
+                    boolean found = false;
+                    for(int x = 0; x < r.length(); ++x) {
+                        if(r.getString(x).equals(Build.VERSION.RELEASE)) {
+                            found = true;
+                            break;
+                        }
+                    }
+                    if(!found)
+                        continue;
+                }
+                res = i;
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+        return res;
     }
 
     private Manifest m_manifest;
