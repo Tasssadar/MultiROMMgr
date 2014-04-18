@@ -72,7 +72,7 @@ public class Utils {
     public static String extractAsset(String name) {
         Context ctx = MgrApp.getAppContext();
 
-        String path = "/data/data/" + ctx.getPackageName() + "/" + name;
+        String path = ctx.getCacheDir() + "/" + name;
         File f = new File(path);
         if(f.exists()) {
             if(!name.equals("busybox"))
