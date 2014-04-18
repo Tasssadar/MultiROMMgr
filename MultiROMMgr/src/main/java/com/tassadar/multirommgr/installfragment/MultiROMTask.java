@@ -20,6 +20,7 @@ package com.tassadar.multirommgr.installfragment;
 import android.util.Log;
 
 import com.tassadar.multirommgr.Device;
+import com.tassadar.multirommgr.Gpg;
 import com.tassadar.multirommgr.MainFragment;
 import com.tassadar.multirommgr.Manifest;
 import com.tassadar.multirommgr.MgrApp;
@@ -29,6 +30,7 @@ import com.tassadar.multirommgr.UpdateChecker;
 import com.tassadar.multirommgr.Utils;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -42,6 +44,17 @@ public abstract class MultiROMTask extends InstallAsyncTask {
         super();
         m_manifest = man;
         m_dev = dev;
+        m_gpg = null;
+
+        if(m_manifest.checkDataGpg()) {
+            try {
+                m_gpg = new Gpg(Gpg.RING_MULTIROM);
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     public void setListener(InstallListener listener) {
@@ -78,14 +91,40 @@ public abstract class MultiROMTask extends InstallAsyncTask {
             return false;
         }
 
-        m_listener.onInstallLog(Utils.getString(R.string.checking_file, filename));
-        String md5 = Utils.calculateMD5(f.destFile);
-        if(f.md5.isEmpty() || f.md5.equals(md5))
-            m_listener.onInstallLog(Utils.getString(R.string.ok));
-        else {
-            m_listener.onInstallLog(Utils.getString(R.string.failed));
-            m_listener.onInstallComplete(false);
-            return false;
+        if(m_manifest.checkDataGpg()) {
+            if(m_gpg == null) {
+                m_listener.onInstallLog(Utils.getString(R.string.gpg_failed));
+                m_listener.onInstallComplete(false);
+                return false;
+            }
+
+            File signFile = new File(f.destFile.getAbsolutePath() + ".asc");
+            if(!downloadFile(f.url + ".asc", signFile, 0)) {
+                if(!m_canceled)
+                    m_listener.onInstallComplete(false);
+                return false;
+            }
+
+            m_listener.onInstallLog(Utils.getString(R.string.checking_file, filename));
+            boolean res = m_gpg.verifyFile(f.destFile.getAbsolutePath());
+            signFile.delete();
+            if(res) {
+                m_listener.onInstallLog(Utils.getString(R.string.ok));
+            } else {
+                m_listener.onInstallLog(Utils.getString(R.string.failed));
+                m_listener.onInstallComplete(false);
+                return false;
+            }
+        } else {
+            m_listener.onInstallLog(Utils.getString(R.string.checking_file, filename));
+            String md5 = Utils.calculateMD5(f.destFile);
+            if(f.md5.isEmpty() || f.md5.equals(md5))
+                m_listener.onInstallLog(Utils.getString(R.string.ok));
+            else {
+                m_listener.onInstallLog(Utils.getString(R.string.failed));
+                m_listener.onInstallComplete(false);
+                return false;
+            }
         }
         return true;
     }
@@ -156,4 +195,5 @@ public abstract class MultiROMTask extends InstallAsyncTask {
 
     protected Manifest m_manifest;
     protected Device m_dev;
+    protected Gpg m_gpg;
 }

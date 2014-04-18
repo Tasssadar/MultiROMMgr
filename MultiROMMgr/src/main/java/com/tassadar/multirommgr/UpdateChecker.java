@@ -134,7 +134,11 @@ public class UpdateChecker {
                 return;
 
             Manifest man = new Manifest();
-            if(!man.downloadAndParse(dev)) {
+
+            // Do not check GPG signature here, it requires root, and I don't want phantom
+            // "..has acquired root.." toasts. The signature will be checked when the user opens
+            // the app anyway
+            if(!man.downloadAndParse(dev, false)) {
                 Log.e("MultiROMMgr", "Failed to download manifest in update checker!");
                 return;
             }

@@ -29,6 +29,9 @@ import org.json.JSONTokener;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.ParseException;
 import java.util.Date;
@@ -47,26 +50,48 @@ public class Manifest {
         public File destFile;
     }
 
-    public boolean downloadAndParse(String dev) {
-        ByteArrayOutputStream out = new ByteArrayOutputStream(4096);
+    public boolean downloadAndParse(String dev, boolean check_gpg) {
+        FileOutputStream out_man = null;
+        FileOutputStream out_sign = null;
+        String man_filename = MgrApp.getAppContext().getCacheDir() + "/manifest.json";
+        String sign_filename = MgrApp.getAppContext().getCacheDir() + "/manifest.json.asc";
         try {
+            out_man = new FileOutputStream(man_filename);
+            out_sign = new FileOutputStream(sign_filename);
             SharedPreferences p = MgrApp.getPreferences();
             String url = p.getString(SettingsActivity.DEV_MANIFEST_URL, DEFAULT_URL);
-            if(!Utils.downloadFile(url, out, null, true) || out.size() == 0)
+            if(!Utils.downloadFile(url, out_man, null, true))
+                return false;
+            if(!Utils.downloadFile(url + ".asc", out_sign, null, true))
                 return false;
         } catch(IOException e) {
             e.printStackTrace();
             return false;
         } finally {
+            Utils.close(out_man);
+            Utils.close(out_sign);
+        }
+
+        if(check_gpg) {
             try {
-                out.close();
-            } catch(IOException e) {
+                Gpg gpg = new Gpg(Gpg.RING_MULTIROM);
+                if (!gpg.verifyFile(man_filename, sign_filename)) {
+                    Log.e("Manifest", "Manifest signature verification failed!");
+                    return false;
+                }
+            } catch (IOException e) {
                 e.printStackTrace();
+                Log.e("Manifest", "Manifest signature verification failed!");
+                return false;
             }
         }
 
+        String manifest = Utils.readFile(man_filename);
+        if(manifest == null)
+            return false;
+
         try {
-            Object rawObject = new JSONTokener(out.toString()).nextValue();
+            Object rawObject = new JSONTokener(manifest).nextValue();
             if(!(rawObject instanceof JSONObject)){
                 Log.e("Manifest", "Malformed manifest format!");
                 return false;
@@ -78,6 +103,8 @@ public class Manifest {
                 Log.e("Manifest", "MultiROM manifest's status is \"" + m_status + "\"");
                 return false;
             }
+
+            m_gpgData = o.optBoolean("gpg", false);
 
             JSONArray a = o.getJSONArray("devices");
             for(int i = 0; i < a.length(); ++i) {
@@ -233,6 +260,8 @@ public class Manifest {
     public String getStatus() { return m_status; }
     public Changelog[] getChangelogs() { return m_changelogs; }
 
+    public boolean checkDataGpg() { return m_gpgData; }
+
     private boolean m_multiromHasUpdate = false;
     private boolean m_recoveryHasUpdate = false;
     private boolean m_kernelHasUpdate = false;
@@ -244,4 +273,5 @@ public class Manifest {
     private String m_ubuntuReqMultiROM;
     private String m_ubuntuReqRecovery;
     private Changelog[] m_changelogs;
+    private boolean m_gpgData;
 }

@@ -28,8 +28,10 @@ import android.net.http.HttpResponseCache;
 import android.os.Environment;
 import android.util.Log;
 
+import java.io.Closeable;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -373,5 +375,38 @@ public class Utils {
         matrix.postScale(scale, scale);
 
         return Bitmap.createBitmap(bmp, 0, 0, w, h, matrix, false);
+    }
+
+    public static String readFile(String path) {
+        FileInputStream in = null;
+        try {
+            in = new FileInputStream(path);
+            StringBuilder builder = new StringBuilder();
+            byte buff[] = new byte[4096];
+            int read;
+            while((read = in.read(buff)) > 0)
+                builder.append(new String(buff, 0, read, "UTF-8"));
+            return builder.toString();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+            return null;
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        } finally {
+            if(in != null)
+                try { in.close(); } catch(IOException e) {}
+        }
+    }
+
+    public static void close(Closeable c) {
+        if(c == null)
+            return;
+
+        try {
+            c.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
