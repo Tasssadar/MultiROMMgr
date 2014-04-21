@@ -25,6 +25,7 @@ import com.tassadar.multirommgr.Device;
 import com.tassadar.multirommgr.MgrApp;
 import com.tassadar.multirommgr.MultiROM;
 import com.tassadar.multirommgr.R;
+import com.tassadar.multirommgr.Rom;
 import com.tassadar.multirommgr.SettingsActivity;
 import com.tassadar.multirommgr.Utils;
 
@@ -87,7 +88,9 @@ public class UbuntuInstallTask extends InstallAsyncTask  {
             m_listener.onInstallComplete(false);
             return null;
         }
-        m_listener.onInstallLog(Utils.getString(R.string.installing_rom, Utils.getFilenameFromUrl(romPath)));
+
+        Rom rom = new Rom(Utils.getFilenameFromUrl(romPath), Rom.ROM_SECONDARY);
+        m_listener.onInstallLog(Utils.getString(R.string.installing_rom, rom.name));
 
         if(!m_multirom.initUbuntuDir(romPath)) {
             m_listener.onInstallLog(Utils.getString(R.string.failed_rom_init));
@@ -95,6 +98,8 @@ public class UbuntuInstallTask extends InstallAsyncTask  {
             m_listener.onInstallComplete(false);
             return null;
         }
+
+        m_multirom.setRomIcon(rom, R.drawable.romic_ubuntu1);
 
         if(!buildCommandFile(romPath + "/cache/recovery/ubuntu_command")) {
             Shell.SU.run("rm -r \"%s\"", romPath);

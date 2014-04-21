@@ -384,7 +384,7 @@ public class MultiROM {
             File dest = new File(Rom.getIconsDir(), hash + ".png");
             out = new FileOutputStream(dest);
 
-            Bitmap b = Utils.resizeBitmap(BitmapFactory.decodeFile(path), 64, 64);
+            Bitmap b = Utils.resizeBitmap(BitmapFactory.decodeFile(path), 128, 128);
             b.compress(Bitmap.CompressFormat.PNG, 0, out);
 
             storeRomIcon(rom, R.id.user_defined_icon, hash);
