@@ -31,16 +31,24 @@ import java.util.TreeMap;
 
 public class TreeMapAdapter<K, E> extends BaseAdapter {
 
-    private static final int ITEM_RES = android.R.layout.simple_spinner_dropdown_item;
+    private static final int DEFAULT_ITEM_RES = android.R.layout.simple_spinner_dropdown_item;
 
     public interface NameResolver<K, E> {
-        public String getName(K key, E entry);
+        public CharSequence getName(K key, E entry);
     }
 
     public TreeMapAdapter(Context ctx, TreeMap<K, E> data, NameResolver<K, E> resolver) {
         m_data = data;
         m_nameResolver = resolver;
         m_inflater = (LayoutInflater)ctx.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        m_itemRes = DEFAULT_ITEM_RES;
+    }
+
+    public TreeMapAdapter(Context ctx, TreeMap<K, E> data, NameResolver<K, E> resolver, int itemLayoutRes) {
+        m_data = data;
+        m_nameResolver = resolver;
+        m_inflater = (LayoutInflater)ctx.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        m_itemRes = itemLayoutRes;
     }
 
     @Override
@@ -79,7 +87,7 @@ public class TreeMapAdapter<K, E> extends BaseAdapter {
         TextView text;
 
         if (convertView == null) {
-            view = m_inflater.inflate(ITEM_RES, parent, false);
+            view = m_inflater.inflate(m_itemRes, parent, false);
         } else {
             view = convertView;
         }
@@ -105,4 +113,5 @@ public class TreeMapAdapter<K, E> extends BaseAdapter {
     private Map<K, E> m_data;
     private LayoutInflater m_inflater;
     private NameResolver<K, E> m_nameResolver;
+    private int m_itemRes;
 }

@@ -23,6 +23,7 @@ import android.animation.AnimatorListenerAdapter;
 import android.animation.AnimatorSet;
 import android.content.Context;
 import android.os.Bundle;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
@@ -228,13 +229,13 @@ public class UbuntuCard extends Card implements AdapterView.OnItemSelectedListen
                 m_channelAdapter = new TreeMapAdapter<String, UbuntuChannel>(m_view.getContext(),
                         channelMap, new TreeMapAdapter.NameResolver<String, UbuntuChannel>() {
                     @Override
-                    public String getName(String key, UbuntuChannel entry) {
-                        return entry.getDisplayName();
+                    public CharSequence getName(String key, UbuntuChannel entry) {
+                        return Html.fromHtml(entry.getDisplayName());
                     }
                 });
                 chanSpinner.setAdapter(m_channelAdapter);
 
-                String preselected = "trusty";
+                String preselected = "devel";
                 if(m_savedState != null && m_savedState.containsKey("utouch_selected_chan"))
                     preselected = m_savedState.getString("utouch_selected_chan");
 

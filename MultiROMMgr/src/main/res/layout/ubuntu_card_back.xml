@@ -38,10 +38,10 @@
         android:layout_marginTop="4dp"
         android:background="@color/stroke" />
 
-    <TextView
+    <TextView android:id="@+id/ubuntu_info_text"
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
         android:padding="5dp"
-        android:text="@string/about_ubuntu_text" />
+        android:text="@string/about_ubuntu_text2" />
 
 </LinearLayout>

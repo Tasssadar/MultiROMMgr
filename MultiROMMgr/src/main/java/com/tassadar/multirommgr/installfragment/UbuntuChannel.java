@@ -52,31 +52,23 @@ public class UbuntuChannel {
         }
     }
 
-    public void addDuplicate(UbuntuChannel dup) {
-        if(m_duplicates == null)
-            m_duplicates = new ArrayList<String>();
-
-        if(dup.getFlavour().equals(getFlavour()))
-            m_duplicates.add(dup.getRawName());
-        else
-            m_duplicates.add(dup.getFullName());
-    }
-
     public boolean hasDevice(String name) {
         return m_devices.containsKey(name);
     }
 
     public String getDisplayName() {
-        String res = m_name;
-        if(m_duplicates != null) {
-            res += " (";
-
-            for(int i = 0; i < m_duplicates.size(); ++i)
-                res += m_duplicates.get(i) + ", ";
-
-            res = res.substring(0, res.length()-2) + ")";
+        StringBuilder b = new StringBuilder(m_name);
+        if(m_alias != null && !m_alias.equals(m_fullName)) {
+            final String flavour = getFlavour();
+            b.append("<br><small><font color=\"#585858\">(alias of ");
+            if(flavour.equals(getFlavour(m_alias)) && !flavour.equals(UbuntuManifest.NO_FLAVOUR)) {
+                b.append(m_alias.substring(m_alias.indexOf('/') + 1));
+            } else {
+                b.append(m_alias);
+            }
+            b.append(")</font></small>");
         }
-        return res;
+        return b.toString();
     }
 
     public boolean loadDeviceImages(String device_name, Device dev) throws Exception {
@@ -129,9 +121,13 @@ public class UbuntuChannel {
     }
 
     public String getFlavour() {
-        int idx = m_fullName.indexOf('/');
+        return UbuntuChannel.getFlavour(m_fullName);
+    }
+
+    public static String getFlavour(String channelName) {
+        int idx = channelName.indexOf('/');
         if(idx != -1) {
-            return m_fullName.substring(0, idx);
+            return channelName.substring(0, idx);
         } else {
             return UbuntuManifest.NO_FLAVOUR;
         }
@@ -144,7 +140,6 @@ public class UbuntuChannel {
     public String getRawName() { return m_name; }
     public String getFullName() { return m_fullName; }
     public String getAlias() { return m_alias; }
-    public ArrayList<String> getDuplicates() { return m_duplicates; }
     public boolean hasImages() { return !m_images.isEmpty(); }
 
     private String m_name;

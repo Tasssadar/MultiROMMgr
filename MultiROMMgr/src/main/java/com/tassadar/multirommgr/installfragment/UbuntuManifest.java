@@ -85,8 +85,7 @@ public class UbuntuManifest {
             return false;
         }
 
-        // Remove duplicate channels (they have "alias" set) and
-        // channels without the device we're currently running on
+        // Remove channels without the device we're currently running on and load images
         Iterator<Map.Entry<String, TreeMap<String,UbuntuChannel>>> f_itr = m_flavours.entrySet().iterator();
         while(f_itr.hasNext()) {
             Map<String, UbuntuChannel> channelMap = f_itr.next().getValue();
@@ -102,15 +101,6 @@ public class UbuntuManifest {
                     dev_name = dev.getBaseVariantName();
 
                     if(!c.hasDevice(dev_name)) {
-                        c_itr.remove();
-                        continue;
-                    }
-                }
-
-                if(c.getAlias() != null) {
-                    UbuntuChannel orig = findChannel(c.getAlias());
-                    if(orig != null) {
-                        orig.addDuplicate(c);
                         c_itr.remove();
                         continue;
                     }
