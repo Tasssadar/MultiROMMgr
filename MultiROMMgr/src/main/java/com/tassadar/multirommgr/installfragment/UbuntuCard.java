@@ -232,7 +232,7 @@ public class UbuntuCard extends Card implements AdapterView.OnItemSelectedListen
                     public CharSequence getName(String key, UbuntuChannel entry) {
                         return Html.fromHtml(entry.getDisplayName());
                     }
-                });
+                }, R.layout.ubuntu_chann_item);
                 chanSpinner.setAdapter(m_channelAdapter);
 
                 String preselected = "devel";
