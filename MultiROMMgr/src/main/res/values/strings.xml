@@ -127,6 +127,7 @@
     <string name="continue_text">Continue</string>
     <string name="flavour">Flavour:</string>
     <string name="gpg_failed">GPG signature verification failed!</string>
+    <string name="alias_of">alias of</string>
 
     <string-array name="reboot_options">
         <item>System</item>

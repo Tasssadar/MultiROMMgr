@@ -20,6 +20,7 @@ package com.tassadar.multirommgr.installfragment;
 import android.util.Log;
 
 import com.tassadar.multirommgr.Device;
+import com.tassadar.multirommgr.R;
 import com.tassadar.multirommgr.Utils;
 
 import org.json.JSONArray;
@@ -60,7 +61,9 @@ public class UbuntuChannel {
         StringBuilder b = new StringBuilder(m_name);
         if(m_alias != null && !m_alias.equals(m_fullName)) {
             final String flavour = getFlavour();
-            b.append("<br><small><font color=\"#585858\">(alias of ");
+            b.append("<br><small><font color=\"#585858\">(")
+             .append(Utils.getString(R.string.alias_of))
+             .append(" ");
             if(flavour.equals(getFlavour(m_alias)) && !flavour.equals(UbuntuManifest.NO_FLAVOUR)) {
                 b.append(m_alias.substring(m_alias.indexOf('/') + 1));
             } else {
