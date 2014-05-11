@@ -213,7 +213,10 @@ public class MultiROM {
 
     public void deleteUnusedIcons(Set<String> usedIconHashes) {
         String hash;
-        File[] files = Rom.getIconsDir().listFiles();
+        File iconDir = Rom.getIconsDir();
+        if(iconDir == null)
+            return;
+        File[] files = iconDir.listFiles();
         for(File f : files) {
             hash = f.getName();
 
@@ -381,7 +384,12 @@ public class MultiROM {
 
         FileOutputStream out = null;
         try {
-            File dest = new File(Rom.getIconsDir(), hash + ".png");
+            File iconsDir = Rom.getIconsDir();
+            if(iconsDir == null) {
+                Log.e("MultiROM", "Failed to find icons directory!");
+                return;
+            }
+            File dest = new File(iconsDir, hash + ".png");
             out = new FileOutputStream(dest);
 
             Bitmap b = Utils.resizeBitmap(BitmapFactory.decodeFile(path), 128, 128);

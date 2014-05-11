@@ -24,6 +24,7 @@ import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.RemoteViews;
 import android.widget.RemoteViewsService;
 
@@ -88,8 +89,11 @@ class RomListViewsFactory implements RemoteViewsService.RemoteViewsFactory {
         if(iconName.startsWith(m_context.getApplicationContext().getPackageName())) {
             icon_id = m_context.getResources().getIdentifier(iconName, null, null);
         } else {
-            File path = new File(Rom.getIconsDir(), iconName + ".png");
-            icon_bitmap = BitmapFactory.decodeFile(path.getAbsolutePath());
+            File iconsDir = Rom.getIconsDir();
+            if(iconsDir != null) {
+                File path = new File(iconsDir, iconName + ".png");
+                icon_bitmap = BitmapFactory.decodeFile(path.getAbsolutePath());
+            }
         }
 
         if(icon_id == 0 && icon_bitmap == null)
