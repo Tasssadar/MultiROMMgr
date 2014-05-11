@@ -442,7 +442,7 @@ public class MultiROM {
         }
 
         MgrApp.getCntnResolver().update(RomListDataProvider.CONTENT_URI, val,
-                RomListOpenHelper.KEY_NAME + "=\"" + rom.name + "\" AND " +
+                RomListOpenHelper.KEY_NAME + "='" + rom.name + "' AND " +
                 RomListOpenHelper.KEY_TYPE + "=" + rom.type,
                 null);
         RomListWidgetProvider.notifyChanged();
