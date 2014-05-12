@@ -126,6 +126,8 @@
     <string name="uninstall_dialog_text">Táto akcia odstráni MultiROM a všetky nainštalované vedľajšie systémy. Vaša hlavná ROM zostane neporušená. MultiROM recovery zostane stále nainštalované, ak ho chcete odobrať, musíte ho prepísať nejakým iným recovery.</string>
     <string name="continue_text">Pokračovať:</string>
     <string name="flavour">Odnož:</string>
+    <string name="gpg_failed">Overenie GPG podpisu zlyhalo!</string>
+    <string name="alias_of">alias</string>
 
     <string-array name="reboot_options">
         <item>Systém</item>
