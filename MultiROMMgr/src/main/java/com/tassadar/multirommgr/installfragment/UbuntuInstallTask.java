@@ -221,38 +221,10 @@ public class UbuntuInstallTask extends InstallAsyncTask  {
             return null;
         }
 
-        String tail = destDir.getAbsolutePath();
-        if(tail.startsWith(Environment.getExternalStorageDirectory().getAbsolutePath()))
-            tail = tail.substring(Environment.getExternalStorageDirectory().getAbsolutePath().length()+1);
-        else if(tail.startsWith("/sdcard/"))
-            tail = tail.substring(("/sdcard/").length());
-
-        StringBuilder b = new StringBuilder();
-        appendSUDirCheck(b, destDir.getAbsolutePath(), "");
-
-        final String[] paths = {
-                "/sdcard/", "/storage/emulated/0/", "/storage/emulated/legacy/",
-                "/data/media/0/", "/data/media/"
-        };
-
-        for(String p : paths)
-            appendSUDirCheck(b, p, tail);
-
-        b.append("se exit 0; fi;");
-
-        List<String> out = Shell.SU.run(b.toString());
-
-        if(out == null || out.isEmpty())
+        File suFile = Utils.findSdcardFileSu(tmp);
+        if(suFile == null)
             return null;
-        return out.get(0);
-    }
-
-    private static void appendSUDirCheck(StringBuilder b, String path, String path2) {
-        b.append("if [ -f \"")
-         .append(path).append(path2)
-         .append("/ut_test_file\" ]; then echo \"")
-         .append(path).append(path2)
-         .append("\"; exit 0; el");
+        return suFile.getParent();
     }
 
     private boolean buildCommandFile(String dest) {

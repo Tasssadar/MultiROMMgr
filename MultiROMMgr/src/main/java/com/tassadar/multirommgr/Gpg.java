@@ -58,8 +58,19 @@ public class Gpg {
     }
 
     public boolean verifyFile(String path, String signature) {
-        List<String> out = Shell.SU.run("GNUPGHOME='%s' %s --verify %s %s >/dev/null 2>&1 && echo \'success\'",
-                m_gpg_home, m_gpg_bin, signature, path);
+        final String cmd = "GNUPGHOME='%s' %s --verify %s %s >/dev/null 2>&1 && echo \'success\'";
+        List<String> out = Shell.SU.run(cmd, m_gpg_home, m_gpg_bin, signature, path);
+
+        if(out.size() >= 1 && out.get(0).equals("success"))
+            return true;
+
+        File suPath = Utils.findSdcardFileSu(new File(path));
+        File suPathSign = Utils.findSdcardFileSu(new File(signature));
+        if(suPath == null || suPathSign == null)
+            return false;
+
+        out = Shell.SU.run(cmd, m_gpg_home, m_gpg_bin,
+                suPathSign.getAbsolutePath(), suPath.getAbsolutePath());
         return out.size() >= 1 && out.get(0).equals("success");
     }
 

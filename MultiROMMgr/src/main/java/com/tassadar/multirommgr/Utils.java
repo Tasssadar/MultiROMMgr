@@ -409,4 +409,50 @@ public class Utils {
             e.printStackTrace();
         }
     }
+
+    private static String lastGoodSuSdcardPath = null;
+    public static File findSdcardFileSu(File f) {
+        final String path = f.getAbsolutePath();
+        final String ext = Environment.getExternalStorageDirectory().getAbsolutePath();
+
+        String tail = path;
+        if(tail.startsWith(ext))
+            tail = tail.substring(ext.length()+1);
+        else if(tail.startsWith("/sdcard/"))
+            tail = tail.substring(("/sdcard/").length());
+
+        StringBuilder b = new StringBuilder();
+
+        if(lastGoodSuSdcardPath != null)
+            appendFindSdcardFileSuCmd(b, lastGoodSuSdcardPath, tail);
+
+        appendFindSdcardFileSuCmd(b, path, "");
+
+        final String[] paths = {
+                "/sdcard/", "/storage/emulated/0/", "/storage/emulated/legacy/",
+                "/data/media/0/", "/data/media/"
+        };
+
+        for(String p : paths)
+            appendFindSdcardFileSuCmd(b, p, tail);
+
+        b.append("se exit 0; fi;");
+
+        List<String> out = Shell.SU.run(b.toString());
+        if(out == null || out.isEmpty())
+            return null;
+
+        int path_idx = out.get(0).indexOf(tail);
+        if(path_idx != -1)
+            lastGoodSuSdcardPath = out.get(0).substring(0, path_idx);
+        return new File(out.get(0));
+    }
+
+    private static void appendFindSdcardFileSuCmd(StringBuilder b, String path, String path2) {
+        b.append("if [ -f \"")
+                .append(path).append(path2)
+                .append("\" ]; then echo \"")
+                .append(path).append(path2)
+                .append("\"; exit 0; el");
+    }
 }
