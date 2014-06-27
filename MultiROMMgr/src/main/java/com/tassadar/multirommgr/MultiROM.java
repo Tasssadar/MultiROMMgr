@@ -66,6 +66,7 @@ public class MultiROM {
         if(Utils.isSELinuxEnforcing()) {
             Utils.chcon(Utils.CHCON_EXECUTABLE, m_path + "multirom");
             Utils.chcon(Utils.CHCON_EXECUTABLE, m_path + "busybox");
+            Utils.chcon(Utils.CHCON_EXECUTABLE, m_path + "kexec");
         }
         return true;
     }
