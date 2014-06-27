@@ -29,8 +29,6 @@
     <string name="channel">Kanál:</string>
     <string name="ubuntu_man_failed">Nemůžu stáhnout a zpracovat data pro Ubuntu Touch.</string>
     <string name="version">Verze:</string>
-    <string name="destination">Cíl instalace:</string>
-    <string name="internal_memory">Interní paměť</string>
     <string name="required"><![CDATA[<font color=\"blue\">&nbsp;(vyžadované)</font>]]></string>
     <string name="ubuntu_req_multirom">Je potřeba MultiROM v%s nebo novější.</string>
     <string name="ubuntu_req_recovery">Je potřeba recovery %s nebo novější.</string>
@@ -77,7 +75,6 @@
     <string name="done">Hotovo, zpět.</string>
     <string name="about_ubuntu_touch">O Ubuntu Touch</string>
     <string name="back">Zpět</string>
-    <string name="about_ubuntu_text"><b>Tato karta nainstaluje Ubuntu Touch jako vedlejší ROM. Tato akce nesmaže žádná vaše data, pouze přidá Ubuntu do MultiROM.</b>\n\nKanál <i>saucy</i> je současná stabilní verze, takže je možné předpokládat, že je jednoduše \"lepší\". Kanál \"trusty\" je oproti tomu právě vyvíjená, takže v ní budou ty nejnovější vylepšení.</string>
     <string name="about_ubuntu_text2"><b>Tato karta nainstaluje Ubuntu Touch jako vedlejší ROM. Tato akce nesmaže žádná vaše data, pouze přidá Ubuntu do MultiROM.</b>\n\nKanál <b>stable</b> je současná stabilní verze. Kanál <b>devel</b> je oproti tomu verze, která je právě vyvíjená a obsahuje poslední opravy a nové funkce. Ubuntu Touch je stále ve vývoji, a proto je tento kanál obvykle nejvhodnější.\n\t<b>*-proposed</b> znamená, že tento kanál obsahuje pravidelné denní sestavení, která ještě nebyla nikým otestována.\n\t<b>*-customized</b> jsou obrazy sestavené za účelem otestování úprav vzhledu systému pro mobilní operátory a pravděpodobně nejsou to, co chete používat.\n\tPojmenované kanály, jako <b>trusty</b> nebo <b>utopic</b>, jsou jednotlivé vydání Ubuntu. <b>Devel</b> je alias pro jedno z těchto vydání, který vždy ukazuje na to vydání, které je zrovna ve vývoji. Oproti tomu například <b>utopic</b> zůstane vždy na verzi 14.04, i po té co je tato verze vydána jako stabilní, kdežto <b>devel</b> se přesměruje na 14.10.</string>
     <string name="installation">Instalace</string>
     <string name="action_reboot">Restartovat...</string>

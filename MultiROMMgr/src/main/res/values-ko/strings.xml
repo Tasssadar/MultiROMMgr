@@ -30,8 +30,6 @@
     <string name="channel">채널:</string>
     <string name="ubuntu_man_failed">우분투 터치 메타데이터를 다운로드하고 파싱하는데에 실패했습니다.</string>
     <string name="version">버전:</string>
-    <string name="destination">경로:</string>
-    <string name="internal_memory">내장메모리</string>
     <string name="required"><![CDATA[<font color=\"blue\">&nbsp;(필수)</font>]]></string>
     <string name="ubuntu_req_multirom">MultiROM 버전 v%s 이상이 필요합니다.</string>
     <string name="ubuntu_req_recovery">리커버리 버전 %s 이상이 필요합니다.</string>

@@ -30,8 +30,6 @@
     <string name="channel">Kanal:</string>
     <string name="ubuntu_man_failed">Herunterladen und Analysieren von Ubuntu Touch Metadaten fehlgeschlagen.</string>
     <string name="version">Version:</string>
-    <string name="destination">Ziel:</string>
-    <string name="internal_memory">Interner Speicher</string>
     <string name="required"><![CDATA[<font color=\"blue\">&nbsp;(erforderlich)</font>]]></string>
     <string name="ubuntu_req_multirom">MultiROM v%s oder höher ist erforderlich.</string>
     <string name="ubuntu_req_recovery">Recovery %s oder neuer ist erforderlich.</string>
@@ -112,7 +110,6 @@
     <string name="ok_nohtml">OK</string>
     <string name="boot">Starten</string>
     <string name="boot_rom_title">ROM starten?</string>
-    <string name="icon_source">Bildquelle wählen</string>
     <string name="select_icon">Bild wählen</string>
     <string name="browse">Durchsuchen &#8230;</string>
     <string name="rom_list_widget">Wähle das ROM zum Starten.</string>
@@ -126,11 +123,6 @@
     <string-array name="main_fragment_titles">
         <item>Installieren/Aktualisieren</item>
         <item>ROMs bearbeiten</item>
-    </string-array>
-
-    <string-array name="icon_sources">
-        <item>Standardbild</item>
-        <item>Datei &#8230; auswählen</item>
     </string-array>
 
 </resources>

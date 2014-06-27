@@ -30,8 +30,6 @@
     <string name="channel">通道:</string>
     <string name="ubuntu_man_failed">下载和解析 Ubuntu Touch 元数据失败</string>
     <string name="version">版本:</string>
-    <string name="destination">目的地:</string>
-    <string name="internal_memory">内部储存</string>
     <string name="required"><![CDATA[<font color=\"blue\">&nbsp;(需要)</font>]]></string>
     <string name="ubuntu_req_multirom">MultiROM v%s 或者需要高的版本.</string>
     <string name="ubuntu_req_recovery">Recovery %s 或者需要更新的版本.</string>
@@ -126,11 +124,6 @@
     <string-array name="main_fragment_titles">
         <item>安装/更新</item>
         <item>管理 ROM</item>
-    </string-array>
-
-    <string-array name="icon_sources">
-        <item>默认图标</item>
-        <item>选择文件&#8230;</item>
     </string-array>
 
 </resources>

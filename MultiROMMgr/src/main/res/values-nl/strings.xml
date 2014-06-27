@@ -128,8 +128,4 @@
         <item>Beheer ROMs</item>
     </string-array>
 
-    <string-array name="icon_sources">
-        <item>Standaard iconen-set</item>
-        <item>Selecteer bestand&#8230;</item>
-    </string-array>
 </resources>
