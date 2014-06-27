@@ -40,9 +40,9 @@ public class Kernel {
     public boolean findKexecHardboot(String busybox) {
         List<String> out = Shell.SU.run(
                 "if [ -f /proc/config.gz ] && [ -e \"" + busybox + "\" ]; then" +
-                "    " + busybox + " zcat /proc/config.gz | grep -q 'CONFIG_KEXEC_HARDBOOT=y' && echo has_kexec && exit 0;" +
+                "    " + busybox + " zcat /proc/config.gz | " + busybox + " grep -q 'CONFIG_KEXEC_HARDBOOT=y' && echo has_kexec && exit 0;" +
                 "fi;" +
-                "if [ -f /proc/atags ] || [ -d /proc/device-tree ] || [ \"$(grep mrom_kexecd=1 /proc/cmdline)\" ]; then" +
+                "if [ -f /proc/atags ] || [ -d /proc/device-tree ] || [ \"$(" + busybox + " grep mrom_kexecd=1 /proc/cmdline)\" ]; then" +
                 "    echo has_kexec;" +
                 "    exit 0;" +
                 "fi;");

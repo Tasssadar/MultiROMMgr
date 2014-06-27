@@ -25,6 +25,7 @@ import android.content.pm.ResolveInfo;
 import android.graphics.Bitmap;
 import android.graphics.Matrix;
 import android.net.http.HttpResponseCache;
+import android.os.Build;
 import android.os.Environment;
 import android.util.Log;
 
@@ -94,7 +95,8 @@ public class Utils {
             out.close();
             in.close();
 
-            f.setExecutable(true);
+            f.setExecutable(true, false);
+            f.setReadable(true, false);
 
             if(name.equals("busybox")) {
                 SharedPreferences pref = MgrApp.getPreferences();
@@ -115,6 +117,10 @@ public class Utils {
         File script = getCacheOpenRecoveryScript();
 
         String bb = Utils.extractAsset("busybox");
+        if(bb == null) {
+            Log.e("MulitoROMMgr", "Failed to extract busybox!");
+            return;
+        }
 
         // We need to mount the real /cache, we might be running in secondary ROM
         String cmd =
@@ -126,7 +132,7 @@ public class Utils {
                 "sync;" +
                 "umount tmpcache && rmdir tmpcache";
 
-        ShellThread t = new ShellThread(cmd);
+        ShellThread t = new ShellThread(cmd, bb, Utils.CHCON_BLOCK_ACCESS);
         t.start();
         try {
             t.join();
@@ -161,8 +167,18 @@ public class Utils {
 
     private static class ShellThread extends Thread {
         private String m_cmd;
+        private int m_chcon_type;
+        private String m_chcon_path;
+
         public ShellThread(String cmd) {
             m_cmd = cmd;
+            m_chcon_type = -1;
+        }
+
+        public ShellThread(String cmd, String chcon_path, int chcon_type) {
+            m_cmd = cmd;
+            m_chcon_path = chcon_path;
+            m_chcon_type = chcon_type;
         }
 
         public ShellThread(String fmt, Object... args) {
@@ -171,7 +187,13 @@ public class Utils {
 
         @Override
         public void run() {
+            if(m_chcon_path != null && Utils.isSELinuxEnforcing())
+                Utils.chcon(m_chcon_type, m_chcon_path);
+
             Shell.SU.run(m_cmd);
+
+            if(m_chcon_path != null && Utils.isSELinuxEnforcing())
+                Utils.chcon(Utils.CHCON_ORIGINAL, m_chcon_path);
         }
     }
 
@@ -454,5 +476,31 @@ public class Utils {
                 .append("\" ]; then echo \"")
                 .append(path).append(path2)
                 .append("\"; exit 0; el");
+    }
+
+    public static final String CTX_APP = "u:r:untrusted_app:s0";
+    public static final int CHCON_ORIGINAL     = 0;
+    public static final int CHCON_EXECUTABLE   = 1;
+    public static final int CHCON_BLOCK_ACCESS = 2;
+
+    public static boolean isSELinuxEnforcing() {
+        return Build.VERSION.SDK_INT >= 20;
+    }
+
+    public static boolean chcon(int type, String path) {
+        String ctx;
+        switch(type) {
+            case CHCON_ORIGINAL:
+                ctx = "u:object_r:app_data_file:s0";
+                break;
+            case CHCON_EXECUTABLE:
+            case CHCON_BLOCK_ACCESS:
+                ctx = "u:object_r:system_file:s0";
+                break;
+            default:
+                return false;
+        }
+        List<String> out = Shell.SU.run("chcon %s \'%s\' && echo 'success'", ctx, path);
+        return out != null && out.size() == 1 && out.get(0).equals("success");
     }
 }

@@ -21,19 +21,15 @@ import android.util.Log;
 
 import com.tassadar.multirommgr.Device;
 import com.tassadar.multirommgr.Gpg;
-import com.tassadar.multirommgr.MainFragment;
 import com.tassadar.multirommgr.Manifest;
 import com.tassadar.multirommgr.MgrApp;
 import com.tassadar.multirommgr.R;
-import com.tassadar.multirommgr.Recovery;
-import com.tassadar.multirommgr.UpdateChecker;
 import com.tassadar.multirommgr.Utils;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 import eu.chainfire.libsuperuser.Shell;
@@ -135,8 +131,14 @@ public abstract class MultiROMTask extends InstallAsyncTask {
         File tmpfile = new File(MgrApp.getAppContext().getCacheDir(), f.destFile.getName());
         Utils.copyFile(f.destFile, tmpfile);
 
+        if(Utils.isSELinuxEnforcing())
+            Utils.chcon(Utils.CHCON_EXECUTABLE, bb);
+
         List<String> res = Shell.SU.run("%s cp \"%s\" \"%s/recovery/\" && echo success",
                 bb, tmpfile.getAbsolutePath(), cache);
+
+        if(Utils.isSELinuxEnforcing())
+            Utils.chcon(Utils.CHCON_ORIGINAL, bb);
 
         tmpfile.delete();
 
@@ -176,7 +178,14 @@ public abstract class MultiROMTask extends InstallAsyncTask {
                         "mkdir -p tmpcache/recovery && " +
                         "sync && echo /data/local/tmp/tmpcache";
 
+        if(Utils.isSELinuxEnforcing())
+            Utils.chcon(Utils.CHCON_BLOCK_ACCESS, bb);
+
         List<String> out = Shell.SU.run(cmd);
+
+        if(Utils.isSELinuxEnforcing())
+            Utils.chcon(Utils.CHCON_BLOCK_ACCESS, bb);
+
         if(out == null || out.size() != 1) {
             m_listener.onInstallLog("Failed to mount /cache!<br>");
             return null;

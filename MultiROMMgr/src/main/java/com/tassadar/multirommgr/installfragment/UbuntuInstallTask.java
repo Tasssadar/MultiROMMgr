@@ -18,7 +18,6 @@
 package com.tassadar.multirommgr.installfragment;
 
 import android.content.SharedPreferences;
-import android.os.Environment;
 import android.util.Log;
 
 import com.tassadar.multirommgr.Device;
@@ -166,24 +165,18 @@ public class UbuntuInstallTask extends InstallAsyncTask  {
     }
 
     private boolean copyFiles(String src, String dest, ArrayList<UbuntuFile> files) {
-        String bb = Utils.extractAsset("busybox");
-        if(bb == null) {
-            m_listener.onInstallLog(Utils.getString(R.string.failed_busybox));
-            return false;
-        }
-
         for(int i = 0; i < files.size(); ++i) {
             UbuntuFile f = files.get(i);
             String filename = Utils.getFilenameFromUrl(f.path);
             m_listener.onInstallLog(Utils.getString(R.string.copying_file, Utils.trim(filename, 40)));
 
-            if(!copyFile(src + "/" + filename, dest, bb)) {
+            if(!copyFile(src + "/" + filename, dest + "/" + filename)) {
                 m_listener.onInstallLog(Utils.getString(R.string.failed_file_copy, filename));
                 return false;
             }
 
             filename = Utils.getFilenameFromUrl(f.signature);
-            if(!copyFile(src + "/" + filename, dest, bb)) {
+            if(!copyFile(src + "/" + filename, dest + "/" + filename)) {
                 m_listener.onInstallLog(Utils.getString(R.string.failed_file_copy, filename));
                 return false;
             }
@@ -206,9 +199,8 @@ public class UbuntuInstallTask extends InstallAsyncTask  {
         return true;
     }
 
-    private boolean copyFile(final String src, final String dst, final String bb) {
-        List<String> out = Shell.SU.run("%s cp \"%s\" \"%s/\" && echo success",
-                bb, src, dst);
+    private boolean copyFile(final String src, final String dst) {
+        List<String> out = Shell.SU.run("cat \"%s\" > \"%s\" && echo success", src, dst);
         return out != null && !out.isEmpty() && out.get(0).equals("success");
     }
 

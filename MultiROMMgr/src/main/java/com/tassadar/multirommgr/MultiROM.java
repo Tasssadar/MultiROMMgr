@@ -63,6 +63,10 @@ public class MultiROM {
 
         m_path = out.get(0);
         Log.d("MultiROM", "Found in path " + m_path);
+        if(Utils.isSELinuxEnforcing()) {
+            Utils.chcon(Utils.CHCON_EXECUTABLE, m_path + "multirom");
+            Utils.chcon(Utils.CHCON_EXECUTABLE, m_path + "busybox");
+        }
         return true;
     }
 
@@ -76,8 +80,8 @@ public class MultiROM {
         return true;
     }
 
-    private String findInternalRomName(String bb) {
-        List<String> out = Shell.SU.run(bb + " cat \"" + m_path + "/multirom.ini\"");
+    private String findInternalRomName() {
+        List<String> out = Shell.SU.run("\'%s/busybox\' cat \"%s/multirom.ini\"", m_path, m_path);
         if (out == null || out.isEmpty())
             return INTERNAL_ROM;
 
@@ -91,15 +95,9 @@ public class MultiROM {
     }
 
     public void findRoms() {
-        String b = Utils.extractAsset("busybox");
-        if(b == null) {
-            Log.e("MultiROM", "Failed to extract busybox!");
-            return;
-        }
+        String internal = findInternalRomName();
 
-        String internal = findInternalRomName(b);
-
-        List<String> out = Shell.SU.run(b + " ls -1 -p \"" + m_path + "/roms/\"");
+        List<String> out = Shell.SU.run("\'%s/busybox\' ls -1 -p \"%s/roms/\"", m_path, m_path);
         if (out == null || out.isEmpty())
             return;
 
@@ -126,22 +124,22 @@ public class MultiROM {
 
         Collections.sort(m_roms, new Rom.NameComparator());
 
-        loadRomIconData(b);
+        loadRomIconData();
         storeRomDataToProvider();
     }
 
-    private void loadRomIconData(String b) {
+    private void loadRomIconData() {
         // Load icon data
         List<String> out = Shell.SU.run(
                 "IFS=$'\\n'; " +
                 "cd \"%s/roms\"; " +
-                "for d in $(\"%s\" ls -1); do " +
+                "for d in $(\"%s/busybox\" ls -1); do " +
                 "    ([ ! -d \"$d\" ]) && continue;" +
                 "    ([ ! -f \"$d/.icon_data\" ]) && continue;" +
                 "    echo \"ROM:$d\";" +
                 "    cat \"$d/.icon_data\";" +
                 "done;",
-                m_path, b);
+                m_path, m_path);
 
         if (out == null || out.isEmpty())
             return;
@@ -239,12 +237,12 @@ public class MultiROM {
 
             Shell.SU.run(
                     "cd \"%s\";" +
-                    "if [ \"$(%s grep 'int_display_name=.*' multirom.ini)\" ]; then" +
-                    "    %s sed -i -e 's/int_display_name=.*/int_display_name=%s/g' multirom.ini;" +
+                    "if [ \"$(\'%s/busybox\' grep 'int_display_name=.*' multirom.ini)\" ]; then" +
+                    "    '%s/busybox' sed -i -e 's/int_display_name=.*/int_display_name=%s/g' multirom.ini;" +
                     "else" +
                     "    echo 'int_display_name=%s' >> multirom.ini;" +
                     "fi",
-                    m_path, b, b, new_name, new_name);
+                    m_path, m_path, m_path, new_name, new_name);
         } else {
             Shell.SU.run("cd \"%s/roms/\" && mv '%s' '%s'", m_path, rom.name, new_name);
         }
@@ -256,14 +254,8 @@ public class MultiROM {
             return;
         }
 
-        String b = Utils.extractAsset("busybox");
-        if(b == null) {
-            Log.e("MultiROM", "Failed to extract busybox!");
-            return;
-        }
-
-        Shell.SU.run("%s chattr -R -i '%s/roms/%s'; %s rm -rf '%s/roms/%s'",
-                b, m_path, rom.name, b, m_path, rom.name);
+        Shell.SU.run("'%s/busybox' chattr -R -i '%s/roms/%s'; '%s/busybox' rm -rf '%s/roms/%s'",
+                m_path, m_path, rom.name, m_path, m_path, rom.name);
     }
 
     public void bootRom(Rom rom) {
@@ -355,9 +347,7 @@ public class MultiROM {
     }
 
     public int getFreeSpaceMB() {
-        String bb = Utils.extractAsset("busybox");
-
-        List<String> out = Shell.SU.run("\"%s\" df -Pm '%s'", bb, m_path);
+        List<String> out = Shell.SU.run("\'%s/busybox\' df -Pm '%s'", m_path, m_path);
         if (out == null || out.size() < 2 || !out.get(0).startsWith("Filesystem"))
             return -1;
 

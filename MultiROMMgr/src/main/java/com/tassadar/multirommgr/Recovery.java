@@ -42,7 +42,14 @@ public class Recovery {
             return false;
         }
 
+        if(Utils.isSELinuxEnforcing())
+            Utils.chcon(Utils.CHCON_BLOCK_ACCESS, p);
+
         List<String> out = Shell.SU.run(p + " -j " + dev.getRecoveryDev());
+
+        if(Utils.isSELinuxEnforcing())
+            Utils.chcon(Utils.CHCON_ORIGINAL, p);
+
         if(out == null || out.isEmpty())
             return false;
 

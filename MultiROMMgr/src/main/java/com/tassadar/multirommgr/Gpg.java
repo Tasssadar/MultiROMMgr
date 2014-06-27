@@ -13,9 +13,10 @@ import eu.chainfire.libsuperuser.Shell;
 
 public class Gpg {
     public static final String RING_MULTIROM = "multirom";
+    private static final String GPG_BIN = "gpgv";
 
     public Gpg(String keyring) throws IOException {
-        m_gpg_bin = Utils.extractAsset("gpg");
+        m_gpg_bin = Utils.extractAsset(GPG_BIN);
         if(m_gpg_bin == null)
             throw new FileNotFoundException("Couldn't extract gpg binary!");
 
@@ -58,19 +59,8 @@ public class Gpg {
     }
 
     public boolean verifyFile(String path, String signature) {
-        final String cmd = "GNUPGHOME='%s' %s --verify %s %s >/dev/null 2>&1 && echo \'success\'";
-        List<String> out = Shell.SU.run(cmd, m_gpg_home, m_gpg_bin, signature, path);
-
-        if(out.size() >= 1 && out.get(0).equals("success"))
-            return true;
-
-        File suPath = Utils.findSdcardFileSu(new File(path));
-        File suPathSign = Utils.findSdcardFileSu(new File(signature));
-        if(suPath == null || suPathSign == null)
-            return false;
-
-        out = Shell.SU.run(cmd, m_gpg_home, m_gpg_bin,
-                suPathSign.getAbsolutePath(), suPath.getAbsolutePath());
+        final String cmd = "%s --keyring \'%s/pubring.gpg\' \'%s\' \'%s\' >/dev/null 2>&1 && echo \'success\'";
+        List<String> out = Shell.SH.run(cmd, m_gpg_bin, m_gpg_home, signature, path);
         return out.size() >= 1 && out.get(0).equals("success");
     }
 

@@ -90,12 +90,14 @@ public class MultiROMInstallTask extends MultiROMTask {
             m_listener.onInstallLog(Utils.getString(R.string.installing_file, f.destFile.getName()));
             if(f.type.equals("recovery")) {
                 if(!flashRecovery(f, m_dev)) {
+                    unmountTmpCache(cache);
                     m_listener.onInstallComplete(false);
                     return null;
                 }
             } else if(f.type.equals("multirom") || f.type.equals("kernel")) {
                 needsRecovery = true;
                 if(!addScriptInstall(f, script, cache)) {
+                    unmountTmpCache(cache);
                     m_listener.onInstallComplete(false);
                     return null;
                 }
@@ -144,7 +146,13 @@ public class MultiROMInstallTask extends MultiROMTask {
                 "if [ \"$?\" = \"0\" ]; then echo success; fi;",
                 p, tmprecovery.getAbsolutePath(), dev.getRecoveryDev());
 
+        if(Utils.isSELinuxEnforcing())
+            Utils.chcon(Utils.CHCON_BLOCK_ACCESS, p);
+
         List<String> out = Shell.SU.run(cmd);
+
+        if(Utils.isSELinuxEnforcing())
+            Utils.chcon(Utils.CHCON_ORIGINAL, p);
 
         tmprecovery.delete();
 
