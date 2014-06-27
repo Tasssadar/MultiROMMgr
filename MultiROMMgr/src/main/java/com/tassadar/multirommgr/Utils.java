@@ -503,4 +503,28 @@ public class Utils {
         List<String> out = Shell.SU.run("chcon %s \'%s\' && echo 'success'", ctx, path);
         return out != null && out.size() == 1 && out.get(0).equals("success");
     }
+
+    public static boolean chcon(int type, String... paths) {
+        String ctx;
+        switch(type) {
+            case CHCON_ORIGINAL:
+                ctx = "u:object_r:app_data_file:s0";
+                break;
+            case CHCON_EXECUTABLE:
+            case CHCON_BLOCK_ACCESS:
+                ctx = "u:object_r:system_file:s0";
+                break;
+            default:
+                return false;
+        }
+
+        String cmd = "";
+        for(int i = 0; i < paths.length; ++i) {
+            cmd += String.format("chcon %s \'%s\' && ", ctx, paths[i]);
+        }
+        cmd += "echo \'success\'";
+
+        List<String> out = Shell.SU.run(cmd);
+        return out != null && out.size() == 1 && out.get(0).equals("success");
+    }
 }

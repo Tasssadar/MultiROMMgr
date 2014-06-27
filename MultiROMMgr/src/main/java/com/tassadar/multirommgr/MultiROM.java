@@ -64,9 +64,11 @@ public class MultiROM {
         m_path = out.get(0);
         Log.d("MultiROM", "Found in path " + m_path);
         if(Utils.isSELinuxEnforcing()) {
-            Utils.chcon(Utils.CHCON_EXECUTABLE, m_path + "multirom");
-            Utils.chcon(Utils.CHCON_EXECUTABLE, m_path + "busybox");
-            Utils.chcon(Utils.CHCON_EXECUTABLE, m_path + "kexec");
+            Utils.chcon(Utils.CHCON_EXECUTABLE,
+                    m_path + "multirom",
+                    m_path + "trampoline",
+                    m_path + "busybox",
+                    m_path + "kexec");
         }
         return true;
     }
