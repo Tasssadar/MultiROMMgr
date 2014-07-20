@@ -113,6 +113,22 @@
     <string name="select_icon">Bild wählen</string>
     <string name="browse">Durchsuchen &#8230;</string>
     <string name="rom_list_widget">Wähle das ROM zum Starten.</string>
+    <string name="ubuntu_man_no_channels">Für dieses Gerät konnten keine Update Kanäle gefunden werden.</string>
+    <string name="prog_checking_root">Erlange Root Rechte</string>
+    <string name="prog_detecting_dev">Erkenne Gerätetyp</string>
+    <string name="prog_looking_for_multirom">Suche nach MultiROM</string>
+    <string name="prog_getting_roms">Lade sekundäre ROMs</string>
+    <string name="prog_check_recovery">Überprüfe Recovery</string>
+    <string name="prog_check_kernel">Überprüfe Kernel</string>
+    <string name="prog_download_manifest">Lade Update-Metadaten herunter</string>
+    <string name="uninstall">MultiROM deinstallieren</string>
+    <string name="uninstall_dialog_title">MultiROM deinstallieren?</string>
+    <string name="uninstall_dialog_text">Diese Aktion wird MultiROM und alle installierten sekundären ROMs vollständig entfernen. Dein primäres ROM wird dabei intakt bleiben und auch das MultiROM Recovery wird weiterhin installiert sein. Wenn du es deinstallieren willst, ersetze es durch ein anderes Recovery.</string>
+    <string name="continue_text">Weiter</string>
+    <string name="flavour">Variante:</string>
+    <string name="gpg_failed">Verifikation der GPG Signatur gescheitert!</string>
+    <string name="alias_of">Alias für</string>
+
 
     <string-array name="reboot_options">
         <item>System</item>
