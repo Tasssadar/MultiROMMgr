@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.tassadar.multirommgr"
-    android:versionCode="122"
-    android:versionName="1.122" >
+    android:versionCode="123"
+    android:versionName="1.123" >
 
     <uses-sdk
         android:minSdkVersion="16"

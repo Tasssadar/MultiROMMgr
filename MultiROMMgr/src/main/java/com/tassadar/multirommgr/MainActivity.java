@@ -118,6 +118,7 @@ public class MainActivity extends Activity implements StatusAsyncTask.StatusAsyn
 
         if (getIntent().hasExtra(INTENT_EXTRA_SHOW_ROM_LIST) &&
             getIntent().getBooleanExtra(INTENT_EXTRA_SHOW_ROM_LIST, false)) {
+            getIntent().removeExtra(INTENT_EXTRA_SHOW_ROM_LIST);
             selectItem(1);
         } else if(savedInstanceState != null) {
             selectItem(savedInstanceState.getInt("curFragment", 0));
