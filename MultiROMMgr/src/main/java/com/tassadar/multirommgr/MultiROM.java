@@ -217,7 +217,11 @@ public class MultiROM {
         File iconDir = Rom.getIconsDir();
         if(iconDir == null)
             return;
+
         File[] files = iconDir.listFiles();
+        if(files == null || files.length == 0)
+            return;
+
         for(File f : files) {
             hash = f.getName();
 
