@@ -22,6 +22,7 @@ import android.database.DataSetObserver;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.BaseAdapter;
 import android.widget.ListAdapter;
 
 import com.tassadar.multirommgr.R;
@@ -31,7 +32,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
-public class RomListAdapter implements ListAdapter {
+public class RomListAdapter extends BaseAdapter {
 
     public RomListAdapter(Context ctx, RomListItem.OnRomActionListener listener) {
         m_inflater = (LayoutInflater)ctx.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
