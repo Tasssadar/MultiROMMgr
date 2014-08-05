@@ -95,7 +95,7 @@ public class RomEraseDialog extends DialogFragment implements View.OnClickListen
             a.runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    dismiss();
+                    dismissAllowingStateLoss();
 
                     MainActivity a = (MainActivity)getActivity();
                     if(a != null)

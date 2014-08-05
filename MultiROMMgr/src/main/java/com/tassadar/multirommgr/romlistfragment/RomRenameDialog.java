@@ -172,7 +172,7 @@ public class RomRenameDialog extends DialogFragment implements View.OnClickListe
             a.runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    dismiss();
+                    dismissAllowingStateLoss();
 
                     MainActivity a = (MainActivity)getActivity();
                     if(a != null)
