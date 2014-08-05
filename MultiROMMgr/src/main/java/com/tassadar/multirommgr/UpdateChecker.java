@@ -112,7 +112,7 @@ public class UpdateChecker {
         b.setContentTitle(ctx.getText(R.string.app_name))
                 .setAutoCancel(true)
                 .setContentIntent(contentIntent)
-                .setSmallIcon(R.drawable.ic_launcher)
+                .setSmallIcon(R.drawable.ic_stat_notify_generic)
                 .setContentText(update_notify)
                 .setTicker(update_notify);
 

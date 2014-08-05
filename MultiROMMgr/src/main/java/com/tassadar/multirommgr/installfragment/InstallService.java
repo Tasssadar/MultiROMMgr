@@ -51,7 +51,7 @@ public class InstallService extends Service implements InstallListener {
         b.setContentTitle(getText(R.string.app_name))
                 .setOngoing(true)
                 .setContentIntent(contentIntent)
-                .setSmallIcon(R.drawable.ic_launcher)
+                .setSmallIcon(R.drawable.ic_stat_notify_generic)
                 .setProgress(0, 0, true);
 
         m_builder = b;
