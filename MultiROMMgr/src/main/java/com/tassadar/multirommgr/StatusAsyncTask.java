@@ -25,6 +25,7 @@ import android.text.Spanned;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.lang.ref.WeakReference;
 
@@ -150,13 +151,24 @@ public class StatusAsyncTask extends AsyncTask <Void, String, StatusAsyncTask.Re
         publishProgress(Utils.getString(R.string.prog_download_manifest));
 
         Manifest man = new Manifest();
-        if(man.downloadAndParse(dev.getName(), true)) {
-            res.manifest = man;
-            res.manifest.compareVersions(res.multirom, res.recovery, res.kernel);
-        } else {
-            if(man.getStatus() != null && !man.getStatus().equals("ok"))
-                res.statusText = man.getStatus();
-            res.code |= RES_MANIFEST_FAIL;
+        while(true) {
+            if(man.downloadAndParse(dev.getName(), true)) {
+                res.manifest = man;
+                res.manifest.compareVersions(res.multirom, res.recovery, res.kernel);
+            } else {
+                if(man.hasCommand("RESET_MAN_URL")) {
+                    res.manifest_reset_status = man.getCommandArg("RESET_MAN_URL");
+                    SharedPreferences.Editor e = p.edit();
+                    e.remove(SettingsActivity.DEV_MANIFEST_URL);
+                    e.apply();
+                    continue;
+                }
+                else if(man.getStatus() != null && !man.getStatus().equals("ok"))
+                    res.statusText = man.getStatus();
+                res.code |= RES_MANIFEST_FAIL;
+            }
+
+            break;
         }
 
         UpdateChecker.setVersions(res.device, res.multirom, res.recovery);
@@ -191,6 +203,12 @@ public class StatusAsyncTask extends AsyncTask <Void, String, StatusAsyncTask.Re
             TextView t = (TextView)l.findViewById(R.id.progress_text);
             t.setText(m_progressText);
             return;
+        }
+
+        if(m_res.manifest_reset_status != null) {
+            final Spanned text = Html.fromHtml("<b>MultiROM Manager:</b> " + m_res.manifest_reset_status);
+            Toast.makeText(MgrApp.getAppContext(), text, Toast.LENGTH_LONG).show();
+            m_res.manifest_reset_status = null;
         }
 
         View v = l.findViewById(R.id.progress_bar);
@@ -264,6 +282,7 @@ public class StatusAsyncTask extends AsyncTask <Void, String, StatusAsyncTask.Re
         public Manifest manifest = null;
         public String statusText = null;
         public Device device = null;
+        public String manifest_reset_status = null;
     }
 
     private WeakReference<View> m_layout;

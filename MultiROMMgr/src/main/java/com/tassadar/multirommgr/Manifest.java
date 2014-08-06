@@ -27,10 +27,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.json.JSONTokener;
 
-import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.ParseException;
@@ -99,6 +96,7 @@ public class Manifest {
             }
 
             JSONObject o = (JSONObject)rawObject;
+            m_commands = o.optString("commands", "").split("\\|");
             m_status = o.getString("status");
             if(!m_status.equals("ok")) {
                 Log.e("Manifest", "MultiROM manifest's status is \"" + m_status + "\"");
@@ -250,6 +248,22 @@ public class Manifest {
         }
     }
 
+    public boolean hasCommand(String cmd) {
+        for(String c : m_commands) {
+            if(c.equals(cmd) || c.startsWith(cmd + "="))
+                return true;
+        }
+        return false;
+    }
+
+    public String getCommandArg(String cmd) {
+        for(String c : m_commands) {
+            if(c.startsWith(cmd + "="))
+                return c.substring(cmd.length()+1);
+        }
+        return null;
+    }
+
     public LinkedHashMap<String, InstallationFile> getKernels() {
         return m_kernels;
     }
@@ -260,6 +274,7 @@ public class Manifest {
     public InstallationFile getKernelFile(String name) { return m_kernels.get(name); }
 
     public String getStatus() { return m_status; }
+    public String[] getCommands() { return m_commands; }
     public Changelog[] getChangelogs() { return m_changelogs; }
 
     public boolean checkDataGpg() { return m_gpgData; }
@@ -276,4 +291,5 @@ public class Manifest {
     private String m_ubuntuReqRecovery;
     private Changelog[] m_changelogs;
     private boolean m_gpgData;
+    private String[] m_commands = new String[0];
 }
