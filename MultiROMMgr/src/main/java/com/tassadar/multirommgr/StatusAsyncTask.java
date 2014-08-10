@@ -152,7 +152,7 @@ public class StatusAsyncTask extends AsyncTask <Void, String, StatusAsyncTask.Re
 
         Manifest man = new Manifest();
         while(true) {
-            if(man.downloadAndParse(dev.getName(), true)) {
+            if(man.downloadAndParse(dev, true)) {
                 res.manifest = man;
                 res.manifest.compareVersions(res.multirom, res.recovery, res.kernel);
             } else {

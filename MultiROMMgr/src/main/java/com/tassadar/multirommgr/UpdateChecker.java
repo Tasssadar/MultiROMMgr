@@ -25,6 +25,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.preference.PreferenceManager;
 import android.util.Log;
 
@@ -126,9 +127,9 @@ public class UpdateChecker {
             Log.d("MultiROMMgr", "Checking for updates...");
 
             SharedPreferences p = MgrApp.getPreferences();
-            String dev = p.getString("update_device", null);
             String mromVer = p.getString("last_multirom_ver", null);
             String recoveryVer = p.getString("last_recovery_ver", null);
+            Device dev = Device.load(p.getString(SettingsActivity.DEV_DEVICE_NAME, Build.DEVICE));
 
             if(dev == null || mromVer == null || recoveryVer == null)
                 return;

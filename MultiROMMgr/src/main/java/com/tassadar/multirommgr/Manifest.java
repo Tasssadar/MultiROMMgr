@@ -48,7 +48,7 @@ public class Manifest {
         public File destFile;
     }
 
-    public boolean downloadAndParse(String dev, boolean check_gpg) {
+    public boolean downloadAndParse(Device dev, boolean check_gpg) {
         FileOutputStream out_man = null;
         FileOutputStream out_sign = null;
         String man_filename = MgrApp.getAppContext().getCacheDir() + "/manifest.json";
@@ -57,10 +57,10 @@ public class Manifest {
             out_man = new FileOutputStream(man_filename);
             out_sign = new FileOutputStream(sign_filename);
             SharedPreferences p = MgrApp.getPreferences();
-            String url = p.getString(SettingsActivity.DEV_MANIFEST_URL, DEFAULT_URL);
+            String url = p.getString(SettingsActivity.DEV_MANIFEST_URL, dev.getDefaultManifestUrl());
             if(!Utils.downloadFile(url, out_man, null, true))
                 return false;
-            if(!Utils.downloadFile(url + ".asc", out_sign, null, true))
+            if(dev.checkGpgSignatures() && !Utils.downloadFile(url + ".asc", out_sign, null, true))
                 return false;
         } catch(IOException e) {
             e.printStackTrace();
@@ -70,7 +70,7 @@ public class Manifest {
             Utils.close(out_sign);
         }
 
-        if(check_gpg) {
+        if(check_gpg && dev.checkGpgSignatures()) {
             try {
                 Gpg gpg = new Gpg(Gpg.RING_MULTIROM);
                 if (!gpg.verifyFile(man_filename, sign_filename)) {
@@ -103,13 +103,14 @@ public class Manifest {
                 return false;
             }
 
-            m_gpgData = o.optBoolean("gpg", false);
+            if(dev.checkGpgSignatures())
+                m_gpgData = o.optBoolean("gpg", false);
 
             JSONArray a = o.getJSONArray("devices");
             for(int i = 0; i < a.length(); ++i) {
                 o = a.getJSONObject(i);
 
-                if(!o.getString("name").equals(dev))
+                if(!o.getString("name").equals(dev.getName()))
                     continue;
 
                 JSONObject utouch = o.optJSONObject("ubuntu_touch");
@@ -290,6 +291,6 @@ public class Manifest {
     private String m_ubuntuReqMultiROM;
     private String m_ubuntuReqRecovery;
     private Changelog[] m_changelogs;
-    private boolean m_gpgData;
+    private boolean m_gpgData = false;
     private String[] m_commands = new String[0];
 }

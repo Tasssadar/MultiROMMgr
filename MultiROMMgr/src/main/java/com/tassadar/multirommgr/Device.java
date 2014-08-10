@@ -81,6 +81,9 @@ public class Device {
             Log.d("Device", "Loading device " + d.getString("name") + " path " + d.getString("path"));
         }
 
+        m_manifestUrl = info.optString("manifest_url", Manifest.DEFAULT_URL);
+        m_checkGpgSignatures = info.optBoolean("check_gpg", true);
+
         JSONObject o = info.getJSONObject("ubuntu_touch");
         m_supportsUbuntuTouch = o.getBoolean("enabled");
         m_ubuntuBaseUrl = o.optString("base_url", UbuntuManifest.DEFAULT_BASE_URL);
@@ -90,6 +93,8 @@ public class Device {
     public String getRecoveryDev() { return m_devices.get("recovery"); }
     public String getCacheDev() { return m_devices.get("cache"); }
     public String getName() { return m_name; }
+    public String getDefaultManifestUrl() { return m_manifestUrl; }
+    public boolean checkGpgSignatures() { return m_checkGpgSignatures; }
     public String getBaseVariantName() { return m_base_variant_name; }
     public boolean supportsUbuntuTouch() { return m_supportsUbuntuTouch; }
     public String getUbuntuBaseUrl() { return m_ubuntuBaseUrl; }
@@ -99,4 +104,6 @@ public class Device {
     private HashMap<String, String> m_devices = new HashMap<String, String>();
     private boolean m_supportsUbuntuTouch;
     private String m_ubuntuBaseUrl;
+    private String m_manifestUrl;
+    private boolean m_checkGpgSignatures;
 }
