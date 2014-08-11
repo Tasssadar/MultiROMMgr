@@ -91,8 +91,11 @@ public class MultiROM {
         String entry;
         for(int i = 0; i < out.size(); ++i) {
             entry = out.get(i).trim();
-            if(entry.startsWith("int_display_name="))
-                return entry.substring(17); // strlen("int_display_name=");
+            if (entry.startsWith("int_display_name=")) {
+                entry = entry.substring(17); // strlen("int_display_name=");
+                if(!entry.isEmpty())
+                    return entry;
+            }
         }
         return INTERNAL_ROM;
     }
