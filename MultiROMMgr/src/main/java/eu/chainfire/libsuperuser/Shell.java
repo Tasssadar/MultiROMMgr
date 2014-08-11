@@ -134,8 +134,13 @@ public class Shell {
                 STDIN.write((write + "\n").getBytes("UTF-8"));
                 STDIN.flush();
             }
-            STDIN.write("exit\n".getBytes("UTF-8"));
-            STDIN.flush();
+
+            try {
+                STDIN.write("exit\n".getBytes("UTF-8"));
+                STDIN.flush();
+            } catch(IOException e) {
+                // Ignore the exception. Command might have already closed the shell.
+            }
 
             // wait for our process to finish, while we gobble away in the background
             process.waitFor();
