@@ -72,7 +72,7 @@ public class UpdateChecker {
     }
 
     private static PendingIntent getIntent(Context ctx, int flags) {
-        Intent i = new Intent("com.tassadar.multirommgr.CHECK_UPDATES");
+        Intent i = new Intent(BuildConfig.PACKAGE_NAME + ".CHECK_UPDATES");
         return PendingIntent.getBroadcast(ctx, REQ_UPDATE_CHECK, i, flags);
     }
 

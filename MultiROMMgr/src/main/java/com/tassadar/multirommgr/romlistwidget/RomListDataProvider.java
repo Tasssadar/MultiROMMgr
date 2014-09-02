@@ -26,9 +26,11 @@ import android.database.sqlite.SQLiteQueryBuilder;
 import android.net.Uri;
 import android.text.TextUtils;
 
+import com.tassadar.multirommgr.BuildConfig;
+
 public class RomListDataProvider extends ContentProvider {
 
-    private static final String AUTHORITY = "com.tassadar.multirommgr.provider";
+    private static final String AUTHORITY = BuildConfig.PACKAGE_NAME + ".provider";
     private static final String BASE_PATH = "rom_list";
     public static final Uri CONTENT_URI = Uri.parse("content://" + AUTHORITY + "/" + BASE_PATH);
 
