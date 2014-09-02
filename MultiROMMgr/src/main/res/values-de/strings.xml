@@ -6,13 +6,13 @@
     <string name="status">Status</string>
     <string name="no_su">Root-Zugriff fehlgeschlagen!</string>
     <string name="action_refresh">Neu laden</string>
-    <string name="unsupported">Dieses Gerät wird nicht unterstützt (%1$s)!</string>
+    <string name="unsupported">Dieses Gerät (%1$s) wird nicht unterstützt!</string>
     <string name="status_text"><![CDATA[<b>MultiROM:</b> v%1$s%2$s<br><b>Recovery:</b> %3$s%4$s<br><b>Kernel:</b> %5$s]]></string>
-    <string name="mrom_ver_fail">Lesen der MultiROM Version fehlgeschlagen!</string>
+    <string name="mrom_ver_fail">Lesen der MultiROM-Version fehlgeschlagen!</string>
     <string name="no_multirom">MultiROM ist nicht installiert.</string>
     <string name="no_recovery">MultiROM Recovery ist nicht installiert.</string>
-    <string name="has_kexec"><![CDATA[<font color=\"#339900\">Hat kexec-hardboot Unterstützung</font>]]></string>
-    <string name="no_kexec"><![CDATA[<font color=\"red\">Hat keine kexec-hardboot Unterstützung!</font>]]></string>
+    <string name="has_kexec"><![CDATA[<font color=\"#339900\">Unterstützt kexec-hardboot</font>]]></string>
+    <string name="no_kexec"><![CDATA[<font color=\"red\">Unterstützt kexec-hardboot nicht!</font>]]></string>
     <string name="update_available"><![CDATA[<font color=\"blue\"> (Update verfügbar)</font>]]></string>
     <string name="manifest_fail">Konnte Update-Info nicht herunterladen!</string>
     <string name="install_multirom">MultiROM v%1$s</string>
@@ -25,7 +25,7 @@
     <string name="try_again">Neu versuchen</string>
     <string name="uninterruptable">Diese Operation kann nicht unterbrochen werden.</string>
     <string name="reboot">Reboot</string>
-    <string name="reboot_message">Das Gerät muss in die Recovery neustarten um die Installation zu vervollständigen.</string>
+    <string name="reboot_message">Das Gerät muss in die Recovery neustarten, um die Installation abzuschließen.</string>
     <string name="ubuntu_card">Ubuntu Touch installieren</string>
     <string name="channel">Kanal:</string>
     <string name="ubuntu_man_failed">Herunterladen und Analysieren von Ubuntu Touch Metadaten fehlgeschlagen.</string>
@@ -37,35 +37,35 @@
     <string name="pref_hidden_channels">Zeige versteckte Kanäle</string>
     <string name="pref_hidden_channels_summ">Zeigt Update-Kanäle, welche normalerweise versteckt sind (meistens inaktive Kanäle oder Testkanäle nur für den Entwickler).</string>
     <string name="pref_delete_utouch_files">Lösche Installationsdateien</string>
-    <string name="pref_delete_utouch_files_summ">Löscht Ubuntu Touch Installationsdateien, kurz bevor in die Recovery neugestartet wird, um die Installation abzuschließen. Das gibt Speicher frei, allerdings müssen die Dateien erneut heruntergeladen werden, falls die Installation fehlschlägt.\n\nDateien werden nach %1$s/%2$s heruntergeladen.</string>
+    <string name="pref_delete_utouch_files_summ">Löscht Ubuntu Touch Installationsdateien, kurz bevor in die Recovery neugestartet wird, um die Installation abzuschließen. Das spart Speicherplatz, allerdings müssen die Dateien erneut heruntergeladen werden, falls die Installation fehlschlägt.\n\nDateien werden nach %1$s/%2$s heruntergeladen.</string>
     <string name="general">Allgemein</string>
     <string name="pref_auto_reboot">Vor Neustart nicht nachfragen</string>
     <string name="pref_auto_reboot_summ">Automatisch in die Recovery neustarten, wenn es notwendig ist, um die Installation abzuschließen.</string>
     <string name="install_success">Installation war erfolgreich.</string>
     <string name="install_failed">Installation FEHLGESCHLAGEN!</string>
-    <string name="downloading_file">Lädt Datei %s herunter...</string>
+    <string name="downloading_file">Lade Datei %s herunter...</string>
     <string name="success"><![CDATA[<font color=\"green\">Erfolgreich</font><br>]]></string>
     <string name="failed"><![CDATA[<font color=\"red\">FEHLGESCHLAGEN!</font><br>]]></string>
     <string name="preparing_downloads">Downloads werden vorbereitet...%s</string>
     <string name="invalid_url">Ungültige URL: %s</string>
-    <string name="skipping_file"><![CDATA[Überspringt bereits heruntergeladene Datei %s<br>]]></string>
-    <string name="checking_file">Prüft Datei %s... </string>
+    <string name="skipping_file"><![CDATA[Überspringe bereits heruntergeladene Datei %s<br>]]></string>
+    <string name="checking_file">Prüfe Datei %s... </string>
     <string name="ok"><![CDATA[<font color=\"green\">Ok</font><br>]]></string>
-    <string name="installing_files">Installiert Dateien...</string>
-    <string name="installing_file">Installiert Datei %s...</string>
-    <string name="needs_recovery"><![CDATA[<font color=\"yellow\">benötigt Recovery</font><br>]]></string>
+    <string name="installing_files">Installiere Dateien...</string>
+    <string name="installing_file">Installiere Datei %s...</string>
+    <string name="needs_recovery"><![CDATA[<font color=\"yellow\">Benötigt Recovery</font><br>]]></string>
     <string name="su_failed_find_dir"><![CDATA[Finden des Download-Ordners als Superuser fehlgeschlagen.<br>]]></string>
-    <string name="installing_utouch">Installiert Ubuntu Touch...</string>
+    <string name="installing_utouch">Installiere Ubuntu Touch...</string>
     <string name="failed_create_rom"><![CDATA[Erstellen des ROM-Ordners fehlgeschlagen!<br>]]></string>
-    <string name="installing_rom"><![CDATA[<br>Installiert als ROM <font color=\"yellow\">%s</font><br>]]></string>
+    <string name="installing_rom"><![CDATA[<br>Installiere als ROM <font color=\"yellow\">%s</font><br>]]></string>
     <string name="failed_rom_init"><![CDATA[Initialisieren des ROM-Ordners fehlgeschlagen!<br>]]></string>
-    <string name="ok_skippping"><![CDATA[<font color=\"green\">OK, überspringt.</font><br>]]></string>
-    <string name="failed_redownload"><![CDATA[<font color=\"#FF9900\">Fehlgeschlagen, lädt erneut herunter.</font><br>]]></string>
+    <string name="ok_skippping"><![CDATA[<font color=\"green\">OK, überspringe.</font><br>]]></string>
+    <string name="failed_redownload"><![CDATA[<font color=\"#FF9900\">Fehlgeschlagen, lade erneut herunter.</font><br>]]></string>
     <string name="failed_busybox">Extrahieren von busybox fehlgeschlagen!</string>
-    <string name="copying_file">Kopiert Datei %s...</string>
+    <string name="copying_file">Kopiere Datei %s...</string>
     <string name="failed_file_copy"><![CDATA[<br><font color=\"red\">Kopieren der Datei %s fehlgeschlagen!</font><br>]]></string>
-    <string name="deleting_used_files"><![CDATA[Löscht bereits verwendete Dateien...<br>]]></string>
-    <string name="ubuntu_free_space">Du hast zurzeit nur noch %1$dMB frei. Es wird empfohlen, mindestens %2$dMB frei im internen Speicher zu haben, oder die Installation könnte fehlschlagen!</string>
+    <string name="deleting_used_files"><![CDATA[Lösche bereits verwendete Dateien...<br>]]></string>
+    <string name="ubuntu_free_space">Du hast zurzeit nur noch %1$dMB frei. Es wird empfohlen, mindestens %2$dMB frei im internen Speicher zu haben - die Installation könnte ansonsten fehlschlagen!</string>
     <string name="pref_update_check">Auf Updates prüfen</string>
     <string name="pref_update_check_sum">Automatisch ungefähr alle 12 Stunden nach Updates für MultiROM und Recovery suchen und bei Verfügbarkeit benachrichtigen.</string>
     <string name="update_notification">MultiROM Update verfügbar.</string>
@@ -76,14 +76,14 @@
     <string name="done">Abgeschlossen, zurück.</string>
     <string name="about_ubuntu_touch">Über Ubuntu Touch</string>
     <string name="back">Zurück</string>
-    <string name="about_ubuntu_text"><b>Dieser Abschnitt installiert Ubuntu Touch als sekundäres ROM. Es löscht keine deiner Daten, es fügt nur Ubuntu Touch in MultiROM hinzu.</b>\n\nEs gibt mehrere Kanäle, <i>saucy</i> ist zurzeit die stabile Version, daher kannst du sie einfach als \"besser\" erwarten. Andererseits ist <i>trusty</i> die Version welche zur Zeit in der Entwicklung ist, d.h. es besitzt die neuesten Updates.</string>
+    <string name="about_ubuntu_text"><b>Dieser Abschnitt installiert Ubuntu Touch als sekundäres ROM. Dabei werden keine Daten gelöscht.</b>\n\nEs gibt mehrere Kanäle, <i>saucy</i> ist zurzeit die stabile Version, daher kannst du sie einfach als \"besser\" erwarten. Andererseits ist <i>trusty</i> zurzeit noch in Entwicklung, d.h. es besitzt die neuesten Updates.</string>
     <string name="installation">Installation</string>	
     <string name="action_reboot">Neu starten...</string>
     <string name="ubuntu_unsupported">Ubuntu Touch wird von diesem Gerät nicht unterstützt.</string>
     <string name="about">Über</string>
     <string name="about_version">Version</string>
     <string name="about_licenses">Lizenzen</string>
-    <string name="about_licenses_summ">MultiROM Manager ist unter der GNU GPLv3 lizenziert und nutzt die folgenden Programmbibliotheken, welche alle unter der Apache 2.0 Lizenz stehen:\nlibsuperuser\nCardsUI\nActionBar-PullToRefresh</string>
+    <string name="about_licenses_summ">MultiROM Manager ist unter der GNU GPLv3 lizenziert und nutzt die folgenden Programmbibliotheken, welche alle der Apache 2.0 Lizenz unterliegen:\nlibsuperuser\nCardsUI\nActionBar-PullToRefresh</string>
     <string name="already_developer">Okay, Du bist bereits ein Entwickler.</string>
     <string name="now_developer">Du bist jetzt ein Entwickler!</string>
     <string name="dev_options">Entwickleroptionen</string>
@@ -98,21 +98,21 @@
     <string name="rename">Umbennen</string>
     <string name="rom_name_taken">Dieser Name wurde bereits verwendet!</string>
     <string name="rom_name_empty">Du musst einen Namen eingeben!</string>
-    <string name="erase_rom">Das wird das ROM \"%s\" unwiderruflich löschen!</string>
+    <string name="erase_rom">Das wird die ROM \"%s\" unwiderruflich löschen!</string>
     <string name="erase_rom_title">ROM löschen?</string>
     <string name="erase">Löschen</string>
     <string name="erasing_rom">ROM wird gelöscht...</string>
     <string name="boot_rom">Wirklich in ROM \"%s\" neustarten?</string>
     <string name="booting">ROM wird gestartet...</string>
-    <string name="rom_boot_kexec">Dieses ROM erfordert einen Kernel mit kexec-hardboot patch, bitte installiere einen.</string>
-    <string name="rom_boot_failed">Konnte nicht in diesen ROM neustarten!</string>
+    <string name="rom_boot_kexec">Diese ROM erfordert einen Kernel, der kexec-hardboot unterstützt, bitte installiere einen, der dieses Kriterium erfüllt.</string>
+    <string name="rom_boot_failed">Konnte nicht in diese ROM neustarten!</string>
     <string name="rom_boot_req_ver">ROMs direkt aus dieser App zu starten erfordert MultiROM v%s oder höher.</string>
     <string name="ok_nohtml">OK</string>
     <string name="boot">Starten</string>
     <string name="boot_rom_title">ROM starten?</string>
     <string name="select_icon">Bild wählen</string>
     <string name="browse">Durchsuchen &#8230;</string>
-    <string name="rom_list_widget">Wähle das ROM zum Starten.</string>
+    <string name="rom_list_widget">Wähle die ROM zum Starten.</string>
     <string name="ubuntu_man_no_channels">Für dieses Gerät konnten keine Update Kanäle gefunden werden.</string>
     <string name="prog_checking_root">Erlange Root Rechte</string>
     <string name="prog_detecting_dev">Erkenne Gerätetyp</string>
@@ -123,11 +123,12 @@
     <string name="prog_download_manifest">Lade Update-Metadaten herunter</string>
     <string name="uninstall">MultiROM deinstallieren</string>
     <string name="uninstall_dialog_title">MultiROM deinstallieren?</string>
-    <string name="uninstall_dialog_text">Diese Aktion wird MultiROM und alle installierten sekundären ROMs vollständig entfernen. Dein primäres ROM wird dabei intakt bleiben und auch das MultiROM Recovery wird weiterhin installiert sein. Wenn du es deinstallieren willst, ersetze es durch ein anderes Recovery.</string>
+    <string name="uninstall_dialog_text">Diese Aktion wird MultiROM und alle installierten sekundären ROMs vollständig entfernen. Deine primäre ROM wird dabei intakt bleiben und auch die MultiROM Recovery wird weiterhin installiert sein. Wenn du letztere deinstallieren willst, ersetze sie.</string>
     <string name="continue_text">Weiter</string>
     <string name="flavour">Variante:</string>
-    <string name="gpg_failed">Verifikation der GPG Signatur gescheitert!</string>
+    <string name="gpg_failed">Überprüfung der GPG-Signatur gescheitert!</string>
     <string name="alias_of">Alias für</string>
+    <string name="no_manifest">Automatische Installation und Updates werden von diesem Gerät zurzeit nicht unterstützt.</string>
 
 
     <string-array name="reboot_options">
