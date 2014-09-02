@@ -27,10 +27,12 @@ import eu.chainfire.libsuperuser.Application;
 
 public class MgrApp extends Application {
     private static Context m_context;
+    private static boolean m_needPkgNameFixup;
 
     public void onCreate(){
         super.onCreate();
         m_context = getApplicationContext();
+        m_needPkgNameFixup = BuildConfig.DEBUG && m_context.getPackageName().endsWith(".debug");
     }
 
     public static SharedPreferences getPreferences() {
@@ -43,5 +45,18 @@ public class MgrApp extends Application {
 
     public static Context getAppContext() {
         return m_context;
+    }
+
+    public static String replaceDebugPkgName(String str, boolean dbgToRelease) {
+        if(!m_needPkgNameFixup)
+            return str;
+
+        final int suffix_len = ".debug".length();
+        final String pkgName = m_context.getPackageName();
+        final String pkgNameFixed = pkgName.substring(0, pkgName.length() - suffix_len);
+        if(dbgToRelease)
+            return str.replace(pkgName, pkgNameFixed);
+        else
+            return str.replace(pkgNameFixed, pkgName);
     }
 }

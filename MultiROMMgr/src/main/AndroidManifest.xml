@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.tassadar.multirommgr"
-    android:versionCode="130"
-    android:versionName="1.130" >
+    android:versionCode="131"
+    android:versionName="1.131" >
 
     <uses-sdk
         android:minSdkVersion="16"
@@ -21,7 +21,7 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme">
         <activity
-            android:name="com.tassadar.multirommgr.MainActivity"
+            android:name=".MainActivity"
             android:label="@string/app_name"
             android:launchMode="singleTop">
             <intent-filter>
@@ -55,7 +55,7 @@
             android:exported="false"
             android:label="UpdateCheckReceiver">
             <intent-filter>
-                <action android:name="com.tassadar.multirommgr.CHECK_UPDATES" />
+                <action android:name=".CHECK_UPDATES" />
             </intent-filter>
         </receiver>
 
@@ -70,11 +70,11 @@
             android:permission="android.permission.BIND_REMOTEVIEWS"
             android:exported="false"/>
         <provider android:name=".romlistwidget.RomListDataProvider"
-            android:authorities="com.tassadar.multirommgr.provider"
+            android:authorities=".provider"
             android:exported="true"/>
 
         <activity
-            android:name="com.tassadar.multirommgr.romlistfragment.RomBootActivity"
+            android:name=".romlistfragment.RomBootActivity"
             android:exported="true"
             android:label="@string/boot_rom_title"
             android:theme="@android:style/Theme.Holo.Light.Dialog.NoActionBar"/>

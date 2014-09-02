@@ -176,6 +176,7 @@ public class MultiROM {
             line = out.get(++i);
             if(line.equals("predef_set")) {
                 line = out.get(++i);
+                line = MgrApp.replaceDebugPkgName(line, false);
                 rom.icon_id = res.getIdentifier(line, null, null);
                 rom.icon_hash = null;
 
@@ -420,6 +421,7 @@ public class MultiROM {
         } else {
             Resources res = MgrApp.getAppContext().getResources();
             data = res.getResourceName(icon_id);
+            data = MgrApp.replaceDebugPkgName(data, true);
             ic_type = "predef_set";
         }
 
