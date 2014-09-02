@@ -104,6 +104,7 @@
         },
         {
             "names": [ "yuga", "C6603", "C6602" ],
+            "manifest_url": "",
             "ubuntu_touch": {
                 "enabled": false
             },

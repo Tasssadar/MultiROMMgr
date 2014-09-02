@@ -33,13 +33,14 @@ import eu.chainfire.libsuperuser.Shell;
 
 public class StatusAsyncTask extends AsyncTask <Void, String, StatusAsyncTask.Result> {
 
-    static final int RES_OK                 = 0x00;
-    static final int RES_NO_SU              = 0x01;
-    static final int RES_NO_MULTIROM        = 0x02;
-    static final int RES_FAIL_MROM_VER      = 0x04;
-    static final int RES_UNSUPPORTED        = 0x08;
-    static final int RES_NO_RECOVERY        = 0x10;
-    static final int RES_MANIFEST_FAIL      = 0x20;
+    public static final int RES_OK                 = 0x00;
+    public static final int RES_NO_SU              = 0x01;
+    public static final int RES_NO_MULTIROM        = 0x02;
+    public static final int RES_FAIL_MROM_VER      = 0x04;
+    public static final int RES_UNSUPPORTED        = 0x08;
+    public static final int RES_NO_RECOVERY        = 0x10;
+    public static final int RES_MANIFEST_FAIL      = 0x20;
+    public static final int RES_NO_MANIFEST        = 0x40;
 
     public interface StatusAsyncTaskListener {
         public void onStatusTaskFinished(Result res);
@@ -155,6 +156,9 @@ public class StatusAsyncTask extends AsyncTask <Void, String, StatusAsyncTask.Re
             if(man.downloadAndParse(dev, true)) {
                 res.manifest = man;
                 res.manifest.compareVersions(res.multirom, res.recovery, res.kernel);
+            } else if(!dev.hasManifest()) {
+                // device has no manifest and none was set in developer settings
+                res.code |= RES_NO_MANIFEST;
             } else {
                 if(man.hasCommand("RESET_MAN_URL")) {
                     res.manifest_reset_status = man.getCommandArg("RESET_MAN_URL");

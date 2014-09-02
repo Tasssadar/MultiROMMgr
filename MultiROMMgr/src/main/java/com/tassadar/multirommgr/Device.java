@@ -94,6 +94,7 @@ public class Device {
     public String getCacheDev() { return m_devices.get("cache"); }
     public String getName() { return m_name; }
     public String getDefaultManifestUrl() { return m_manifestUrl; }
+    public boolean hasManifest() { return !m_manifestUrl.isEmpty(); }
     public boolean checkGpgSignatures() { return m_checkGpgSignatures; }
     public String getBaseVariantName() { return m_base_variant_name; }
     public boolean supportsUbuntuTouch() { return m_supportsUbuntuTouch; }

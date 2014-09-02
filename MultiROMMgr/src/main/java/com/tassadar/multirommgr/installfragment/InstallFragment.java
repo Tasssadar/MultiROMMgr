@@ -91,13 +91,11 @@ public class InstallFragment extends MainFragment implements StatusAsyncTask.Sta
     @Override
     public void onStatusTaskFinished(StatusAsyncTask.Result res) {
         boolean hasUbuntu = false;
+
         if(res.manifest != null) {
             mCardView.addCard(new InstallCard(m_cardsSavedState, res.manifest, res.recovery == null, this));
-
             if(!res.device.supportsUbuntuTouch()) {
-                SharedPreferences p = MgrApp.getPreferences();
-                if(p.getBoolean("showUbuntuUnsupported", true))
-                    showUbuntuUnsupportedCard();
+                showNotificationCard(R.layout.ubuntu_unsupported_card, "showUbuntuUnsupported");
             } else if(res.multirom != null && res.recovery != null) {
                 UbuntuManifestAsyncTask.instance().setListener(this);
                 mCardView.addCard(new UbuntuCard(m_cardsSavedState, this, res.manifest, res.multirom, res.recovery));
@@ -105,6 +103,8 @@ public class InstallFragment extends MainFragment implements StatusAsyncTask.Sta
             }
 
             mCardView.refresh();
+        } else if((res.code & StatusAsyncTask.RES_NO_MANIFEST) != 0) {
+            showNotificationCard(R.layout.no_manifest_card, "showNoManifestCard");
         }
 
         if(!hasUbuntu)
@@ -119,14 +119,18 @@ public class InstallFragment extends MainFragment implements StatusAsyncTask.Sta
         m_actListener.setRefreshComplete();
     }
 
-    private void showUbuntuUnsupportedCard() {
-        Card c = new StaticCard(R.layout.ubuntu_unsupported_card);
+    private void showNotificationCard(int layout, final String prefName) {
+        final SharedPreferences p = MgrApp.getPreferences();
+        if(!p.getBoolean(prefName, true))
+            return;
+
+        Card c = new StaticCard(layout);
         c.setOnCardSwipedListener(new Card.OnCardSwiped() {
             @Override
             public void onCardSwiped(Card card, View layout) {
-                SharedPreferences.Editor p = MgrApp.getPreferences().edit();
-                p.putBoolean("showUbuntuUnsupported", false);
-                p.commit();
+                SharedPreferences.Editor e = MgrApp.getPreferences().edit();
+                e.putBoolean(prefName, false);
+                e.commit();
             }
         });
         mCardView.addSwipableCard(c, false, true);

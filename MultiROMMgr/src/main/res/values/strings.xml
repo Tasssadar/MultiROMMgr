@@ -128,6 +128,7 @@
     <string name="flavour">Flavour:</string>
     <string name="gpg_failed">GPG signature verification failed!</string>
     <string name="alias_of">alias of</string>
+    <string name="no_manifest">Automatic installation and updates are not supported with on device.</string>
 
     <string-array name="reboot_options">
         <item>System</item>
