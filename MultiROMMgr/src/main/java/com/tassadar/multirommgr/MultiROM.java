@@ -29,8 +29,11 @@ import com.tassadar.multirommgr.romlistwidget.RomListOpenHelper;
 import com.tassadar.multirommgr.romlistwidget.RomListWidgetProvider;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
@@ -191,6 +194,9 @@ public class MultiROM {
         }
 
         deleteUnusedIcons(presentHashes);
+
+        // Load list of predefined icons multirom has installed
+        m_predefIcons = Shell.SU.run("IFS=$'\\n'; \"%s/busybox\" ls -1 \"%s/icons\";", m_path, m_path);
     }
 
     private void storeRomDataToProvider() {
@@ -379,9 +385,24 @@ public class MultiROM {
     }
 
     public void setRomIcon(Rom rom, String path) {
-        String hash = Utils.calculateSHA256(path);
+        FileInputStream in = null;
+        try {
+            in = new FileInputStream(path);
+            setRomIcon(rom, in);
+        } catch(IOException e) {
+            e.printStackTrace();
+        } finally {
+            Utils.close(in);
+        }
+    }
+
+    public void setRomIcon(Rom rom, InputStream in) throws IOException {
+        in.mark(0);
+        String hash = Utils.calculateChecksumStream(in, "SHA-256");
         if(hash == null)
             return;
+
+        in.reset();
 
         FileOutputStream out = null;
         try {
@@ -393,15 +414,14 @@ public class MultiROM {
             File dest = new File(iconsDir, hash + ".png");
             out = new FileOutputStream(dest);
 
-            Bitmap b = Utils.resizeBitmap(BitmapFactory.decodeFile(path), 128, 128);
+            Bitmap b = Utils.resizeBitmap(BitmapFactory.decodeStream(in), 128, 128);
             b.compress(Bitmap.CompressFormat.PNG, 0, out);
 
             storeRomIcon(rom, R.id.user_defined_icon, hash);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } finally {
-            if(out != null)
-                try { out.close(); } catch(Exception e) { }
+            Utils.close(out);
         }
     }
 
@@ -423,6 +443,21 @@ public class MultiROM {
             data = res.getResourceName(icon_id);
             data = MgrApp.replaceDebugPkgName(data, true);
             ic_type = "predef_set";
+
+            final String mrom_ic_file = data.substring(data.lastIndexOf('/')+1) + ".png";
+            if(m_predefIcons != null && !m_predefIcons.contains(mrom_ic_file)) {
+                InputStream in = null;
+                try {
+                    in = res.openRawResource(icon_id);
+                    setRomIcon(rom, in);
+                } catch(Exception e) {
+                    e.printStackTrace();
+                } finally {
+                    Utils.close(in);
+                }
+
+                return;
+            }
         }
 
         Shell.SU.run(
@@ -459,4 +494,5 @@ public class MultiROM {
     private String m_path;
     private String m_version;
     private ArrayList<Rom> m_roms = new ArrayList<Rom>();
+    private List<String> m_predefIcons;
 }

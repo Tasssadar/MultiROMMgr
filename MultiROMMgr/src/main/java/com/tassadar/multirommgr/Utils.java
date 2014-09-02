@@ -40,6 +40,7 @@ import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.List;
 
 import eu.chainfire.libsuperuser.Shell;
@@ -312,25 +313,32 @@ public class Utils {
     }
 
     public static String calculateChecksum(File file, String checksumType) {
-        String res = null;
         FileInputStream in = null;
         try {
-            in = new FileInputStream(file);
-            byte[] buff = new byte[8192];
-            MessageDigest digest = MessageDigest.getInstance(checksumType);
-            int read;
-
-            while((read = in.read(buff)) > 0)
-                digest.update(buff, 0, read);
-
-            return Utils.bytesToHex(digest.digest());
-        } catch (Exception e) {
+            return calculateChecksumStream(in, checksumType);
+        } catch (IOException e) {
             e.printStackTrace();
         } finally {
-            if(in != null)
-                try { in.close(); } catch (IOException e) { }
+            close(in);
         }
-        return res;
+        return null;
+    }
+
+    public static String calculateChecksumStream(InputStream in, String checksumType) throws IOException {
+        int read;
+        byte[] buff = new byte[8192];
+        MessageDigest digest = null;
+        try {
+            digest = MessageDigest.getInstance(checksumType);
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+            return null;
+        }
+
+        while((read = in.read(buff)) > 0)
+            digest.update(buff, 0, read);
+
+        return Utils.bytesToHex(digest.digest());
     }
 
     private static final char[] HEX = {'0','1','2','3','4','5','6','7','8','9','a','b','c','d','e','f'};
