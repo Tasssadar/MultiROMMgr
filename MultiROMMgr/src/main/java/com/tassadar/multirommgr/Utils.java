@@ -315,6 +315,7 @@ public class Utils {
     public static String calculateChecksum(File file, String checksumType) {
         FileInputStream in = null;
         try {
+            in = new FileInputStream(file);
             return calculateChecksumStream(in, checksumType);
         } catch (IOException e) {
             e.printStackTrace();
