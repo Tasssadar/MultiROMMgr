@@ -168,7 +168,7 @@ public class SettingsActivity extends PreferenceActivity implements SharedPrefer
         Device dev = Device.load(p.getString(SettingsActivity.DEV_DEVICE_NAME, Build.DEVICE));
 
         EditTextPreference pref = (EditTextPreference)findPreference(DEV_MANIFEST_URL);
-        pref.setText(p.getString(DEV_MANIFEST_URL, dev.getDefaultManifestUrl()));
+        pref.setText(p.getString(DEV_MANIFEST_URL, dev != null ? dev.getDefaultManifestUrl() : Build.DEVICE));
         pref = (EditTextPreference)findPreference(DEV_DEVICE_NAME);
         pref.setText(p.getString(DEV_DEVICE_NAME, Build.DEVICE));
     }
