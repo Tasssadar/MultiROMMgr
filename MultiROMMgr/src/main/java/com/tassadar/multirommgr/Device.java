@@ -58,7 +58,7 @@ public class Device {
 
                 names = o.getJSONArray("names");
                 for(int x = 0; x < names.length(); ++x)
-                    if(names.getString(x).equals(name))
+                    if (name.equals(names.getString(x).toLowerCase()))
                         return new Device(name, names.getString(0), o);
             }
             return null;
