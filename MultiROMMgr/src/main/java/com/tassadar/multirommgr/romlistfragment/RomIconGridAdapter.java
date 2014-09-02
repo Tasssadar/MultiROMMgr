@@ -41,7 +41,8 @@ public class RomIconGridAdapter extends BaseAdapter {
             R.drawable.romic_ubuntu2,
             R.drawable.romic_ubuntu3,
             R.drawable.romic_linux,
-            R.drawable.romic_firefox
+            R.drawable.romic_firefox,
+            R.drawable.romic_slimkat
     };
 
     public RomIconGridAdapter(Context c) {

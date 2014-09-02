@@ -101,6 +101,26 @@
                     "path": "/dev/block/platform/msm_sdcc.1/by-name/cache"
                 }
             ]
+        },
+        {
+            "names": [ "yuga", "C6603", "C6602" ],
+            "ubuntu_touch": {
+                "enabled": false
+            },
+            "devices": [
+                {
+                    "name": "recovery",
+                    "path": "/dev/block/platform/msm_sdcc.1/by-name/FOTAKernel"
+                },
+                {
+                    "name": "boot",
+                    "path": "/dev/block/platform/msm_sdcc.1/by-name/boot"
+                },
+                {
+                    "name": "cache",
+                    "path": "/dev/block/platform/msm_sdcc.1/by-name/cache"
+                }
+            ]
         }
     ]
 }
