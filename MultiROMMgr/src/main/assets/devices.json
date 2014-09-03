@@ -103,7 +103,7 @@
             ]
         },
         {
-            "names": [ "yuga", "C6603", "C6602" ],
+            "names": [ "yuga", "C6603", "C6602", "C6606" ],
             "manifest_url": "",
             "ubuntu_touch": {
                 "enabled": false
@@ -111,7 +111,7 @@
             "devices": [
                 {
                     "name": "recovery",
-                    "path": "/dev/block/platform/msm_sdcc.1/by-name/FOTAKernel"
+                    "path": "/dev/block/platform/msm_sdcc.1/by-name/boot"
                 },
                 {
                     "name": "boot",
