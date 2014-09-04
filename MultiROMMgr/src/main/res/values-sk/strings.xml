@@ -129,6 +129,8 @@
     <string name="gpg_failed">Overenie GPG podpisu zlyhalo!</string>
     <string name="alias_of">alias</string>
     <string name="no_manifest">Automatická inštalácia a aktualizácie nie sú podporované na tomto zariadení.</string>
+    <string name="pref_manifest_override">Prepísať manifest URL adresu</string>
+    <string name="notice">Upozornenie</string>
 
     <string-array name="reboot_options">
         <item>Systém</item>
