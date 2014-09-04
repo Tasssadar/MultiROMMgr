@@ -83,23 +83,27 @@ public class InstallCard extends Card implements CompoundButton.OnCheckedChangeL
 
         Resources res = m_view.getResources();
 
-        Date rec_date = m_manifest.getRecoveryVersion();
-        String recovery_ver = Recovery.DISPLAY_FMT.format(rec_date);
-
         CheckBox b = (CheckBox)m_view.findViewById(R.id.install_multirom);
         b.setText(res.getString(R.string.install_multirom, m_manifest.getMultiromVersion()));
         b.setChecked(m_manifest.hasMultiromUpdate());
         b.setOnCheckedChangeListener(this);
 
         b = (CheckBox)m_view.findViewById(R.id.install_recovery);
-        b.setText(res.getString(R.string.install_recovery, recovery_ver));
-        b.setChecked(m_manifest.hasRecoveryUpdate());
-        b.setOnCheckedChangeListener(this);
+        if(m_manifest.getRecoveryFile() != null) {
+            final Date rec_date = m_manifest.getRecoveryVersion();
+            final String recovery_ver = Recovery.DISPLAY_FMT.format(rec_date);
+            b.setText(res.getString(R.string.install_recovery, recovery_ver));
+            b.setChecked(m_manifest.hasRecoveryUpdate());
+            b.setOnCheckedChangeListener(this);
 
-        // Force user to install recovery if not yet installed - it is needed to flash ZIPs
-        if(m_manifest.hasRecoveryUpdate() && m_forceRecovery) {
-            b.append(Html.fromHtml(res.getString(R.string.required)));
-            b.setClickable(false);
+            // Force user to install recovery if not yet installed - it is needed to flash ZIPs
+            if(m_manifest.hasRecoveryUpdate() && m_forceRecovery) {
+                b.append(Html.fromHtml(res.getString(R.string.required)));
+                b.setClickable(false);
+            }
+        } else {
+            b.setChecked(false);
+            b.setVisibility(View.GONE);
         }
 
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(context,

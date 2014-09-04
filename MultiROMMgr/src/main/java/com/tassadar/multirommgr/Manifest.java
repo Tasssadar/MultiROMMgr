@@ -199,9 +199,9 @@ public class Manifest {
                 e.printStackTrace();
             }
         } else
-            m_recoveryHasUpdate = true;
+            m_recoveryHasUpdate = (m_recovery != null);
 
-        m_kernelHasUpdate = kernel == null || !kernel.hasKexec();
+        m_kernelHasUpdate = (kernel == null || !kernel.hasKexec());
     }
 
     public boolean hasUbuntuReqMultiROM(MultiROM m) {

@@ -276,7 +276,7 @@ public class StatusAsyncTask extends AsyncTask <Void, String, StatusAsyncTask.Re
         t.setText(s);
         t.setVisibility(View.VISIBLE);
 
-        boolean canUninstall = (m_res.code == RES_OK && man.getUninstallerFile() != null);
+        boolean canUninstall = (m_res.code == RES_OK && man != null && man.getUninstallerFile() != null);
         ImageButton b = (ImageButton) l.findViewById(R.id.uninstall_btn);
         b.setVisibility(canUninstall ? View.VISIBLE : View.GONE);
 
