@@ -29,6 +29,7 @@ import android.os.Build;
 import android.os.Environment;
 import android.util.Log;
 
+import java.io.ByteArrayInputStream;
 import java.io.Closeable;
 import java.io.File;
 import java.io.FileInputStream;
@@ -310,6 +311,19 @@ public class Utils {
 
     public static String calculateSHA256(File file) {
         return calculateChecksum(file, "SHA-256");
+    }
+
+    public static String calculateChecksum(byte[] data, String checksumType) {
+        ByteArrayInputStream in = null;
+        try {
+            in = new ByteArrayInputStream(data);
+            return calculateChecksumStream(in, checksumType);
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            close(in);
+        }
+        return null;
     }
 
     public static String calculateChecksum(File file, String checksumType) {

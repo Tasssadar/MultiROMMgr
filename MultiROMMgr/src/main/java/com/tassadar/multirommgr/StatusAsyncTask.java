@@ -17,6 +17,7 @@
 
 package com.tassadar.multirommgr;
 
+import android.app.AlertDialog;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Build;
@@ -28,6 +29,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.lang.ref.WeakReference;
+import java.util.HashSet;
+import java.util.Set;
 
 import eu.chainfire.libsuperuser.Shell;
 
@@ -276,6 +279,30 @@ public class StatusAsyncTask extends AsyncTask <Void, String, StatusAsyncTask.Re
         boolean canUninstall = (m_res.code == RES_OK && man.getUninstallerFile() != null);
         ImageButton b = (ImageButton) l.findViewById(R.id.uninstall_btn);
         b.setVisibility(canUninstall ? View.VISIBLE : View.GONE);
+
+        if(man != null && man.hasCommand("NOTICE")) {
+            String text = man.getCommandArg("NOTICE");
+            if(text != null) {
+                String hash = Utils.calculateChecksum(text.getBytes(), "MD5");
+                SharedPreferences p = MgrApp.getPreferences();
+                Set<String> shownHashes = p.getStringSet("shownNotices", new HashSet<String>());
+                if(!shownHashes.contains(hash)) {
+                    new AlertDialog.Builder(l.getContext())
+                            .setTitle(R.string.notice)
+                            .setCancelable(true)
+                            .setMessage(text)
+                            .setIcon(R.drawable.action_about)
+                            .setPositiveButton(R.string.ok_nohtml, null)
+                            .create()
+                            .show();
+
+                    shownHashes.add(hash);
+                    SharedPreferences.Editor e = p.edit();
+                    e.putStringSet("shownNotices", shownHashes);
+                    e.apply();
+                }
+            }
+        }
     }
 
     public class Result {
