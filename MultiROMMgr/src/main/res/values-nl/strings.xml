@@ -30,8 +30,6 @@
     <string name="channel">Kanaal:</string>
     <string name="ubuntu_man_failed">Het downloaden en verwerken van de Ubuntu Touch-metadata is mislukt.</string>
     <string name="version">Versie:</string>
-    <string name="destination">Doel:</string>
-    <string name="internal_memory">Interne opslag</string>
     <string name="required"><![CDATA[<font color=\"blue\">&nbsp;(vereist)</font>]]></string>
     <string name="ubuntu_req_multirom">MultiROM v%s of hoger is vereist.</string>
     <string name="ubuntu_req_recovery">Recovery %s of nieuwer is vereist.</string>
@@ -78,7 +76,6 @@
     <string name="done">Voltooid, ga terug.</string>
     <string name="about_ubuntu_touch">Over</string>
     <string name="back">Terug</string>
-    <string name="about_ubuntu_text"><b>Deze functie installeert Ubuntu Touch als secundaire ROM. Al uw data blijft bewaard, Ubuntu Touch wordt gewoon aan MultiROM toegevoegd.</b>\n\nOver het keizen van een kanaal, <i>saucy</i> is de huidige stabiele versie, u kunt verwachten dat deze \"beter\" is. Anderzijds, <i>trusty</i> is de versie die op dit moment in ontwikkeling is, deze zal de laatste updates bevatten.</string>
     <string name="installation">Installatie</string>
     <string name="action_reboot">Rebooten...</string>
     <string name="ubuntu_unsupported">Sorry, uw apparaat ondersteunt Ubuntu Touch niet.</string>
@@ -112,7 +109,6 @@
     <string name="ok_nohtml">OK</string>
     <string name="boot">Boot</string>
     <string name="boot_rom_title">Booten naar deze ROM?</string>
-    <string name="icon_source">Selecteer icoon-locatie</string>
     <string name="select_icon">Selecteer icoon</string>
     <string name="browse">Bladeren&#8230;</string>
     <string name="rom_list_widget">Kies een ROM om te booten.</string>

@@ -76,8 +76,7 @@
     <string name="done">Abgeschlossen, zurück.</string>
     <string name="about_ubuntu_touch">Über Ubuntu Touch</string>
     <string name="back">Zurück</string>
-    <string name="about_ubuntu_text"><b>Dieser Abschnitt installiert Ubuntu Touch als sekundäres ROM. Dabei werden keine Daten gelöscht.</b>\n\nEs gibt mehrere Kanäle, <i>saucy</i> ist zurzeit die stabile Version, daher kannst du sie einfach als \"besser\" erwarten. Andererseits ist <i>trusty</i> zurzeit noch in Entwicklung, d.h. es besitzt die neuesten Updates.</string>
-    <string name="installation">Installation</string>	
+    <string name="installation">Installation</string>
     <string name="action_reboot">Neu starten...</string>
     <string name="ubuntu_unsupported">Ubuntu Touch wird von diesem Gerät nicht unterstützt.</string>
     <string name="about">Über</string>

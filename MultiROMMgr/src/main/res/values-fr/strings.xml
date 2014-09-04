@@ -76,7 +76,6 @@
     <string name="done">Terminé, retourner.</string>
     <string name="about_ubuntu_touch">À propos</string>
     <string name="back">Retour</string>
-    <string name="about_ubuntu_text"><b>Cette carte installe Ubuntu Touch comme ROM secondaire. Cela n\'effacera pas vos données, cela va simplement l\'ajouter dans MultiROM.</b>\n\nPour le canal à choisir, <i>saucy</i> est la version stable actuelle, vous pouvez vous en attendre le  \"meilleur\". D\'un autre côté, <i>trusty</i> est la version qui est actuellement en développement, ce qui signifie qu\'il a les dernières mises à jour.</string>
     <string name="installation">Installation</string>
     <string name="action_reboot">Redémarrage...</string>
     <string name="ubuntu_unsupported">Malheureusement, Ubuntu Touch ne prend pas en charge cet appareil.</string>

@@ -76,7 +76,6 @@
     <string name="done">Feito, voltar.</string>
     <string name="about_ubuntu_touch">Sobre</string>
     <string name="back">Voltar</string>
-    <string name="about_ubuntu_text"><b>Este card instalará  Ubuntu Touch como ROM secundária. Não irá apagar nenhum de seus dados, ela só vai adicioná-lo ao MultiROM. </b>\n\nAs para o canal a escolher, <i>saucy</i> é a versão estável atual, então você pode esperar que ele seja \"melhor\". Por outro lado, <i>trusty</i> é a versão que está atualmente em desenvolvimento, o que significa que tem as últimas atualizações.</string>
     <string name="installation">Instalação</string>
 
 </resources>

@@ -67,8 +67,7 @@
   <string name="changelog_failed">\n\n\nנכשל בהורדת עדכון.</string>
   <string name="done">סיים, חזור.</string>
   <string name="back">חזור</string>
-  <string name="about_ubuntu_text"><b>כרטיסייה זו מתקינה Ubuntu Touch כ-ROM משני. זה לא ימחק שום מידע קיים, זה רק יוסיף אותו ל-MultiROM.</b>\n\nבקשר לאיזה ערוץ לבחור,  <i>saucy</i> זוהי הגרסה היציבה הנוכחית, אז אתה יכול לצפות ממנה להיות טובה יותר. מצד שני, <i>trusty</i> זוהי הגרסה בבנייה, ולכן לה יהיו העדכונים האחרונים.</string>
-  <string name="installation">התקנה</string>
+    <string name="installation">התקנה</string>
   <string name="action_reboot">אתחול מחדש...</string>
   <string name="ubuntu_unsupported">לצערנו, Ubuntu Touch לא תומך במכשיר זה.</string>
   <string name="about_version">גרסה</string>

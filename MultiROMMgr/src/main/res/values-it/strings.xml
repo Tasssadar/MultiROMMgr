@@ -76,7 +76,6 @@
     <string name="done">Fatto, tornando indietro.</string>
     <string name="about_ubuntu_touch">About</string>
     <string name="back">Indietro</string>
-    <string name="about_ubuntu_text"><b>Questa card permette di installare Ubuntu Touch come ROM secondaria. Non eliminerà nessun dato, verrà semplicemente aggiunto a MultiROM.</b>\n\nIn base al canale scelto, <i>saucy</i> è la corrente versione stabile, e quindi ci si può aspettare che sia \"migliore\". D\'altra parte, <i>trusty</i> è la versione correntemente in sviluppo, ciò vuol dire che riceverà velocemente gli ultimi aggiornamenti.</string>
     <string name="installation">Installazione</string>
     <string name="action_reboot">Riavvio…</string>
     <string name="ubuntu_unsupported">Sfortunatamente, Ubuntu Touch non è supportato dal tuo dispositivo.</string>

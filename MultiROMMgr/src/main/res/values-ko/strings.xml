@@ -75,8 +75,9 @@
     <string name="changelog_failed">\n\n\n체인지로그 다운로드 실패.</string>
     <string name="done">끝남, 뒤로가기.</string>
     <string name="about_ubuntu_touch">정보</string>
-    <string name="back">뒤로</string>
-    <string name="about_ubuntu_text"><b>이 카드는 우분투 터치를 두번째 ROM으로 설치합니다. 데이터를 지우지 않고 MultiROM에 설치합니다.</b>\n\n다운받을 채널은 <i>saucy</i>(이)가 최신 스테이블 버전이어서 다른 채널들 보다 더 좋을 수 있습니다. 그리고 <i>trusty</i>(은)는 현재 개발이 진행중이므로 최신 업데이트를 받을 수 있습니다.</string>
-    <string name="installation">설치</string>
+    <string name="back">뒤로</string><![CDATA[
+    
+    ]]>
+    <string name="installation">설치</string>
 
 </resources>

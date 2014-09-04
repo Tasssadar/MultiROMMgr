@@ -76,7 +76,6 @@
     <string name="done">完成,后退</string>
     <string name="about_ubuntu_touch">关于</string>
     <string name="back">后退</string>
-    <string name="about_ubuntu_text"><b>这将会安装 Ubuntu Touch 作为第二个 ROM. 它不会擦除你的任何数据,只会添加进 MultiROM.</b>\n\n至于通道选择, <i>saucy</i> 是当前稳定版本,你可以认为它是更好的.另一方面, <i>trusty</i> 是正在开发的版本,意味着最新更新.</string>
     <string name="installation">安装</string>
     <string name="action_reboot">重启...</string>
     <string name="ubuntu_unsupported">Ubuntu Touch 不适合此设备.</string>
@@ -110,7 +109,6 @@
     <string name="ok_nohtml">OK</string>
     <string name="boot">重启</string>
     <string name="boot_rom_title">重启到 ROM?</string>
-    <string name="icon_source">选择图标地址</string>
     <string name="select_icon">选择图标</string>
     <string name="browse">浏览&#8230;</string>
     <string name="rom_list_widget">选择 ROM 来重启.</string>

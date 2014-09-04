@@ -76,7 +76,6 @@
     <string name="done">Сделано,возвращаемся назад.</string>
     <string name="about_ubuntu_touch">Об этой опции</string>
     <string name="back">Назад</string>
-    <string name="about_ubuntu_text"><b>Эта опция установит  Ubuntu Touch как вторичную прошивку. При установке вы не потеряете свои данные , она просто добавится в MultiROM.</b>\n\nЧто касается того, какую версию выбрать, <i>saucy</i> является стабильной версией, по этому она будет  \"лучшим \" выбором. С другой стороны, <i>trusty</i>  версия для разработчиков, то есть в ней все  самые последние изменения.</string>
     <string name="installation">установка</string>
     <string name="action_reboot">Перезагрузка ...</string>
     <string name="ubuntu_unsupported">К сожалению, Ubuntu Touch не поддерживает ваше устройство.</string>
@@ -103,7 +102,7 @@
     <string name="erase_rom_title">Удалить прошивку?</string>
     <string name="erase">Удаление</string>
     <string name="erasing_rom">Удаление прошивки...</string>
-    <string name="boot_rom">Вы  хотите загрузить эту прошивку  \%s\?</string>
+    <string name="boot_rom">Вы  хотите загрузить эту прошивку  \"%s\"?</string>
     <string name="booting">Загрузка прошивки...</string>
     <string name="rom_boot_kexec">Этой прошивке требуется  патч для ядра , пожалуйста, установите его.</string>
     <string name="rom_boot_failed">Ошибка при загрузке этой прошивки!</string>
