@@ -104,9 +104,11 @@
         },
         {
             "names": [ "yuga", "C6603", "C6602", "C6606" ],
-            "manifest_url": "",
+            "manifest_url": "http://team-simplicit.com/multirom/yuga/manifest.json",
+            "check_gpg": false,
             "ubuntu_touch": {
-                "enabled": false
+                "enabled": false,
+                "base_url": ""
             },
             "devices": [
                 {
