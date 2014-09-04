@@ -285,8 +285,8 @@ public class StatusAsyncTask extends AsyncTask <Void, String, StatusAsyncTask.Re
             if(text != null) {
                 String hash = Utils.calculateChecksum(text.getBytes(), "MD5");
                 SharedPreferences p = MgrApp.getPreferences();
-                Set<String> shownHashes = p.getStringSet("shownNotices", new HashSet<String>());
-                if(!shownHashes.contains(hash)) {
+                final Set<String> shownHashes = p.getStringSet("shownNotices", null);
+                if(shownHashes == null || !shownHashes.contains(hash)) {
                     new AlertDialog.Builder(l.getContext())
                             .setTitle(R.string.notice)
                             .setCancelable(true)
@@ -296,9 +296,10 @@ public class StatusAsyncTask extends AsyncTask <Void, String, StatusAsyncTask.Re
                             .create()
                             .show();
 
-                    shownHashes.add(hash);
+                    HashSet<String> saveHashes = new HashSet<String>(shownHashes);
+                    saveHashes.add(hash);
                     SharedPreferences.Editor e = p.edit();
-                    e.putStringSet("shownNotices", shownHashes);
+                    e.putStringSet("shownNotices", saveHashes);
                     e.apply();
                 }
             }
