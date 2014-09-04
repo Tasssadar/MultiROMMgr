@@ -128,6 +128,8 @@
     <string name="gpg_failed">Überprüfung der GPG-Signatur gescheitert!</string>
     <string name="alias_of">Alias für</string>
     <string name="no_manifest">Automatische Installation und Updates werden von diesem Gerät zurzeit nicht unterstützt.</string>
+    <string name="pref_manifest_override">Manifest-URL überschreiben</string>
+    <string name="notice">Hinweis</string>
 
 
     <string-array name="reboot_options">
