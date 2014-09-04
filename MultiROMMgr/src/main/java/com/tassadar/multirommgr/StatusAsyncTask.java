@@ -296,7 +296,9 @@ public class StatusAsyncTask extends AsyncTask <Void, String, StatusAsyncTask.Re
                             .create()
                             .show();
 
-                    HashSet<String> saveHashes = new HashSet<String>(shownHashes);
+                    HashSet<String> saveHashes = new HashSet<String>();
+                    if(shownHashes != null && !shownHashes.isEmpty())
+                        saveHashes.addAll(shownHashes);
                     saveHashes.add(hash);
                     SharedPreferences.Editor e = p.edit();
                     e.putStringSet("shownNotices", saveHashes);
