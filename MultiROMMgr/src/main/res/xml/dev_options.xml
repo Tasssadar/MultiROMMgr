@@ -4,9 +4,13 @@
     <PreferenceCategory
         android:title="@string/dev_options"
         android:key="pref_dev">
+        <CheckBoxPreference
+            android:key="dev_manifest_url_override"
+            android:title="@string/pref_manifest_override"/>
         <EditTextPreference
             android:key="dev_manifest_url_v2"
-            android:title="@string/pref_manifest_url"/>
+            android:title="@string/pref_manifest_url"
+            android:dependency="dev_manifest_url_override"/>
         <EditTextPreference
             android:key="dev_device_name"
             android:title="@string/pref_device_name"

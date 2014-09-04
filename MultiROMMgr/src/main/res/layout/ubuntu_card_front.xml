@@ -115,7 +115,7 @@
                 android:minWidth="200dp"/>
         </LinearLayout>
 
-        <LinearLayout
+        <!-- <LinearLayout
             android:id="@+id/destination_layout"
             android:layout_height="wrap_content"
             android:layout_width="match_parent"
@@ -129,7 +129,7 @@
                 android:layout_height="wrap_content"
                 android:layout_width="wrap_content"
                 android:minWidth="200dp"/>
-        </LinearLayout>
+        </LinearLayout> -->
 
         <Button
             android:id="@+id/install_btn"

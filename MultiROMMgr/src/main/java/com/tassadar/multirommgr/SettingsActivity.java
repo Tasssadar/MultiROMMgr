@@ -24,10 +24,13 @@ import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.preference.CheckBoxPreference;
 import android.preference.EditTextPreference;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
+import android.util.Log;
 import android.view.MenuItem;
+import android.widget.CheckBox;
 import android.widget.Toast;
 
 import com.tassadar.multirommgr.installfragment.UbuntuInstallTask;
@@ -43,6 +46,7 @@ public class SettingsActivity extends PreferenceActivity implements SharedPrefer
     public static final String ABOUT_VERSION = "about_version";
     public static final String ABOUT_LICENSES = "about_licenses";
     public static final String DEV_ENABLE = "dev_enable";
+    public static final String DEV_OVERRIDE_MANIFEST = "dev_manifest_url_override";
     public static final String DEV_MANIFEST_URL = "dev_manifest_url_v2";
     public static final String DEV_DEVICE_NAME = "dev_device_name";
 
@@ -99,6 +103,14 @@ public class SettingsActivity extends PreferenceActivity implements SharedPrefer
         } else if(key.equals(GENERAL_DOWNLOAD_DIR)) {
             Utils.setDownloadDir(p.getString(key, Utils.getDefaultDownloadDir()));
             updatePrefText();
+        } else if(key.equals(DEV_DEVICE_NAME) && !p.getBoolean(DEV_OVERRIDE_MANIFEST, false)) {
+            SharedPreferences.Editor e = p.edit();
+            e.remove(DEV_MANIFEST_URL);
+            e.commit();
+
+            Device dev = Device.load(p.getString(SettingsActivity.DEV_DEVICE_NAME, Build.DEVICE));
+            EditTextPreference pref = (EditTextPreference)findPreference(DEV_MANIFEST_URL);
+            pref.setText(dev != null ? dev.getDefaultManifestUrl() : Build.DEVICE);
         }
     }
 
@@ -167,10 +179,14 @@ public class SettingsActivity extends PreferenceActivity implements SharedPrefer
 
         Device dev = Device.load(p.getString(SettingsActivity.DEV_DEVICE_NAME, Build.DEVICE));
 
+        CheckBoxPreference cpref = (CheckBoxPreference)findPreference(DEV_OVERRIDE_MANIFEST);
+        cpref.setChecked(p.getBoolean(DEV_OVERRIDE_MANIFEST, false));
+
         EditTextPreference pref = (EditTextPreference)findPreference(DEV_MANIFEST_URL);
         pref.setText(p.getString(DEV_MANIFEST_URL, dev != null ? dev.getDefaultManifestUrl() : Build.DEVICE));
         pref = (EditTextPreference)findPreference(DEV_DEVICE_NAME);
         pref.setText(p.getString(DEV_DEVICE_NAME, Build.DEVICE));
+
     }
 
     private int m_clickCounter;

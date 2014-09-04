@@ -57,7 +57,11 @@ public class Manifest {
             out_man = new FileOutputStream(man_filename);
             out_sign = new FileOutputStream(sign_filename);
             SharedPreferences p = MgrApp.getPreferences();
-            String url = p.getString(SettingsActivity.DEV_MANIFEST_URL, dev.getDefaultManifestUrl());
+
+            String url = dev.getDefaultManifestUrl();
+            if(p.getBoolean(SettingsActivity.DEV_OVERRIDE_MANIFEST, false))
+                url = p.getString(SettingsActivity.DEV_MANIFEST_URL, url);
+
             if(!Utils.downloadFile(url, out_man, null, true))
                 return false;
             if(dev.checkGpgSignatures() && !Utils.downloadFile(url + ".asc", out_sign, null, true))
@@ -106,30 +110,42 @@ public class Manifest {
             if(dev.checkGpgSignatures())
                 m_gpgData = o.optBoolean("gpg", false);
 
-            JSONArray a = o.getJSONArray("devices");
-            for(int i = 0; i < a.length(); ++i) {
-                o = a.getJSONObject(i);
-
-                if(!o.getString("name").equals(dev.getName()))
-                    continue;
-
-                JSONObject utouch = o.optJSONObject("ubuntu_touch");
-                if(utouch != null) {
-                    m_ubuntuReqMultiROM = utouch.getString("req_multirom");
-                    m_ubuntuReqRecovery = utouch.getString("req_recovery");
+            JSONArray dev_array = o.getJSONArray("devices");
+            int device_idx = -1;
+            int base_variant_idx = -1;
+            for(int i = 0; i < dev_array.length(); ++i) {
+                String name = dev_array.getJSONObject(i).getString("name");
+                if(name.equals(dev.getName())) {
+                    device_idx = i;
+                    break;
+                } else if(name.equals(dev.getBaseVariantName())) {
+                    base_variant_idx = i;
                 }
-
-                JSONArray changelogs = o.optJSONArray("changelogs");
-                if(changelogs != null) {
-                    m_changelogs = new Changelog[changelogs.length()];
-                    for(int x = 0; x < changelogs.length(); ++x)
-                        m_changelogs[x] = new Changelog(changelogs.getJSONObject(x));
-                }
-
-                getFileList(o.getJSONArray("files"));
-                return true;
             }
-            return false;
+
+            if(device_idx != -1) {
+                o = dev_array.getJSONObject(device_idx);
+            } else if(base_variant_idx != -1) {
+                o = dev_array.getJSONObject(base_variant_idx);
+            } else {
+                return false;
+            }
+
+            JSONObject utouch = o.optJSONObject("ubuntu_touch");
+            if(utouch != null) {
+                m_ubuntuReqMultiROM = utouch.getString("req_multirom");
+                m_ubuntuReqRecovery = utouch.getString("req_recovery");
+            }
+
+            JSONArray changelogs = o.optJSONArray("changelogs");
+            if(changelogs != null) {
+                m_changelogs = new Changelog[changelogs.length()];
+                for(int x = 0; x < changelogs.length(); ++x)
+                    m_changelogs[x] = new Changelog(changelogs.getJSONObject(x));
+            }
+
+            getFileList(o.getJSONArray("files"));
+            return true;
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -141,7 +157,7 @@ public class Manifest {
             InstallationFile file = new InstallationFile();
             JSONObject f = files.getJSONObject(i);
 
-            file.type = f.getString("type");
+            file.type = f.getString("type").toLowerCase();
             file.version = f.getString("version");
             file.url = f.getString("url");
             file.md5 = f.getString("md5");
