@@ -147,6 +147,28 @@
                     "path": "/dev/block/platform/msm_sdcc.1/by-name/cache"
                 }
             ]
+        },
+        {
+            "names": [ "falcon", "falcon_umts", "falcon_umtsds", "falcon_cdma", "falcon_retuaws", "falcon_gpe" ],
+            "manifest_url": "http://montamer.github.io/files/android/falcon/multirom/manifest.json",
+            "check_gpg": false,
+            "ubuntu_touch": {
+                "enabled": false
+            },
+            "devices": [
+                {
+                    "name": "recovery",
+                    "path": "/dev/block/platform/msm_sdcc.1/by-name/recovery"
+                },
+                {
+                    "name": "boot",
+                    "path": "/dev/block/platform/msm_sdcc.1/by-name/boot"
+                },
+                {
+                    "name": "cache",
+                    "path": "/dev/block/platform/msm_sdcc.1/by-name/cache"
+                }
+            ]
         }
     ]
 }
