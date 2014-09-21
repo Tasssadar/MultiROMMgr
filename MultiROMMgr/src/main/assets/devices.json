@@ -171,9 +171,12 @@
             ]
         }
         {
-            "names": [ "m7" ],
+            "names": [ "m7", "m7ul" ],
             "manifest_url": "http://dzej1.github.io/android/m7/multirom/multirommgr/manifest.json",
             "check_gpg": false,
+            "ubuntu_touch": {
+                "enabled": false
+            },
             "devices": [
                 {
                     "name": "recovery",
