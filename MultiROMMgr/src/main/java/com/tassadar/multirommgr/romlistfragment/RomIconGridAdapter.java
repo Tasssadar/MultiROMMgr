@@ -31,9 +31,11 @@ public class RomIconGridAdapter extends BaseAdapter {
     private static final Integer[] ROM_ICONS = {
             R.drawable.romic_default,
             R.drawable.romic_android,
+			R.drawable.romic_androidl,
             R.drawable.romic_cm1,
             R.drawable.romic_cm2,
-            R.drawable.romic_pa,
+            R.drawable.romic_pa1,
+            R.drawable.romic_pa2,
             R.drawable.romic_omni,
             R.drawable.romic_aokp1,
             R.drawable.romic_aokp2,
@@ -42,7 +44,8 @@ public class RomIconGridAdapter extends BaseAdapter {
             R.drawable.romic_ubuntu3,
             R.drawable.romic_linux,
             R.drawable.romic_firefox,
-            R.drawable.romic_slimkat
+            R.drawable.romic_slimkat,
+			R.drawable.romic_viperone
     };
 
     public RomIconGridAdapter(Context c) {
