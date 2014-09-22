@@ -7,7 +7,7 @@
     <string name="no_su">Impossible d\'obtenir l\'accès root !</string>
     <string name="action_refresh">Refraîchir</string>
     <string name="unsupported">Appareil non supporté (%1$s)!</string>
-    <string name="status_text"><![CDATA[<b>MultiROM:</b> v%1$s%2$s<br><b>Recovery :</b> %3$s%4$s<br><b>Kernel:</b> %5$s]]></string>
+    <string name="status_text"><![CDATA[<b>MultiROM :</b> v%1$s%2$s<br><b>Recovery :</b> %3$s%4$s<br><b>Kernel :</b> %5$s]]></string>
     <string name="mrom_ver_fail">Impossible de lire la version de MultiROM !</string>
     <string name="no_multirom">MultiROM n\'est pas installé.</string>
     <string name="no_recovery">Le recovery MultiROM recovery n\'est pas installé.</string>
@@ -29,15 +29,15 @@
     <string name="ubuntu_card">Installer Ubuntu Touch</string>
     <string name="channel">Canal :</string>
     <string name="ubuntu_man_failed">Impossible de télécharger et d\'analyser les métadonnées d\'Ubuntu Touch.</string>
-    <string name="version">Version:</string>
+    <string name="version">Version :</string>
     <string name="required"><![CDATA[<font color=\"blue\">&nbsp;(requis)</font>]]></string>
     <string name="ubuntu_req_multirom">MultiROM v%s ou supérieur est requis.</string>
     <string name="ubuntu_req_recovery">Recovery %s ou plus récent est requis.</string>
     <string name="ubuntu_touch">Ubuntu Touch</string>
-    <string name="pref_hidden_channels">Afiicher les cannaux masqués</string>
+    <string name="pref_hidden_channels">Afficher les cannaux masqués</string>
     <string name="pref_hidden_channels_summ">Affiche les canaux de mise à jour cachés par défaut (habituellement canaux inactifs ou réservés aux développeurs).</string>
     <string name="pref_delete_utouch_files">Supprimer les fichiers d\'installation.</string>
-    <string name="pref_delete_utouch_files_summ">Supprimer les fichiers d\'installation d\'Ubuntu Touch avant de redémarrer dans le recovery. Cela économise de l\'espace, mais vous devrez télécharger à nouveaux ces fichiers en cas d\echec de l\'installation.\n\nFichiers sont téléchargés pour %1$s/%2$s</string>
+    <string name="pref_delete_utouch_files_summ">Supprimer les fichiers d\'installation d\'Ubuntu Touch avant de redémarrer dans le recovery. Cela économise de l\'espace, mais vous devrez télécharger à nouveaux ces fichiers en cas d\echec de l\'installation.\n\nLes fichiers sont téléchargés dans %1$s/%2$s</string>
     <string name="general">Général</string>
     <string name="pref_auto_reboot">Ne pas demander pour redémarrer</string>
     <string name="pref_auto_reboot_summ">Redémarrer automatiquement dans le recovery lorsque que cela est nécéssaire pour compléter l\'installation.</string>
@@ -48,7 +48,7 @@
     <string name="failed"><![CDATA[<font color=\"red\">ÉCHOUÉE !</font><br>]]></string>
     <string name="preparing_downloads">Preparation des téléchargements...%s</string>
     <string name="invalid_url">URL invalide : %s</string>
-    <string name="skipping_file"><![CDATA[Sauter le fichier déjà téléchargé %s<br>]]></string>
+    <string name="skipping_file"><![CDATA[Ignorer le fichier déjà téléchargé %s<br>]]></string>
     <string name="checking_file">Vérification du fichier %s... </string>
     <string name="ok"><![CDATA[<font color=\"green\">OK</font><br>]]></string>
     <string name="installing_files">Installation des fichiers...</string>
@@ -56,16 +56,16 @@
     <string name="needs_recovery"><![CDATA[<font color=\"yellow\">a besoin du recovery</font><br>]]></string>
     <string name="su_failed_find_dir"><![CDATA[Impossible de trouver le répertoire de téléchargement en tant que SU.<br>]]></string>
     <string name="installing_utouch">Installation d\'Ubuntu Touch...</string>
-    <string name="failed_create_rom"><![CDATA[Impossible de créer le dossier de ROM !<br>]]></string>
+    <string name="failed_create_rom"><![CDATA[Impossible de créer le dossier ROM !<br>]]></string>
     <string name="installing_rom"><![CDATA[<br>Installation en tant que ROM <font color=\"yellow\">%s</font><br>]]></string>
     <string name="failed_rom_init"><![CDATA[Échec d\'initialisation de dossier ROM !<br>]]></string>
-    <string name="ok_skippping"><![CDATA[<font color=\"green\">OK, passer.</font><br>]]></string>
-    <string name="failed_redownload"><![CDATA[<font color=\"#FF9900\">echec, nouveau téléchargement.</font><br>]]></string>
+    <string name="ok_skippping"><![CDATA[<font color=\"green\">OK, ignoré.</font><br>]]></string>
+    <string name="failed_redownload"><![CDATA[<font color=\"#FF9900\">échec, nouveau téléchargement.</font><br>]]></string>
     <string name="failed_busybox">Impossible d\'extraire busybox !</string>
     <string name="copying_file">Copie du fichier %s...</string>
     <string name="failed_file_copy"><![CDATA[<br><font color=\"red\">Impossible de copier le fichier %s!</font><br>]]></string>
     <string name="deleting_used_files"><![CDATA[Suppression des fichiers utilisés...<br>]]></string>
-    <string name="ubuntu_free_space">Vous avez actuellement seulement %1$dMB de libre. Il est recommandé d\'avoir au moins %2$dMB d\'espace libre dans la mémoire interne ou l\'installation pourrait échouer !</string>
+    <string name="ubuntu_free_space">Il n\'y actuellement que %1$d MB de libre. Il est recommandé d\'avoir au moins %2$dMB d\'espace libre dans la mémoire interne ou l\'installation pourrait échouer !</string>
     <string name="pref_update_check">Vérifier les mises à jour</string>
     <string name="pref_update_check_sum">Vérifier automatiquement les mises à jour de MultiROM et du recovery toutes les 12 heures et afficher une notification si disponible.</string>
     <string name="update_notification">Une mise à jour de MultiROM est disponible.</string>
@@ -73,9 +73,10 @@
     <string name="pref_download_dir">Changer le dossier de téléchargements</string>
     <string name="changelogs">Journal des changements</string>
     <string name="changelog_failed">\n\n\nÉchec du téléchargement du journal des changements.</string>
-    <string name="done">Terminé, retourner.</string>
+    <string name="done">Terminé, retour.</string>
     <string name="about_ubuntu_touch">À propos</string>
     <string name="back">Retour</string>
+    <string name="about_ubuntu_text2"><b>Cette carte permet l\'installation d\'Ubuntu Touch en tant que ROM secondaire. Cela n\'effacera pas vos données, et va simplement l\'ajouter dans MultiROM.</b>\n\nÀ propos du canal à choisir, <b>stable</b> est la version stable actuelle. <b>devel</b> est la version actuellement en développement, elle contient les dernières mises à jour, comme Touch est toujours en développement, c\'est probablement ce que vous devez installer.\n\t<b>*-proposed</b> contient les compilations quotidiennes qui ne sont pas du tout testées.\n\t<b>*-customized</b> sont des compilations de test adaptées pour certains opérateurs de téléphonie, ce n\'est certainement pas ce que vous souhaitez installer.\n\tLes cannaux comme <b>trusty</b> ou <b>utopic</b> sont les noms des versions d\'Ubuntu. <b>Devel</b> est un alias d\'une de ces versions, et renvoie toujours vers la compilation qui est actuellement en développement. <b>utopic</b> restera en version 14.10 même après sa publication, alors que <b>devel</b> passera en version 15.04.</string>
     <string name="installation">Installation</string>
     <string name="action_reboot">Redémarrage...</string>
     <string name="ubuntu_unsupported">Malheureusement, Ubuntu Touch ne prend pas en charge cet appareil.</string>
@@ -90,29 +91,29 @@
     <string name="steps_developer">Vous êtes maintenant à %d étapes de devenir développeur.</string>
     <string name="pref_device_name">Remplacer le nom de l\'appareil</string>
     <string name="dangerous">Dangereux !</string>
-    <string name="drawer_open">Ouverire le tiroir</string>
+    <string name="drawer_open">Ouvrir le tiroir</string>
     <string name="drawer_close">Fermer le tiroir</string>
-    <string name="rom_list_empty">Pas de ROM secondaires trouvées.</string>
+    <string name="rom_list_empty">Aucune de ROM secondaire détectée.</string>
     <string name="rename_rom">Renommer la ROM</string>
     <string name="rename">Renommer</string>
     <string name="rom_name_taken">Ce nom est déjà utilisé !</string>
-    <string name="rom_name_empty">Vous ne pouvez pas entrer de nom vide !</string>
+    <string name="rom_name_empty">Vous ne pouvez pas utiliser un nom vide !</string>
     <string name="erase_rom">Cela supprimera complètement la ROM \"%s\"!</string>
     <string name="erase_rom_title">Supprimer la ROM ?</string>
     <string name="erase">Supprimer</string>
     <string name="erasing_rom">Suppression de la ROM...</string>
     <string name="boot_rom">Voulez-vous vraiment démarrer dans la ROM \"%s\"?</string>
-    <string name="booting">Démarre la ROM...</string>
+    <string name="booting">Démarrage dans la ROM...</string>
     <string name="rom_boot_kexec">Cette ROM exige un noyau avec le patch kexec-hardboot, installez-le, s\'il vous plaît.</string>
     <string name="rom_boot_failed">Impossible de démarrer cette ROM !</string>
     <string name="rom_boot_req_ver">Démarrer directement depuis cette application dans les ROMs exige MultiROM v%s ou suppérieur.</string>
     <string name="ok_nohtml">OK</string>
-    <string name="boot">Démarre</string>
+    <string name="boot">Démarrer</string>
     <string name="boot_rom_title">Démarrer dans une ROM ?</string>
     <string name="select_icon">Choisissez une icône</string>
     <string name="browse">Parcourir&#8230;</string>
-    <string name="rom_list_widget">Choisissez la ROM dans laquelle démarrer.</string>
-    <string name="ubuntu_man_no_channels">Aucune mise à jour trouvée de ce canal pour cet appareil.</string>
+    <string name="rom_list_widget">Choisir la ROM à démarrer.</string>
+    <string name="ubuntu_man_no_channels">Aucune mise à jour disponible pour ce canal.</string>
     <string name="prog_checking_root">Obtention des droits root</string>
     <string name="prog_detecting_dev">Détection du type d\'appareil</string>
     <string name="prog_looking_for_multirom">Recherche de MultiROM</string>
@@ -125,6 +126,11 @@
     <string name="uninstall_dialog_text">Cette action supprimera complètement MultiROM et tous les systèmes secondaires installés. Votre ROM principale restera intacte. Le recovery MultiROM sera toujours installé, si vous voulez le supprimer, vous devez le remplacer par un autre recovery .</string>
     <string name="continue_text">Continuer</string>
     <string name="flavour">Distribution :</string>
+    <string name="gpg_failed">Échec de la vérification de la signature GPG !</string>
+    <string name="alias_of">alias de</string>
+    <string name="no_manifest">L\'installation et les mises à jour automatiques ne sont pas supportés sur cet appareil.</string>
+    <string name="pref_manifest_override">Modifier l\'URL du Manifest</string>
+    <string name="notice">Notice</string>
 
     <string-array name="reboot_options">
         <item>Système</item>
