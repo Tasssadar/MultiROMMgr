@@ -169,6 +169,28 @@
                     "path": "/dev/block/platform/msm_sdcc.1/by-name/cache"
                 }
             ]
+        },
+        {
+             "names": [ "htc_m8" ],
+             "manifest_url": "http://alexandru-g.github.io/files/android/m8/multirom/manifest.json",
+             "check_gpg": false,
+             "ubuntu_touch": {
+                 "enabled": false
+             },
+             "devices": [
+                 {
+                     "name": "recovery",
+                     "path": "/dev/block/platform/msm_sdcc.1/by-name/recovery"
+                 },
+                 {
+                     "name": "boot",
+                     "path": "/dev/block/platform/msm_sdcc.1/by-name/boot"
+                 },
+                 {
+                     "name": "cache",
+                     "path": "/dev/block/platform/msm_sdcc.1/by-name/cache"
+                 }
+             ]
         }
     ]
 }
