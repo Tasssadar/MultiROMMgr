@@ -54,9 +54,14 @@ public class Rom implements Parcelable {
     };
 
     public static File getIconsDir() {
-        String path = MgrApp.getAppContext().getExternalFilesDir(null).getAbsolutePath();
-        path = MgrApp.replaceDebugPkgName(path, true);
-        return new File(path);
+        try {
+            String path = MgrApp.getAppContext().getExternalFilesDir(null).getAbsolutePath();
+            path = MgrApp.replaceDebugPkgName(path, true);
+            return new File(path);
+        } catch(NullPointerException ex) {
+            ex.printStackTrace();
+            return null;
+        }
     }
 
     public Rom(String name, int type) {
