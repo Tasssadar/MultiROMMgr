@@ -171,7 +171,7 @@
             ]
         },
         {
-             "names": [ "htc_m8" ],
+             "names": [ "htc_m8", "m8", "m8ul", "m8whl", "m8wl", "m8spr", "m8vzw", "htc_m8whl", "htc_m8wl", "m8_ul", "m8_whl", "m8_wl" ],
              "manifest_url": "http://alexandru-g.github.io/files/android/m8/multirom/manifest.json",
              "check_gpg": false,
              "ubuntu_touch": {
