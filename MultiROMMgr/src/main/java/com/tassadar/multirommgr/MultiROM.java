@@ -28,6 +28,7 @@ import com.tassadar.multirommgr.romlistwidget.RomListDataProvider;
 import com.tassadar.multirommgr.romlistwidget.RomListOpenHelper;
 import com.tassadar.multirommgr.romlistwidget.RomListWidgetProvider;
 
+import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -385,9 +386,9 @@ public class MultiROM {
     }
 
     public void setRomIcon(Rom rom, String path) {
-        FileInputStream in = null;
+        BufferedInputStream in = null;
         try {
-            in = new FileInputStream(path);
+            in = new BufferedInputStream(new FileInputStream(path));
             setRomIcon(rom, in);
         } catch(IOException e) {
             e.printStackTrace();
@@ -396,8 +397,8 @@ public class MultiROM {
         }
     }
 
-    public void setRomIcon(Rom rom, InputStream in) throws IOException {
-        in.mark(0);
+    public void setRomIcon(Rom rom, BufferedInputStream in) throws IOException {
+        in.mark(Integer.MAX_VALUE);
         String hash = Utils.calculateChecksumStream(in, "SHA-256");
         if(hash == null)
             return;
@@ -446,9 +447,9 @@ public class MultiROM {
 
             final String mrom_ic_file = data.substring(data.lastIndexOf('/')+1) + ".png";
             if(m_predefIcons != null && !m_predefIcons.contains(mrom_ic_file)) {
-                InputStream in = null;
+                BufferedInputStream in = null;
                 try {
-                    in = res.openRawResource(icon_id);
+                    in = new BufferedInputStream(res.openRawResource(icon_id));
                     setRomIcon(rom, in);
                 } catch(Exception e) {
                     e.printStackTrace();
