@@ -113,7 +113,7 @@
             "devices": [
                 {
                     "name": "recovery",
-                    "path": "/dev/block/platform/msm_sdcc.1/by-name/boot"
+                    "path": "/dev/block/platform/msm_sdcc.1/by-name/FOTAKernel"
                 },
                 {
                     "name": "boot",
