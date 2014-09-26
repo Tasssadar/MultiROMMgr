@@ -51,15 +51,21 @@ public class RomRenameDialog extends DialogFragment implements View.OnClickListe
                 else
                     keepOriginal = false;
             }
-            if (keepOriginal)
+
+            if (keepOriginal) {
                 return null;
-            else {
+            } else {
                 if (source instanceof Spanned) {
                     SpannableString sp = new SpannableString(sb);
                     if(end > source.length())
                         end = source.length();
-                    TextUtils.copySpansFrom((Spanned) source, start, end, null, sp, 0);
-                    return sp;
+                    try {
+                        TextUtils.copySpansFrom((Spanned) source, start, end, null, sp, 0);
+                        return sp;
+                    } catch(IndexOutOfBoundsException e) {
+                        e.printStackTrace();
+                        return sb;
+                    }
                 } else {
                     return sb;
                 }
