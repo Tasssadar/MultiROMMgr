@@ -40,6 +40,7 @@ public class RomIconGridAdapter extends BaseAdapter {
             R.drawable.romic_aokp1,
             R.drawable.romic_aokp2,
             R.drawable.romic_viperone,
+            R.drawable.romic_miui,
             R.drawable.romic_ubuntu1,
             R.drawable.romic_ubuntu2,
             R.drawable.romic_ubuntu3,
