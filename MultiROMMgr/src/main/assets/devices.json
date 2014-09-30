@@ -193,7 +193,7 @@
              ]
         },
         {
-            "names": [ "m7", "m7_ul", "cm_m7" ],
+            "names": [ "m7", "m7_ul", "cm_m7", "m7gsm" ],
             "manifest_url": "http://dzej1.github.io/android/m7/multirom/multirommgr/manifest.json",
             "check_gpg": false,
             "ubuntu_touch": {
