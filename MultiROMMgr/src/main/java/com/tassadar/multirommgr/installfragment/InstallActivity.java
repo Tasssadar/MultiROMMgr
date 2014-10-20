@@ -68,11 +68,7 @@ public class InstallActivity extends Activity implements ServiceConnection, Inst
 
         m_installInfo = getIntent().getBundleExtra("installation_info");
 
-        if(savedInstanceState == null || !savedInstanceState.getBoolean("completed", false)) {
-            Intent i = new Intent(this, InstallService.class);
-            startService(i);
-            bindService(i, this, BIND_AUTO_CREATE);
-        } else {
+        if(savedInstanceState != null && savedInstanceState.getBoolean("completed", false)) {
             m_term.setText(Html.fromHtml(savedInstanceState.getString("log", "")));
             m_progressText.setText(savedInstanceState.getString("status"));
 
@@ -82,6 +78,10 @@ public class InstallActivity extends Activity implements ServiceConnection, Inst
 
             setButtonState(BTN_STATE_DONE);
         }
+
+        Intent i = new Intent(this, InstallService.class);
+        startService(i);
+        bindService(i, this, BIND_AUTO_CREATE);
     }
 
     protected void onSaveInstanceState (Bundle outState) {
@@ -128,8 +128,7 @@ public class InstallActivity extends Activity implements ServiceConnection, Inst
                 m_progressBar.setMax(100);
                 m_progressBar.setProgress(100);
 
-                Button b = (Button)findViewById(R.id.control_btn);
-                b.setText(R.string.try_again);
+                setButtonState(m_service.wasSuccessful() ? BTN_STATE_DONE : BTN_STATE_TRY_AGAIN);
 
                 int req = m_service.wasRecoveryRequested();
                 if(req != 0)

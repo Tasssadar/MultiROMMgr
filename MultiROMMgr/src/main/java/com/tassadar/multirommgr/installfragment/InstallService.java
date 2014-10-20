@@ -109,6 +109,7 @@ public class InstallService extends Service implements InstallListener {
         m_enableCancel = true;
         m_requestRecovery = 0;
         m_completed = false;
+        m_successful = false;
 
         PowerManager pm = (PowerManager)getSystemService(POWER_SERVICE);
         m_wakeLock = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK | PowerManager.ON_AFTER_RELEASE,
@@ -136,6 +137,7 @@ public class InstallService extends Service implements InstallListener {
     }
     public int wasRecoveryRequested() { return m_requestRecovery; }
     public boolean wasCompleted() { return m_completed; }
+    public boolean wasSuccessful() { return m_successful; }
 
     @Override
     public void onInstallLog(String str) {
@@ -151,6 +153,7 @@ public class InstallService extends Service implements InstallListener {
         if(l != null)
             l.onInstallComplete(success);
 
+        m_successful = success;
         m_completed = true;
         m_isInProgress = false;
         m_task = null;
@@ -206,6 +209,7 @@ public class InstallService extends Service implements InstallListener {
     private boolean m_enableCancel = true;
     private int m_requestRecovery = 0;
     private boolean m_completed = false;
+    private boolean m_successful = false;
     private PowerManager.WakeLock m_wakeLock;
     private InstallAsyncTask m_task = null;
 }
