@@ -1,6 +1,7 @@
 <resources>
 
     <style name="AppTheme" parent="android:Theme.Holo.Light.DarkActionBar" />
+    <style name="BootDialogTheme" parent="android:Theme.Holo.Light.Dialog.NoActionBar" />
 
     <!--
           <style name="CardTitle">

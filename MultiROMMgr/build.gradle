@@ -3,21 +3,21 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:0.12.+'
+        classpath 'com.android.tools.build:gradle:0.13.+'
     }
 }
-apply plugin: 'android'
+apply plugin: 'com.android.application'
 
 repositories {
     mavenCentral()
 }
 
 android {
-    compileSdkVersion 19
-    buildToolsVersion '19.1'
+    compileSdkVersion 21
+    buildToolsVersion '21.0.1'
     defaultConfig {
         minSdkVersion 16
-        targetSdkVersion 19
+        targetSdkVersion 21
     }
     buildTypes {
         debug {
@@ -28,7 +28,7 @@ android {
 }
 
 dependencies {
-    compile 'com.android.support:support-v4:19.1.+'
+    compile 'com.android.support:support-v4:21.0.+'
     compile 'com.github.chrisbanes.actionbarpulltorefresh:library:+'
 }
 
