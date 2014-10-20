@@ -24,6 +24,7 @@ import android.app.Service;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Binder;
+import android.os.Build;
 import android.os.IBinder;
 import android.os.PowerManager;
 import android.text.Html;
@@ -53,6 +54,11 @@ public class InstallService extends Service implements InstallListener {
                 .setContentIntent(contentIntent)
                 .setSmallIcon(R.drawable.ic_stat_notify_generic)
                 .setProgress(0, 0, true);
+
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            b.setColor(getResources().getColor(R.color.notification_bg));
+            b.setVisibility(Notification.VISIBILITY_PUBLIC);
+        }
 
         m_builder = b;
     }

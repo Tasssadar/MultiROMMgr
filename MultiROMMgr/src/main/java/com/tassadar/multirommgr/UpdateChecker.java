@@ -117,6 +117,11 @@ public class UpdateChecker {
                 .setContentText(update_notify)
                 .setTicker(update_notify);
 
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            b.setColor(ctx.getResources().getColor(R.color.notification_bg));
+            b.setVisibility(Notification.VISIBILITY_PUBLIC);
+        }
+
         NotificationManager mgr = (NotificationManager)ctx.getSystemService(Context.NOTIFICATION_SERVICE);
         mgr.notify(UPDATE_NOTIFICATION_ID, b.build());
     }
