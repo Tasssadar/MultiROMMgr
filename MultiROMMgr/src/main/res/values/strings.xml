@@ -131,6 +131,7 @@
     <string name="no_manifest">Automatic installation and updates are not supported on this device.</string>
     <string name="pref_manifest_override">Override manifest URL</string>
     <string name="notice">Notice</string>
+    <string name="unsupported_details"><![CDATA[MultiROM is a complex, low-level software modification. It needs to be developed for each device separately, so there is only a limited set of supported devices.<br>Unfortunately, yours is not among them, sorry.<br><br>If you want to develop MultiROM for your device, <a href=\"https://github.com/Tasssadar/multirom/wiki/Porting-MultiROM\">the MultiROM wiki page</a> is a good place to start.]]></string>
 
     <string-array name="reboot_options">
         <item>System</item>

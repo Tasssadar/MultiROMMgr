@@ -23,6 +23,7 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.text.Html;
 import android.text.Spanned;
+import android.text.method.LinkMovementMethod;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -233,6 +234,12 @@ public class StatusAsyncTask extends AsyncTask <Void, String, StatusAsyncTask.Re
             case RES_UNSUPPORTED: {
                 String s = t.getResources().getString(R.string.unsupported, Build.DEVICE);
                 t.setText(s);
+                t.setVisibility(View.VISIBLE);
+
+                s = t.getResources().getString(R.string.unsupported_details);
+                t = (TextView) l.findViewById(R.id.error_detail_text);
+                t.setMovementMethod(LinkMovementMethod.getInstance());
+                t.setText(Html.fromHtml(s));
                 t.setVisibility(View.VISIBLE);
                 return;
             }
