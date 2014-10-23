@@ -26,9 +26,9 @@ import android.content.res.Configuration;
 import android.os.Bundle;
 import android.app.FragmentManager;
 import android.preference.PreferenceManager;
-import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -95,8 +95,7 @@ public class MainActivity extends Activity implements StatusAsyncTask.StatusAsyn
 
         m_drawerTitle = getText(R.string.app_name);
         m_drawerToggle = new ActionBarDrawerToggle(
-                this, m_drawerLayout, R.drawable.ic_drawer,
-                R.string.drawer_open, R.string.drawer_close) {
+                this, m_drawerLayout, R.string.drawer_open, R.string.drawer_close) {
             public void onDrawerClosed(View view) {
                 getActionBar().setTitle(m_title);
             }
@@ -109,6 +108,7 @@ public class MainActivity extends Activity implements StatusAsyncTask.StatusAsyn
 
         getActionBar().setDisplayHomeAsUpEnabled(true);
         getActionBar().setHomeButtonEnabled(true);
+        getActionBar().setDisplayShowHomeEnabled(false);
 
         if (getIntent().hasExtra(INTENT_EXTRA_SHOW_ROM_LIST) &&
             getIntent().getBooleanExtra(INTENT_EXTRA_SHOW_ROM_LIST, false)) {
