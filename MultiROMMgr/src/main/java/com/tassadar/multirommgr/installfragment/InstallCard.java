@@ -117,6 +117,7 @@ public class InstallCard extends Card implements CompoundButton.OnCheckedChangeL
         b = (CheckBox)m_view.findViewById(R.id.install_kernel);
         b.setOnCheckedChangeListener(this);
         b.setEnabled(!adapter.isEmpty());
+        b.setChecked(!adapter.isEmpty() && m_manifest.hasKernelUpdate());
 
         Button install_btn = (Button)m_view.findViewById(R.id.install_btn);
         install_btn.setOnClickListener(this);
