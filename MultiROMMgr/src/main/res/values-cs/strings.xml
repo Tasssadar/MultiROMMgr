@@ -127,6 +127,10 @@
     <string name="flavour">Odnož:</string>
     <string name="gpg_failed">Kontrola GPG podpisu skončila neúspěšně!</string>
     <string name="alias_of">alias pro</string>
+    <string name="no_manifest">Automatická instalace a aktualizace není na tomto zařízení podporována.</string>
+    <string name="notice">Upozornění</string>
+    <string name="pref_manifest_override">Přepsat URL manifestu</string>
+    <string name="unsupported_details"><![CDATA[MultiROM je komplexní softwarová úprava a jako taková musí být vyvíjena pro každé zařízení zvlášť. Kvůli tomu jsou podporované pouze vybrané telefony a tablety.<br>Vaše zařízení bohužel není mezi nimi.<br><br>Pokud chcete vyvinout a spravovat MultiROM pro vaše zařízení, zamiřte na <a href=\"https://github.com/Tasssadar/multirom/wiki/Porting-MultiROM\">na MultiROM wiki stránku</a>, kde najdete další informace.]]> </string>
 
     <string-array name="reboot_options">
         <item>Systém</item>
@@ -138,7 +142,4 @@
         <item>Instalace/aktualizace</item>
         <item>Správa ROM</item>
     </string-array>
-    <string name="no_manifest">Automatická instalace a aktualizace není na tomto zařízení podporována.</string>
-    <string name="notice">Upozornění</string>
-    <string name="pref_manifest_override">Přepsat URL manifestu</string>
 </resources>
