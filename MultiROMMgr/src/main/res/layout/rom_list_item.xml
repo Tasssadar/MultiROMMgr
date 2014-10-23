@@ -26,6 +26,7 @@
         android:textSize="20sp"
         android:fontFamily="sans-serif-condensed"
         android:singleLine="true"
+        android:textColor="#000"
         android:ellipsize="middle"/>
 
     <View android:id="@+id/separator"
