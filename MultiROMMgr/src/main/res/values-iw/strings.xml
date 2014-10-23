@@ -72,7 +72,7 @@
   <string name="ubuntu_unsupported">לצערנו, Ubuntu Touch לא תומך במכשיר זה.</string>
   <string name="about_version">גרסה</string>
   <string name="about_licenses">רשיונות</string>
-  <string name="about_licenses_summ">מנהל MultiROM נמצא תחת רישיון GNU GPLv3 ומשתמש בסיפריות הבאות, אשר נמצאות תחת רישיון Apache 2.0:\nlibsuperuser\nCardsUI\nActionBar-PullToRefresh</string>
+  <string name="about_licenses_summ">מנהל MultiROM נמצא תחת רישיון GNU GPLv3 ומשתמש בסיפריות הבאות, אשר נמצאות תחת רישיון Apache 2.0:\nlibsuperuser\nCardsUI</string>
   <string name="already_developer">אין צורך, אתה כבר מפתח.</string>
   <string name="now_developer">אתה עכשיו מפתח!</string>
   <string name="dev_options">אפשרויות מפתח</string>

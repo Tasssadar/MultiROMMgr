@@ -20,6 +20,7 @@ package com.tassadar.multirommgr;
 import android.app.Activity;
 import android.app.Fragment;
 import android.view.View;
+import android.widget.ListView;
 
 import com.tassadar.multirommgr.installfragment.InstallFragment;
 import com.tassadar.multirommgr.romlistfragment.RomListFragment;
@@ -76,6 +77,17 @@ public class MainFragment extends Fragment {
     protected View findViewById(int id) {
         assert m_view != null;
         return m_view.findViewById(id);
+    }
+
+    protected boolean canChildScrollUp(ListView listview) {
+        if(this.isHidden())
+            return false;
+
+        if(listview.getFirstVisiblePosition() > 0)
+            return true;
+
+        final View v = listview.getChildAt(0);
+        return v != null && v.getTop() < 0;
     }
 
     public void startRefresh() { }

@@ -82,7 +82,7 @@
     <string name="about">关于</string>
     <string name="about_version">版本</string>
     <string name="about_licenses">许可证</string>
-    <string name="about_licenses_summ">MultiROM Manager 许可证是 GNU GPLv3 它使用的库的许可证都是 Apache 2.0:\nlibsuperuser\nCardsUI\nActionBar-PullToRefresh</string>
+    <string name="about_licenses_summ">MultiROM Manager 许可证是 GNU GPLv3 它使用的库的许可证都是 Apache 2.0:\nlibsuperuser\nCardsUI</string>
     <string name="already_developer">不需要,你已经是开发者了</string>
     <string name="now_developer">你现在是开发者了!</string>
     <string name="dev_options">开发者选项</string>

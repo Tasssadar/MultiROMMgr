@@ -83,8 +83,6 @@
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" exported="" name="support-annotations-21.0.0" level="project" />
     <orderEntry type="library" exported="" name="support-v4-21.0.0" level="project" />
-    <orderEntry type="library" exported="" name="library-0.9.9" level="project" />
-    <orderEntry type="library" exported="" name="library-0.4.0" level="project" />
   </component>
 </module>
 

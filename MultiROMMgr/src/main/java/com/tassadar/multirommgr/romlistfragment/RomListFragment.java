@@ -17,31 +17,21 @@
 
 package com.tassadar.multirommgr.romlistfragment;
 
-import android.app.Activity;
-import android.app.AlertDialog;
-import android.content.DialogInterface;
-import android.content.Intent;
-import android.database.Cursor;
-import android.net.Uri;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
-import com.tassadar.multirommgr.MainActivity;
 import com.tassadar.multirommgr.MainFragment;
-import com.tassadar.multirommgr.MultiROM;
+import com.tassadar.multirommgr.MultiROMSwipeRefreshLayout;
 import com.tassadar.multirommgr.R;
 import com.tassadar.multirommgr.Rom;
 import com.tassadar.multirommgr.StatusAsyncTask;
-import com.tassadar.multirommgr.Utils;
 
-import java.lang.ref.WeakReference;
 
-public class RomListFragment extends MainFragment implements AdapterView.OnItemClickListener, RomListItem.OnRomActionListener {
+public class RomListFragment extends MainFragment implements AdapterView.OnItemClickListener, RomListItem.OnRomActionListener, MultiROMSwipeRefreshLayout.ScrollUpListener {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -55,7 +45,7 @@ public class RomListFragment extends MainFragment implements AdapterView.OnItemC
         m_romList.setAdapter(m_adapter);
         m_romList.setOnItemClickListener(this);
 
-        m_actListener.addPullableView(m_romList);
+        m_actListener.addScrollUpListener(this);
         m_actListener.onFragmentViewCreated();
         return m_view;
     }
@@ -130,6 +120,11 @@ public class RomListFragment extends MainFragment implements AdapterView.OnItemC
         RomIconDialog d = new RomIconDialog();
         d.setArguments(b);
         d.show(getFragmentManager(), "RomPredefIconFragment");
+    }
+
+    @Override
+    public boolean canChildScrollUp() {
+        return canChildScrollUp(m_romList);
     }
 
     private ListView m_romList;

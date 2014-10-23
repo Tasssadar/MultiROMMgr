@@ -219,9 +219,7 @@ public class StatusAsyncTask extends AsyncTask <Void, String, StatusAsyncTask.Re
             m_res.manifest_reset_status = null;
         }
 
-        View v = l.findViewById(R.id.progress_bar);
-        v.setVisibility(View.GONE);
-        v = l.findViewById(R.id.progress_text);
+        View v = l.findViewById(R.id.progress_text);
         v.setVisibility(View.GONE);
 
         TextView t = (TextView) l.findViewById(R.id.error_text);

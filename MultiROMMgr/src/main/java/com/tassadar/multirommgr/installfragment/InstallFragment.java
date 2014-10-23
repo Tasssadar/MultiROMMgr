@@ -36,12 +36,13 @@ import com.fima.cardsui.views.CardUI;
 import com.tassadar.multirommgr.MainActivity;
 import com.tassadar.multirommgr.MainFragment;
 import com.tassadar.multirommgr.MgrApp;
+import com.tassadar.multirommgr.MultiROMSwipeRefreshLayout;
 import com.tassadar.multirommgr.R;
 import com.tassadar.multirommgr.StatusAsyncTask;
 
 public class InstallFragment extends MainFragment implements StatusAsyncTask.StatusAsyncTaskListener,
         UbuntuManifestAsyncTask.UbuntuManifestAsyncTaskListener, StartInstallListener,
-        PopupMenu.OnMenuItemClickListener {
+        PopupMenu.OnMenuItemClickListener, MultiROMSwipeRefreshLayout.ScrollUpListener {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -55,7 +56,7 @@ public class InstallFragment extends MainFragment implements StatusAsyncTask.Sta
         if(savedInstanceState != null)
             m_cardsSavedState = savedInstanceState.getBundle("cards_state");
 
-        m_actListener.addPullableView(findViewById(R.id.cardui_listview));
+        m_actListener.addScrollUpListener(this);
         m_actListener.onFragmentViewCreated();
         return m_view;
     }
@@ -179,6 +180,11 @@ public class InstallFragment extends MainFragment implements StatusAsyncTask.Sta
          });
         b.create().show();
         return true;
+    }
+
+    @Override
+    public boolean canChildScrollUp() {
+        return canChildScrollUp(mCardView.getScrollView());
     }
 
     private CardUI mCardView;

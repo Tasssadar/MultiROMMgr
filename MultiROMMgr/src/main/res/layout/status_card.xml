@@ -45,12 +45,6 @@
         android:minHeight="50dp"
         android:orientation="vertical">
 
-        <ProgressBar
-            android:id="@+id/progress_bar"
-            android:layout_height="wrap_content"
-            android:layout_width="match_parent"
-            android:layout_gravity="center"
-            android:indeterminateOnly="true" />
         <TextView
             android:id="@+id/progress_text"
             android:layout_width="wrap_content"

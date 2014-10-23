@@ -4,10 +4,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <uk.co.senab.actionbarpulltorefresh.library.PullToRefreshLayout
-        android:id="@+id/content_frame"
+    <com.tassadar.multirommgr.MultiROMSwipeRefreshLayout
+        android:id="@+id/refresh_layout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent">
+        <FrameLayout android:id="@+id/content_frame"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </com.tassadar.multirommgr.MultiROMSwipeRefreshLayout>
 
     <ListView android:id="@+id/left_drawer"
         android:layout_width="@dimen/drawer_width"

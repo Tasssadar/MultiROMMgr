@@ -17,13 +17,10 @@
 
 package com.tassadar.multirommgr;
 
-import android.view.View;
-
 public interface MainActivityListener {
-    public void startRefresh();
     public void refresh();
     public void setRefreshComplete();
     public void onFragmentViewCreated();
     public void onFragmentViewDestroyed();
-    public void addPullableView(View view);
+    public void addScrollUpListener(MultiROMSwipeRefreshLayout.ScrollUpListener l);
 }

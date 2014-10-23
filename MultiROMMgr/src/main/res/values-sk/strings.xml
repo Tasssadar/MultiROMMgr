@@ -83,7 +83,7 @@
     <string name="about">O aplikácii</string>
     <string name="about_version">Verzia</string>
     <string name="about_licenses">Licencie</string>
-    <string name="about_licenses_summ">MultiROM Manager je licencovaný pod GNU GPLv3 a používa nasledovné knižnice, ktoré sú licencované pod Apache 2.0:\nlibsuperuser\nCardsUI\nActionBar-PullToRefresh</string>
+    <string name="about_licenses_summ">MultiROM Manager je licencovaný pod GNU GPLv3 a používa nasledovné knižnice, ktoré sú licencované pod Apache 2.0:\nlibsuperuser\nCardsUI</string>
     <string name="already_developer">Nie je potrebné, už ste vývojár.</string>
     <string name="now_developer">Teraz ste vývojár!</string>
     <string name="dev_options">Možnosti pre vývojárov</string>

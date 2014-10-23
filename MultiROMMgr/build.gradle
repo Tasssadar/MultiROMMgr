@@ -29,7 +29,6 @@ android {
 
 dependencies {
     compile 'com.android.support:support-v4:21.0.+'
-    compile 'com.github.chrisbanes.actionbarpulltorefresh:library:+'
 }
 
 android {

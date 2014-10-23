@@ -83,7 +83,7 @@
     <string name="about">About</string>
     <string name="about_version">Version</string>
     <string name="about_licenses">Licenses</string>
-    <string name="about_licenses_summ">MultiROM Manager is licensed under GNU GPLv3 and it is using following libraries, which are all licensed under Apache 2.0:\nlibsuperuser\nCardsUI\nActionBar-PullToRefresh</string>
+    <string name="about_licenses_summ">MultiROM Manager is licensed under GNU GPLv3 and it is using following libraries, which are all licensed under Apache 2.0:\nlibsuperuser\nCardsUI</string>
     <string name="already_developer">No need, you are already a developer.</string>
     <string name="now_developer">You are now a developer!</string>
     <string name="dev_options">Developer options</string>
