@@ -26,6 +26,7 @@ android {
         }
         release {
             runProguard true
+            proguardFile 'proguard.cfg'
         }
     }
 }
