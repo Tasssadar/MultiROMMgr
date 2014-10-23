@@ -40,7 +40,7 @@
             android:layout_width="wrap_content"
             android:layout_height="fill_parent"
             android:src="@drawable/navigation_refresh"
-            android:background="@drawable/transparent_btn"
+            android:background="?android:selectableItemBackground"
             android:padding="5dp" />
 
     </LinearLayout>
@@ -53,7 +53,7 @@
     <ListView
         android:id="@+id/rom_list"
         android:layout_width="match_parent"
-        android:layout_height="1dp"
+        android:layout_height="0dp"
         android:layout_weight="1"/>
 
     <TextView

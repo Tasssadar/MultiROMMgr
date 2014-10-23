@@ -25,7 +25,7 @@
             android:layout_width="wrap_content"
             android:contentDescription="@string/uninstall"
             android:padding="4dp"
-            android:background="@drawable/transparent_btn"
+            android:background="?btnBackgroundBorderless"
             android:src="@drawable/content_discard"
             android:visibility="gone"/>
 

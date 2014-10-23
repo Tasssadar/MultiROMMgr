@@ -26,7 +26,7 @@
             android:layout_width="wrap_content"
             android:contentDescription="@string/changelogs"
             android:padding="4dp"
-            android:background="@drawable/transparent_btn"
+            android:background="?btnBackgroundBorderless"
             android:src="@drawable/collections_view_as_list"/>
 
     </LinearLayout>

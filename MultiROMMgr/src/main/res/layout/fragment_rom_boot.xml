@@ -23,7 +23,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:background="@drawable/transparent_btn"
+            android:background="?btnBackground"
             android:text="@string/cancel"/>
         <View
             android:layout_width="1dp"
@@ -33,7 +33,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:background="@drawable/transparent_btn"
+            android:background="?btnBackground"
             android:text="@string/boot"/>
     </LinearLayout>
 </LinearLayout>

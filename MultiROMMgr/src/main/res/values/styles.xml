@@ -1,6 +1,10 @@
 <resources>
 
-    <style name="AppTheme" parent="android:Theme.Holo.Light.DarkActionBar" />
+    <style name="AppTheme" parent="android:Theme.Holo.Light.DarkActionBar">
+        <item name="btnBackground">?android:attr/selectableItemBackground</item>
+        <item name="btnBackgroundBorderless">?android:attr/selectableItemBackground</item>
+    </style>
+
     <style name="BootDialogTheme" parent="android:Theme.Holo.Light.Dialog.NoActionBar" />
 
     <!--

@@ -18,6 +18,7 @@
 package com.tassadar.multirommgr.romlistfragment;
 
 import android.content.Context;
+import android.content.res.TypedArray;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -77,7 +78,11 @@ public class RomIconGridAdapter extends BaseAdapter {
             imageView.setLayoutParams(new GridView.LayoutParams(side, side));
             imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
             imageView.setPadding(padding, padding, padding, padding);
-            imageView.setBackgroundResource(R.drawable.transparent_btn);
+
+            final int[] attrs = { R.attr.btnBackgroundBorderless };
+            TypedArray resolvedAttrs = m_context.obtainStyledAttributes(attrs);
+            imageView.setBackground(resolvedAttrs.getDrawable(0));
+            resolvedAttrs.recycle();
         } else {
             imageView = (ImageView) convertView;
         }

@@ -10,7 +10,7 @@
         android:layout_width="51dp"
         android:layout_height="46dp"
         android:src="@drawable/ic_launcher"
-        android:background="@drawable/transparent_btn"
+        android:background="?btnBackgroundBorderless"
         android:paddingLeft="3dp"
         android:paddingRight="8dp"
         android:paddingTop="3dp"
@@ -40,14 +40,14 @@
         android:layout_width="wrap_content"
         android:layout_height="fill_parent"
         android:src="@drawable/content_edit"
-        android:background="@drawable/transparent_btn"
+        android:background="?btnBackgroundBorderless"
         android:padding="5dp" />
 
     <ImageButton android:id="@+id/erase_btn"
         android:layout_width="wrap_content"
         android:layout_height="fill_parent"
         android:src="@drawable/content_discard"
-        android:background="@drawable/transparent_btn"
+        android:background="?btnBackgroundBorderless"
         android:padding="5dp" />
 
 </com.tassadar.multirommgr.romlistfragment.RomListItem>

@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <style name="AppTheme" parent="android:Theme.Material.Light.DarkActionBar" />
+    <style name="AppTheme" parent="android:Theme.Material.Light.DarkActionBar">
+        <item name="btnBackground">?android:attr/selectableItemBackground</item>
+        <item name="btnBackgroundBorderless">?android:attr/selectableItemBackgroundBorderless</item>
+    </style>
     <style name="BootDialogTheme" parent="android:Theme.Material.Light.Dialog.NoActionBar" />
 </resources>
