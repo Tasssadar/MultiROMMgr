@@ -17,7 +17,6 @@
 
 package com.tassadar.multirommgr.installfragment;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.ComponentName;
 import android.content.DialogInterface;
@@ -26,6 +25,7 @@ import android.content.ServiceConnection;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.IBinder;
+import android.support.v7.app.ActionBarActivity;
 import android.text.Html;
 import android.text.Spanned;
 import android.text.SpannedString;
@@ -43,12 +43,11 @@ import com.tassadar.multirommgr.Device;
 import com.tassadar.multirommgr.Manifest;
 import com.tassadar.multirommgr.MgrApp;
 import com.tassadar.multirommgr.R;
-import com.tassadar.multirommgr.SettingsActivity;
 import com.tassadar.multirommgr.SettingsFragment;
 import com.tassadar.multirommgr.StatusAsyncTask;
 import com.tassadar.multirommgr.Utils;
 
-public class InstallActivity extends Activity implements ServiceConnection, InstallListener {
+public class InstallActivity extends ActionBarActivity implements ServiceConnection, InstallListener {
 
     private static final int BTN_STATE_CANCEL    = 0;
     private static final int BTN_STATE_TRY_AGAIN = 1;
@@ -65,7 +64,7 @@ public class InstallActivity extends Activity implements ServiceConnection, Inst
         m_isCancelEnabled = true;
 
         setButtonState(BTN_STATE_CANCEL);
-        getActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         m_installInfo = getIntent().getBundleExtra("installation_info");
 
