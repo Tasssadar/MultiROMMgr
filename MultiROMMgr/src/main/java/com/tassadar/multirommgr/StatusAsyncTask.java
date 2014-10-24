@@ -109,7 +109,7 @@ public class StatusAsyncTask extends AsyncTask <Void, String, StatusAsyncTask.Re
         publishProgress(Utils.getString(R.string.prog_detecting_dev));
 
         SharedPreferences p = MgrApp.getPreferences();
-        Device dev = Device.load(p.getString(SettingsActivity.DEV_DEVICE_NAME, Build.DEVICE));
+        Device dev = Device.load(p.getString(SettingsFragment.DEV_DEVICE_NAME, Build.DEVICE));
         if(dev == null) {
             res.code = RES_UNSUPPORTED;
             return res;
@@ -167,7 +167,7 @@ public class StatusAsyncTask extends AsyncTask <Void, String, StatusAsyncTask.Re
                 if(man.hasCommand("RESET_MAN_URL")) {
                     res.manifest_reset_status = man.getCommandArg("RESET_MAN_URL");
                     SharedPreferences.Editor e = p.edit();
-                    e.remove(SettingsActivity.DEV_MANIFEST_URL);
+                    e.remove(SettingsFragment.DEV_MANIFEST_URL);
                     e.apply();
                     continue;
                 }

@@ -3,4 +3,9 @@
     android:id="@+id/pager"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+    <android.support.v4.view.PagerTabStrip
+        android:id="@+id/pager_tab_strip"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/colorAccent"/>
 </android.support.v4.view.ViewPager>

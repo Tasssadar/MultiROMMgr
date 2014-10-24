@@ -23,6 +23,7 @@ import android.util.Log;
 import com.tassadar.multirommgr.Device;
 import com.tassadar.multirommgr.MgrApp;
 import com.tassadar.multirommgr.SettingsActivity;
+import com.tassadar.multirommgr.SettingsFragment;
 import com.tassadar.multirommgr.Utils;
 
 import org.json.JSONException;
@@ -74,7 +75,7 @@ public class UbuntuManifest {
 
                 // Skip hidden channels
                 if(c.optBoolean("hidden", false) &&
-                   !pref.getBoolean(SettingsActivity.UTOUCH_SHOW_HIDDEN, false)) {
+                   !pref.getBoolean(SettingsFragment.UTOUCH_SHOW_HIDDEN, false)) {
                     continue;
                 }
 

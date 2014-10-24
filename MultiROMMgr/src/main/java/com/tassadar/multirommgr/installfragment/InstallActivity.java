@@ -44,6 +44,7 @@ import com.tassadar.multirommgr.Manifest;
 import com.tassadar.multirommgr.MgrApp;
 import com.tassadar.multirommgr.R;
 import com.tassadar.multirommgr.SettingsActivity;
+import com.tassadar.multirommgr.SettingsFragment;
 import com.tassadar.multirommgr.StatusAsyncTask;
 import com.tassadar.multirommgr.Utils;
 
@@ -271,7 +272,7 @@ public class InstallActivity extends Activity implements ServiceConnection, Inst
     @Override
     public void requestRecovery(boolean force) {
         SharedPreferences pref = MgrApp.getPreferences();
-        if(!pref.getBoolean(SettingsActivity.GENERAL_AUTO_REBOOT, false)) {
+        if(!pref.getBoolean(SettingsFragment.GENERAL_AUTO_REBOOT, false)) {
             runOnUiThread(new RecoveryDialogRunnable(force));
         } else {
             doReboot(force);

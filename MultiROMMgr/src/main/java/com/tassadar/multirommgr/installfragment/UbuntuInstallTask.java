@@ -26,6 +26,7 @@ import com.tassadar.multirommgr.MultiROM;
 import com.tassadar.multirommgr.R;
 import com.tassadar.multirommgr.Rom;
 import com.tassadar.multirommgr.SettingsActivity;
+import com.tassadar.multirommgr.SettingsFragment;
 import com.tassadar.multirommgr.Utils;
 
 import java.io.File;
@@ -184,7 +185,7 @@ public class UbuntuInstallTask extends InstallAsyncTask  {
         }
 
         SharedPreferences pref = MgrApp.getPreferences();
-        if(pref.getBoolean(SettingsActivity.UTOUCH_DELETE_FILES, false)) {
+        if(pref.getBoolean(SettingsFragment.UTOUCH_DELETE_FILES, false)) {
             m_listener.onInstallLog(Utils.getString(R.string.deleting_used_files));
             for(int i = 0; i < files.size(); ++i) {
                 UbuntuFile f = files.get(i);

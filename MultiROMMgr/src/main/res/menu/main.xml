@@ -1,16 +1,17 @@
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:thisapp="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:id="@+id/action_refresh"
         android:title="@string/action_refresh"
-        android:showAsAction="always|withText"
+        thisapp:showAsAction="always|withText"
         android:icon="@drawable/navigation_refresh"
         android:orderInCategory="1"/>
     <item android:id="@+id/action_reboot"
         android:title="@string/action_reboot"
-        android:showAsAction="never"
+        thisapp:showAsAction="never"
         android:orderInCategory="2"/>
     <item android:id="@+id/action_settings"
         android:title="@string/action_settings"
-        android:showAsAction="never"
+        thisapp:showAsAction="never"
         android:icon="@drawable/action_settings"
         android:orderInCategory="3"/>
 </menu>

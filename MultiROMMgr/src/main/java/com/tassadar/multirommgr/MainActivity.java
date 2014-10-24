@@ -28,6 +28,8 @@ import android.app.FragmentManager;
 import android.preference.PreferenceManager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.util.Log;
 import android.view.Menu;
@@ -39,7 +41,7 @@ import android.widget.ListView;
 
 import com.tassadar.multirommgr.installfragment.UbuntuManifestAsyncTask;
 
-public class MainActivity extends Activity implements StatusAsyncTask.StatusAsyncTaskListener, MainActivityListener, SwipeRefreshLayout.OnRefreshListener {
+public class MainActivity extends ActionBarActivity implements StatusAsyncTask.StatusAsyncTaskListener, MainActivityListener, SwipeRefreshLayout.OnRefreshListener {
 
     public static final int ACT_INSTALL_MULTIROM   = 1;
     public static final int ACT_INSTALL_UBUNTU     = 2;
@@ -97,18 +99,20 @@ public class MainActivity extends Activity implements StatusAsyncTask.StatusAsyn
         m_drawerToggle = new ActionBarDrawerToggle(
                 this, m_drawerLayout, R.string.drawer_open, R.string.drawer_close) {
             public void onDrawerClosed(View view) {
-                getActionBar().setTitle(m_title);
+                getSupportActionBar().setTitle(m_title);
             }
 
             public void onDrawerOpened(View drawerView) {
-                getActionBar().setTitle(m_drawerTitle);
+                getSupportActionBar().setTitle(m_drawerTitle);
             }
         };
         m_drawerLayout.setDrawerListener(m_drawerToggle);
 
-        getActionBar().setDisplayHomeAsUpEnabled(true);
-        getActionBar().setHomeButtonEnabled(true);
-        getActionBar().setDisplayShowHomeEnabled(false);
+        final ActionBar bar = getSupportActionBar();
+        if(bar != null) {
+            bar.setDisplayHomeAsUpEnabled(true);
+            bar.setHomeButtonEnabled(true);
+        }
 
         if (getIntent().hasExtra(INTENT_EXTRA_SHOW_ROM_LIST) &&
             getIntent().getBooleanExtra(INTENT_EXTRA_SHOW_ROM_LIST, false)) {
@@ -144,6 +148,7 @@ public class MainActivity extends Activity implements StatusAsyncTask.StatusAsyn
 
     @Override
     public boolean onCreateOptionsMenu (Menu menu) {
+
         getMenuInflater().inflate(R.menu.main, menu);
 
         m_refreshItem = menu.findItem(R.id.action_refresh);
@@ -186,7 +191,7 @@ public class MainActivity extends Activity implements StatusAsyncTask.StatusAsyn
     @Override
     public void setTitle(CharSequence title) {
         m_title = title;
-        getActionBar().setTitle(m_title);
+        getSupportActionBar().setTitle(m_title);
     }
 
     @Override

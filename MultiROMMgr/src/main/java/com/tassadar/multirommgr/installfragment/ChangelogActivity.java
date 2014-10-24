@@ -17,19 +17,18 @@
 
 package com.tassadar.multirommgr.installfragment;
 
-import android.app.ActionBar;
-import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentActivity;
+import android.support.v7.app.ActionBar;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.ActionBarActivity;
 import android.view.MenuItem;
 
 import com.tassadar.multirommgr.R;
 
-public class ChangelogActivity extends FragmentActivity implements ActionBar.TabListener, ViewPager.OnPageChangeListener {
+public class ChangelogActivity extends ActionBarActivity {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -41,18 +40,9 @@ public class ChangelogActivity extends FragmentActivity implements ActionBar.Tab
 
         m_viewPager = (ViewPager)findViewById(R.id.pager);
         m_viewPager.setAdapter(new ChangelogAdapter(getSupportFragmentManager()));
-        m_viewPager.setOnPageChangeListener(this);
 
-        ActionBar bar = getActionBar();
+        ActionBar bar = getSupportActionBar();
         bar.setDisplayHomeAsUpEnabled(true);
-        bar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
-        for(int i = 0; i < m_names.length; ++i) {
-            ActionBar.Tab t = bar.newTab();
-            t.setText(m_names[i]);
-            t.setTabListener(this);
-
-            bar.addTab(t);
-        }
     }
 
     @Override
@@ -64,28 +54,6 @@ public class ChangelogActivity extends FragmentActivity implements ActionBar.Tab
         }
         return false;
     }
-
-    @Override
-    public void onTabSelected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {
-        m_viewPager.setCurrentItem(tab.getPosition());
-    }
-
-    @Override
-    public void onTabUnselected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) { }
-
-    @Override
-    public void onTabReselected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) { }
-
-    @Override
-    public void onPageSelected(int i) {
-        getActionBar().setSelectedNavigationItem(i);
-    }
-
-    @Override
-    public void onPageScrolled(int i, float v, int i2) { }
-
-    @Override
-    public void onPageScrollStateChanged(int i) { }
 
     private class ChangelogAdapter extends FragmentPagerAdapter {
         public ChangelogAdapter(FragmentManager fm) {
@@ -100,6 +68,11 @@ public class ChangelogActivity extends FragmentActivity implements ActionBar.Tab
         @Override
         public int getCount() {
             return m_urls.length;
+        }
+
+        @Override
+        public CharSequence getPageTitle (int position) {
+            return m_names[position];
         }
     }
 

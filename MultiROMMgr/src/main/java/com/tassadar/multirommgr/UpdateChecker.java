@@ -68,7 +68,7 @@ public class UpdateChecker {
 
     public static boolean isEnabled() {
         final SharedPreferences p = MgrApp.getPreferences();
-        return p.getBoolean(SettingsActivity.GENERAL_UPDATE_CHECK, false);
+        return p.getBoolean(SettingsFragment.GENERAL_UPDATE_CHECK, false);
     }
 
     private static PendingIntent getIntent(Context ctx, int flags) {
@@ -82,7 +82,7 @@ public class UpdateChecker {
         PendingIntent i = getIntent(ctx, PendingIntent.FLAG_NO_CREATE);
 
         boolean isRunning = (i != null);
-        boolean run = p.getBoolean(SettingsActivity.GENERAL_UPDATE_CHECK, false) &&
+        boolean run = p.getBoolean(SettingsFragment.GENERAL_UPDATE_CHECK, false) &&
                 p.getBoolean("has_versions", false);
 
         if(isRunning == run)
@@ -134,7 +134,7 @@ public class UpdateChecker {
             SharedPreferences p = MgrApp.getPreferences();
             String mromVer = p.getString("last_multirom_ver", null);
             String recoveryVer = p.getString("last_recovery_ver", null);
-            Device dev = Device.load(p.getString(SettingsActivity.DEV_DEVICE_NAME, Build.DEVICE));
+            Device dev = Device.load(p.getString(SettingsFragment.DEV_DEVICE_NAME, Build.DEVICE));
 
             if(dev == null || mromVer == null || recoveryVer == null)
                 return;

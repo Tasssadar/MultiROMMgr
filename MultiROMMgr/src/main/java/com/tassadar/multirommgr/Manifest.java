@@ -59,8 +59,8 @@ public class Manifest {
             SharedPreferences p = MgrApp.getPreferences();
 
             String url = dev.getDefaultManifestUrl();
-            if(p.getBoolean(SettingsActivity.DEV_OVERRIDE_MANIFEST, false))
-                url = p.getString(SettingsActivity.DEV_MANIFEST_URL, url);
+            if(p.getBoolean(SettingsFragment.DEV_OVERRIDE_MANIFEST, false))
+                url = p.getString(SettingsFragment.DEV_MANIFEST_URL, url);
 
             if(!Utils.downloadFile(url, out_man, null, true))
                 return false;
