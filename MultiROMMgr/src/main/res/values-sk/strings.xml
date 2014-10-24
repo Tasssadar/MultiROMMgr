@@ -131,6 +131,7 @@
     <string name="no_manifest">Automatická inštalácia a aktualizácie nie sú podporované na tomto zariadení.</string>
     <string name="pref_manifest_override">Prepísať manifest URL adresu</string>
     <string name="notice">Upozornenie</string>
+    <string name="unsupported_details"><![CDATA[MultiROM je komplexná softvérová úprava a ako taká musí být vyvíjaná pre každé zariadenie zvlášť. Kvôli tomu sú podporované iba vybrané telefóny a tablety.<br>Vaše zariadenie bohužiaľ nie je medzi nimi.<br><br>Ak by ste chceli vyvinúť a spravovať MultiROM pre vaše zariadenie, navštívte <a href=\"https://github.com/Tasssadar/multirom/wiki/Porting-MultiROM\">MultiROM wiki stránku</a>, kde najdete ďalšie informácie.]]> </string>
 
     <string-array name="reboot_options">
         <item>Systém</item>
