@@ -132,6 +132,9 @@
     <string name="pref_manifest_override">Override manifest URL</string>
     <string name="notice">Notice</string>
     <string name="unsupported_details"><![CDATA[MultiROM is a complex, low-level software modification. It needs to be developed for each device separately, so there is only a limited set of supported devices.<br>Unfortunately, yours is not among them, sorry.<br><br>If you want to develop MultiROM for your device, <a href=\"https://github.com/Tasssadar/multirom/wiki/Porting-MultiROM\">the MultiROM wiki page</a> is a good place to start.]]></string>
+    <string name="deprecated_l_title">Unsupported Android Version!</string>
+    <string name="deprecated_l_text">Android L developer preview is deprecated and has bugs which cause version 1.163 and higher of this application to crash.\nYou can get last working version, 1.152, on this address:\nhttp://tasemnice.eu/perm/MultiROMMgr-v1.152.apk\n\nYou have to uninstall this version of the app completely before trying to install the older one.</string>
+    <string name="deprecated_l_btn">Exit application</string>
 
     <string-array name="reboot_options">
         <item>System</item>

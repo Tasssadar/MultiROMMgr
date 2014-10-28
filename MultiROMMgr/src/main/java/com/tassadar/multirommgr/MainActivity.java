@@ -17,12 +17,13 @@
 
 package com.tassadar.multirommgr;
 
-import android.app.Activity;
+import android.annotation.TargetApi;
 import android.app.AlertDialog;
 import android.app.FragmentTransaction;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.os.Build;
 import android.os.Bundle;
 import android.app.FragmentManager;
 import android.preference.PreferenceManager;
@@ -31,6 +32,9 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.text.SpannableString;
+import android.text.method.LinkMovementMethod;
+import android.text.util.Linkify;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -38,6 +42,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.tassadar.multirommgr.installfragment.UbuntuManifestAsyncTask;
 
@@ -54,6 +59,12 @@ public class MainActivity extends ActionBarActivity implements StatusAsyncTask.S
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        if(Build.VERSION.SDK_INT == 20) {
+            showDeprecatedLAlert();
+            return;
+        }
+
         setContentView(R.layout.activity_main);
 
         // This activity is using different background color, which would cause overdraw
@@ -197,13 +208,15 @@ public class MainActivity extends ActionBarActivity implements StatusAsyncTask.S
     @Override
     protected void onPostCreate(Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
-        m_drawerToggle.syncState();
+        if(m_drawerToggle != null)
+            m_drawerToggle.syncState();
     }
 
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
-        m_drawerToggle.onConfigurationChanged(newConfig);
+        if(m_drawerToggle != null)
+            m_drawerToggle.onConfigurationChanged(newConfig);
     }
 
     @Override
@@ -322,6 +335,29 @@ public class MainActivity extends ActionBarActivity implements StatusAsyncTask.S
     @Override
     public void onRefresh() {
         refresh(false);
+    }
+
+    @TargetApi(20)
+    private void showDeprecatedLAlert() {
+        SpannableString msg = new SpannableString(getString(R.string.deprecated_l_text));
+        Linkify.addLinks(msg, Linkify.ALL);
+
+        AlertDialog.Builder b = new AlertDialog.Builder(this);
+        b.setTitle(R.string.deprecated_l_title)
+         .setCancelable(false)
+         .setMessage(msg)
+         .setNegativeButton(R.string.deprecated_l_btn, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                finish();
+            }
+          });
+
+        AlertDialog d = b.create();
+        d.show();
+
+        TextView msgView = (TextView)d.findViewById(android.R.id.message);
+        msgView.setMovementMethod(LinkMovementMethod.getInstance());
     }
 
     private DrawerLayout m_drawerLayout;
