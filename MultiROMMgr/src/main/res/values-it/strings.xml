@@ -111,7 +111,7 @@
     <string name="boot">Avvia</string>
     <string name="boot_rom_title">Avvio questa ROM?</string>
     <string name="select_icon">Seleziona icona</string>
-    <string name="browse">Browse&#8230;</string>
+    <string name="browse">Sfoglia&#8230;</string>
     <string name="rom_list_widget">Seleziona ROM da avviare.</string>
     <string name="ubuntu_man_no_channels">Non è stato trovato nessun canale di aggiornamento per questo dispositivo.</string>
     <string name="prog_checking_root">Controllo dei permessi di root</string>
@@ -126,6 +126,15 @@
     <string name="uninstall_dialog_text">Questa azione rimuoverà completamente MultiROM e tutti i sistemi secondari installati. La tua ROM principale rimarrà intatta. La recovery MultiROM resterà installata, se vuoi rimuoverla devi sostituirla con un\'altra.</string>
     <string name="continue_text">Continua</string>
     <string name="flavour">Variante:</string>
+    <string name="gpg_failed">Verifica della firma GPG fallita!</string>
+    <string name="alias_of">alias di</string>
+    <string name="no_manifest">L\'installazione automatica e gli aggiornamenti non sono supportati da questo dispositivo.</string>
+    <string name="pref_manifest_override">Override URL manifesto</string>
+    <string name="notice">Avviso</string>
+    <string name="unsupported_details"><![CDATA[MultiROM è una complessa modifica al software di basso livello. Ha bisogno di essere sviluppato separatamente per ogni dispositivo, per cui c'è una limitata serie di dispositivi supportati.<br>Sfortunatamente, il tuo non è tra loro.<br><br>Se vuoi sviluppare MultiROM per il tuo dispositivo, <a href=\"https://github.com/Tasssadar/multirom/wiki/Porting-MultiROM\">la pagina wiki di MultiROM</a> è un buon punto d\'inizio.]]></string>
+    <string name="deprecated_l_title">Versione di Android non supportata!</string>
+    <string name="deprecated_l_text">Android L developer preview è obsoleto e ha dei bug che causano il crash di questa app a partire dalla versione 1.163.\nPuoi scaricare l\'ultima versione funzionante, la 1.152, a questo indirizzo:\nhttp://tasemnice.eu/perm/MultiROMMgr-v1.152.apk\n\nHai bisogno di disinstallare questa versione prima di installare la precedente.</string>
+    <string name="deprecated_l_btn">Chiudi app</string>
 
     <string-array name="reboot_options">
         <item>System</item>
