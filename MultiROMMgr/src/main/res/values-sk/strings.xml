@@ -132,6 +132,9 @@
     <string name="pref_manifest_override">Prepísať manifest URL adresu</string>
     <string name="notice">Upozornenie</string>
     <string name="unsupported_details"><![CDATA[MultiROM je komplexná softvérová úprava a ako taká musí být vyvíjaná pre každé zariadenie zvlášť. Kvôli tomu sú podporované iba vybrané telefóny a tablety.<br>Vaše zariadenie bohužiaľ nie je medzi nimi.<br><br>Ak by ste chceli vyvinúť a spravovať MultiROM pre vaše zariadenie, navštívte <a href=\"https://github.com/Tasssadar/multirom/wiki/Porting-MultiROM\">MultiROM wiki stránku</a>, kde najdete ďalšie informácie.]]> </string>
+    <string name="deprecated_l_title">Nepodporovaná verzia Androidu!</string>
+    <string name="deprecated_l_text">Android L developer preview je zastaralá a má chyby, ktoré spôsobujú pád tejto aplikácie od verzie 1.163 a vyššie.\nPoslednú funkčnú verziu 1.152 môžete nájsť na tejto adrese:\nhttp://tasemnice.eu/perm/MultiROMMgr-v1.152.apk\n\nMusíte kompletne odinštalovať túto verziu pred pokusom nainštalovať staršiu.</string>
+    <string name="deprecated_l_btn">Ukončiť aplikáciu</string>
 
     <string-array name="reboot_options">
         <item>Systém</item>
