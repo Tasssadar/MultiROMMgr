@@ -61,23 +61,79 @@
     <string name="failed_rom_init"><![CDATA[ROM 폴더 생성 실패!<br>]]></string>
     <string name="ok_skippping"><![CDATA[<font color=\"green\">확인, 건너뜀.</font><br>]]></string>
     <string name="failed_redownload"><![CDATA[<font color=\"#FF9900\">실패, 다시 다운로드.</font><br>]]></string>
-    <string name="failed_busybox">비지박스 출력 실패!</string>
+    <string name="failed_busybox">비지박스 추출 실패!</string>
     <string name="copying_file">%s 복사중...</string>
     <string name="failed_file_copy"><![CDATA[<br><font color=\"red\">%s 복사 실패!</font><br>]]></string>
     <string name="deleting_used_files"><![CDATA[사용된 파일 삭제중...<br>]]></string>
     <string name="ubuntu_free_space">저장공간이 %1$dMB밖에 남지 않았습니다. %2$dMB 이상의 저장공간이 필요하며 그렇지 않을 시에는 설치가 실패할 수 있습니다!</string>
     <string name="pref_update_check">업데이트 확인</string>
     <string name="pref_update_check_sum">자동으로 MultiROM과 리커버리 업데이트를 ~12시간마다 확인하고 알림을 줍니다.</string>
-    <string name="update_notification">MultiROM 엡데이트 가능.</string>
+    <string name="update_notification">MultiROM 업데이트 가능.</string>
     <string name="pref_download_dir_sum">매니저가 설치에 필요한 파일을 이 폴더에 다운로드합니다. 우분투 터치 파일은 이 폴더 안의 \"UbuntuTouch\" 폴더에 다운로드됩니다.</string>
     <string name="pref_download_dir">다운로드 폴더 변경</string>
     <string name="changelogs">체인지로그</string>
     <string name="changelog_failed">\n\n\n체인지로그 다운로드 실패.</string>
     <string name="done">끝남, 뒤로가기.</string>
     <string name="about_ubuntu_touch">정보</string>
-    <string name="back">뒤로</string><![CDATA[
-    
-    ]]>
-    <string name="installation">설치</string>
+    <string name="back">뒤로</string>
+    <string name="installation">설치</string>
+    <string name="action_reboot">재부팅..</string>
+    <string name="ubuntu_unsupported">불행이도, 우분투 터치는 이 장치를 지원하지 않습니다.</string>
+    <string name="about">대해서</string>
+    <string name="about_version">버전</string>
+    <string name="about_licenses">라이센스</string>
+    <string name="about_licenses_summ">MultiROM 메니저는 GNU GPLv3 라이센스를 사용하며  Apache 2.0 라이센스를 사용하는 다음의 라이브러리를 사용합니다:\nlibsuperuser\nCardsUI</string>
+    <string name="already_developer">이미 개발자입니다.</string>
+    <string name="now_developer">개발자가 되셨습니다!</string>
+    <string name="dev_options">개발자 옵션</string>
+    <string name="pref_manifest_url">매니페스트 URL</string>
+    <string name="steps_developer">개발자가 되려면 %d단계가 남았습니다 .</string>
+    <string name="pref_device_name">장치 이름 강제 설정</string>
+    <string name="dangerous">위험합니다!</string>
+    <string name="drawer_open">메뉴 열기</string>
+    <string name="drawer_close">메뉴 닫기</string>
+    <string name="rom_list_empty">보조 ROM이 없습니다.</string>
+    <string name="rename_rom">ROM 이름 바꾸기</string>
+    <string name="rename">이름 바꾸기</string>
+    <string name="rom_name_taken">이미 사용중인 이름입니다!</string>
+    <string name="rom_name_empty">빈 이름은 입력할 수 없습니다!</string>
+    <string name="erase_rom">ROM \"%s\"을 완전히 삭제합니다!</string>
+    <string name="erase_rom_title">ROM을 삭제하시겠습니까</string>
+    <string name="erase">삭제</string>
+    <string name="erasing_rom">ROM 삭제중...</string>
+    <string name="boot_rom">ROM \"%s\"으로 부팅하시겠습니까?</string>
+    <string name="booting">ROM 부팅 중...</string>
+    <string name="rom_boot_kexec">이 ROM은 kexec-hardboot 패치가 된 커널이 필요합니다, 설치해 주십시오.</string>
+    <string name="rom_boot_req_ver">앱에서 ROM으로 바로 부팅하기는 MultiROM 버전  v%s 이상이 필요합니다.</string>
+    <string name="boot">부트</string>
+    <string name="select_icon">아이콘 선택</string>
+    <string name="browse">찾아보기&#8230;</string>
+    <string name="rom_list_widget">부트할 ROM을 선택하세요.</string>
+    <string name="prog_checking_root">루트 권한 요청 중</string>
+    <string name="prog_detecting_dev">장치 종류 확인 중</string>
+    <string name="prog_looking_for_multirom">MultiROM 확인 중</string>
+    <string name="prog_getting_roms">보조 ROM 로딩 중</string>
+    <string name="prog_check_recovery">리커버리 확인 중</string>
+    <string name="prog_check_kernel">커널 확인 중</string>
+    <string name="prog_download_manifest">업데이트 정보를 다운받는 중</string>
+    <string name="uninstall">MultiROM 삭제</string>
+    <string name="uninstall_dialog_title">MultiROM을 삭제하시겠습니까?</string>
+    <string name="uninstall_dialog_text">이 동작은 MultiROM과 모든 설치된 보조 시스템을 삭제합니다. 여러분의 주 ROM은 그대로 유지됩니다. MultiROM 리커버리는 그대로 설치되어 있으며, 제거하고 싶으사다면, 다른 리커버리로 변경하시면 됩니다.</string>
+    <string name="continue_text">계속</string>
+    <string name="gpg_failed">GPG 서명 확인 실패!</string>
+    <string name="no_manifest">이 장치의 자동 설치와 업데이트는 지원되지 않습니다.</string>
+    <string name="pref_manifest_override">매니페스트 URL 강제 설정</string>
+    <string name="deprecated_l_title">지원되지 않는 안드로이드 버전입니다!</string>
+    <string name="deprecated_l_btn">애플리케이션 종료</string>
 
+    <string-array name="reboot_options">
+        <item>재부팅</item>
+        <item>리커버리</item>
+        <item>부트로더</item>
+    </string-array>
+
+    <string-array name="main_fragment_titles">
+        <item>설치/업데이트</item>
+        <item>ROM 관리</item>
+    </string-array>
 </resources>
