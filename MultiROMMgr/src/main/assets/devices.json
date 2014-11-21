@@ -104,7 +104,7 @@
         },
         {
             "names": [ "yuga", "C6603", "C6602", "C6606" ],
-            "manifest_url": "http://team-simplicit.com/multirom/yuga/manifest.json",
+            "manifest_url": "http://xperiamultirom.github.io/manifests/yuga/manifest.json",
             "check_gpg": false,
             "ubuntu_touch": {
                 "enabled": false,
