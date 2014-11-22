@@ -131,7 +131,7 @@
     <string name="no_manifest">L\'installazione automatica e gli aggiornamenti non sono supportati da questo dispositivo.</string>
     <string name="pref_manifest_override">Override URL manifesto</string>
     <string name="notice">Avviso</string>
-    <string name="unsupported_details"><![CDATA[MultiROM è una complessa modifica al software di basso livello. Ha bisogno di essere sviluppato separatamente per ogni dispositivo, per cui c'è una limitata serie di dispositivi supportati.<br>Sfortunatamente, il tuo non è tra loro.<br><br>Se vuoi sviluppare MultiROM per il tuo dispositivo, <a href=\"https://github.com/Tasssadar/multirom/wiki/Porting-MultiROM\">la pagina wiki di MultiROM</a> è un buon punto d\'inizio.]]></string>
+    <string name="unsupported_details"><![CDATA[MultiROM è una complessa modifica al software di basso livello. Ha bisogno di essere sviluppato separatamente per ogni dispositivo, per cui c\'è una limitata serie di dispositivi supportati.<br>Sfortunatamente, il tuo non è tra loro.<br><br>Se vuoi sviluppare MultiROM per il tuo dispositivo, <a href=\"https://github.com/Tasssadar/multirom/wiki/Porting-MultiROM\">la pagina wiki di MultiROM</a> è un buon punto d\'inizio.]]></string>
     <string name="deprecated_l_title">Versione di Android non supportata!</string>
     <string name="deprecated_l_text">Android L developer preview è obsoleto e ha dei bug che causano il crash di questa app a partire dalla versione 1.163.\nPuoi scaricare l\'ultima versione funzionante, la 1.152, a questo indirizzo:\nhttp://tasemnice.eu/perm/MultiROMMgr-v1.152.apk\n\nHai bisogno di disinstallare questa versione prima di installare la precedente.</string>
     <string name="deprecated_l_btn">Chiudi app</string>

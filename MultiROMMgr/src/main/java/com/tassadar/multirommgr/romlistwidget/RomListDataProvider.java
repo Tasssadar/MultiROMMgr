@@ -30,7 +30,7 @@ import com.tassadar.multirommgr.BuildConfig;
 
 public class RomListDataProvider extends ContentProvider {
 
-    private static final String AUTHORITY = BuildConfig.PACKAGE_NAME + ".provider";
+    private static final String AUTHORITY = BuildConfig.APPLICATION_ID + ".provider";
     private static final String BASE_PATH = "rom_list";
     public static final Uri CONTENT_URI = Uri.parse("content://" + AUTHORITY + "/" + BASE_PATH);
 

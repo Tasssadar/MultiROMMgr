@@ -3,7 +3,7 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:0.13.+'
+        classpath 'com.android.tools.build:gradle:0.14.+'
     }
 }
 apply plugin: 'com.android.application'
@@ -14,7 +14,7 @@ repositories {
 
 android {
     compileSdkVersion 21
-    buildToolsVersion '21.0.1'
+    buildToolsVersion '21.1.1'
     defaultConfig {
         minSdkVersion 16
         targetSdkVersion 21
@@ -25,8 +25,8 @@ android {
             versionNameSuffix '-debug'
         }
         release {
-            runProguard true
-            proguardFile 'proguard.cfg'
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard.cfg'
         }
     }
 }

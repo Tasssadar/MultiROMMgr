@@ -397,11 +397,10 @@ public class Utils {
         return MgrApp.getAppContext().getResources().getString(id, args);
     }
 
-    public static boolean isIntentAvailable(String action) {
+    public static boolean isIntentAvailable(Intent intent) {
         final PackageManager packageManager = MgrApp.getAppContext().getPackageManager();
-        final Intent intent = new Intent(action);
-        List<ResolveInfo> list =
-                packageManager.queryIntentActivities(intent, PackageManager.MATCH_DEFAULT_ONLY);
+        List<ResolveInfo> list = packageManager.queryIntentActivities(intent,
+                PackageManager.MATCH_DEFAULT_ONLY);
         return list.size() > 0;
     }
 

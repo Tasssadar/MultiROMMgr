@@ -85,12 +85,12 @@ public class RomIconDialog extends DialogFragment implements AdapterView.OnItemC
 
     @Override
     public void onClick(View view) {
-        if(Utils.isIntentAvailable(Intent.ACTION_PICK)) {
-            Intent intent = new Intent(Intent.ACTION_PICK,
-                    android.provider.MediaStore.Images.Media.INTERNAL_CONTENT_URI);
+        Intent intent = new Intent(Intent.ACTION_PICK,
+                android.provider.MediaStore.Images.Media.INTERNAL_CONTENT_URI);
+        if(Utils.isIntentAvailable(intent)) {
             startActivityForResult(intent, MainActivity.ACT_SELECT_ICON);
         } else {
-            Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+            intent = new Intent(Intent.ACTION_GET_CONTENT);
             intent.setType("image/*");
             startActivityForResult(
                     Intent.createChooser(intent,  Utils.getString(R.string.select_icon)),
