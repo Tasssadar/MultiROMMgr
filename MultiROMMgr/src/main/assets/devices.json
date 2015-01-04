@@ -104,7 +104,7 @@
         },
         {
             "names": [ "yuga", "C6603", "C6602", "C6606" ],
-            "manifest_url": "http://xperiamultirom.github.io/manifests/yuga/manifest.json",
+            "manifest_url": "http://team-simplicit.com/multirom/yuga/manifest.json",
             "check_gpg": false,
             "ubuntu_touch": {
                 "enabled": false,
@@ -225,6 +225,29 @@
                 {
                     "name": "recovery",
                     "path": "/dev/block/platform/msm_sdcc.1/by-name/recovery"
+                },
+                {
+                    "name": "boot",
+                    "path": "/dev/block/platform/msm_sdcc.1/by-name/boot"
+                },
+                {
+                    "name": "cache",
+                    "path": "/dev/block/platform/msm_sdcc.1/by-name/cache"
+                }
+            ]
+        },
+        {
+            "names": [ "odin", "C6503", "C6502", "C6506" ],
+            "manifest_url": "http://team-simplicit.com/multirom/odin/manifest.json",
+            "check_gpg": false,
+            "ubuntu_touch": {
+                "enabled": false,
+                "base_url": ""
+            },
+            "devices": [
+                {
+                    "name": "recovery",
+                    "path": "/dev/block/platform/msm_sdcc.1/by-name/FOTAKernel"
                 },
                 {
                     "name": "boot",
