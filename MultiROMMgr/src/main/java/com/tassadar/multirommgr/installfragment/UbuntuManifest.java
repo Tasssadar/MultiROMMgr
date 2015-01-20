@@ -37,6 +37,8 @@ import java.util.Map;
 import java.util.TreeMap;
 
 public class UbuntuManifest {
+    private static final String TAG = "MROMMgr::UbuntuManifest";
+
     public static final String DEFAULT_BASE_URL = "https://system-image.ubuntu.com";
     public static final String CHANNELS_PATH = "/channels.json";
     public static final String NO_FLAVOUR = "*none*";
@@ -61,7 +63,7 @@ public class UbuntuManifest {
         try {
             Object rawObject = new JSONTokener(out.toString()).nextValue();
             if(!(rawObject instanceof JSONObject)){
-                Log.e("UbuntuManifest", "Malformed manifest format!");
+                Log.e(TAG, "Malformed manifest format!");
                 return false;
             }
 
@@ -121,7 +123,7 @@ public class UbuntuManifest {
                     continue;
                 }
 
-                Log.d("UbuntuManifest", "Got channel: " + c.getDisplayName());
+                Log.d(TAG, "Got channel: " + c.getDisplayName());
             }
 
             if(channelMap.isEmpty())

@@ -32,13 +32,15 @@ import java.util.List;
 import eu.chainfire.libsuperuser.Shell;
 
 public class Recovery {
+    private static final String TAG = "MROMMgr::Recovery";
+
     public static final DateFormat VER_FMT = new SimpleDateFormat("'mrom'yyyyMMdd-mm");
     public static final DateFormat DISPLAY_FMT = new SimpleDateFormat("yyyy-MM-dd (m)");
 
     public boolean findRecoveryVersion(Device dev) {
         String p = Utils.extractAsset("bbootimg");
         if(p == null) {
-            Log.e("Recovery", "Failed to extract bbootimg!");
+            Log.e(TAG, "Failed to extract bbootimg!");
             return false;
         }
 
@@ -67,7 +69,7 @@ public class Recovery {
 
             m_version = VER_FMT.parse(name);
 
-            Log.d("Recovery", "Got recovery version " + m_version.toString());
+            Log.d(TAG, "Got recovery version " + m_version.toString());
             return true;
         } catch (JSONException e) {
             e.printStackTrace();

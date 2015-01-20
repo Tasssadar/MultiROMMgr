@@ -35,6 +35,7 @@ import java.util.Date;
 import java.util.LinkedHashMap;
 
 public class Manifest {
+    private static final String TAG = "MROMMgr::Manifest";
     public static final String DEFAULT_URL = "http://tasemnice.eu/multirom/manifest.json";
 
     public class InstallationFile {
@@ -78,12 +79,12 @@ public class Manifest {
             try {
                 Gpg gpg = new Gpg(Gpg.RING_MULTIROM);
                 if (!gpg.verifyFile(man_filename, sign_filename)) {
-                    Log.e("Manifest", "Manifest signature verification failed!");
+                    Log.e(TAG, "Manifest signature verification failed!");
                     return false;
                 }
             } catch (IOException e) {
                 e.printStackTrace();
-                Log.e("Manifest", "Manifest signature verification failed!");
+                Log.e(TAG, "Manifest signature verification failed!");
                 return false;
             }
         }
@@ -95,7 +96,7 @@ public class Manifest {
         try {
             Object rawObject = new JSONTokener(manifest).nextValue();
             if(!(rawObject instanceof JSONObject)){
-                Log.e("Manifest", "Malformed manifest format!");
+                Log.e(TAG, "Malformed manifest format!");
                 return false;
             }
 
@@ -103,7 +104,7 @@ public class Manifest {
             m_commands = o.optString("commands", "").split("\\|");
             m_status = o.getString("status");
             if(!m_status.equals("ok")) {
-                Log.e("Manifest", "MultiROM manifest's status is \"" + m_status + "\"");
+                Log.e(TAG, "MultiROM manifest's status is \"" + m_status + "\"");
                 return false;
             }
 

@@ -18,7 +18,6 @@
 package com.tassadar.multirommgr.installfragment;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -96,7 +95,6 @@ public class TreeMapAdapter<K, E> extends BaseAdapter {
             //  If no custom field is assigned, assume the whole resource is a TextView
             text = (TextView) view;
         } catch (ClassCastException e) {
-            Log.e("ArrayAdapter", "You must supply a resource ID for a TextView");
             throw new IllegalStateException(
                     "ArrayAdapter requires the resource ID to be a TextView", e);
         }

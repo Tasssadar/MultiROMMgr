@@ -37,6 +37,7 @@ import java.util.Set;
 import java.util.TreeMap;
 
 public class UbuntuChannel {
+    private static final String TAG = "MROMMgr::UbuntuChannel";
 
     public UbuntuChannel(String channelName, String fullName, JSONObject c) throws JSONException {
         m_name = channelName;
@@ -79,7 +80,7 @@ public class UbuntuChannel {
         if(path == null || path.isEmpty())
             throw new Exception("Device " + device_name + " was not found in this channel!");
 
-        Log.d("UbuntuChannel", "Loading index " + path);
+        Log.d(TAG, "Loading index " + path);
 
         ByteArrayOutputStream out = new ByteArrayOutputStream(32768);
         try {
@@ -100,7 +101,7 @@ public class UbuntuChannel {
 
         Object rawObject = new JSONTokener(out.toString()).nextValue();
         if(!(rawObject instanceof JSONObject)){
-            Log.e("UbuntuChannel", "Malformed manifest format!");
+            Log.e(TAG, "Malformed manifest format!");
             return false;
         }
 

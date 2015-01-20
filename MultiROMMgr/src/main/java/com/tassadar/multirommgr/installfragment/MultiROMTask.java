@@ -35,6 +35,7 @@ import java.util.List;
 import eu.chainfire.libsuperuser.Shell;
 
 public abstract class MultiROMTask extends InstallAsyncTask {
+    private static final String TAG = "MROMMgr::MultiROMTask";
 
     public MultiROMTask(Manifest man, Device dev) {
         super();
@@ -166,7 +167,7 @@ public abstract class MultiROMTask extends InstallAsyncTask {
     protected String mountTmpCache(String cacheDev) {
         String bb = Utils.extractAsset("busybox");
         if(bb == null) {
-            Log.e("InstallAsyncTask", "Failed to extract busybox!");
+            Log.e(TAG, "Failed to extract busybox!");
             return null;
         }
 

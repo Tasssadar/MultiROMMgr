@@ -24,6 +24,8 @@ import java.util.List;
 import eu.chainfire.libsuperuser.Shell;
 
 public class Kernel {
+    private static final String TAG = "MROMMgr::Kernel";
+
     public Kernel() {
         m_hasKexec = false;
     }
@@ -31,7 +33,7 @@ public class Kernel {
     public boolean findKexecHardboot() {
         String b = Utils.extractAsset("busybox");
         if(b == null) {
-            Log.e("Kernel", "Failed to extract busybox!");
+            Log.e(TAG, "Failed to extract busybox!");
             return false;
         }
         return findKexecHardboot(b);

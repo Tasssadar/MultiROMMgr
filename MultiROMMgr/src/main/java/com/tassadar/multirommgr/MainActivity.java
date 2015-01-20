@@ -47,6 +47,7 @@ import android.widget.TextView;
 import com.tassadar.multirommgr.installfragment.UbuntuManifestAsyncTask;
 
 public class MainActivity extends ActionBarActivity implements StatusAsyncTask.StatusAsyncTaskListener, MainActivityListener, SwipeRefreshLayout.OnRefreshListener {
+    private static final String TAG = "MROMMgr::MainActivity";
 
     public static final int ACT_INSTALL_MULTIROM   = 1;
     public static final int ACT_INSTALL_UBUNTU     = 2;
@@ -178,7 +179,7 @@ public class MainActivity extends ActionBarActivity implements StatusAsyncTask.S
     /** Swaps fragments in the main content view */
     private void selectItem(int position) {
         if(position < 0 || position >= m_fragments.length) {
-            Log.e("MultiROMMgr", "Invalid fragment index " + position);
+            Log.e(TAG, "Invalid fragment index " + position);
             return;
         }
 

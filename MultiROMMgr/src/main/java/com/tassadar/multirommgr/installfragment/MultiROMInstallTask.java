@@ -36,6 +36,7 @@ import java.util.List;
 import eu.chainfire.libsuperuser.Shell;
 
 public class MultiROMInstallTask extends MultiROMTask {
+    private static final String TAG = "MROMMgr::MultiromInstallTask";
 
     public MultiROMInstallTask(Manifest man, Device dev) {
         super(man, dev);
@@ -53,7 +54,7 @@ public class MultiROMInstallTask extends MultiROMTask {
         File destDir = new File(dest);
         destDir.mkdirs();
 
-        Log.d("MultiROMInstallTask", "Using download directory: " + dest);
+        Log.d(TAG, "Using download directory: " + dest);
 
         ArrayList<Manifest.InstallationFile> files = new ArrayList<Manifest.InstallationFile>();
         if(m_recovery)
@@ -135,7 +136,7 @@ public class MultiROMInstallTask extends MultiROMTask {
     private boolean flashRecovery(Manifest.InstallationFile f, Device dev) {
         String p = Utils.extractAsset("busybox");
         if(p == null) {
-            Log.e("InstallAsyncTask", "Failed to extract busybox!");
+            Log.e(TAG, "Failed to extract busybox!");
             return false;
         }
 

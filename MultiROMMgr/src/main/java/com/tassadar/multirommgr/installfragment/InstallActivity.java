@@ -48,6 +48,7 @@ import com.tassadar.multirommgr.StatusAsyncTask;
 import com.tassadar.multirommgr.Utils;
 
 public class InstallActivity extends ActionBarActivity implements ServiceConnection, InstallListener {
+    private static final String TAG = "MROMMgr::InstallActivity";
 
     private static final int BTN_STATE_CANCEL    = 0;
     private static final int BTN_STATE_TRY_AGAIN = 1;
@@ -139,7 +140,7 @@ public class InstallActivity extends ActionBarActivity implements ServiceConnect
 
     private void startInstallation() {
         if(m_installInfo == null || !StatusAsyncTask.initialized()) {
-            Log.e("InstallActivity", "No installation info!");
+            Log.e(TAG, "No installation info!");
             m_term.append("No installation info!");
             return;
         }
@@ -165,7 +166,7 @@ public class InstallActivity extends ActionBarActivity implements ServiceConnect
                     StatusAsyncTask.instance().getMultiROM(),
                     StatusAsyncTask.instance().getDevice());
         } else {
-            Log.e("InstallActivity", "Unknown installation type: " + type);
+            Log.e(TAG, "Unknown installation type: " + type);
             return;
         }
 

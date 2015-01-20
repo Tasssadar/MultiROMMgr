@@ -32,6 +32,8 @@ import java.io.InputStream;
 import java.util.HashMap;
 
 public class Device {
+    private static final String TAG = "MROMMgr::Device";
+
     public static Device load(String name) {
         Context ctx = MgrApp.getAppContext();
         StringBuilder b = new StringBuilder();
@@ -74,11 +76,11 @@ public class Device {
 
         JSONArray a = info.getJSONArray("devices");
 
-        Log.d("Device", "Loading device name: " + m_name);
+        Log.d(TAG, "Loading device name: " + m_name);
         for(int i = 0; i < a.length(); ++i) {
             JSONObject d = a.getJSONObject(i);
             m_devices.put(d.getString("name"), d.getString("path"));
-            Log.d("Device", "Loading device " + d.getString("name") + " path " + d.getString("path"));
+            Log.d(TAG, "Loading device " + d.getString("name") + " path " + d.getString("path"));
         }
 
         m_manifestUrl = info.optString("manifest_url", Manifest.DEFAULT_URL);

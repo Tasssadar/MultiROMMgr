@@ -30,7 +30,7 @@ import android.preference.PreferenceManager;
 import android.util.Log;
 
 public class UpdateChecker {
-
+    private static final String TAG = "MROMMgr::UpdateChecker";
     private static final int REQ_UPDATE_CHECK = 1;
     private static final int UPDATE_NOTIFICATION_ID = 1;
 
@@ -98,7 +98,7 @@ public class UpdateChecker {
             i.cancel();
         }
 
-        Log.d("MultiROMMgr", "Setting update alarm to " + run);
+        Log.d(TAG, "Setting update alarm to " + run);
     }
 
     private static void spawnUpdateNotification(Context ctx) {
@@ -129,7 +129,7 @@ public class UpdateChecker {
     private static class UpdateCheckThread extends Thread {
         @Override
         public void run() {
-            Log.d("MultiROMMgr", "Checking for updates...");
+            Log.i(TAG, "Checking for updates...");
 
             SharedPreferences p = MgrApp.getPreferences();
             String mromVer = p.getString("last_multirom_ver", null);
@@ -145,7 +145,7 @@ public class UpdateChecker {
             // "..has acquired root.." toasts. The signature will be checked when the user opens
             // the app anyway
             if(!man.downloadAndParse(dev, false)) {
-                Log.e("MultiROMMgr", "Failed to download manifest in update checker!");
+                Log.e(TAG, "Failed to download manifest in update checker!");
                 return;
             }
 
@@ -167,7 +167,7 @@ public class UpdateChecker {
     public static class BootCompletedReceiver extends BroadcastReceiver {
         @Override
         public void onReceive(Context context, Intent intent) {
-            Log.d("MultiROMMgr", "Updating alarm status on boot...");
+            Log.d(TAG, "Updating alarm status on boot...");
             updateAlarmStatus();
         }
     }

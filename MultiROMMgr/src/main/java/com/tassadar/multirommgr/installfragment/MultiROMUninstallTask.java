@@ -37,6 +37,7 @@ import java.util.List;
 import eu.chainfire.libsuperuser.Shell;
 
 public class MultiROMUninstallTask extends MultiROMTask {
+    private static final String TAG = "MROMMgr::MultiromUninstallTask";
 
     public MultiROMUninstallTask(Manifest man, Device dev) {
         super(man, dev);
@@ -48,7 +49,7 @@ public class MultiROMUninstallTask extends MultiROMTask {
         File destDir = new File(dest);
         destDir.mkdirs();
 
-        Log.d("MultiROMUninstallTask", "Using download directory: " + dest);
+        Log.d(TAG, "Using download directory: " + dest);
 
         Manifest.InstallationFile uninstaller = m_manifest.getUninstallerFile();
 

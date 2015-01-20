@@ -126,7 +126,7 @@ public class Utils {
 
         String bb = Utils.extractAsset("busybox");
         if(bb == null) {
-            Log.e("MulitoROMMgr", "Failed to extract busybox!");
+            Log.e(TAG, "Failed to extract busybox!");
             return;
         }
 
@@ -161,7 +161,7 @@ public class Utils {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        Log.e("Utils", "reboot with target " + target + " failed!");
+        Log.e(TAG, "reboot with target " + target + " failed!");
         return false;
     }
 
@@ -242,7 +242,7 @@ public class Utils {
 
             int res = conn.getResponseCode();
             if(res != HttpURLConnection.HTTP_OK && res != HttpURLConnection.HTTP_PARTIAL) {
-                Log.e("Utils", "downloadFile failed for url \"" + strUrl + "\" with code " + res);
+                Log.e(TAG, "downloadFile failed for url \"" + strUrl + "\" with code " + res);
                 return false;
             }
 

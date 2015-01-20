@@ -37,6 +37,7 @@ import java.util.List;
 import eu.chainfire.libsuperuser.Shell;
 
 public class UbuntuInstallTask extends InstallAsyncTask  {
+    private static final String TAG = "MROMMgr::UbuntuInstallTask";
 
     public static final String DOWN_DIR = "UbuntuTouch";
 
@@ -63,8 +64,8 @@ public class UbuntuInstallTask extends InstallAsyncTask  {
             return null;
         }
 
-        Log.d("UbuntuInstallTask", "Using download directory: " + dest);
-        Log.d("UbuntuInstallTask", "Using SU download directory: " + suDestDir);
+        Log.d(TAG, "Using download directory: " + dest);
+        Log.d(TAG, "Using SU download directory: " + suDestDir);
 
         ArrayList<UbuntuFile> files = m_info.buildDownloadList();
         final String base_url = m_device.getUbuntuBaseUrl();

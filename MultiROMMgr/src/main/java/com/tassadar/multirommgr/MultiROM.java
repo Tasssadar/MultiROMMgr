@@ -44,6 +44,8 @@ import java.util.Set;
 import eu.chainfire.libsuperuser.Shell;
 
 public class MultiROM {
+    private static final String TAG = "MROMMgr::MultiROM";
+
     // Minimum MultiROM version which is able to boot ROMs
     // via --boot-rom argument
     public static final String MIN_BOOT_ROM_VER = "19g";
@@ -66,7 +68,7 @@ public class MultiROM {
             return false;
 
         m_path = out.get(0);
-        Log.d("MultiROM", "Found in path " + m_path);
+        Log.d(TAG, "Found in path " + m_path);
         if(Utils.isSELinuxEnforcing()) {
             Utils.chcon(Utils.CHCON_EXECUTABLE,
                     m_path + "multirom",
@@ -83,7 +85,7 @@ public class MultiROM {
             return false;
 
         m_version = out.get(0);
-        Log.d("MultiROM", "MultiROM version: " + m_version);
+        Log.d(TAG, "MultiROM version: " + m_version);
         return true;
     }
 
@@ -249,7 +251,7 @@ public class MultiROM {
         if(rom.type == Rom.ROM_PRIMARY) {
             String b = Utils.extractAsset("busybox");
             if(b == null) {
-                Log.e("MultiROM", "Failed to extract busybox!");
+                Log.e(TAG, "Failed to extract busybox!");
                 return;
             }
 
@@ -268,7 +270,7 @@ public class MultiROM {
 
     public void eraseROM(Rom rom) {
         if(rom.type == Rom.ROM_PRIMARY) {
-            Log.e("MultiROM", "Attempted to delete primary ROM!");
+            Log.e(TAG, "Attempted to delete primary ROM!");
             return;
         }
 
@@ -300,7 +302,7 @@ public class MultiROM {
                 m_path, rom.name));
 
         if (out == null || out.isEmpty()) {
-            Log.e("MultiROM", "Failed to check for kexec in ROM " + rom.name);
+            Log.e(TAG, "Failed to check for kexec in ROM " + rom.name);
             return true;
         }
 
@@ -409,7 +411,7 @@ public class MultiROM {
         try {
             File iconsDir = Rom.getIconsDir();
             if(iconsDir == null) {
-                Log.e("MultiROM", "Failed to find icons directory!");
+                Log.e(TAG, "Failed to find icons directory!");
                 return;
             }
             File dest = new File(iconsDir, hash + ".png");
