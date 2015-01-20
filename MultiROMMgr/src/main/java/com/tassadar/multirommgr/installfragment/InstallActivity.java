@@ -138,7 +138,7 @@ public class InstallActivity extends ActionBarActivity implements ServiceConnect
     }
 
     private void startInstallation() {
-        if(m_installInfo == null) {
+        if(m_installInfo == null || !StatusAsyncTask.initialized()) {
             Log.e("InstallActivity", "No installation info!");
             m_term.append("No installation info!");
             return;

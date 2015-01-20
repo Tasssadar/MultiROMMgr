@@ -56,6 +56,9 @@ public class StatusAsyncTask extends AsyncTask <Void, String, StatusAsyncTask.Re
             instance = new StatusAsyncTask();
         return instance;
     }
+    public static boolean initialized() {
+        return instance != null;
+    }
 
     public static void destroy() {
         instance = null;

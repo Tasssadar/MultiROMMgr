@@ -6,7 +6,8 @@
         android:key="pref_dev">
         <CheckBoxPreference
             android:key="dev_manifest_url_override"
-            android:title="@string/pref_manifest_override"/>
+            android:title="@string/pref_manifest_override"
+            android:defaultValue="false"/>
         <EditTextPreference
             android:key="dev_manifest_url_v2"
             android:title="@string/pref_manifest_url"
