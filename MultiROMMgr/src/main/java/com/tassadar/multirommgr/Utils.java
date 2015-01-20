@@ -29,6 +29,7 @@ import android.os.Build;
 import android.os.Environment;
 import android.util.Log;
 
+import java.io.BufferedInputStream;
 import java.io.ByteArrayInputStream;
 import java.io.Closeable;
 import java.io.File;
@@ -43,11 +44,12 @@ import java.net.URL;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.List;
+import java.util.zip.GZIPInputStream;
 
 import eu.chainfire.libsuperuser.Shell;
 
 public class Utils {
-
+    private static final String TAG = "MultiROMMgr::Utils";
     private static final int BUSYBOX_VER = 4;
 
     private static String m_downloadDir = null;
@@ -220,9 +222,11 @@ public class Utils {
             conn = (HttpURLConnection) url.openConnection();
             conn.setInstanceFollowRedirects(true);
             conn.setUseCaches(useCache);
+            conn.addRequestProperty("Accept-Encoding", "gzip,deflate");
 
-            if(useCache)
+            if(useCache) {
                 conn.addRequestProperty("Cache-Control", "max-age=0");
+            }
 
             if(offset > 0) {
                 conn.addRequestProperty("Range", "Bytes=" + offset + "-");
@@ -242,7 +246,12 @@ public class Utils {
             long downloaded = offset;
 
             byte[] buff = new byte[8192];
-            in = conn.getInputStream();
+
+            in = new BufferedInputStream(conn.getInputStream());
+
+            if("gzip".equals(conn.getContentEncoding()) || (useCache && gzipEncodingSafeguard(strUrl, buff, in))) {
+                in = new GZIPInputStream(in);
+            }
 
             for(int len; (len = in.read(buff)) != -1;) {
                 downloaded += len;
@@ -254,20 +263,28 @@ public class Utils {
                         return false;
                 }
             }
-        } catch(IOException ex) {
-            throw ex;
         } finally {
-            try {
-                if(in != null)
-                    in.close();
-            } catch (IOException ex) {
-                ex.printStackTrace();
-            }
-
+            Utils.close(in);
             if(conn != null)
                 conn.disconnect();
         }
         return true;
+    }
+
+    private static boolean gzipEncodingSafeguard(final String url, byte[] buff, InputStream in) throws IOException {
+        if(!url.endsWith(".json") && !url.endsWith(".txt"))
+            return false;
+
+        in.mark(4);
+        int res = in.read(buff, 0, 2);
+        in.reset();
+
+        if(res == 2 && buff[0] == 31 && buff[1] == -117) { // gzip magic header, 0x1f 0x8b
+            Log.i(TAG, "GZIP compression detected in file " + url + ", using GZIPInputStream fallback!");
+            return true;
+        } else {
+            return false;
+        }
     }
 
     public static void installHttpCache(Context ctx) {
