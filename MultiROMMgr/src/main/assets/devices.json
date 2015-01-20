@@ -5,6 +5,7 @@
             "ubuntu_touch": {
                 "enabled": true
             },
+            "official": true,
             "devices": [
                 {
                     "name": "recovery",
@@ -26,6 +27,7 @@
                 "enabled": true,
                 "base_url": "http://system-image.tasemnice.eu"
             },
+            "official": true,
             "devices": [
                 {
                     "name": "recovery",
@@ -46,6 +48,7 @@
             "ubuntu_touch": {
                 "enabled": true
             },
+            "official": true,
             "devices": [
                 {
                     "name": "recovery",
@@ -66,6 +69,7 @@
             "ubuntu_touch": {
                 "enabled": true
             },
+            "official": true,
             "devices": [
                 {
                     "name": "recovery",
@@ -87,6 +91,7 @@
                 "enabled": true,
                 "base_url": "http://system-image.tasemnice.eu"
             },
+            "official": true,
             "devices": [
                 {
                     "name": "recovery",

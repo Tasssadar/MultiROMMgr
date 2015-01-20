@@ -95,9 +95,7 @@ public class InstallFragment extends MainFragment implements StatusAsyncTask.Sta
 
         if(res.manifest != null) {
             mCardView.addCard(new InstallCard(m_cardsSavedState, res.manifest, res.recovery == null, this));
-            if(!res.device.supportsUbuntuTouch()) {
-                showNotificationCard(R.layout.ubuntu_unsupported_card, "showUbuntuUnsupported");
-            } else if(res.multirom != null && res.recovery != null) {
+            if(res.device.supportsUbuntuTouch() && res.multirom != null && res.recovery != null) {
                 UbuntuManifestAsyncTask.instance().setListener(this);
                 mCardView.addCard(new UbuntuCard(m_cardsSavedState, this, res.manifest, res.multirom, res.recovery));
                 hasUbuntu = true;
@@ -107,6 +105,14 @@ public class InstallFragment extends MainFragment implements StatusAsyncTask.Sta
         } else if((res.code & StatusAsyncTask.RES_NO_MANIFEST) != 0) {
             showNotificationCard(R.layout.no_manifest_card, "showNoManifestCard");
         }
+
+        if(res.device != null) {
+            if(!res.device.isOfficialPort())
+                showNotificationCard(R.layout.unofficial_port_card, "showUnofficialPortCard");
+            if(!res.device.supportsUbuntuTouch())
+                showNotificationCard(R.layout.ubuntu_unsupported_card, "showUbuntuUnsupported");
+        }
+
 
         if(!hasUbuntu)
             m_actListener.setRefreshComplete();

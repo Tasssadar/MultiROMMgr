@@ -135,6 +135,8 @@
     <string name="deprecated_l_title">Unsupported Android Version!</string>
     <string name="deprecated_l_text">Android L developer preview is deprecated and has bugs which cause version 1.163 and higher of this application to crash.\nYou can get last working version, 1.152, on this address:\nhttp://tasemnice.eu/perm/MultiROMMgr-v1.152.apk\n\nYou have to uninstall this version of the app completely before trying to install the older one.</string>
     <string name="deprecated_l_btn">Exit application</string>
+    <string name="unofficial_port_title">This device is not officially supported!</string>
+    <string name="unofficial_port_text">This device is not directly supported by the author of MultiROM. You will not receive any help from him, ask the member of community who ported MultiROM to this device instead.\n\nA thread for this device\'s port probably exists on XDA-developers forums - you can find help there. Current links to XDA threads for each device are at the bottom of this app\'s Play Store description.</string>
 
     <string-array name="reboot_options">
         <item>System</item>
