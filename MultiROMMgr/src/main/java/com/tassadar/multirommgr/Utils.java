@@ -58,7 +58,11 @@ public class Utils {
             return m_downloadDir;
 
         SharedPreferences p = MgrApp.getPreferences();
-        m_downloadDir = p.getString(SettingsFragment.GENERAL_DOWNLOAD_DIR, getDefaultDownloadDir());
+        final String def = getDefaultDownloadDir();
+        m_downloadDir = p.getString(SettingsFragment.GENERAL_DOWNLOAD_DIR, def);
+        if(m_downloadDir == null || m_downloadDir.isEmpty()) {
+            setDownloadDir(def);
+        }
         return m_downloadDir;
     }
 
