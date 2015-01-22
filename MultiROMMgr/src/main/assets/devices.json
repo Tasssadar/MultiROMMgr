@@ -378,6 +378,29 @@
                     "path": "/dev/block/platform/msm_sdcc.1/by-name/cache"
                 }
             ]
+        },
+        {
+            "names": [ "X9180", "x9180", "V9180", "v9180", "U9180", "u9180", "N9180", "n9180" ],
+            "manifest_url": "https://raw.githubusercontent.com/proDOOMman/android_X9180_MultiROM/master/release/manifest.json",
+            "check_gpg": false,
+            "ubuntu_touch": {
+                "enabled": false,
+                "base_url": ""
+            },
+            "devices": [
+                {
+                    "name": "recovery",
+                    "path": "/dev/block/platform/msm_sdcc.1/by-name/recovery"
+                },
+                {
+                    "name": "boot",
+                    "path": "/dev/block/platform/msm_sdcc.1/by-name/boot"
+                },
+                {
+                    "name": "cache",
+                    "path": "/dev/block/platform/msm_sdcc.1/by-name/cache"
+                }
+            ]
         }
     ]
 }
