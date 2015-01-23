@@ -129,7 +129,8 @@ public class InstallService extends Service implements InstallListener {
 
     private void releaseWakeLock() {
         if(m_wakeLock != null) {
-            m_wakeLock.release();
+            if(m_wakeLock.isHeld())
+                m_wakeLock.release();
             m_wakeLock = null;
         }
     }
