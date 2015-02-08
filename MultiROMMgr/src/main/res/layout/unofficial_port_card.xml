@@ -20,5 +20,5 @@
         android:padding="8dp"
         style="@style/CardText"
         android:text="@string/unofficial_port_text"
-        android:maxLines="100"/>
+        android:maxLines="1000"/>
 </LinearLayout>
