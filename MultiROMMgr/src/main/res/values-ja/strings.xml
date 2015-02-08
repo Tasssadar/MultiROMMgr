@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">MultiROM Manager</string>
+    <string name="action_settings">設定</string>
+    <string name="status">状態</string>
+    <string name="no_su">root権限が取得できません!</string>
+    <string name="action_refresh">再読み込み</string>
+    <string name="unsupported">非対応の機器(%1$s)です!</string>
+    <string name="status_text"><![CDATA[<b>MultiROM:</b> v%1$s%2$s<br><b>リカバリ:</b> %3$s%4$s<br><b>カーネル:</b> %5$s]]></string>
+    <string name="mrom_ver_fail">MultiROMのバージョンを読み取れません!</string>
+    <string name="no_multirom">MultiROMはインストールされていません。</string>
+    <string name="no_recovery">MultiROMリカバリはインストールされていません。</string>
+    <string name="has_kexec"><![CDATA[<font color=\"#339900\">にはkexec-hardbootパッチが当たっています!</font>]]></string>
+    <string name="no_kexec"><![CDATA[<font color=\"red\">にはkexec-hardbootパッチが当たっていません!</font>]]></string>
+    <string name="update_available"><![CDATA[<font color=\"blue\"> (更新があります)</font>]]></string>
+    <string name="manifest_fail">更新情報のダウンロードに失敗しました!</string>
+    <string name="install_multirom">MultiROM v%1$s</string>
+    <string name="install_recovery">リカバリ %1$s</string>
+    <string name="install_kernel">カーネル:</string>
+    <string name="install">インストール</string>
+    <string name="install_title">インストール/更新</string>
+    <string name="cancel">キャンセル</string>
+    <string name="download_progress">%1$s (%2$d kB of %3$d kB)...</string>
+    <string name="try_again">再試行</string>
+    <string name="uninterruptable">この操作はキャンセル出来ません。</string>
+    <string name="reboot">再起動</string>
+    <string name="reboot_message">インストールするにはリカバリへ再起動しないといけません。</string>
+    <string name="ubuntu_card">Ubuntu Touchのインストール</string>
+    <string name="channel">チャンネル:</string>
+    <string name="ubuntu_man_failed">Ubuntu Touchのメタデータのダウンロードと解析に失敗しました。</string>
+    <string name="version">バージョン:</string>
+    <string name="required"><![CDATA[<font color=\"blue\">&nbsp;(必須)</font>]]></string>
+    <string name="ubuntu_req_multirom">MultiROM v%s以上が必須です。</string>
+    <string name="ubuntu_req_recovery">リカバリ %s以上が必須です。</string>
+    <string name="ubuntu_touch">Ubuntu Touch</string>
+    <string name="pref_hidden_channels">隠しチャンネルを表示</string>
+    <string name="pref_hidden_channels_summ">デフォルトでは隠されているチャンネル(開発停止か開発者向け)を表示します。</string>
+    <string name="pref_delete_utouch_files">使用済みインストールファイルを削除</string>
+    <string name="pref_delete_utouch_files_summ">インストールを完了するためリカバリへ再起動する前に、インストールに使ったUbuntu Touchファイルを削除します。空き容量を増やせますが、もしインストールに失敗したらダウンロードし直さないといけません。\n\nファイルのダウンロード先: %1$s/%2$s</string>
+    <string name="general">基本設定</string>
+    <string name="pref_auto_reboot">再起動を確認しない</string>
+    <string name="pref_auto_reboot_summ">インストール完了に再起動が必要なときに、確認せずすぐ再起動するようにします。</string>
+    <string name="install_success">インストールしました。</string>
+    <string name="install_failed">インストール失敗!</string>
+    <string name="downloading_file">%sのダウンロード中...</string>
+    <string name="success"><![CDATA[<font color=\"green\">成功</font><br>]]></string>
+    <string name="failed"><![CDATA[<font color=\"red\">失敗!</font><br>]]></string>
+    <string name="preparing_downloads">ダウンロードの準備中...%s</string>
+    <string name="invalid_url">間違ったURL: %s</string>
+    <string name="skipping_file"><![CDATA[ダウンロード済みのファイル%sをスキップします<br>]]></string>
+    <string name="checking_file">%sの確認中... </string>
+    <string name="ok"><![CDATA[<font color=\"green\">OK</font><br>]]></string>
+    <string name="installing_files">インストール中...</string>
+    <string name="installing_file">%sのインストール中...</string>
+    <string name="needs_recovery"><![CDATA[<font color=\"yellow\">リカバリが必要</font><br>]]></string>
+    <string name="su_failed_find_dir"><![CDATA[SUとしてダウンロードディレクトリを見つけられません<br>]]></string>
+    <string name="installing_utouch">Ubuntu Touchのインストール中...</string>
+    <string name="failed_create_rom"><![CDATA[ROMフォルダを作成できません!<br>]]></string>
+    <string name="installing_rom"><![CDATA[<br>ROM <font color=\"yellow\">%s</font>のインストール中<br>]]></string>
+    <string name="failed_rom_init"><![CDATA[ROMフォルダを初期化できません!<br>]]></string>
+    <string name="ok_skippping"><![CDATA[<font color=\"green\">OK、スキップ中</font><br>]]></string>
+    <string name="failed_redownload"><![CDATA[<font color=\"#FF9900\">失敗、再ダウンロード中</font><br>]]></string>
+    <string name="failed_busybox">busyboxを抽出できません!</string>
+    <string name="copying_file">%sのコピー中...</string>
+    <string name="failed_file_copy"><![CDATA[<br><font color=\"red\">%sのコピーに失敗しました!</font><br>]]></string>
+    <string name="deleting_used_files"><![CDATA[使用済みファイルの削除中...<br>]]></string>
+    <string name="ubuntu_free_space">現在の空き容量は%1$dMBです。内部ストレージに最低でも%2$dMBの空き容量がないとインストールに失敗する可能性が高いです!</string>
+    <string name="pref_update_check">更新の確認</string>
+    <string name="pref_update_check_sum">MultiROMとリカバリの更新を12時間毎に確認して、更新があれば通知します。</string>
+    <string name="update_notification">MultiROMの更新があります。</string>
+    <string name="pref_download_dir_sum">Managerはこのフォルダにファイルをダウンロードします。 Ubuntu Touchファイルは\"UbuntuTouch\"サブフォルダに保存されます。</string>
+    <string name="pref_download_dir">ダウンロードディレクトリの変更</string>
+    <string name="changelogs">更新履歴</string>
+    <string name="changelog_failed">\n\n\n更新履歴のダウンロードに失敗しました。</string>
+    <string name="done">完了しました。</string>
+    <string name="about_ubuntu_touch">アプリについて</string>
+    <string name="back">戻る</string>
+    <string name="about_ubuntu_text2"><b>This card installs Ubuntu Touch as secondary ROM. It will not wipe any of your data, it will just add it into MultiROM.</b>\n\nAs for which channel to choose, <b>stable</b> is the current stable version. On the other hand, <b>devel</b> is the version which is currently in development, meaning it has the latest updates and because Touch is still in development, it is generally the way to go.\n\t<b>*-proposed</b> means this channel contains daily builds which were not tested at all.\n\t<b>*-customized</b> are images built to test carrier-specific customization and are not what you want to use.\n\tNamed channels like <b>trusty</b> or <b>utopic</b> are Ubuntu release names. <b>Devel</b> is alias for one of these - it always points to the release which is currently in development. On the other hand, e.g. <b>utopic</b> will stay on 14.10 even after it is released, while <b>devel</b> will move on to 15.04.</string>
+    <string name="installation">インストール</string>
+    <string name="action_reboot">再起動...</string>
+    <string name="ubuntu_unsupported">この機器ではUbuntu Touchは対応していません。</string>
+    <string name="about">アプリについて</string>
+    <string name="about_version">バージョン</string>
+    <string name="about_licenses">ライセンス</string>
+    <string name="about_licenses_summ">MultiROM ManagerはGNU GPLv3でライセンスされており、Apache 2.0でライセンスされた以下のライブラリを使用しています:\nlibsuperuser\nCardsUI</string>
+    <string name="already_developer">既に開発者のため、必要ありません。</string>
+    <string name="now_developer">あなたは今開発者になりました!</string>
+    <string name="dev_options">開発者向けオプション</string>
+    <string name="pref_manifest_url">マニフェストURL</string>
+    <string name="steps_developer">開発者になるまであと%dステップです。</string>
+    <string name="pref_device_name">機器名の上書き</string>
+    <string name="dangerous">危険です!</string>
+    <string name="drawer_open">ドロワを開く</string>
+    <string name="drawer_close">ドロワを閉じる</string>
+    <string name="rom_list_empty">セカンダリROMがありません。</string>
+    <string name="rename_rom">ROMの名前の変更</string>
+    <string name="rename">名前の変更</string>
+    <string name="rom_name_taken">同じ名前が既にあります!</string>
+    <string name="rom_name_empty">名前は空白に出来ません!</string>
+    <string name="erase_rom">ROM \"%s\"を完全に削除します!</string>
+    <string name="erase_rom_title">ROMを消去しますか?</string>
+    <string name="erase">消去</string>
+    <string name="erasing_rom">ROMの消去中...</string>
+    <string name="boot_rom">ROM \"%s\"を起動しますか?</string>
+    <string name="booting">ROMの起動中...</string>
+    <string name="rom_boot_kexec">このROMはkexec-hardbootパッチが当たっているカーネルが必要です。インストールしてください。</string>
+    <string name="rom_boot_failed">ROMの起動に失敗しました!</string>
+    <string name="rom_boot_req_ver">このアプリから直接ROMを起動するにはMultiROM v%s以上が必要です。</string>
+    <string name="ok_nohtml">OK</string>
+    <string name="boot">起動</string>
+    <string name="boot_rom_title">ROMを起動しますか?</string>
+    <string name="select_icon">アイコンの選択</string>
+    <string name="browse">参照&#8230;</string>
+    <string name="rom_list_widget">起動するROMを選んでください。</string>
+    <string name="ubuntu_man_no_channels">この機器の更新チャンネルが見つかりません。</string>
+    <string name="prog_checking_root">root権限を取得中</string>
+    <string name="prog_detecting_dev">機器タイプを検出中</string>
+    <string name="prog_looking_for_multirom">MultiROMを検出中</string>
+    <string name="prog_getting_roms">セカンダリROMを読み込み中</string>
+    <string name="prog_check_recovery">リカバリを確認中</string>
+    <string name="prog_check_kernel">カーネルを確認中</string>
+    <string name="prog_download_manifest">更新メタデータのダウンロード中</string>
+    <string name="uninstall">MultiROMのアンインストール</string>
+    <string name="uninstall_dialog_title">MultiROMをアンインストールしますか?</string>
+    <string name="uninstall_dialog_text">MultiROMとセカンダリROMを完全に削除します。プライマリROMはそのままになります。 MultiROMリカバリはインストールされたままなので、削除したければ他のリカバリで上書きしてください。</string>
+    <string name="continue_text">続行</string>
+    <string name="flavour">フレーバー:</string>
+    <string name="gpg_failed">GPG signature verification failed!</string>
+    <string name="alias_of">alias of</string>
+    <string name="no_manifest">この機器では自動更新/インストールには対応していません。</string>
+    <string name="pref_manifest_override">マニフェストURLの上書き</string>
+    <string name="notice">注意</string>
+    <string name="unsupported_details"><![CDATA[MultiROMには複雑な改変が必要です。機器毎に開発しないといけないため、対応している機器は限られています。<br>残念ながら、あなたの機器も非対応の機器です。<br><br>あなたの機器向けでMultiROMを使いたければ、<a href=\"https://github.com/Tasssadar/multirom/wiki/Porting-MultiROM\">MultiROM wiki page</a>を見て開発を初めて見るのも良いでしょう。]]></string>
+    <string name="deprecated_l_title">非対応のAndroidバージョンです!</string>
+    <string name="deprecated_l_text">Android L developer preview is deprecated and has bugs which cause version 1.163 and higher of this application to crash.\nYou can get last working version, 1.152, on this address:\nhttp://tasemnice.eu/perm/MultiROMMgr-v1.152.apk\n\nYou have to uninstall this version of the app completely before trying to install the older one.</string>
+    <string name="deprecated_l_btn">アプリの終了</string>
+    <string name="unofficial_port_title">この機器は公式にサポートされていません!</string>
+    <string name="unofficial_port_text">この機器はMultiROMの開発者によってサポートされていません。質問やバグ報告はMultiROMをこの機器に移植した人にしてください。\n\n移植した人のスレッドはXDA-developersフォーラムにあるかもしれません。XDAスレッドへのリンクはPlayストアのアプリ説明に書いています。</string>
+
+    <string-array name="reboot_options">
+        <item>システム</item>
+        <item>リカバリ</item>
+        <item>Bootloader</item>
+    </string-array>
+
+    <string-array name="main_fragment_titles">
+        <item>インストール/更新</item>
+        <item>ROMの管理</item>
+    </string-array>
+</resources>
