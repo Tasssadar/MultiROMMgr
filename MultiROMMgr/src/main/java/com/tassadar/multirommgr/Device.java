@@ -86,6 +86,7 @@ public class Device {
         m_manifestUrl = info.optString("manifest_url", Manifest.DEFAULT_URL);
         m_checkGpgSignatures = info.optBoolean("check_gpg", true);
         m_isOfficialPort = info.optBoolean("official", false);
+        m_kexecCheckPath = info.optString("kexec_check_path");
 
         JSONObject o = info.getJSONObject("ubuntu_touch");
         m_supportsUbuntuTouch = o.getBoolean("enabled");
@@ -103,6 +104,7 @@ public class Device {
     public boolean supportsUbuntuTouch() { return m_supportsUbuntuTouch; }
     public String getUbuntuBaseUrl() { return m_ubuntuBaseUrl; }
     public boolean isOfficialPort() { return m_isOfficialPort; }
+    public String getKexecCheckPath() { return m_kexecCheckPath; }
 
     private String m_name;
     private String m_base_variant_name;
@@ -112,4 +114,5 @@ public class Device {
     private String m_manifestUrl;
     private boolean m_checkGpgSignatures;
     private boolean m_isOfficialPort;
+    private String m_kexecCheckPath;
 }

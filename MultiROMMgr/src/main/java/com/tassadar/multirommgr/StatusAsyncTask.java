@@ -154,7 +154,7 @@ public class StatusAsyncTask extends AsyncTask <Void, String, StatusAsyncTask.Re
         publishProgress(Utils.getString(R.string.prog_check_kernel));
 
         res.kernel = new Kernel();
-        res.kernel.findKexecHardboot(m != null ? m.getPath() + "busybox" : "");
+        res.kernel.findKexecHardboot(dev);
 
         publishProgress(Utils.getString(R.string.prog_download_manifest));
 

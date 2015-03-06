@@ -108,6 +108,28 @@
             ]
         },
         {
+            "names": [ "shamu" ],
+            "ubuntu_touch": {
+                "enabled": false
+            },
+            "official": true,
+            "kexec_check_path": "/proc/device-tree/soc/kexec_hardboot-hole",
+            "devices": [
+                {
+                    "name": "recovery",
+                    "path": "/dev/block/platform/msm_sdcc.1/by-name/recovery"
+                },
+                {
+                    "name": "boot",
+                    "path": "/dev/block/platform/msm_sdcc.1/by-name/boot"
+                },
+                {
+                    "name": "cache",
+                    "path": "/dev/block/platform/msm_sdcc.1/by-name/cache"
+                }
+            ]
+        },
+        {
             "names": [ "yuga", "C6603", "C6602", "C6606" ],
             "manifest_url": "http://team-simplicit.com/multirom/yuga/manifest.json",
             "check_gpg": false,

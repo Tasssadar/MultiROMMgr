@@ -30,24 +30,27 @@ public class Kernel {
         m_hasKexec = false;
     }
 
-    public boolean findKexecHardboot() {
+    public boolean findKexecHardboot(Device dev) {
         String b = Utils.extractAsset("busybox");
         if(b == null) {
             Log.e(TAG, "Failed to extract busybox!");
             return false;
         }
-        return findKexecHardboot(b);
+        return findKexecHardboot(dev, b);
     }
 
-    public boolean findKexecHardboot(String busybox) {
-        List<String> out = Shell.SU.run(
-                "if [ -f /proc/config.gz ] && [ -e \"" + busybox + "\" ]; then" +
-                "    " + busybox + " zcat /proc/config.gz | " + busybox + " grep -q 'CONFIG_KEXEC_HARDBOOT=y' && echo has_kexec && exit 0;" +
-                "fi;" +
-                "if [ -f /proc/atags ] || [ -d /proc/device-tree ] || [ \"$(" + busybox + " grep mrom_kexecd=1 /proc/cmdline)\" ]; then" +
-                "    echo has_kexec;" +
-                "    exit 0;" +
-                "fi;");
+    public boolean findKexecHardboot(Device dev, String busybox) {
+        List<String> out = null;
+        if(!dev.getKexecCheckPath().isEmpty()) {
+            out = Shell.SU.run("if [ -e \"%s\" ]; then echo has_kexec; fi;", dev.getKexecCheckPath());
+        } else {
+            out = Shell.SU.run(
+                    "if [ -f /proc/atags ] || [ -d /proc/device-tree ] || [ \"$(\"%s\" grep mrom_kexecd=1 /proc/cmdline)\" ]; then" +
+                    "    echo has_kexec;" +
+                    "    exit 0;" +
+                    "fi;",
+                    busybox, busybox, busybox, busybox);
+        }
 
         if(out == null || out.isEmpty())
             return false;

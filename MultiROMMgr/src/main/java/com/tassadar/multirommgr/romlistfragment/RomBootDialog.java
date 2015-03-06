@@ -127,7 +127,7 @@ public class RomBootDialog extends DialogFragment implements View.OnClickListene
                 }
 
                 Kernel k = new Kernel();
-                has_kexec = k.findKexecHardboot();
+                has_kexec = k.findKexecHardboot(StatusAsyncTask.instance().getDevice());
             }
 
             if(!has_kexec && m.isKexecNeededFor(m_rom)) {
