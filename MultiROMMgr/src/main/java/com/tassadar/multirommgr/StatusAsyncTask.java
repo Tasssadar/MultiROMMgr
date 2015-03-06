@@ -167,10 +167,10 @@ public class StatusAsyncTask extends AsyncTask <Void, String, StatusAsyncTask.Re
                 // device has no manifest and none was set in developer settings
                 res.code |= RES_NO_MANIFEST;
             } else {
-                if(man.hasCommand("RESET_MAN_URL")) {
+                if(man.hasCommand("RESET_MAN_URL") && p.getBoolean(SettingsFragment.DEV_OVERRIDE_MANIFEST, false)) {
                     res.manifest_reset_status = man.getCommandArg("RESET_MAN_URL");
                     SharedPreferences.Editor e = p.edit();
-                    e.remove(SettingsFragment.DEV_MANIFEST_URL);
+                    e.putBoolean(SettingsFragment.DEV_OVERRIDE_MANIFEST, false);
                     e.apply();
                     continue;
                 }
