@@ -423,6 +423,29 @@
                     "path": "/dev/block/platform/msm_sdcc.1/by-name/cache"
                 }
             ]
+        },
+        {
+            "names": [ "endeavoru" ],
+            "manifest_url": "http://madnation.net/multirom/endeavoru/manifest.json",
+            "check_gpg": false,
+            "ubuntu_touch": {
+                "enabled": false,
+                "base_url": ""
+            },
+            "devices": [
+                {
+                    "name": "recovery",
+                    "path": "/data/media/0/multirom/roms/TWRP/boot.img"
+                },
+                {
+                    "name": "boot",
+                    "path": "/dev/block/platform/sdhci-tegra.3/by-name/LNX"
+                },
+                {
+                    "name": "cache",
+                    "path": "/dev/block/platform/sdhci-tegra.3/by-name/CAC"
+                }
+            ]
         }
     ]
 }
