@@ -42,7 +42,11 @@ public class Kernel {
     public boolean findKexecHardboot(Device dev, String busybox) {
         List<String> out = null;
         if(!dev.getKexecCheckPath().isEmpty()) {
-            out = Shell.SU.run("if [ -e \"%s\" ]; then echo has_kexec; fi;", dev.getKexecCheckPath());
+            out = Shell.SU.run(
+                    "if [ -e \"%s\" ] || [ \"$(\"%s\" grep mrom_kexecd=1 /proc/cmdline)\" ]; then" +
+                    "     echo has_kexec;" +
+                    "fi;",
+                    dev.getKexecCheckPath(), busybox);
         } else {
             out = Shell.SU.run(
                     "if [ -f /proc/atags ] || [ -d /proc/device-tree ] || [ \"$(\"%s\" grep mrom_kexecd=1 /proc/cmdline)\" ]; then" +
