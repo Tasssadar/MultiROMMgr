@@ -46,7 +46,7 @@
         {
             "names": [ "grouper", "tilapia" ],
             "ubuntu_touch": {
-                "enabled": true
+                "enabled": false
             },
             "official": true,
             "devices": [
