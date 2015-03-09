@@ -110,12 +110,16 @@ public class RomIconDialog extends DialogFragment implements AdapterView.OnItemC
         String[] filePathColumn = {MediaStore.Images.Media.DATA};
         Cursor cursor = getActivity().getContentResolver().query(
                 selectedImage, filePathColumn, null, null, null);
-        cursor.moveToFirst();
+
+        if(!cursor.moveToFirst())
+        {
+            cursor.close();
+            return;
+        }
 
         int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
         String path = cursor.getString(columnIndex);
         cursor.close();
-
         if(path == null || path.isEmpty())
             return;
 
