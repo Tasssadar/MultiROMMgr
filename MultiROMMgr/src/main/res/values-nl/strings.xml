@@ -9,8 +9,8 @@
     <string name="unsupported">Dit apparaat wordt niet ondersteund (%1$s)!</string>
     <string name="status_text"><![CDATA[<b>MultiROM:</b> v%1$s%2$s<br><b>Recovery:</b> %3$s%4$s<br><b>Kernel:</b> %5$s]]></string>
     <string name="mrom_ver_fail">Het uitlezen van de MultiROM versie is mislukt!</string>
-    <string name="no_multirom">MultiROM is niet geinstalleerd.</string>
-    <string name="no_recovery">MultiROM-recovery is niet geinstalleerd.</string>
+    <string name="no_multirom">MultiROM is niet geïnstalleerd.</string>
+    <string name="no_recovery">MultiROM-recovery is niet geïnstalleerd.</string>
     <string name="has_kexec"><![CDATA[<font color=\"#339900\">heeft een kexec-hardboot patch</font>]]></string>
     <string name="no_kexec"><![CDATA[<font color=\"red\">heeft geen kexec-hardboot patch!</font>]]></string>
     <string name="update_available"><![CDATA[<font color=\"blue\"> (Update beschikbaar)</font>]]></string>
@@ -24,8 +24,8 @@
     <string name="download_progress">%1$s (%2$d kB van %3$d kB)...</string>
     <string name="try_again">Probeer opnieuw</string>
     <string name="uninterruptable">Dit proces kan niet onderbroken worden.</string>
-    <string name="reboot">Reboot</string>
-    <string name="reboot_message">U moet rebooten naar de recovery om de installatie te voltooien.</string>
+    <string name="reboot">Herstart</string>
+    <string name="reboot_message">U moet herstarten in recovery om de installatie te voltooien.</string>
     <string name="ubuntu_card">Installeer Ubuntu Touch</string>
     <string name="channel">Kanaal:</string>
     <string name="ubuntu_man_failed">Het downloaden en verwerken van de Ubuntu Touch-metadata is mislukt.</string>
@@ -68,7 +68,7 @@
     <string name="ubuntu_free_space">U heeft maar %1$dMB aan vrije ruimte over. Het is verstandig om minstens %2$dMB aan vrije, interne ruimte te hebben voor een succesvolle installatie!</string>
     <string name="pref_update_check">Op updates controleren</string>
     <string name="pref_update_check_sum">Controleer automatisch elke 12 uur of er updates beschikbaar zijn voor MultiROM of de recovery en laat hier een notificatie van zien (indien beschikbaar).</string>
-    <string name="update_notification">MultiROM update is available.</string>
+    <string name="update_notification">MultiROM update is beschikbaar.</string>
     <string name="pref_download_dir_sum">De Manager zal bestanden naar deze map downloaden. Ubuntu Touch-bestanden zullen zich in de sub-map \"UbuntuTouch\" bevinden.</string>
     <string name="pref_download_dir">Downloadmap wijzigen</string>
     <string name="changelogs">Changelogs</string>
@@ -76,6 +76,7 @@
     <string name="done">Voltooid, ga terug.</string>
     <string name="about_ubuntu_touch">Over</string>
     <string name="back">Terug</string>
+    <string name="about_ubuntu_text2"><b>Deze kaart installeert Ubuntu Touch als secundaire ROM. Het zal uw gegevens niet verwijderen, maar enkel worden toegevoegd aan MultiROM.</b>\n\nOm te beslissen welk kanaal te selecteren, <b>stable</b> is de huidige stabiele versie. Langs de andere kant, <b>devel</b> is de versie die momenteel ontwikkeld wordt, hierdoor zal deze over de laatste updates beschikken. Omdat Ubuntu Touch nog in volop ontwikkeling is, is dit de beste keuze.\n\t<b>*-proposed</b> betekent dat de dagelijkse builds in dit kanaal nog niet werden getest.\n\t<b>*-customized</b> betekent dat deze versies zijn gebouwd om specifieke dingen te testen, deze wil je niet gebruiken.\n\tKanaalnamen zoals <b>trusty</b> or <b>utopic</b> zijn de namen van verschillende Ubuntu Touch-uitgaves. <b>Devel</b> verwijst naar een van deze twee - maar altijd de uitgave die momenteel in ontwikkeling is. Langs de andere kant, zo zal <b>utopic</b> bijvoorbeeld altijd op 14.10 blijven, ook na de vrijgave, terwijl <b>devel</b> zal overgaan in 15.04.</string>
     <string name="installation">Installatie</string>
     <string name="action_reboot">Rebooten...</string>
     <string name="ubuntu_unsupported">Sorry, uw apparaat ondersteunt Ubuntu Touch niet.</string>
@@ -112,6 +113,30 @@
     <string name="select_icon">Selecteer icoon</string>
     <string name="browse">Bladeren&#8230;</string>
     <string name="rom_list_widget">Kies een ROM om te booten.</string>
+	<string name="ubuntu_man_no_channels">Geen updatekanaal werd gevonden voor dit apparaat.</string>
+    <string name="prog_checking_root">Root-toegang verkrijgen</string>
+    <string name="prog_detecting_dev">Apparaattype detecteren</string>
+    <string name="prog_looking_for_multirom">Op zoek naar MultiROM</string>
+    <string name="prog_getting_roms">Secundaire ROMs laden</string>
+    <string name="prog_check_recovery">Recovery controleren</string>
+    <string name="prog_check_kernel">Kernel controleren</string>
+    <string name="prog_download_manifest">Downloaden van metadata-updates</string>
+    <string name="uninstall">Verwijder MultiROM</string>
+    <string name="uninstall_dialog_title">MultiROM verwijderen?</string>
+    <string name="uninstall_dialog_text">Deze actie zal MultiROM en alle geïnstalleerde secundaire ROMs volledig verwijderen. Uw primaire ROM blijft intact. MultiROM recovery blijft nog geïnstalleerd, om deze te verwijderen, vervangen deze door een andere recovery.</string>
+    <string name="continue_text">Verdergaan</string>
+    <string name="flavour">Flavour:</string>
+    <string name="gpg_failed">GPG handtekeningverificatie mislukt!</string>
+    <string name="alias_of">alias van</string>
+    <string name="no_manifest">Automatische installatie en updates worden niet ondersteund op dit apparaat.</string>
+    <string name="pref_manifest_override">Override manifest URL</string>
+    <string name="notice">Notice</string>
+    <string name="unsupported_details"><![CDATA[MultiROM is een complex, low-level software modificatie. Het moet worden ontwikkeld voor elk apparaat afzonderlijk, dus er is maar een beperkt aantal ondersteunde apparaten.<br>Helaas, de jouwe is niet onder hen, sorry.<br><br>Als u wilt MultiROM ontwikkelen voor uw apparaat, <a href=\"https://github.com/Tasssadar/multirom/wiki/Porting-MultiROM\">the MultiROM wiki page</a> is een goede plek om te beginnen.]]></string>
+    <string name="deprecated_l_title">Niet-ondersteunde Android versie!</string>
+    <string name="deprecated_l_text">Android L developer preview is verouderd en heeft bugs waardoor versie 1.163 en hoger van deze applicatie crashen.\nU kunt de laatste werkende versie, 1.152, bekomen via deze site:\nhttp://tasemnice.eu/perm/MultiROMMgr-v1.152.apk\n\nJe moet deze versie van de app volledig verwijderen voordat u de oudere probeert te installeren.</string>
+    <string name="deprecated_l_btn">Verlaat applicatie</string>
+    <string name="unofficial_port_title">Dit apparaat wordt niet officieel ondersteund!</string>
+    <string name="unofficial_port_text">Dit apparaat wordt niet rechtstreeks door de auteur van MultiROM ondersteund. U zal geen hulp van hem ontvangen, vraag het in plaats daarvan aan de persoon die MultiROM naar dit apparaat geport heeft.\n\nEen discussie voor dit apparaat zijn port is waarschijnlijk aanwezig op het XDA-developers forum - u kunt daar hulp vinden. Huidige links naar XDA discussies voor elk apparaat kunt u onderaan van deze app\'s Play Store beschrijving vinden.</string>
 
     <string-array name="reboot_options">
         <item>Systeem</item>
@@ -123,5 +148,4 @@
         <item>Installeren/updaten</item>
         <item>Beheer ROMs</item>
     </string-array>
-
 </resources>
