@@ -1,12 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.tassadar.multirommgr"
-    android:versionCode="182"
-    android:versionName="1.182" >
-
-    <uses-sdk
-        android:minSdkVersion="16"
-        android:targetSdkVersion="21" />
+    android:versionCode="183"
+    android:versionName="1.183" >
 
     <uses-permission android:name="android.permission.ACCESS_SUPERUSER" />
     <uses-permission android:name="android.permission.INTERNET" />
