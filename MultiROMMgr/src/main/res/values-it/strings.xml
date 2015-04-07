@@ -136,7 +136,7 @@
     <string name="deprecated_l_text">Android L developer preview è obsoleto e ha dei bug che causano il crash di questa app a partire dalla versione 1.163.\nPuoi scaricare l\'ultima versione funzionante, la 1.152, a questo indirizzo:\nhttp://tasemnice.eu/perm/MultiROMMgr-v1.152.apk\n\nHai bisogno di disinstallare questa versione prima di installare la precedente.</string>
     <string name="deprecated_l_btn">Chiudi app</string>
     <string name="unofficial_port_title">Questo dispositivo non è supportato ufficialmente!</string>
-    <string name="unofficial_port_text">Questo dispositivo non è supportato direttamente dall'autore di MultiROM. Non riceverai nessun aiuto da lui, chiedi al membro della comunità che ha portato MultiROM su questo dispositivo.\n\nProbabilmente è stata creata una discussione per questo porting nel forum XDA-developers - lì puoi trovare aiuto. I link alle discussioni XDA per ogni dispositivo sono alla fine della descrizione di quest\'app nel Play Store.</string>
+    <string name="unofficial_port_text">Questo dispositivo non è supportato direttamente dall\'autore di MultiROM. Non riceverai nessun aiuto da lui, chiedi al membro della comunità che ha portato MultiROM su questo dispositivo.\n\nProbabilmente è stata creata una discussione per questo porting nel forum XDA-developers - lì puoi trovare aiuto. I link alle discussioni XDA per ogni dispositivo sono alla fine della descrizione di quest\'app nel Play Store.</string>
 
     <string-array name="reboot_options">
         <item>System</item>
