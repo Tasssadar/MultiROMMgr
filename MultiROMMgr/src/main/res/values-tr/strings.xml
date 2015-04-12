@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">MultiROM Yönetici</string>
+    <string name="action_settings">Ayarlar</string>
+    <string name="status">Durum</string>
+    <string name="no_su">Yetkili kullanıcı (root) yetkisi alınamadı!</string>
+    <string name="action_refresh">Yenile</string>
+    <string name="unsupported">Bu cihaz desteklenmiyor: (%1$s)!</string>
+    <string name="status_text"><![CDATA[<b>MultiROM:</b> v%1$s%2$s<br><b>Kurtarma (Recovery):</b> %3$s%4$s<br><b>Çekirdek:</b> %5$s]]></string>
+    <string name="mrom_ver_fail">MultiROM sürümünü okuma başarısız!</string>
+    <string name="no_multirom">MultiROM yüklenmedi.</string>
+    <string name="no_recovery">MultiROM kurtarma modu yüklenmedi.</string>
+    <string name="has_kexec"><![CDATA[<font color=\"#339900\">kexec-hardboot yaması mevcut</font>]]></string>
+    <string name="no_kexec"><![CDATA[<font color=\"red\">kexec-hardboot yaması yok!</font>]]></string>
+    <string name="update_available"><![CDATA[<font color=\"blue\"> (Güncelleme var)</font>]]></string>
+    <string name="manifest_fail">Güncelleme bilgisi indirme başarısız!</string>
+    <string name="install_multirom">MultiROM: v%1$s</string>
+    <string name="install_recovery">Kurtarma (Recovery): %1$s</string>
+    <string name="install_kernel">Çekirdek:</string>
+    <string name="install">Yükle</string>
+    <string name="install_title">Yükle/Güncelle</string>
+    <string name="cancel">İptal</string>
+    <string name="download_progress">%1$s (%2$d kB/%3$d kB)...</string>
+    <string name="try_again">Tekrar dene</string>
+    <string name="uninterruptable">Bu işlem yarıda kesilemez.</string>
+    <string name="reboot">Yeniden başlat</string>
+    <string name="reboot_message">Kurulumu tamamlamak için cihazı kurtarma modunda başlatmalısınız.</string>
+    <string name="ubuntu_card">Ubuntu Touch Kur</string>
+    <string name="channel">Kanal:</string>
+    <string name="ubuntu_man_failed">Ubuntu Touch bilgisini indirirken ve işlerken hata.</string>
+    <string name="version">Sürüm:</string>
+    <string name="required"><![CDATA[<font color=\"blue\">&nbsp;(gerekli)</font>]]></string>
+    <string name="ubuntu_req_multirom">MultiROM v%s ya da daha üstü gerekli.</string>
+    <string name="ubuntu_req_recovery">Kurtarma %s veya daha üstü gerekli.</string>
+    <string name="ubuntu_touch">Ubuntu Touch</string>
+    <string name="pref_hidden_channels">Gizli kanalları göster</string>
+    <string name="pref_hidden_channels_summ">Varsayılan olarak gizlenmiş kanalları göster (genelde inaktif ya da geliştiricilere özgü kanallar).</string>
+    <string name="pref_delete_utouch_files">Kullanılmış kurulum dosyalarını sil</string>
+    <string name="pref_delete_utouch_files_summ">Kurulumu tamamlamk için kurtarma modunda başlatmadan hemen önce Ubuntu Touch dosyalarını sil. Bu, yerden kazandır ancak kurulum başarısız olursa dosyaları yeniden indirmeniz gerekir.\n\nDosyalar şuraya indirilir: %1$s/%2$s</string>
+    <string name="general">Genel</string>
+    <string name="pref_auto_reboot">Yeniden başlatayım mı diye sorma</string>
+    <string name="pref_auto_reboot_summ">Kurulumu tamamlamak için gerekli olduğunda otomatik olarak kurtarma moduna yeniden başlat.</string>
+    <string name="install_success">Kurulum başarılı oldu.</string>
+    <string name="install_failed">Kurulum BAŞARISIZ!</string>
+    <string name="downloading_file">Dosya indiriliyor: %s...</string>
+    <string name="success"><![CDATA[<font color=\"green\">başarılı</font><br>]]></string>
+    <string name="failed"><![CDATA[<font color=\"red\">BAŞARISIZ!</font><br>]]></string>
+    <string name="preparing_downloads">İndirmeye hazırlanıyor...%s</string>
+    <string name="invalid_url">Geçersiz URL: %s</string>
+    <string name="skipping_file"><![CDATA[Zaten indirilmiş dosya geçiliyor %s<br>]]></string>
+    <string name="checking_file">Dosya kontrol ediliyor: %s... </string>
+    <string name="ok"><![CDATA[<font color=\"green\">tamam</font><br>]]></string>
+    <string name="installing_files">Dosyalar kuruluyor...</string>
+    <string name="installing_file">Dosya kuruluyor: %s...</string>
+    <string name="needs_recovery"><![CDATA[<font color=\"yellow\">kurtarma modu gerektiriyor</font><br>]]></string>
+    <string name="su_failed_find_dir"><![CDATA[Yetkili kullanıcı olarak indirme klasörü bulunamadı.<br>]]></string>
+    <string name="installing_utouch">Ubuntu Touch kuruluyor...</string>
+    <string name="failed_create_rom"><![CDATA[ROM klasörü oluşturulamadı!<br>]]></string>
+    <string name="installing_rom"><![CDATA[<br>ROM <font color=\"yellow\">%s</font> olarak yükleniyor<br>]]></string>
+    <string name="failed_rom_init"><![CDATA[ROM klasörü oluşturma başarısız!<br>]]></string>
+    <string name="ok_skippping"><![CDATA[<font color=\"green\">tmm, geçiliyor.</font><br>]]></string>
+    <string name="failed_redownload"><![CDATA[<font color=\"#FF9900\">başarısız, tkrr indrlyor.</font><br>]]></string>
+    <string name="failed_busybox">Busybox çıkırılırken hata!</string>
+    <string name="copying_file">%s dosyası kopyalanıyor...</string>
+    <string name="failed_file_copy"><![CDATA[<br><font color=\"red\">%s dosyası kopyalanırken hata!</font><br>]]></string>
+    <string name="deleting_used_files"><![CDATA[Kullanılmış dosyalar siliniyor...<br>]]></string>
+    <string name="ubuntu_free_space">Sadece %1$dMB yeriniz kalmış. Dahili bellekte en azından %2$dMB boş alan olması önerilir, aksi halde kurulum başarısız olabilir!</string>
+    <string name="pref_update_check">Güncellemeleri kontrol et</string>
+    <string name="pref_update_check_sum">Aşağı yukarı her 12 saatte bir MultiROM ve kurtarma modu güncellemelerini kontrol et ve güncelleme varsa bildirim göster.</string>
+    <string name="update_notification">MultiROM güncellemesi mevcut.</string>
+    <string name="pref_download_dir_sum">Dosyalar bu klasöre indirilecek. Ubuntu Touch dosyaları bu klasör altındaki \"UbuntuTouch\" klasörüne kaydedilecek.</string>
+    <string name="pref_download_dir">İndirme klasörünü değiştir</string>
+    <string name="changelogs">Değişiklik kütükleri</string>
+    <string name="changelog_failed">\n\n\nDeğişiklik kütüklerini indirme başarısız.</string>
+    <string name="done">Tamamlandı, geri dönün.</string>
+    <string name="about_ubuntu_touch">Hakkında</string>
+    <string name="back">Geri</string>
+    <string name="about_ubuntu_text2"><b>Bu kart UBuntu Touch\'ı ikincil ROM oolarak yükler. Verilerinizi silmeyecek, sadece onu MultiROM\'a ekleyecektir.</b>\n\Hangi kanalın seçileceğine gelirsek, <b>stable</b> şu anki kararlı sürüm. Diğer bir taraftan ise, <b>devel</b> şu an geliştirilmekte olan sürüm, son güncellemelere ve özelliklere sahiptir. Ubuntu Touch hala geliştirildiğinden genelde bu en uygun sürümdür.\n\t<b>*-proposed</b> kanalı ise henüz test edilmemiş günlük inşaları içerir.\n\t<b>*-customized</b> şebeke bazlı değişiklikler için üretlir ve muhtemelen sizin istediğiniz sürüm değildir.\n\tİsim verilmiş sürümler ise (örneğin <b>trusty</b> veya <b>utopic</b>) Ubuntu sürüm isimleridir. <b>Devel</b> bunlardan birinin kısaltmasıdır - her zaman geliştirilmekte olan sürüme işaret eder. Diğer bir yönden, örn. <b>utopic</b>, yayınlandıktan sonra bile 14.10\'u ifade ederken, <b>devel</b>15.04 sürümüne geçecektir.</string>
+    <string name="installation">Kurulum</string>
+    <string name="action_reboot">Yeniden başlat...</string>
+    <string name="ubuntu_unsupported">Ne yazık ki, Ubuntu Touch bu cihazı desteklemiyor.</string>
+    <string name="about">Hakkında</string>
+    <string name="about_version">Sürüm</string>
+    <string name="about_licenses">Lisanslar</string>
+    <string name="about_licenses_summ">MultiROM Yönetici (MultiROM Manager) GNU GPLv3 lisansı altında lisanslanmıştır ve Apache 2.0 lisansı altında lisanslanmış şu kütüphaneleri kullanır:\nlibsuperuser\nCardsUI</string>
+    <string name="already_developer">Gerekli değil, zaten geliştiricisiniz.</string>
+    <string name="now_developer">Artık geliştiricisiniz!</string>
+    <string name="dev_options">Geliştirici seçenekleri</string>
+    <string name="pref_manifest_url">Manifest URL</string>
+    <string name="steps_developer">Geliştirici olmakta %d adım uzaklıktasınız.</string>
+    <string name="pref_device_name">Cihaz adının üzerine yaz</string>
+    <string name="dangerous">Tehlikeli!</string>
+    <string name="drawer_open">Çekmeceyi aç</string>
+    <string name="drawer_close">Çekmeceyi kapat</string>
+    <string name="rom_list_empty">İkincil ROM bulunamadı.</string>
+    <string name="rename_rom">ROM\'u yeniden adlandır</string>
+    <string name="rename">Yeniden adlandır</string>
+    <string name="rom_name_taken">Bu isim zaten var!</string>
+    <string name="rom_name_empty">Boş isim giremezsiniz!</string>
+    <string name="erase_rom">Bu, \"%s\" ROM\'unu tamamen silecektir!</string>
+    <string name="erase_rom_title">ROM\'u sil?</string>
+    <string name="erase">Sil</string>
+    <string name="erasing_rom">ROM siliniyor...</string>
+    <string name="boot_rom">\"%s\" ROM\'u için yeniden başlatmak istiyor musunuz?</string>
+    <string name="booting">ROM\'a başlatılıyor...</string>
+    <string name="rom_boot_kexec">Bu ROM kexec-hardboot yaması olan bir çekirdek sürümü gerektirmektedir, lütfen yükleyiniz.</string>
+    <string name="rom_boot_failed">Bu ROM\'a yeniden başlatma başarısız oldu!</string>
+    <string name="rom_boot_req_ver">Bu uygulama üzerinden ROM\'ları direkt olarak başlatmak MultiROM v%s veya üstünü gerektirir.</string>
+    <string name="ok_nohtml">Tamam</string>
+    <string name="boot">Başlat</string>
+    <string name="boot_rom_title">ROM\'a başlat?</string>
+    <string name="select_icon">Select icon</string>
+    <string name="browse">Gözat&#8230;</string>
+    <string name="rom_list_widget">Başlatılacak ROM seçin.</string>
+    <string name="ubuntu_man_no_channels">Bu cihaz için güncelleme kanalı bulunamadı.</string>
+    <string name="prog_checking_root">Yetkili kullanıcı (root) izni kontrol ediliyor...</string>
+    <string name="prog_detecting_dev">Cihaz türü tespit ediliyor...</string>
+    <string name="prog_looking_for_multirom">MultiROM var mı diye bakılıyor...</string>
+    <string name="prog_getting_roms">İkincil ROM\'lar alınıyor...</string>
+    <string name="prog_check_recovery">Kurtarma modu kontrol ediliyor...</string>
+    <string name="prog_check_kernel">Çekirdek kontrol ediliyor...</string>
+    <string name="prog_download_manifest">Güncelleme bilgisi indiriliyor...</string>
+    <string name="uninstall">MultiROM\'u kaldır</string>
+    <string name="uninstall_dialog_title">MultiROM\'u kaldır?</string>
+    <string name="uninstall_dialog_text">Bu işlem MultiROM ve yüklü tüm ikincil sistemleri siler. Birinci ROM\'a dokunulmayacaktır. MultiROM kurtarma modu (recovery) hala kurulu olacak, onu da silmek isterseniz farklı bir recovery ile değiştirebilirsiniz .</string>
+    <string name="continue_text">Devam et</string>
+    <string name="flavour">Çeşit:</string>
+    <string name="gpg_failed">GPG imza doğrulaması başarısız oldu!</string>
+    <string name="alias_of"> şunun kısaltması</string>
+    <string name="no_manifest">Güncellemelerin otomatik olarak yüklenmesi bu cihazda desteklenmiyor.</string>
+    <string name="pref_manifest_override">Manifest URL\'sinin üzerine yaz</string>
+    <string name="notice">Not</string>
+    <string name="unsupported_details"><![CDATA[MultiROM, karmaşık, düşük seviyeli bir yazılımsal değişikliktir. Her cihaz için ayrı ayrı geliştirilmesi gereklidir. Bu nedenle, desteklenen sınırlı sayıda cihaz bulunmaktadır.<br>Ne yazık ki, sizinki bunlardan biri değil, üzgünüz.<br><br>Eğer cihazınız için MultiROM\'u geliştirmek istiyorsanız, <a href=\"https://github.com/Tasssadar/multirom/wiki/Porting-MultiROM\">MultiROM wiki sayfası</a> iyi bir başlangıç olabilir.]]></string>
+    <string name="deprecated_l_title">Desteklenmeyen Android Sürümü!</string>
+    <string name="deprecated_l_text">Android L geliştirici önizlemesi artık desteklenmiyor ve sürüm 1.163 ve üstünde çökmelere sebep oluyor.\En son düzgün çalışan sürüm olan 1.152\'yi şu adresten indirebilirsiniz:\nhttp://tasemnice.eu/perm/MultiROMMgr-v1.152.apk\n\nÖnceki sürümü yüklemeyi denemeden önce bu sürüm tamamen kaldırmanız gerekmektedir.</string>
+    <string name="deprecated_l_btn">Uygulamadan çık</string>
+    <string name="unofficial_port_title">Bu cihaz resmi olarak desteklenmiyor!</string>
+    <string name="unofficial_port_text">Bu cihaz MultiROM\'un geliştiricisi tarafından direkt olarak desteklenmemektedir. Ondan direkt olarak yardım alamayacaksınız, bu yüzden portu yapan kişiye ve topluluğuna yardım için danışabilirsiniz.\n\nBu cihazın portu için bir konu muhtemelen xda developers sitesinde bulunmaktadır - oradan yardım alabilirsiniz. Şu anki xda konularının listesi uygulamanın Play Store açıklamasının alt kısmında yer almaktadır..</string>/A
+    <string-array name="reboot_options">
+        <item>Sistem</item>
+        <item>Kurtarma</item>
+        <item>Bootloader</item>
+    </string-array>
+
+    <string-array name="main_fragment_titles">
+        <item>Kur/Güncelle</item>
+        <item>ROMları Yönet</item>
+    </string-array>
+</resources>
