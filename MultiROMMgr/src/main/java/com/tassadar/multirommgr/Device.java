@@ -91,6 +91,10 @@ public class Device {
         JSONObject o = info.getJSONObject("ubuntu_touch");
         m_supportsUbuntuTouch = o.getBoolean("enabled");
         m_ubuntuBaseUrl = o.optString("base_url", UbuntuManifest.DEFAULT_BASE_URL);
+        if (o.has("device")){
+            m_ubuntuDevice = o.getString("device");
+        }
+
     }
 
     public String getBootDev() { return m_devices.get("boot"); }
@@ -103,6 +107,7 @@ public class Device {
     public String getBaseVariantName() { return m_base_variant_name; }
     public boolean supportsUbuntuTouch() { return m_supportsUbuntuTouch; }
     public String getUbuntuBaseUrl() { return m_ubuntuBaseUrl; }
+    public String getUbuntuDevice() { return m_ubuntuDevice; }
     public boolean isOfficialPort() { return m_isOfficialPort; }
     public String getKexecCheckPath() { return m_kexecCheckPath; }
 
@@ -115,4 +120,5 @@ public class Device {
     private boolean m_checkGpgSignatures;
     private boolean m_isOfficialPort;
     private String m_kexecCheckPath;
+    private String m_ubuntuDevice = "";
 }

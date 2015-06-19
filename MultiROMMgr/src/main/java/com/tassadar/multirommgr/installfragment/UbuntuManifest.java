@@ -100,12 +100,20 @@ public class UbuntuManifest {
                 // Ubuntu Touch manifests, yet the versions
                 // for flo/grouper work fine - select those.
                 String dev_name = dev.getName();
-                if(!c.hasDevice(dev_name)) {
-                    dev_name = dev.getBaseVariantName();
-
-                    if(!c.hasDevice(dev_name)) {
+                if(dev.getUbuntuDevice() != ""){
+                    dev_name = dev.getUbuntuDevice();
+                    if (!c.hasDevice(dev_name)) {
                         c_itr.remove();
                         continue;
+                    }
+                }else {
+                    if (!c.hasDevice(dev_name)) {
+                        dev_name = dev.getBaseVariantName();
+
+                        if (!c.hasDevice(dev_name)) {
+                            c_itr.remove();
+                            continue;
+                        }
                     }
                 }
 
