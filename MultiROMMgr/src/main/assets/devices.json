@@ -446,6 +446,29 @@
                     "path": "/dev/block/platform/sdhci-tegra.3/by-name/CAC"
                 }
             ]
+        },
+        {
+            "names": [ "d851", "d855" ],
+            "manifest_url": "https://raw.githubusercontent.com/Eliminater74/eliminater74.github.com/master/Downloads/json/mr_g3.json",
+            "check_gpg": false,
+            "ubuntu_touch": {
+                "enabled": false,
+                "base_url": ""
+            },
+            "devices": [
+                {
+                    "name": "recovery",
+                    "path": "/dev/block/platform/msm_sdcc.1/by-name/recovery"
+                },
+                {
+                    "name": "boot",
+                    "path": "/dev/block/platform/msm_sdcc.1/by-name/boot"
+                },
+                {
+                    "name": "cache",
+                    "path": "/dev/block/platform/msm_sdcc.1/by-name/cache"
+                }
+            ]
         }
     ]
 }
