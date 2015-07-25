@@ -380,7 +380,30 @@
         },
         {
             "names": [ "z3", "D6603", "D6602", "D6633", "D6643" ],
-            "manifest_url": "http://multirom.myself5.de/leo/manifest.json",
+            "manifest_url": "http://multirom.myself5.de/z3/manifest.json",
+            "check_gpg": false,
+            "ubuntu_touch": {
+                "enabled": false,
+                "base_url": ""
+            },
+            "devices": [
+                {
+                    "name": "recovery",
+                    "path": "/dev/block/platform/msm_sdcc.1/by-name/FOTAKernel"
+                },
+                {
+                    "name": "boot",
+                    "path": "/dev/block/platform/msm_sdcc.1/by-name/boot"
+                },
+                {
+                    "name": "cache",
+                    "path": "/dev/block/platform/msm_sdcc.1/by-name/cache"
+                }
+            ]
+        },
+        {
+            "names": [ "z3c", "D5803", "D5833" ],
+            "manifest_url": "http://multirom.myself5.de/z3c/manifest.json",
             "check_gpg": false,
             "ubuntu_touch": {
                 "enabled": false,
