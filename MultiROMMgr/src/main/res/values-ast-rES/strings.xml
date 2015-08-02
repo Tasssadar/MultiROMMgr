@@ -1,0 +1,147 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<resources>
+  <string name="app_name">Xestor MultiROM</string>
+  <string name="action_settings">Axustes</string>
+  <string name="status">Estáu</string>
+  <string name="no_su">¡Fallu al consiguir l\'accesu root!</string>
+  <string name="action_refresh">Refrescar</string>
+  <string name="unsupported">¡Esti ye un preséu ensin sofitu (%1$s)!</string>
+  <string name="status_text"><![CDATA[<b>MultiROM:</b> v%1$s%2$s<br><b>Recovery:</b> %3$s%4$s<br><b>Kernel:</b> %5$s]]></string>
+  <string name="mrom_ver_fail">¡Fallu al lleer la versión MultiROM!</string>
+  <string name="no_multirom">Nun ta instaláu MultiROM.</string>
+  <string name="no_recovery">Nun ta instaláu\'l recovery MultiROM.</string>
+  <string name="has_kexec"><![CDATA[<font color=\"#339900\">tien el parche kexec-hardboot</font>]]></string>
+  <string name="no_kexec"><![CDATA[<font color=\"red\">¡nun tien el parche kexec-hardboot!</font>]]></string>
+  <string name="update_available"><![CDATA[<font color=\"blue\"> (Anovamientu disponible)</font>]]></string>
+  <string name="manifest_fail">¡Fallu al baxar la información tocante a los anovamientos!</string>
+  <string name="install_multirom">MultiROM v%1$s</string>
+  <string name="install_recovery">Recovery %1$s</string>
+  <string name="install_kernel">Kernel:</string>
+  <string name="install">Instalar</string>
+  <string name="install_title">Instalación/Anovamientu</string>
+  <string name="cancel">Encaboxar</string>
+  <string name="download_progress">%1$s (%2$d kB de %3$d kB)...</string>
+  <string name="try_again">Intentar de nueves</string>
+  <string name="uninterruptable">Nun pue torgase esta operación.</string>
+  <string name="reboot">Reaniciar</string>
+  <string name="reboot_message">Tienes de reaniciar al recovery pa completar la instalación.</string>
+  <string name="ubuntu_card">Instalación d\'Ubuntu Touch</string>
+  <string name="channel">Canal:</string>
+  <string name="ubuntu_man_failed">Fallu al baxar y analizar los datos meta d\'Ubuntu Touch.</string>
+  <string name="version">Versión:</string>
+  <string name="required"><![CDATA[<font color=\"blue\">&nbsp;(riquíu)</font>]]></string>
+  <string name="ubuntu_req_multirom">Ríquese MultiROM v%s o mayor.</string>
+  <string name="ubuntu_req_recovery">Ríquese\'l recovery %s o más nuevu.</string>
+  <string name="ubuntu_touch">Ubuntu Touch</string>
+  <string name="pref_hidden_channels">Amosar canales anubríes</string>
+  <string name="pref_hidden_channels_summ">Amuesa les canales que s\'anubren por defeutu (davezu canales inactivos o namái pa desendolcadores).</string>
+  <string name="pref_delete_utouch_files">Desaniciar ficheros d\'instalación usaos</string>
+  <string name="pref_delete_utouch_files_summ">Desanicia los ficheros d\'Ubuntu Touch xusto enantes de reaniciar nel recovery pa completar la instalación. Esto aforra espaciu, pero tendrás de baxar de nueves los ficheros si falla la instalación.\n\nLos ficheros báxense a %1$s/%2$s</string>
+  <string name="general">Xeneral</string>
+  <string name="pref_auto_reboot">Nun entrugar pa reaniciar</string>
+  <string name="pref_auto_reboot_summ">Reanicia automáticamente al recovery al riquise pa completar la instalación.</string>
+  <string name="install_success">La instalación foi esitosa.</string>
+  <string name="install_failed">¡FALLÓ la instalación!</string>
+  <string name="downloading_file">Baxando\'l ficheru %s...</string>
+  <string name="success"><![CDATA[<font color=\"green\">ésitu</font><br>]]></string>
+  <string name="failed"><![CDATA[<font color=\"red\">¡FALLU!</font><br>]]></string>
+  <string name="preparing_downloads">Tresnando descargues... %s</string>
+  <string name="invalid_url">URL non válida: %s</string>
+  <string name="skipping_file"><![CDATA[Saltando\'l ficheru yá baxáu %s<br>]]></string>
+  <string name="checking_file">Comprobando\'l ficheru %s...</string>
+  <string name="ok"><![CDATA[<font color=\"green\">val</font><br>]]></string>
+  <string name="installing_files">Instalando ficheros...</string>
+  <string name="installing_file">Instalando\'l ficheru %s...</string>
+  <string name="needs_recovery"><![CDATA[<font color=\"yellow\">necesítase\'l recovery</font><br>]]></string>
+  <string name="su_failed_find_dir"><![CDATA[Fallu al alcontrar el direutoriu de descargues como SU.<br>]]></string>
+  <string name="installing_utouch">Instalando Ubuntu Touch...</string>
+  <string name="failed_create_rom"><![CDATA[¡Fallu al crear la carpeta de la ROM!<br>]]></string>
+  <string name="installing_rom"><![CDATA[<br>Instalando como ROM <font color=\"yellow\">%s</font><br>]]></string>
+  <string name="failed_rom_init"><![CDATA[¡Fallu aniciando la carpeta de la ROM!<br>]]></string>
+  <string name="ok_skippping"><![CDATA[<font color=\"green\">val, saltando.</font><br>]]></string>
+  <string name="failed_redownload"><![CDATA[<font color=\"#FF9900\">fallu, baxando de nueves.</font><br>]]></string>
+  <string name="failed_busybox">¡Fallu al estrayer busybox!</string>
+  <string name="copying_file">Copiando\'l ficheru %s...</string>
+  <string name="failed_file_copy"><![CDATA[<br><font color=\"red\">¡Fallu al copiar el ficheru %s!</font><br>]]></string>
+  <string name="deleting_used_files"><![CDATA[Desaniciando ficheros usaos...<br>]]></string>
+  <string name="ubuntu_free_space">Anguaño tienes namái %1$dMB llibres. ¡Aconséyase tener polo menos %2$dMB d\'espaciu llibre na memoria interna o la instalación quiciabes falle!</string>
+  <string name="pref_update_check">Comprobar anovamientos</string>
+  <string name="pref_update_check_sum">Comprueba automáticamente anovamientos pa MultiROM y recovery cada ~12 hores y amuesa una notificación si les hai.</string>
+  <string name="update_notification">Ta disponible un anovamientu pa MultiROM.</string>
+  <string name="pref_download_dir_sum">El xestor baxará los ficheros d\'instalación a esta carpeta. Los ficheros d\'Ubuntu Touch tarán na carpeta \"UbuntuTouch\" allugada dientro d\'esta.</string>
+  <string name="pref_download_dir">Camudar carpeta de descargues</string>
+  <string name="changelogs">Rexistros de cambeos</string>
+  <string name="changelog_failed">\n\n\nFallu al baxar el rexistru de cambeos.</string>
+  <string name="done">Fecho, volviendo.</string>
+  <string name="about_ubuntu_touch">Tocante a</string>
+  <string name="back">Atrás</string>
+  <string name="about_ubuntu_text2"><b>Esta tarxeta instala Ubuntu Touch como ROM secundaria. Nun llimipará dal datu de to, namái amestarála a MultiROM.</b>\n\nEn cuantes al canal qu\'escueyas, <b>stable</b> ye la versión estable actual. Per otra parte, <b>devel</b> ye la versión qu\'anguaño ta en desendolcu, queriendo dicir que tien los caberos anovamientos y porque Touch ta entá en desendolcu, ye xeneralmente\'l camín a siguir.\n\t<b>*-proposed</b> quier dicir qu\'esta canal caltién construcciones diaries que nun tán probaes n\'absolutu.\n\t<b>*-customized</b> son imáxenes contruyíes pa probar personalizaciones específiques del operador y nun son lo que quedríes usar.\n\tCanales nomaes como <b>trusty</b> o <b>utopic</b> son nomes de llanzamientu d\'Ubuntu. <b>Devel</b> ye l\'alcuñu pa una d\'eses - Siempres apunten al llanzamientu qu\'anguaño ta en desendolcu. Sicasí, por exemplu <b>utopic</b> quedaráse en 14.10 incluso dempués de llanzase, entrín <b>devel</b> moveráse p\'haza 15.04.</string>
+  <string name="installation">Instalación</string>
+  <string name="action_reboot">Reaniciar...</string>
+  <string name="ubuntu_unsupported">Desafortunadamente, Ubuntu Touch nun sofita esti preséu.</string>
+  <string name="about">Tocante a</string>
+  <string name="about_version">Versión</string>
+  <string name="about_licenses">Llicencies</string>
+  <string name="about_licenses_summ">El Xestor MultiROM ta llicenciáu so GNU GPLv3 y ta usando les biblioteques de darréu, que tán toes llicenciaes so Apache 2.0:\nlibsuperuser\nCardsUI</string>
+  <string name="already_developer">Nun ye necesario, yá yes un desendolcador.</string>
+  <string name="now_developer">¡Agora yes un desendolcador!</string>
+  <string name="dev_options">Opciones de desendolcador</string>
+  <string name="pref_manifest_url">URL del manifest</string>
+  <string name="steps_developer">Agora tas a %d pasos de ser un desendolcador.</string>
+  <string name="pref_device_name">Anular nome de preséu</string>
+  <string name="dangerous">¡Peligroso!</string>
+  <string name="drawer_open">Abrir caxón</string>
+  <string name="drawer_close">Zarrar caxón</string>
+  <string name="rom_list_empty">Nun s\'alcontraron ROMs secundaries.</string>
+  <string name="rename_rom">Renomar ROM</string>
+  <string name="rename">Renomar</string>
+  <string name="rom_name_taken">¡Yá ta coyíu esti nome!</string>
+  <string name="rom_name_empty">¡Nun pues introducir un nome baleru!</string>
+  <string name="erase_rom">¡Esto desaniciará dafechu la ROM «%s»!</string>
+  <string name="erase_rom_title">¿Desaniciar ROM?</string>
+  <string name="erase">Desaniciar</string>
+  <string name="erasing_rom">Desaniciando ROM...</string>
+  <string name="boot_rom">¿De xuru que deseyes arrancar na ROM «%s»?</string>
+  <string name="booting">Arrancando ROM...</string>
+  <string name="rom_boot_kexec">Esta ROM rique\'l kernel col parche kexec-hardboot, por favor instálalu.</string>
+  <string name="rom_boot_failed">¡Fallu al arrancar nesta ROM!</string>
+  <string name="rom_boot_req_ver">Arrancar direutamente nesta ROM dende esta aplicación rique MultiROM v%s o más altu.</string>
+  <string name="ok_nohtml">Aceutar</string>
+  <string name="boot">Arrancar</string>
+  <string name="boot_rom_title">¿Arrancar na ROM?</string>
+  <string name="select_icon">Esbillar iconu</string>
+  <string name="browse">Restolar...</string>
+  <string name="rom_list_widget">Escueyi la ROM p\'arrancar.</string>
+  <string name="ubuntu_man_no_channels">Nun s\'alcontró dal canal d\'anovamientu pa esti preséu.</string>
+  <string name="prog_checking_root">Consiguiendo accesu root</string>
+  <string name="prog_detecting_dev">Deteutando triba de preséu</string>
+  <string name="prog_looking_for_multirom">Guetando MultiROM</string>
+  <string name="prog_getting_roms">Cargando ROMs secundaries</string>
+  <string name="prog_check_recovery">Comprobando\'l recovery</string>
+  <string name="prog_check_kernel">Comprobando\'l kernel</string>
+  <string name="prog_download_manifest">Baxando datos meta d\'anovamientos</string>
+  <string name="uninstall">Desinstalar MultiROM</string>
+  <string name="uninstall_dialog_title">¿Desinstalar MultiROM?</string>
+  <string name="uninstall_dialog_text">Esta aición desaniciará dafechu MultiROM y tolos sistemes secundarios instalaos. La to ROM primaria quedará intauta. El recovery MultiROM tará entá instaláu, si quies desanicialu, tienes de trocalu con un recovery diferente.</string>
+  <string name="continue_text">Siguir</string>
+  <string name="flavour">Tastu:</string>
+  <string name="gpg_failed">¡Falló la verificación de la robla GPG!</string>
+  <string name="alias_of">nomatu de</string>
+  <string name="no_manifest">Nun tán sofitaos los anovamientos ya instalación automáticos nesti preséu.</string>
+  <string name="pref_manifest_override">Anular URL de manifest</string>
+  <string name="notice">Avisu</string>
+  <string name="unsupported_details"><![CDATA[MultiROM ye una modificación de softaware a nivel baxu y complexa. Necesita desendolcase pa cada preséu de mou separtáu, asina qu\'hai namái un conxuntu llimitáu de preseos sofitaos.<br>Desafortunadamente, el de to nun ta ente ellos, perdona.<br><br>Si quies desendolcar MultiRom pal to preséu, la <a href=\"https://github.com/Tasssadar/multirom/wiki/Porting-MultiROM\">páxina wiki MultiROM</a> ye un bon llugar pa entamar.]]></string>
+  <string name="deprecated_l_title">¡Versión d\'Android ensin sofitu!</string>
+  <string name="deprecated_l_text">Android L developer preview ta anticuáu y tien fallos que causen que la versión 1.163 y mayor d\'esta aplicación casque.\nPues consiguir la cabera versión que furrule, 1.152, nesta direición:\nhttp://tasemnice.eu/perm/MultiROMMgr-v1.152.apk\n\nTienes d\'instalar esta versión de l\'apliacción enantes d\'intentar instalar la vieya.</string>
+  <string name="deprecated_l_btn">Colar d\'aplicación</string>
+  <string name="unofficial_port_title">¡Esti preséu nun ta oficialmente sofitáu!</string>
+  <string-array name="reboot_options">
+    <item>Sistema</item>
+    <item>Recovery</item>
+    <item>Cargador d\'arranque</item>
+  </string-array>
+  <string-array name="main_fragment_titles">
+    <item>Instalación/Anovamientu</item>
+    <item>Xestionar ROMs</item>
+  </string-array>
+</resources>
