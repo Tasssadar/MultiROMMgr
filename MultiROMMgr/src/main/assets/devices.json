@@ -469,6 +469,75 @@
                     "path": "/dev/block/platform/sdhci-tegra.3/by-name/CAC"
                 }
             ]
+        },
+        {
+            "names": [ "matissewifi", "matissewifiue" ],
+            "manifest_url": "http://sub77.github.io/files/android/matissewifi/multirom/manifest.json",
+            "check_gpg": false,
+            "ubuntu_touch": {
+                "enabled": false,
+                "base_url": ""
+            },
+            "devices": [
+                {
+                    "name": "recovery",
+                    "path": "/dev/block/platform/msm_sdcc.1/by-name/recovery"
+                },
+                {
+                    "name": "boot",
+                    "path": "/dev/block/platform/msm_sdcc.1/by-name/boot"
+                },
+                {
+                    "name": "cache",
+                    "path": "/dev/block/platform/msm_sdcc.1/by-name/cache"
+                }
+            ]
+        },
+        {
+            "names": [ "matisse3g" ],
+            "manifest_url": "http://sub77.github.io/files/android/matissewifi/multirom/manifest.json",
+            "check_gpg": false,
+            "ubuntu_touch": {
+                "enabled": false,
+                "base_url": ""
+            },
+            "devices": [
+                {
+                    "name": "recovery",
+                    "path": "/dev/block/platform/msm_sdcc.1/by-name/recovery"
+                },
+                {
+                    "name": "boot",
+                    "path": "/dev/block/platform/msm_sdcc.1/by-name/boot"
+                },
+                {
+                    "name": "cache",
+                    "path": "/dev/block/platform/msm_sdcc.1/by-name/cache"
+                }
+            ]
+        },
+        {
+            "names": [ "matisselte" ],
+            "manifest_url": "http://sub77.github.io/files/android/matissewifi/multirom/manifest.json",
+            "check_gpg": false,
+            "ubuntu_touch": {
+                "enabled": false,
+                "base_url": ""
+            },
+            "devices": [
+                {
+                    "name": "recovery",
+                    "path": "/dev/block/platform/msm_sdcc.1/by-name/recovery"
+                },
+                {
+                    "name": "boot",
+                    "path": "/dev/block/platform/msm_sdcc.1/by-name/boot"
+                },
+                {
+                    "name": "cache",
+                    "path": "/dev/block/platform/msm_sdcc.1/by-name/cache"
+                }
+            ]
         }
     ]
 }
