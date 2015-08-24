@@ -495,7 +495,7 @@
         },
         {
             "names": [ "matisse3g" ],
-            "manifest_url": "http://sub77.github.io/files/android/matissewifi/multirom/manifest.json",
+            "manifest_url": "http://sub77.github.io/files/android/matisse3g/multirom/manifest.json",
             "check_gpg": false,
             "ubuntu_touch": {
                 "enabled": false,
@@ -518,7 +518,7 @@
         },
         {
             "names": [ "matisselte" ],
-            "manifest_url": "http://sub77.github.io/files/android/matissewifi/multirom/manifest.json",
+            "manifest_url": "http://sub77.github.io/files/android/matisselte/multirom/manifest.json",
             "check_gpg": false,
             "ubuntu_touch": {
                 "enabled": false,
