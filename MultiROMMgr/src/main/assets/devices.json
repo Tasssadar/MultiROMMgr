@@ -469,6 +469,29 @@
                     "path": "/dev/block/platform/sdhci-tegra.3/by-name/CAC"
                 }
             ]
-        }
+        },
+		{
+		    "names": [ "m3", "i9305" ],
+			"manifest_url": "http://al3x-b0ss.github.io/multirom/m3/manifest.json"
+			"check_gpg": false,
+			"ubuntu_touch": {
+			    "enabled": false,
+				"base_url": ""
+			},
+			"devices": [
+			    {
+				    "name": "recovery",
+					"path": "/dev/block/platform/dw_mmc/by-name/RECOVERY"
+				},
+				{
+				    "name": "boot",
+					"path": "/dev/block/platform/dw_mmc/by-name/BOOT"
+				},
+				{
+				    "name": "cache",
+					"path": "/dev/block/platform/dw_mmc/by-name/CACHE"
+				}
+			]
+		},
     ]
 }
