@@ -28,6 +28,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.text.Html;
 import android.text.Spanned;
 import android.text.SpannedString;
@@ -49,7 +50,7 @@ import com.tassadar.multirommgr.SettingsFragment;
 import com.tassadar.multirommgr.StatusAsyncTask;
 import com.tassadar.multirommgr.Utils;
 
-public class InstallActivity extends ActionBarActivity implements ServiceConnection, InstallListener {
+public class InstallActivity extends AppCompatActivity implements ServiceConnection, InstallListener {
     private static final String TAG = "MROMMgr::InstallActv";
 
     private static final int BTN_STATE_CANCEL    = 0;

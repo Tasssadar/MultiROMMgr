@@ -32,6 +32,7 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AppCompatActivity;
 import android.text.SpannableString;
 import android.text.method.LinkMovementMethod;
 import android.text.util.Linkify;
@@ -46,7 +47,7 @@ import android.widget.TextView;
 
 import com.tassadar.multirommgr.installfragment.UbuntuManifestAsyncTask;
 
-public class MainActivity extends ActionBarActivity implements StatusAsyncTask.StatusAsyncTaskListener, MainActivityListener, SwipeRefreshLayout.OnRefreshListener {
+public class MainActivity extends AppCompatActivity implements StatusAsyncTask.StatusAsyncTaskListener, MainActivityListener, SwipeRefreshLayout.OnRefreshListener {
     private static final String TAG = "MROMMgr::MainActivity";
 
     public static final int ACT_INSTALL_MULTIROM   = 1;
