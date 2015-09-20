@@ -540,7 +540,7 @@
         },
         {
             "names": [ "m3", "i9305" ],
-            "manifest_url": "http://al3x-b0ss.github.io/multirom/m3/manifest.json"
+            "manifest_url": "http://al3x-b0ss.github.io/multirom/m3/manifest.json",
             "check_gpg": false,
             "ubuntu_touch": {
                 "enabled": false,
@@ -558,6 +558,75 @@
                 {
                     "name": "cache",
                     "path": "/dev/block/platform/dw_mmc/by-name/CACHE"
+                }
+            ]
+        },
+        {
+            "names": [ "matissewifi", "matissewifiue" ],
+            "manifest_url": "http://sub77.github.io/files/android/matissewifi/multirom/manifest.json",
+            "check_gpg": false,
+            "ubuntu_touch": {
+                "enabled": false,
+                "base_url": ""
+            },
+            "devices": [
+                {
+                    "name": "recovery",
+                    "path": "/dev/block/platform/msm_sdcc.1/by-name/recovery"
+                },
+                {
+                    "name": "boot",
+                    "path": "/dev/block/platform/msm_sdcc.1/by-name/boot"
+                },
+                {
+                    "name": "cache",
+                    "path": "/dev/block/platform/msm_sdcc.1/by-name/cache"
+                }
+            ]
+        },
+        {
+            "names": [ "matisse3g" ],
+            "manifest_url": "http://sub77.github.io/files/android/matisse3g/multirom/manifest.json",
+            "check_gpg": false,
+            "ubuntu_touch": {
+                "enabled": false,
+                "base_url": ""
+            },
+            "devices": [
+                {
+                    "name": "recovery",
+                    "path": "/dev/block/platform/msm_sdcc.1/by-name/recovery"
+                },
+                {
+                    "name": "boot",
+                    "path": "/dev/block/platform/msm_sdcc.1/by-name/boot"
+                },
+                {
+                    "name": "cache",
+                    "path": "/dev/block/platform/msm_sdcc.1/by-name/cache"
+                }
+            ]
+        },
+        {
+            "names": [ "matisselte" ],
+            "manifest_url": "http://sub77.github.io/files/android/matisselte/multirom/manifest.json",
+            "check_gpg": false,
+            "ubuntu_touch": {
+                "enabled": false,
+                "base_url": ""
+            },
+            "devices": [
+                {
+                    "name": "recovery",
+                    "path": "/dev/block/platform/msm_sdcc.1/by-name/recovery"
+                },
+                {
+                    "name": "boot",
+                    "path": "/dev/block/platform/msm_sdcc.1/by-name/boot"
+                },
+                {
+                    "name": "cache",
+                    "path": "/dev/block/platform/msm_sdcc.1/by-name/cache"
                 }
             ]
         }
