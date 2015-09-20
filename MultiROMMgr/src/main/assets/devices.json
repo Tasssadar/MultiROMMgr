@@ -220,8 +220,8 @@
              ]
         },
         {
-            "names": [ "m7", "m7_ul", "cm_m7", "m7gsm" ],
-            "manifest_url": "http://dzej1.github.io/android/m7/multirom/multirommgr/manifest.json",
+            "names": [ "m7", "m7_ul", "m7_u", "cm_m7", "m7gsm" ],
+            "manifest_url": "https://www.dropbox.com/s/hljo77wq2dpae5z/manifest_m7ul.json?dl=1",
             "check_gpg": false,
             "ubuntu_touch": {
                 "enabled": false
@@ -238,6 +238,50 @@
                 {
                     "name": "cache",
                     "path": "/dev/block/mmcblk0p36"
+                }
+            ]
+        },
+        {
+            "names": [ "m7wlv", "m7vzw" ],
+            "manifest_url": "https://www.dropbox.com/s/zc8hapqr3zurqim/manifest_m7wlv.json?dl=1",
+            "check_gpg": false,
+            "ubuntu_touch": {
+                "enabled": false
+            },
+            "devices": [
+                {
+                    "name": "recovery",
+                    "path": "/dev/block/mmcblk0p34"
+                },
+                {
+                    "name": "boot",
+                    "path": "/dev/block/mmcblk0p33"
+                },
+                {
+                    "name": "cache",
+                    "path": "/dev/block/mmcblk0p36"
+                }
+            ]
+        },
+        {
+            "names": [ "m7wls", "m7spr" ],
+            "manifest_url": "https://www.dropbox.com/s/nwssuaja5w0uqks/manifest_m7wls.json?dl=1",
+            "check_gpg": false,
+            "ubuntu_touch": {
+                "enabled": false
+            },
+            "devices": [
+                {
+                    "name": "recovery",
+                    "path": "/dev/block/mmcblk0p36"
+                },
+                {
+                    "name": "boot",
+                    "path": "/dev/block/mmcblk0p35"
+                },
+                {
+                    "name": "cache",
+                    "path": "/dev/block/mmcblk0p38"
                 }
             ]
         },
