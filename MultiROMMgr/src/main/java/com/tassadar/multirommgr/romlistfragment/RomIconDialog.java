@@ -24,8 +24,10 @@ import android.app.DialogFragment;
 import android.app.Fragment;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.text.InputFilter;
@@ -52,10 +54,11 @@ import com.tassadar.multirommgr.Utils;
 
 public class RomIconDialog extends DialogFragment implements AdapterView.OnItemClickListener, View.OnClickListener {
 
+    private static final int WRITE_EXTERNAL_PERM_REQUEST = 0;
+
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         Activity a = getActivity();
-        Rom rom = getArguments().getParcelable("rom");
 
         LinearLayout view = (LinearLayout)a.getLayoutInflater()
                 .inflate(R.layout.dialog_rom_icon, null, false);
@@ -85,6 +88,16 @@ public class RomIconDialog extends DialogFragment implements AdapterView.OnItemC
 
     @Override
     public void onClick(View view) {
+        final Activity a = getActivity();
+        if(a == null)
+            return;
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M &&
+                a.checkSelfPermission(android.Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+            requestPermissions(new String[]{android.Manifest.permission.WRITE_EXTERNAL_STORAGE}, WRITE_EXTERNAL_PERM_REQUEST);
+            return;
+        }
+
         Intent intent = new Intent(Intent.ACTION_PICK,
                 android.provider.MediaStore.Images.Media.INTERNAL_CONTENT_URI);
         if(Utils.isIntentAvailable(intent)) {
@@ -95,6 +108,16 @@ public class RomIconDialog extends DialogFragment implements AdapterView.OnItemC
             startActivityForResult(
                     Intent.createChooser(intent,  Utils.getString(R.string.select_icon)),
                     MainActivity.ACT_SELECT_ICON);
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
+        if(requestCode == WRITE_EXTERNAL_PERM_REQUEST && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            final View root = getView();
+            if(root != null) {
+                onClick(root.findViewById(R.id.browse_icons));
+            }
         }
     }
 

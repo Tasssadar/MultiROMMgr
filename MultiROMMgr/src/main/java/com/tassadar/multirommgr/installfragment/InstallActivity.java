@@ -23,6 +23,8 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.support.v7.app.ActionBarActivity;
@@ -48,11 +50,13 @@ import com.tassadar.multirommgr.StatusAsyncTask;
 import com.tassadar.multirommgr.Utils;
 
 public class InstallActivity extends ActionBarActivity implements ServiceConnection, InstallListener {
-    private static final String TAG = "MROMMgr::InstallActivity";
+    private static final String TAG = "MROMMgr::InstallActv";
 
     private static final int BTN_STATE_CANCEL    = 0;
     private static final int BTN_STATE_TRY_AGAIN = 1;
     private static final int BTN_STATE_DONE      = 2;
+
+    private static final int WRITE_EXTERNAL_PERM_REQUEST = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -115,6 +119,21 @@ public class InstallActivity extends ActionBarActivity implements ServiceConnect
     }
 
     @Override
+    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
+        if(requestCode == WRITE_EXTERNAL_PERM_REQUEST) {
+            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                startInstallation();
+            } else {
+                onInstallLog("MultiROM needs permission to write to external storage because it has to download some files, please allow it.<br>");
+                setButtonState(BTN_STATE_TRY_AGAIN);
+                m_progressBar.setIndeterminate(false);
+                m_progressBar.setMax(100);
+                m_progressBar.setProgress(100);
+            }
+        }
+    }
+
+    @Override
     public void onServiceConnected(ComponentName componentName, IBinder iBinder) {
         m_service = ((InstallService.InstallServiceBinder)iBinder).get();
         m_service.setListener(this);
@@ -145,8 +164,14 @@ public class InstallActivity extends ActionBarActivity implements ServiceConnect
             return;
         }
 
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M &&
+                checkSelfPermission(android.Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+            requestPermissions(new String[]{android.Manifest.permission.WRITE_EXTERNAL_STORAGE}, WRITE_EXTERNAL_PERM_REQUEST);
+            return;
+        }
+
         final String type = m_installInfo.getString("installation_type");
-        if(type.equals("multirom")) {
+        if("multirom".equals(type)) {
             boolean multirom = m_installInfo.getBoolean("install_multirom", false);
             boolean recovery = m_installInfo.getBoolean("install_recovery", false);
             boolean kernel = m_installInfo.getBoolean("install_kernel", false);
@@ -156,11 +181,11 @@ public class InstallActivity extends ActionBarActivity implements ServiceConnect
             Device dev = StatusAsyncTask.instance().getDevice();
 
             m_service.startMultiROMInstallation(man, dev, multirom, recovery, kernel, kernel_name);
-        } else if(type.equals("uninstall_multirom")) {
+        } else if("uninstall_multirom".equals(type)) {
             Manifest man = StatusAsyncTask.instance().getManifest();
             Device dev = StatusAsyncTask.instance().getDevice();
             m_service.startMultiROMUninstallation(man, dev);
-        } else if(type.equals("ubuntu")) {
+        } else if("ubuntu".equals(type)) {
             m_service.startUbuntuInstallation(
                     UbuntuManifestAsyncTask.instance().getInstallInfo(),
                     StatusAsyncTask.instance().getMultiROM(),
