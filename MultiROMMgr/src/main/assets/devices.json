@@ -288,7 +288,7 @@
         },
         {
             "names": [ "jflte", "jfltexx", "i9505", "GT-I9505", "jgedlte", "i9505g", "GT-I9505G", "jfltespr", "jflterefreshspr", "jfltetmo", "jfltecri", "jfltecsp", "jfltecan", "jflteusc", "jfltezm" ],
-            "manifest_url": "http://antaresone.github.io/multirom/jflte/manifest.json",
+            "manifest_url": "https://raw.githubusercontent.com/JDCTeam/MultiROM-release/master/multirom/jflte/manifest.json",
             "check_gpg": false,
             "ubuntu_touch": {
                 "enabled": false
