@@ -200,7 +200,7 @@
         },
         {
              "names": [ "htc_m8", "m8", "m8ul", "m8whl", "m8wl", "m8spr", "m8vzw", "htc_m8whl", "htc_m8wl", "m8_ul", "m8_whl", "m8_wl" ],
-             "manifest_url": "http://multirom-m8.github.io/manifest.json",
+             "manifest_url": "http://multirom-htc.github.io/manifest.json",
              "check_gpg": false,
              "ubuntu_touch": {
                  "enabled": false
