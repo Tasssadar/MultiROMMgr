@@ -563,7 +563,7 @@
         },
         {
             "names": [ "armani" ],
-            "manifest_url": "http://thestrix.github.io/multirom/armani/manifest.json",
+            "manifest_url": "http://multirom-armani.github.io/manifest.json",
             "check_gpg": false,
             "ubuntu_touch": {
                 "enabled": false,
