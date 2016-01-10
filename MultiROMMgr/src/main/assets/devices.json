@@ -402,7 +402,53 @@
         },
         {
             "names": [ "sirius", "D6503", "D6502", "D6506", "D6543" ],
-            "manifest_url": "http://multirom.myself5.de/sirius/manifest.json",
+            "manifest_url": "https://diewald-net.com/files/public/MultiRom/sirius/manifest.json",
+            "check_gpg": false,
+            "ubuntu_touch": {
+                "enabled": false,
+                "base_url": ""
+            },
+            "devices": [
+                {
+                    "name": "recovery",
+                    "path": "/dev/block/platform/msm_sdcc.1/by-name/FOTAKernel"
+                },
+                {
+                    "name": "boot",
+                    "path": "/dev/block/platform/msm_sdcc.1/by-name/boot"
+                },
+                {
+                    "name": "cache",
+                    "path": "/dev/block/platform/msm_sdcc.1/by-name/cache"
+                }
+            ]
+        },
+        {
+            "names": [ "castor", "SGP521", "SGP541", "SGP551" ],
+            "manifest_url": "https://diewald-net.com/files/public/MultiRom/castor/manifest.json",
+            "check_gpg": false,
+            "ubuntu_touch": {
+                "enabled": false,
+                "base_url": ""
+            },
+            "devices": [
+                {
+                    "name": "recovery",
+                    "path": "/dev/block/platform/msm_sdcc.1/by-name/FOTAKernel"
+                },
+                {
+                    "name": "boot",
+                    "path": "/dev/block/platform/msm_sdcc.1/by-name/boot"
+                },
+                {
+                    "name": "cache",
+                    "path": "/dev/block/platform/msm_sdcc.1/by-name/cache"
+                }
+            ]
+        },
+        {
+            "names": [ "castor_windy", "SGP511/B", "SGP512/B" ],
+            "manifest_url": "http://diewald-net.com/files/public/MultiRom/castor_windy/manifest.json",
             "check_gpg": false,
             "ubuntu_touch": {
                 "enabled": false,
