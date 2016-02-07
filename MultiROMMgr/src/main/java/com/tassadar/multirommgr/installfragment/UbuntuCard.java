@@ -23,6 +23,7 @@ import android.animation.AnimatorListenerAdapter;
 import android.animation.AnimatorSet;
 import android.content.Context;
 import android.os.Bundle;
+import android.support.annotation.AnimatorRes;
 import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -328,8 +329,7 @@ public class UbuntuCard extends Card implements AdapterView.OnItemSelectedListen
     }
 
     private void rotateCard(boolean frontToback) {
-        AnimatorSet set = (AnimatorSet) AnimatorInflater.loadAnimator(m_view.getContext(),
-                R.anim.card_flip);
+        AnimatorSet set = (AnimatorSet) AnimatorInflater.loadAnimator(m_view.getContext(), R.animator.card_flip);
         set.setTarget(mCardLayout);
 
         View front = m_view.findViewById(R.id.ubuntu_card_front);
