@@ -27,6 +27,6 @@
         android:fontFamily="sans-serif-condensed"
         android:singleLine="true"
         android:ellipsize="middle"
-        android:textColor="#000"/>
+        android:textColor="@color/text_black"/>
 
 </LinearLayout>

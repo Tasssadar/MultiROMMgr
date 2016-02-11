@@ -1,20 +1,20 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#fff"
+    android:background="@color/background_fff"
     android:orientation="vertical">
 
     <TextView android:id="@+id/dialog_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
-        android:textColor="#000"
+        android:textColor="@color/text_black"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="#bbb"/>
+        android:background="@color/background_bbb"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -29,7 +29,7 @@
         <View
             android:layout_width="1dp"
             android:layout_height="match_parent"
-            android:background="#bbb"/>
+            android:background="@color/background_bbb"/>
         <Button android:id="@+id/boot_btn"
             android:layout_width="0dp"
             android:layout_height="wrap_content"

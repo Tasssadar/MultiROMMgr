@@ -2,6 +2,11 @@
 <resources>
 
     <color name="stroke">#dddddd</color>
+    <color name="accent">#ffff4d4d</color>
+    <color name="text_bbb">#bbb</color>
+    <color name="text_error">#f00</color>
+    <color name="text_white">#fff</color>
+    <color name="text_black">#000</color>
     <color name="text_light">#66000000</color>
     <color name="card_text">#ff8d8d8d</color>
     <color name="card_title_text">#ff707070</color>
@@ -11,6 +16,13 @@
     <color name="card_border">#ffdedede</color>
     <color name="rom_list_widget_header">#0099CC</color>
     <color name="notification_bg">#f72f2f</color>
+    <color name="background_000">#000</color>
+    <color name="background_111">#111</color>
+    <color name="background_9f">#9f9f9f</color>
+    <color name="background_bbb">#bbb</color>
+    <color name="background_ccc">#ccc</color>
+    <color name="background_eee">#eee</color>
+    <color name="background_fff">#fff</color>
 
     <drawable name="light_blue">#33B5E5</drawable>
     <drawable name="dark_blue">#0099CC</drawable>

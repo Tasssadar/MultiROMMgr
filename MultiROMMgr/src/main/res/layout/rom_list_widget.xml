@@ -2,7 +2,7 @@
     android:layout_height="match_parent"
     android:layout_width="match_parent"
     android:orientation="vertical"
-    android:background="#fff">
+    android:background="@color/background_fff">
 
     <LinearLayout android:id="@+id/rom_list_widget_header"
         android:layout_width="match_parent"
@@ -24,14 +24,14 @@
                 android:layout_height="wrap_content"
                 android:text="@string/app_name"
                 android:textStyle="bold"
-                android:textColor="#fff"
+                android:textColor="@color/text_white"
                 android:ellipsize="end"
                 android:singleLine="true"/>
             <TextView android:id="@+id/rom_boot_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/rom_list_widget"
-                android:textColor="#fff"
+                android:textColor="@color/text_white"
                 android:ellipsize="end"
                 android:singleLine="true"/>
         </LinearLayout>
@@ -48,7 +48,7 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="2dp"
-        android:background="#ff9f9f9f"/>
+        android:background="@color/background_9f"/>
 
     <ListView
         android:id="@+id/rom_list"
@@ -65,7 +65,7 @@
         android:visibility="gone"
         android:text="@string/rom_list_empty"
         android:drawableLeft="@drawable/action_about"
-        android:textColor="#000"
+        android:textColor="@color/text_black"
         android:ellipsize="end"/>
 
 </LinearLayout>
