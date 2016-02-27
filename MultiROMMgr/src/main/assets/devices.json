@@ -157,7 +157,7 @@
             "manifest_url": "http://kingbabasula.altervista.org/multirom/manifest.json",
             "check_gpg": false,
             "ubuntu_touch": {
-                "enabled": false,
+                "enabled": true,
                 "base_url": "http://system-image.ubports.com",
                 "device": "bacon"
             },
