@@ -75,7 +75,7 @@
             android:visibility="gone"
             android:textStyle="bold"
             android:maxLines="10"
-            android:textColor="#FF0000" />
+            android:textColor="@color/text_error" />
         <TextView
             android:id="@+id/error_detail_text"
             style="@style/CardText"
@@ -87,7 +87,7 @@
             android:visibility="gone"
             android:maxLines="10"
             android:textStyle="bold"
-            android:textColor="#000"/>
+            android:textColor="@color/text_black"/>
     </LinearLayout>
 
 </LinearLayout>

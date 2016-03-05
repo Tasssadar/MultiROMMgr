@@ -67,7 +67,7 @@
             android:textStyle="bold"
             android:maxLines="10"
             android:textAlignment="center"
-            android:textColor="#FF0000" />
+            android:textColor="@color/text_error" />
 
         <LinearLayout
             android:id="@+id/flavour_layout"
