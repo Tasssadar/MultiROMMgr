@@ -699,5 +699,29 @@
                 }
             ]
         }
+        {
+            "names": [ "e975", "e975k", "e975t", "e975r", "e987", "e977", "ls970", "geehrc", "geespr" ],
+            "manifest_url": "https://raw.githubusercontent.com/nitrogen-devs/multirom/mm6.0/geehrc/manifest-geehrc.json",
+            "check_gpg": false,
+            "ubuntu_touch": {
+                "enabled": false,
+                "base_url": ""
+            },
+            "devices": [
+                {
+                    "name": "recovery",
+                    "path": "/dev/block/platform/msm_sdcc.1/by-name/recovery"
+                },
+                {
+                    "name": "boot",
+                    "path": "/dev/block/platform/msm_sdcc.1/by-name/boot"
+                },
+                {
+                    "name": "cache",
+                    "path": "/dev/block/platform/msm_sdcc.1/by-name/cache"
+                }
+            ]
+        },
+		
     ]
 }
