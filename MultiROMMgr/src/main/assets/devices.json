@@ -470,8 +470,8 @@
             ]
         },
         {
-            "names": [ "z3", "D6603", "D6602", "D6633", "D6643" ],
-            "manifest_url": "http://multirom.myself5.de/z3/manifest.json",
+            "names": [ "z3", "leo", "D6603", "D6602", "D6633", "D6643" ],
+            "manifest_url": "http://multirom.myself5.de/manifests/leo.json",
             "check_gpg": false,
             "ubuntu_touch": {
                 "enabled": false,
@@ -493,8 +493,8 @@
             ]
         },
         {
-            "names": [ "z3c", "D5803", "D5833" ],
-            "manifest_url": "http://multirom.myself5.de/z3c/manifest.json",
+            "names": [ "z3c", "aries", "D5803", "D5833" ],
+            "manifest_url": "http://multirom.myself5.de/manifests/aries.json",
             "check_gpg": false,
             "ubuntu_touch": {
                 "enabled": false,
@@ -512,6 +512,29 @@
                 {
                     "name": "cache",
                     "path": "/dev/block/platform/msm_sdcc.1/by-name/cache"
+                }
+            ]
+        },
+        {
+            "names": [ "sumire", "E6653", "E6633", "E6603" ],
+            "manifest_url": "http://multirom.myself5.de/manifests/sumire.json",
+            "check_gpg": false,
+            "ubuntu_touch": {
+                "enabled": false,
+                "base_url": ""
+            },
+            "devices": [
+                {
+                    "name": "recovery",
+                    "path": "/dev/block/bootdevice/by-name/FOTAKernel"
+                },
+                {
+                    "name": "boot",
+                    "path": "/dev/block/bootdevice/by-name/boot"
+                },
+                {
+                    "name": "cache",
+                    "path": "/dev/block/bootdevice/by-name/cache"
                 }
             ]
         },
