@@ -539,6 +539,29 @@
             ]
         },
         {
+            "names": [ "suzuran", "E5823", "E5803" ],
+            "manifest_url": "http://multirom.myself5.de/manifests/suzuran.json",
+            "check_gpg": false,
+            "ubuntu_touch": {
+                "enabled": false,
+                "base_url": ""
+            },
+            "devices": [
+                {
+                    "name": "recovery",
+                    "path": "/dev/block/bootdevice/by-name/FOTAKernel"
+                },
+                {
+                    "name": "boot",
+                    "path": "/dev/block/bootdevice/by-name/boot"
+                },
+                {
+                    "name": "cache",
+                    "path": "/dev/block/bootdevice/by-name/cache"
+                }
+            ]
+        },
+        {
             "names": [ "X9180", "x9180", "V9180", "v9180", "U9180", "u9180", "N9180", "n9180" ],
             "manifest_url": "https://raw.githubusercontent.com/proDOOMman/android_X9180_MultiROM/master/release/manifest.json",
             "check_gpg": false,
