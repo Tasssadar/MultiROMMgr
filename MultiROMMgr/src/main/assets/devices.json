@@ -676,6 +676,52 @@
                 }
             ]
         },
+	{
+            "names": [ "ef63s", "ef63l", "ef63k" ],
+            "manifest_url": "https://github.com/chautruongthinh/multirom_A910/blob/master/manifest_stock.json",
+            "check_gpg": false,
+            "ubuntu_touch": {
+                "enabled": false,
+                "base_url": ""
+            },
+            "devices": [
+                {
+                    "name": "recovery",
+                    "path": "/dev/block/platform/msm_sdcc.1/by-name/recovery"
+                },
+                {
+                    "name": "boot",
+                    "path": "/dev/block/platform/msm_sdcc.1/by-name/boot"
+                },
+                {
+                    "name": "cache",
+                    "path": "/dev/block/platform/msm_sdcc.1/by-name/cache"
+                }
+            ]
+        },
+	{
+            "names": [ "EF63S", "EF63L", "EF63K", "FIND7" ],
+            "manifest_url": "https://github.com/chautruongthinh/multirom_A910/raw/master/manifest_coloros.json",
+            "check_gpg": false,
+            "ubuntu_touch": {
+                "enabled": false,
+                "base_url": ""
+            },
+            "devices": [
+                {
+                    "name": "recovery",
+                    "path": "/dev/block/platform/msm_sdcc.1/by-name/recovery"
+                },
+                {
+                    "name": "boot",
+                    "path": "/dev/block/platform/msm_sdcc.1/by-name/boot"
+                },
+                {
+                    "name": "cache",
+                    "path": "/dev/block/platform/msm_sdcc.1/by-name/cache"
+                }
+            ]
+        },
         {
             "names": [ "angler" ],
             "manifest_url": "https://multirom-nexus6p.github.io/manifest.json",
