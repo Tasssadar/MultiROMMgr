@@ -699,5 +699,32 @@
                 }
             ]
         }
+        {
+            "names": [ "armani" ],
+            "manifest_url": "http://roms.best-gaming.net/multirom/manifest.json",
+            "check_gpg": false,
+            "ubuntu_touch": {
+                "enabled": false,
+                "base_url": ""
+            },
+            "devices": [
+                {
+                    "name": "aboot",
+                    "path": "/dev/block/platform/msm_sdcc.1/by-name/aboot"
+                },
+                {
+                    "name": "boot",
+                    "path": "/dev/block/platform/msm_sdcc.1/by-name/boot"
+                },
+                {
+                    "name": "cache",
+                    "path": "/dev/block/platform/msm_sdcc.1/by-name/cache"
+                },
+                {
+                    "name": "recovery",
+                    "path": "/dev/block/platform/msm_sdcc.1/by-name/recovery"
+                }
+            ]
+        }
     ]
 }
