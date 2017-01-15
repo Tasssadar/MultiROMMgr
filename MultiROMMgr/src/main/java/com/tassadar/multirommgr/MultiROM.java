@@ -399,7 +399,7 @@ public class MultiROM {
         }
     }
 
-    public void setRomIcon(Rom rom, BufferedInputStream in) throws IOException {
+    private void setRomIcon(Rom rom, BufferedInputStream in) throws IOException {
         in.mark(Integer.MAX_VALUE);
         String hash = Utils.calculateChecksumStream(in, "SHA-256");
         if(hash == null)

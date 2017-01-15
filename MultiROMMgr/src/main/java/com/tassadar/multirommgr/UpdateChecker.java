@@ -34,7 +34,7 @@ public class UpdateChecker {
     private static final int REQ_UPDATE_CHECK = 1;
     private static final int UPDATE_NOTIFICATION_ID = 1;
 
-    public static void setVersions(Device d, MultiROM m, Recovery r) {
+    static void setVersions(Device d, MultiROM m, Recovery r) {
         SharedPreferences.Editor p = MgrApp.getPreferences().edit();
         if(m != null && r != null) {
             p.putBoolean("has_versions", true);
@@ -44,7 +44,7 @@ public class UpdateChecker {
         } else {
             p.putBoolean("has_versions", false);
         }
-        p.commit();
+        p.apply();
 
         updateAlarmStatus();
     }
@@ -63,7 +63,7 @@ public class UpdateChecker {
         if(r_ver != null)
             e.putString("last_recovery_ver", r_ver);
 
-        e.commit();
+        e.apply();
     }
 
     public static boolean isEnabled() {
@@ -76,7 +76,7 @@ public class UpdateChecker {
         return PendingIntent.getBroadcast(ctx, REQ_UPDATE_CHECK, i, flags);
     }
 
-    public static void updateAlarmStatus() {
+    static void updateAlarmStatus() {
         Context ctx = MgrApp.getAppContext();
         SharedPreferences p = PreferenceManager.getDefaultSharedPreferences(ctx);
         PendingIntent i = getIntent(ctx, PendingIntent.FLAG_NO_CREATE);
