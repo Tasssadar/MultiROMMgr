@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/MultiROMMgr/MultiROMMgr.iml" filepath="$PROJECT_DIR$/MultiROMMgr/MultiROMMgr.iml" />
-      <module fileurl="file://$PROJECT_DIR$/MultiROMMgrProject.iml" filepath="$PROJECT_DIR$/MultiROMMgrProject.iml" />
+      <module fileurl="file://$PROJECT_DIR$/MultiROMMgr.iml" filepath="$PROJECT_DIR$/MultiROMMgr.iml" />
+      <module fileurl="file://$PROJECT_DIR$/MultiROMMgr/MultiROMMgr-MultiROMMgr.iml" filepath="$PROJECT_DIR$/MultiROMMgr/MultiROMMgr-MultiROMMgr.iml" />
     </modules>
   </component>
 </project>
