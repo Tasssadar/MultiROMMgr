@@ -178,7 +178,7 @@
         },
         {
             "names": [ "falcon", "falcon_umts", "falcon_umtsds", "falcon_cdma", "falcon_retuaws", "falcon_gpe" ],
-            "manifest_url": "http://sub77.github.io/files/android/falcon/multirom/manifest.json",
+            "manifest_url": "http://basketbuild.com/uploads/devs/sub77/MultiROM/falcon/manifest.json",
             "check_gpg": false,
             "ubuntu_touch": {
                 "enabled": false
