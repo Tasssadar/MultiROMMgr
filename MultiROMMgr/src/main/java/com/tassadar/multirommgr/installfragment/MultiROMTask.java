@@ -74,8 +74,8 @@ public abstract class MultiROMTask extends InstallAsyncTask {
             if(size < f.size) {
                 startOffset = size;
             } else {
-                String md5 = Utils.calculateMD5(f.destFile);
-                if(f.md5.equals(md5)) {
+                String sha256 = Utils.calculateSHA256(f.destFile);
+                if(f.sha256.equals(sha256)) {
                     m_listener.onInstallLog(Utils.getString(R.string.skipping_file, filename));
                     return true;
                 }
@@ -114,8 +114,8 @@ public abstract class MultiROMTask extends InstallAsyncTask {
             }
         } else {
             m_listener.onInstallLog(Utils.getString(R.string.checking_file, filename));
-            String md5 = Utils.calculateMD5(f.destFile);
-            if(f.md5.isEmpty() || f.md5.equals(md5))
+            String sha256 = Utils.calculateSHA256(f.destFile);
+            if(f.sha256.isEmpty() || f.sha256.equals(sha256))
                 m_listener.onInstallLog(Utils.getString(R.string.ok));
             else {
                 m_listener.onInstallLog(Utils.getString(R.string.failed));
