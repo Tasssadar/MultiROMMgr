@@ -549,7 +549,7 @@
             "devices": [
                 {
                     "name": "recovery",
-                    "path": "/data/media/0/multirom/roms/TWRP/boot.img"
+                    "path": "/data/media/0/MultiROM/multirom/roms/TWRP/boot.img"
                 },
                 {
                     "name": "boot",
