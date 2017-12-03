@@ -3,7 +3,8 @@
         {
             "names": [ "flo" ],
             "ubuntu_touch": {
-                "enabled": true
+                "enabled": true,
+                "base_url": "http://system-image.ubports.com"
             },
             "official": true,
             "devices": [
