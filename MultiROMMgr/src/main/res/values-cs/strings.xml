@@ -144,7 +144,7 @@
     </string-array>
 
     <string name="deprecated_l_btn">Ukončit</string>
-    <string name="deprecated_l_title" translatable="false">Nepodporovaná verze Androidu!</string>
+    <string name="deprecated_l_title">Nepodporovaná verze Androidu!</string>
     <string name="deprecated_l_text">Android L developer preview není nadále podporované a obsahuje chyby, kvůli kterým verze 1.163 a vyšší této aplikace nefunguje.\nPoslední funkční verzi, 1.152, můžete stáhnout zde:\nhttp://tasemnice.eu/perm/MultiROMMgr-v1.152.apk\n\nPřed instalací této starší verze musíte nejdříve úplně odinstalovat tuto.</string>
     <string name="unofficial_port_title">Toto zařízení není oficálně podporováno!</string>
     <string name="unofficial_port_text">Toto zařízení není oficálně podporováno autorem MultiROM. Neobdržíte od něj žádnou pomoc s jakýmkoliv problémem, místo toho se zeptejte toho člověka, který MultiROM na vaše zařízení naportoval.\n\nNa XDA-developers fórech pravděpodobně existuje thread o portu pro vaše zařízení, tam můžete najít pomoc. Odkazy na tyto fóra můžete najít v popisu této aplikace na Play Store. </string>

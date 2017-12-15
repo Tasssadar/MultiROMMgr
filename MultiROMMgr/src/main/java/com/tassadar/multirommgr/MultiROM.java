@@ -56,7 +56,7 @@ public class MultiROM {
 
     public boolean findMultiROMDir() {
         List<String> out = Shell.SU.run(
-                "folders=\"/data/media/0/multirom/ /data/media/multirom/\";" +
+                "folders=\"/data/media/0/MultiROM/multirom/ /data/media/MultiROM/multirom/\";" +
                 "for f in $folders; do" +
                 "    if [ -d \"$f\" ]; then" +
                 "        echo \"$f\";" +
@@ -399,7 +399,7 @@ public class MultiROM {
         }
     }
 
-    public void setRomIcon(Rom rom, BufferedInputStream in) throws IOException {
+    private void setRomIcon(Rom rom, BufferedInputStream in) throws IOException {
         in.mark(Integer.MAX_VALUE);
         String hash = Utils.calculateChecksumStream(in, "SHA-256");
         if(hash == null)

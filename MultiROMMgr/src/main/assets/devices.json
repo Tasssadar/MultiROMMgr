@@ -549,7 +549,7 @@
             "devices": [
                 {
                     "name": "recovery",
-                    "path": "/data/media/0/multirom/roms/TWRP/boot.img"
+                    "path": "/data/media/0/MultiROM/multirom/roms/TWRP/boot.img"
                 },
                 {
                     "name": "boot",
@@ -679,6 +679,29 @@
         {
             "names": [ "angler" ],
             "manifest_url": "https://multirom-nexus6p.github.io/manifest.json",
+            "check_gpg": false,
+            "kexec_check_path": "/sys/kernel/kexec_loaded",
+            "ubuntu_touch": {
+                "enabled": false
+            },
+            "devices": [
+                {
+                    "name": "recovery",
+                    "path": "/dev/block/platform/soc.0/f9824900.sdhci/by-name/recovery"
+                },
+                {
+                    "name": "boot",
+                    "path": "/dev/block/platform/soc.0/f9824900.sdhci/by-name/boot"
+                },
+                {
+                    "name": "cache",
+                    "path": "/dev/block/platform/soc.0/f9824900.sdhci/by-name/cache"
+                }
+            ]
+        },
+        {
+            "names": [ "bullhead" ],
+            "manifest_url": "http://tp.jollaman999.com/jolla-kernel_AIO-bullhead/MultiROM_Only/manifest.json",
             "check_gpg": false,
             "kexec_check_path": "/sys/kernel/kexec_loaded",
             "ubuntu_touch": {

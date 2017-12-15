@@ -291,7 +291,7 @@ public class StatusAsyncTask extends AsyncTask <Void, String, StatusAsyncTask.Re
         if(man != null && man.hasCommand("NOTICE")) {
             String text = man.getCommandArg("NOTICE");
             if(text != null) {
-                String hash = Utils.calculateChecksum(text.getBytes(), "MD5");
+                String hash = Utils.calculateChecksum(text.getBytes(), "SHA-256");
                 SharedPreferences p = MgrApp.getPreferences();
                 final Set<String> shownHashes = p.getStringSet("shownNotices", null);
                 if(shownHashes == null || !shownHashes.contains(hash)) {

@@ -318,18 +318,6 @@ public class Utils {
         return url.substring(idx+1);
     }
 
-    public static String calculateMD5(String file) {
-        return calculateMD5(new File(file));
-    }
-
-    public static String calculateMD5(File file) {
-        return calculateChecksum(file, "MD5");
-    }
-
-    public static String calculateSHA256(String file) {
-        return calculateSHA256(new File(file));
-    }
-
     public static String calculateSHA256(File file) {
         return calculateChecksum(file, "SHA-256");
     }
