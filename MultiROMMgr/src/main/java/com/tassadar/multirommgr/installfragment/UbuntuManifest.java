@@ -39,7 +39,7 @@ import java.util.TreeMap;
 public class UbuntuManifest {
     private static final String TAG = "MROMMgr::UbuntuManifest";
 
-    public static final String DEFAULT_BASE_URL = "https://system-image.ubuntu.com";
+    public static final String DEFAULT_BASE_URL = "https://system-image.ubports.com";
     public static final String CHANNELS_PATH = "/channels.json";
     public static final String NO_FLAVOUR = "*none*";
 
